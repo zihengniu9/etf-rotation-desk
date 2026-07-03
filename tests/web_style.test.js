@@ -137,16 +137,21 @@ assert.ok(
   "Trades list should keep its internal scrolling behavior",
 );
 assert.ok(
-  /\.trade-row\s*\{[^}]*grid-template-columns:\s*1fr/.test(css),
-  "Trade rows should use a stacked layout to avoid overlapping in the narrow side rail",
+  /\.trade-row\s*\{[^}]*grid-template-columns:\s*42px\s+minmax\(56px,\s*0\.72fr\)\s+82px\s+repeat\(3,\s*minmax\(54px,\s*0\.86fr\)\)/.test(css),
+  "Trade rows should keep action, code, date, weight, price, and P/L on one compact line",
 );
 assert.ok(
-  /\.trade-row\s*\{[^}]*min-height:\s*76px/.test(css),
-  "Trade rows should reserve enough vertical space for identity and metrics",
+  /\.trade-row\s*\{[^}]*min-height:\s*44px/.test(css),
+  "Trade rows should use a compact one-line height",
 );
 assert.ok(
-  /\.trade-metrics\s*\{[^}]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(css),
-  "Trade row metrics should share a stable three-column second line",
+  /\.trade-top\s*\{[^}]*display:\s*contents/.test(css) &&
+    /\.trade-metrics\s*\{[^}]*display:\s*contents/.test(css),
+  "Trade row identity and metrics wrappers should flatten into the one-line grid",
+);
+assert.ok(
+  /\.trade-field span\s*\{[^}]*display:\s*none/.test(css),
+  "Trade row metric labels should be hidden so each trade fits on one line",
 );
 assert.ok(
   /\.holding-row\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1\.1fr\)\s+minmax\(0,\s*1\.5fr\)/.test(css),

@@ -7,6 +7,7 @@
     trades: "../outputs/etf_backtest_trades.csv",
     positions: "../outputs/etf_backtest_positions.csv",
     hot: "../outputs/etf_hot_rank.csv",
+    status: "../outputs/etf_update_status.csv",
   };
 
   const BACKTEST_PERIODS = {
@@ -597,12 +598,19 @@
     setText("pick-vol", formatPercent(pick.annual_vol));
   }
 
-  function renderMetrics(rankRows, poolRows) {
+  function formatUpdateTime(statusRows) {
+    const status = Array.isArray(statusRows) && statusRows.length ? statusRows[0] : {};
+    const updatedAt = String(status.updated_at || "").trim();
+    if (updatedAt) return updatedAt.replace("T", " ");
+    return new Date().toLocaleString("zh-CN", { hour12: false });
+  }
+
+  function renderMetrics(rankRows, poolRows, statusRows = []) {
     const metrics = computeDashboardMetrics(rankRows, poolRows);
     setText("theme-count", String(metrics.themeCount));
     setText("ranked-count", String(metrics.rankedCount));
     setText("top-theme", metrics.topTheme);
-    setText("updated-at", new Date().toLocaleString("zh-CN", { hour12: false }));
+    setText("updated-at", formatUpdateTime(statusRows));
   }
 
   function renderBacktest(curveRows, tradeRows, positionRows) {
@@ -933,7 +941,7 @@
   async function boot() {
     const status = document.getElementById("data-status");
     try {
-      const [pickRows, rankRows, poolRows, curveRows, tradeRows, positionRows, hotRows] = await Promise.all([
+      const [pickRows, rankRows, poolRows, curveRows, tradeRows, positionRows, hotRows, statusRows] = await Promise.all([
         loadCsv(DATA_FILES.pick),
         loadCsv(DATA_FILES.rank),
         loadCsv(DATA_FILES.pool),
@@ -941,13 +949,14 @@
         loadCsv(DATA_FILES.trades),
         loadCsv(DATA_FILES.positions),
         loadCsv(DATA_FILES.hot),
+        loadCsv(DATA_FILES.status),
       ]);
       const industryRankRows = buildIndustryRows(rankRows);
       const rankedRows = applyHotRanks(industryRankRows, hotRows);
       const topRankRows = limitRankRows(rankedRows);
       renderBacktest(curveRows, tradeRows, positionRows);
       renderPick(topRankRows[0] || pickRows[0] || {});
-      renderMetrics(rankedRows, poolRows);
+      renderMetrics(rankedRows, poolRows, statusRows);
       renderRankTable(topRankRows);
       renderPoolTable(poolRows);
       renderBars(rankedRows);
@@ -988,6 +997,7 @@
     formatCountBadge,
     formatPickTheme,
     formatPickReason,
+    formatUpdateTime,
     applyHotRanks,
     limitHotRows,
     limitRankRows,

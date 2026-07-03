@@ -17,13 +17,12 @@ const workflow = read(".github/workflows/update-etf-data.yml");
 assert.ok(workflow.includes("30 6 * * *"), "GitHub Actions should run daily at 14:30 Asia/Hong_Kong");
 assert.ok(workflow.includes("python run_etf_selector.py"), "Workflow should refresh ETF outputs");
 assert.ok(workflow.includes("git add outputs"), "Workflow should persist updated output history");
+assert.ok(workflow.includes("git push"), "Workflow should push refreshed outputs for Netlify's Git deploy hook");
 assert.ok(workflow.includes("contents: write"), "Workflow needs permission to commit refreshed outputs");
 assert.ok(workflow.includes("python scripts/build_static_site.py"), "Workflow should build the Netlify publish directory");
-assert.ok(workflow.includes("NETLIFY_AUTH_TOKEN"), "Workflow should deploy with a Netlify auth token secret");
-assert.ok(workflow.includes("NETLIFY_SITE_ID"), "Workflow should deploy to an explicit Netlify site id");
-assert.ok(workflow.includes("netlify-cli deploy"), "Workflow should deploy using the Netlify CLI");
-assert.ok(workflow.includes("--prod"), "Workflow should publish scheduled runs to Netlify production");
-assert.ok(workflow.includes("--dir=dist"), "Workflow should deploy the clean static dist directory");
+assert.strictEqual(workflow.includes("NETLIFY_AUTH_TOKEN"), false, "Workflow should not require a Netlify token secret");
+assert.strictEqual(workflow.includes("NETLIFY_SITE_ID"), false, "Workflow should rely on Netlify's connected Git deploy");
+assert.strictEqual(workflow.includes("netlify-cli deploy"), false, "Workflow should not fail on Netlify CLI auth during scheduled runs");
 
 const updateScript = read("scripts/update_etf_data.ps1");
 assert.ok(updateScript.includes("run_etf_selector.py"), "Local scheduled update should call the ETF runner");

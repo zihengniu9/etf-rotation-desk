@@ -2,7 +2,7 @@ import unittest
 
 import pandas as pd
 
-from low_buy_selector.etf_cli import merge_historical_rows
+from low_buy_selector.etf_cli import latest_curve_date, merge_historical_rows
 
 
 class ETFCLITests(unittest.TestCase):
@@ -50,6 +50,12 @@ class ETFCLITests(unittest.TestCase):
 
         self.assertEqual(len(merged), 1)
         self.assertAlmostEqual(float(merged.iloc[0]["value"]), 0.83)
+
+    def test_latest_curve_date_uses_last_backtest_row(self):
+        curve = pd.DataFrame([{"date": "2026-07-01"}, {"date": "2026-07-02"}])
+
+        self.assertEqual(latest_curve_date(curve), "2026-07-02")
+        self.assertEqual(latest_curve_date(pd.DataFrame()), "")
 
 
 if __name__ == "__main__":

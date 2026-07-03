@@ -1,7 +1,8 @@
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 
@@ -10,6 +11,9 @@ from .etf_backtest import audit_trade_ledger, run_rotation_backtest
 from .etf_hot import fetch_hot_etfs
 from .etf_pool import build_theme_pool
 from .etf_rotation import rank_etfs_by_momentum
+
+
+RUN_TZ = ZoneInfo("Asia/Hong_Kong")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -103,6 +107,20 @@ def main(argv: list[str] | None = None) -> int:
     hot_path = output_dir / "etf_hot_rank.csv"
     hot_rank.to_csv(hot_path, index=False, encoding="utf-8-sig")
 
+    status_path = output_dir / "etf_update_status.csv"
+    status = pd.DataFrame(
+        [
+            {
+                "updated_at": datetime.now(RUN_TZ).strftime("%Y-%m-%d %H:%M:%S"),
+                "data_date": latest_curve_date(curve),
+                "ranked_count": len(rank),
+                "pick_code": pick.get("code", ""),
+                "pick_name": pick.get("name", ""),
+            }
+        ],
+    )
+    status.to_csv(status_path, index=False, encoding="utf-8-sig")
+
     print(f"etf_list={len(etfs)} themes={len(pool)} ranked={len(rank)}")
     if not rank.empty:
         columns = ["code", "name", "theme", "score", "total_return", "annual_vol", "fund_size"]
@@ -115,6 +133,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"wrote {trades_path}")
     print(f"wrote {positions_path}")
     print(f"wrote {hot_path}")
+    print(f"wrote {status_path}")
     return 0
 
 
@@ -125,6 +144,15 @@ def _latest_query_date(etfs: pd.DataFrame) -> str:
         if len(digits) == 8 and digits.isdigit():
             return digits
     return date.today().strftime("%Y%m%d")
+
+
+def latest_curve_date(curve: pd.DataFrame) -> str:
+    if curve.empty or "date" not in curve.columns:
+        return ""
+    dates = curve["date"].dropna().astype(str)
+    if dates.empty:
+        return ""
+    return dates.iloc[-1]
 
 
 def merge_existing_csv(path: Path, fresh: pd.DataFrame, *, key_columns: list[str]) -> pd.DataFrame:

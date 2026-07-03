@@ -537,40 +537,43 @@ h2 {
   text-align: right;
 }
 
+.trade-field {
+  display: block;
+}
+
 .trade-row {
-  grid-template-columns: 1fr;
-  align-items: stretch;
-  min-height: 76px;
-  gap: 9px;
-  padding: 12px 0;
+  grid-template-columns: 42px minmax(56px, 0.72fr) 82px repeat(3, minmax(54px, 0.86fr));
+  align-items: center;
+  min-height: 44px;
+  gap: 7px;
+  padding: 9px 0;
 }
 
 .trade-top {
-  display: grid;
-  grid-template-columns: 42px minmax(0, 1fr) auto;
-  gap: 8px;
-  align-items: center;
-  min-width: 0;
+  display: contents;
 }
 
 .trade-metrics {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  display: contents;
 }
 
 .holding-metrics strong,
 .trade-field strong {
   display: block;
   color: var(--ink);
-  font-size: 12px;
+  font-size: 12.5px;
   line-height: 1.15;
   font-variant-numeric: tabular-nums;
 }
 
 .trade-field span {
-  margin-top: 0;
-  line-height: 1.15;
+  display: none;
+}
+
+.trade-top > span:last-child {
+  color: var(--muted);
+  font-size: 12px;
+  text-align: right;
 }
 
 .trade-action {
@@ -583,6 +586,11 @@ h2 {
   text-align: center;
 }
 
+.trade-row .trade-action {
+  margin-top: 0;
+  color: var(--navy);
+}
+
 .action-buy {
   background: var(--brand-red-soft);
   color: var(--brand-red);
@@ -590,6 +598,14 @@ h2 {
 
 .action-sell {
   background: #f3f5f8;
+  color: var(--navy);
+}
+
+.trade-row .action-buy {
+  color: var(--brand-red);
+}
+
+.trade-row .action-sell {
   color: var(--navy);
 }
 
