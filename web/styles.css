@@ -507,6 +507,10 @@ h2 {
   font-weight: 700;
 }
 
+.trade-top > strong {
+  justify-self: end;
+}
+
 .holding-title span,
 .holding-metrics span,
 .trade-row span {
@@ -519,7 +523,7 @@ h2 {
 
 .holding-metrics {
   display: grid;
-  grid-template-columns: 0.68fr 1.25fr 0.7fr;
+  grid-template-columns: 0.55fr 0.68fr 1.15fr 0.7fr;
   gap: 10px;
   align-items: end;
 }
@@ -555,12 +559,9 @@ h2 {
 
 .trade-header span {
   overflow: hidden;
+  text-align: right;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.trade-header span:nth-child(n + 3) {
-  text-align: right;
 }
 
 .trade-row {
@@ -569,6 +570,7 @@ h2 {
   min-height: 44px;
   gap: 7px;
   padding: 9px 0;
+  text-align: right;
 }
 
 .trade-top {
@@ -609,6 +611,7 @@ h2 {
 }
 
 .trade-row .trade-action {
+  justify-self: end;
   margin-top: 0;
   color: var(--navy);
 }

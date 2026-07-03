@@ -618,7 +618,7 @@
     backtestState.tradeRows = tradeRows.slice();
     bindBacktestPeriodTabs();
     renderSelectedBacktestPeriod();
-    renderBacktestPositions(positionRows);
+    renderBacktestPositions(positionRows, curveRows);
     renderBacktestTrades(tradeRows);
   }
 
@@ -760,9 +760,26 @@
       <text x="${pillX + pillWidth / 2}" y="${(pillY + 15).toFixed(1)}" text-anchor="middle" class="chart-price-text">${formatNetValue(latest.equity)}</text>`;
   }
 
-  function renderBacktestPositions(rows) {
+  function buildCashPosition(curveRows) {
+    const latest = Array.isArray(curveRows) && curveRows.length ? curveRows[curveRows.length - 1] : {};
+    const cash = toNumber(latest.cash);
+    const equity = toNumber(latest.equity);
+    const weight = equity > 0 && cash > 0 ? cash / equity : 1;
+    return {
+      code: "现金",
+      name: "未持仓资金",
+      asset_type: "现金",
+      weight,
+      entry_price: "",
+      last_price: "",
+      unrealized_return: "",
+    };
+  }
+
+  function renderBacktestPositions(rows, curveRows = []) {
     const container = document.getElementById("bt-positions");
     if (!container) return;
+    rows = rows.length ? rows : [buildCashPosition(curveRows)];
     if (!rows.length) {
       container.innerHTML = `<div class="mini-empty">暂无持仓</div>`;
       return;
@@ -770,12 +787,16 @@
     container.innerHTML = rows
       .map(
         (row) => `
-        <div class="holding-row">
+        <div class="holding-row ${row.asset_type === "现金" ? "holding-row-cash" : ""}">
           <div class="holding-title">
             <strong>${escapeHtml(row.code)}</strong>
             <span>${escapeHtml(row.name)}</span>
           </div>
           <div class="holding-metrics">
+            <div>
+              <span>资产</span>
+              <strong>${escapeHtml(row.asset_type || "ETF")}</strong>
+            </div>
             <div>
               <span>仓位</span>
               <strong>${formatPercent(row.weight)}</strong>
@@ -998,6 +1019,7 @@
     formatPickTheme,
     formatPickReason,
     formatUpdateTime,
+    buildCashPosition,
     applyHotRanks,
     limitHotRows,
     limitRankRows,
