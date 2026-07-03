@@ -129,8 +129,16 @@ assert.ok(
   "Trades section should reserve a header row and make the scroll area fill its available height",
 );
 assert.ok(
+  /\.backtest-lists\s*>\s*div:last-child\s*\{[^}]*height:\s*100%/.test(css),
+  "Trades section should stretch to the bottom of the backtest rail",
+);
+assert.ok(
   /\.trades-scroll\s*\{[^}]*max-height:\s*none/.test(css),
   "Trades list should size from the bounded side rail rather than a stale fixed max-height",
+);
+assert.ok(
+  /\.trades-scroll\s*\{[^}]*height:\s*100%/.test(css),
+  "Trades list should fill the remaining grid row while keeping internal scroll",
 );
 assert.ok(
   /\.trades-scroll\s*\{[^}]*overflow-y:\s*auto/.test(css),

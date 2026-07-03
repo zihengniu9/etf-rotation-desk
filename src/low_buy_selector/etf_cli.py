@@ -36,6 +36,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--loss-cooldown-days", type=int, default=15)
     parser.add_argument("--hot-top", type=int, default=30)
     parser.add_argument("--money-symbol", default="511880")
+    parser.add_argument("--backtest-excluded-fund-types", default="LOF")
     parser.add_argument("--workers", type=int, default=1, help="Use 1 for stability with AKShare/Sina ETF history.")
     parser.add_argument("--top", type=int, default=20)
     parser.add_argument("--sse-scale-date", default="")
@@ -84,8 +85,9 @@ def main(argv: list[str] | None = None) -> int:
     rank.to_csv(rank_path, index=False, encoding="utf-8-sig")
     pd.DataFrame([pick]).to_csv(pick_path, index=False, encoding="utf-8-sig")
 
+    backtest_pool = filter_backtest_pool(pool, excluded_fund_types=args.backtest_excluded_fund_types)
     curve, trades, positions = run_rotation_backtest(
-        pool,
+        backtest_pool,
         histories,
         lookback_days=args.backtest_days,
         momentum_days=args.momentum_days,
@@ -115,8 +117,11 @@ def main(argv: list[str] | None = None) -> int:
             trades_path,
             trades,
             key_columns=["date", "action", "code", "reason"],
-            min_date=args.backtest_history_start_date,
         )
+        trades = filter_trade_ledger_from_date(trades, args.backtest_history_start_date)
+    else:
+        curve = filter_rows_from_date(curve, args.backtest_history_start_date)
+        trades = filter_trade_ledger_from_date(trades, args.backtest_history_start_date)
     curve.to_csv(curve_path, index=False, encoding="utf-8-sig")
     trades.to_csv(trades_path, index=False, encoding="utf-8-sig")
     positions.to_csv(positions_path, index=False, encoding="utf-8-sig")
@@ -280,6 +285,54 @@ def filter_rows_from_date(frame: pd.DataFrame, min_date: str | None) -> pd.DataF
     if pd.isna(start):
         return frame.copy()
     return frame.loc[dates.isna() | (dates >= start)].copy()
+
+
+def filter_trade_ledger_from_date(trades: pd.DataFrame, min_date: str | None) -> pd.DataFrame:
+    if not min_date or trades.empty or "date" not in trades.columns:
+        return trades.copy().reset_index(drop=True)
+    required = {"action", "code", "shares"}
+    if required.difference(trades.columns):
+        return filter_rows_from_date(trades, min_date).reset_index(drop=True)
+
+    frame = trades.copy().reset_index(drop=True)
+    dates = pd.to_datetime(frame["date"], errors="coerce")
+    start = pd.to_datetime(min_date, errors="coerce")
+    if pd.isna(start):
+        return frame
+
+    pre_start_holdings: dict[str, float] = {}
+    pre_start_indexes_by_code: dict[str, list[int]] = {}
+    for index, row in frame.loc[dates < start].iterrows():
+        code = str(row.get("code", "")).strip().zfill(6)
+        action = str(row.get("action", "")).upper()
+        shares = pd.to_numeric(pd.Series([row.get("shares", 0.0)]), errors="coerce").fillna(0.0).iloc[0]
+        shares = float(shares)
+        if not code:
+            continue
+        pre_start_indexes_by_code.setdefault(code, []).append(index)
+        if action == "BUY":
+            pre_start_holdings[code] = pre_start_holdings.get(code, 0.0) + shares
+        elif action == "SELL":
+            pre_start_holdings[code] = pre_start_holdings.get(code, 0.0) - shares
+
+    carry_codes = {code for code, shares in pre_start_holdings.items() if shares > 0.000001}
+    carry_indexes = {
+        index
+        for code in carry_codes
+        for index in pre_start_indexes_by_code.get(code, [])
+    }
+    keep_mask = (dates >= start) | frame.index.isin(carry_indexes) | dates.isna()
+    return frame.loc[keep_mask].reset_index(drop=True)
+
+
+def filter_backtest_pool(pool: pd.DataFrame, *, excluded_fund_types: str | None = None) -> pd.DataFrame:
+    if pool.empty or not excluded_fund_types or "fund_type" not in pool.columns:
+        return pool.copy().reset_index(drop=True)
+    excluded = {value.strip().upper() for value in excluded_fund_types.split(",") if value.strip()}
+    if not excluded:
+        return pool.copy().reset_index(drop=True)
+    fund_types = pool["fund_type"].fillna("").astype(str).str.strip().str.upper()
+    return pool.loc[~fund_types.isin(excluded)].copy().reset_index(drop=True)
 
 
 def _fetch_histories(codes: list[str], *, workers: int) -> dict[str, pd.DataFrame]:

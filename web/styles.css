@@ -453,6 +453,7 @@ h2 {
 .backtest-lists > div:last-child {
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr);
+  height: 100%;
   min-height: 0;
 }
 
@@ -468,6 +469,7 @@ h2 {
 }
 
 .trades-scroll {
+  height: 100%;
   max-height: none;
   min-height: 0;
   overflow-y: auto;

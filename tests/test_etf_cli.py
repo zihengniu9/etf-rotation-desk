@@ -2,7 +2,13 @@ import unittest
 
 import pandas as pd
 
-from low_buy_selector.etf_cli import apply_realtime_quotes_to_histories, latest_curve_date, merge_historical_rows
+from low_buy_selector.etf_cli import (
+    apply_realtime_quotes_to_histories,
+    filter_backtest_pool,
+    filter_trade_ledger_from_date,
+    latest_curve_date,
+    merge_historical_rows,
+)
 
 
 class ETFCLITests(unittest.TestCase):
@@ -80,6 +86,36 @@ class ETFCLITests(unittest.TestCase):
 
         self.assertEqual(latest_curve_date(curve), "2026-07-02")
         self.assertEqual(latest_curve_date(pd.DataFrame()), "")
+
+    def test_filter_backtest_pool_excludes_lof_from_simulated_trading(self):
+        pool = pd.DataFrame(
+            [
+                {"code": "161226", "name": "国投瑞银白银期货证券投资基金(LOF)", "fund_type": "LOF"},
+                {"code": "588200", "name": "嘉实上证科创板芯片ETF", "fund_type": "股票型"},
+                {"code": "513310", "name": "华泰柏瑞中韩半导体ETF", "fund_type": "ETF"},
+            ]
+        )
+
+        filtered = filter_backtest_pool(pool, excluded_fund_types="LOF")
+
+        self.assertNotIn("161226", set(filtered["code"].astype(str)))
+        self.assertIn("588200", set(filtered["code"].astype(str)))
+        self.assertIn("513310", set(filtered["code"].astype(str)))
+
+    def test_filter_trade_ledger_keeps_opening_trade_before_start_date(self):
+        trades = pd.DataFrame(
+            [
+                {"date": "2025-06-24", "action": "BUY", "code": "512800", "shares": 10.0},
+                {"date": "2025-06-25", "action": "BUY", "code": "AAAAAA", "shares": 1.0},
+                {"date": "2025-06-26", "action": "SELL", "code": "AAAAAA", "shares": 1.0},
+                {"date": "2025-07-25", "action": "SELL", "code": "512800", "shares": 10.0},
+            ]
+        )
+
+        filtered = filter_trade_ledger_from_date(trades, "2025-06-28")
+
+        self.assertEqual(filtered["code"].tolist(), ["512800", "512800"])
+        self.assertEqual(filtered["date"].tolist(), ["2025-06-24", "2025-07-25"])
 
     def test_realtime_quotes_append_intraday_close_when_daily_history_is_stale(self):
         histories = {
