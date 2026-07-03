@@ -508,7 +508,7 @@ h2 {
 }
 
 .trade-top > strong {
-  justify-self: end;
+  justify-self: start;
 }
 
 .holding-title span,
@@ -523,7 +523,7 @@ h2 {
 
 .holding-metrics {
   display: grid;
-  grid-template-columns: 0.55fr 0.68fr 1.15fr 0.7fr;
+  grid-template-columns: 0.7fr 1.15fr 0.7fr;
   gap: 10px;
   align-items: end;
 }
@@ -535,10 +535,10 @@ h2 {
   min-width: 0;
 }
 
-.holding-metrics div:not(:first-child),
+.holding-metrics div,
 .trade-field {
-  justify-items: end;
-  text-align: right;
+  justify-items: start;
+  text-align: left;
 }
 
 .trade-field {
@@ -559,7 +559,7 @@ h2 {
 
 .trade-header span {
   overflow: hidden;
-  text-align: right;
+  text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -570,7 +570,7 @@ h2 {
   min-height: 44px;
   gap: 7px;
   padding: 9px 0;
-  text-align: right;
+  text-align: left;
 }
 
 .trade-top {
@@ -597,7 +597,7 @@ h2 {
 .trade-top > span:last-child {
   color: var(--muted);
   font-size: 12px;
-  text-align: right;
+  text-align: left;
 }
 
 .trade-action {
@@ -611,7 +611,7 @@ h2 {
 }
 
 .trade-row .trade-action {
-  justify-self: end;
+  justify-self: start;
   margin-top: 0;
   color: var(--navy);
 }

@@ -24,10 +24,10 @@ assert.ok(html.includes('class="chart-column"'));
 assert.ok(html.includes('class="chart-column"') && html.indexOf('class="curve-banner"') > html.indexOf('class="chart-column"'));
 assert.ok(html.indexOf('class="curve-banner"') < html.indexOf('class="backtest-stats"'));
 assert.ok(html.indexOf('class="backtest-stats"') < html.indexOf('class="chart-shell"'));
-assert.ok(html.includes('./styles.css?v=20260703-defense-pick-lof'));
+assert.ok(html.includes('./styles.css?v=20260704-trade-history-holdings'));
 assert.strictEqual(html.includes('<h2>ETF 模拟交易</h2>'), false);
 assert.strictEqual(html.includes('增强自适应 · 近一年'), false);
-assert.ok(html.includes('./app.js?v=20260703-defense-pick-lof'));
+assert.ok(html.includes('./app.js?v=20260704-trade-history-holdings'));
 assert.ok(html.includes('class="trade-header"'));
 assert.ok(html.indexOf('class="trade-header"') < html.indexOf('id="bt-trades"'));
 assert.strictEqual(html.includes('id="theme-count"'), false);
@@ -68,6 +68,28 @@ const cashPosition = dashboard.buildCashPosition([{ equity: "1.6", cash: "0.8" }
 assert.strictEqual(cashPosition.code, "现金");
 assert.strictEqual(cashPosition.asset_type, "现金");
 assert.strictEqual(dashboard.formatPercent(cashPosition.weight), "50.00%");
+assert.strictEqual(dashboard.formatNetValue(cashPosition.entry_price), "0.0000");
+assert.strictEqual(dashboard.formatNetValue(cashPosition.last_price), "0.0000");
+assert.strictEqual(dashboard.formatSignedPercent(cashPosition.unrealized_return), "0.00%");
+const displayPositions = dashboard.buildDisplayPositions(
+  [
+    {
+      code: "588200",
+      name: "嘉实上证科创板芯片ETF",
+      weight: "0.563113",
+      entry_price: "3.26",
+      last_price: "4.373",
+      unrealized_return: "0.341411",
+    },
+  ],
+  [{ equity: "2.45663235", cash: "1.07327136" }],
+);
+assert.strictEqual(displayPositions.length, 2);
+assert.strictEqual(displayPositions[0].code, "588200");
+assert.strictEqual(displayPositions[1].code, "现金");
+assert.strictEqual(dashboard.formatPercent(displayPositions[1].weight), "43.69%");
+assert.strictEqual(dashboard.formatNetValue(displayPositions[1].entry_price), "0.0000");
+assert.strictEqual(dashboard.formatNetValue(displayPositions[1].last_price), "0.0000");
 assert.strictEqual(dashboard.formatShares(0.23346574), "0.2335");
 assert.strictEqual(dashboard.formatHeat(12177850), "1217.8万");
 assert.strictEqual(dashboard.formatCountBadge(15, "只"), "15只");

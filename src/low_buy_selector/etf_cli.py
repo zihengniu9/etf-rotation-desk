@@ -43,8 +43,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--preserve-backtest-history",
         action="store_true",
-        help="Preserve previous curve rows by date. Trades and positions are always overwritten with a coherent fresh ledger.",
+        help="Preserve previous curve and trade rows by date from the configured backtest history start date.",
     )
+    parser.set_defaults(preserve_backtest_history=True)
+    parser.add_argument("--backtest-history-start-date", default="2025-06-28")
     parser.add_argument("--no-preserve-backtest-history", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args(argv)
 
@@ -108,7 +110,13 @@ def main(argv: list[str] | None = None) -> int:
     if ledger_errors:
         raise ValueError("Invalid backtest trade ledger: " + "; ".join(ledger_errors[:5]))
     if args.preserve_backtest_history and not args.no_preserve_backtest_history:
-        curve = merge_existing_csv(curve_path, curve, key_columns=["date"])
+        curve = merge_existing_csv(curve_path, curve, key_columns=["date"], min_date=args.backtest_history_start_date)
+        trades = merge_existing_csv(
+            trades_path,
+            trades,
+            key_columns=["date", "action", "code", "reason"],
+            min_date=args.backtest_history_start_date,
+        )
     curve.to_csv(curve_path, index=False, encoding="utf-8-sig")
     trades.to_csv(trades_path, index=False, encoding="utf-8-sig")
     positions.to_csv(positions_path, index=False, encoding="utf-8-sig")
@@ -235,18 +243,18 @@ def apply_realtime_quotes_to_histories(
     return patched, patched_count, max(patched_dates) if patched_dates else latest_histories_date(patched)
 
 
-def merge_existing_csv(path: Path, fresh: pd.DataFrame, *, key_columns: list[str]) -> pd.DataFrame:
+def merge_existing_csv(path: Path, fresh: pd.DataFrame, *, key_columns: list[str], min_date: str | None = None) -> pd.DataFrame:
     if not path.exists():
-        return fresh.copy().reset_index(drop=True)
+        return filter_rows_from_date(fresh, min_date).reset_index(drop=True)
     existing = pd.read_csv(path)
-    return merge_historical_rows(existing, fresh, key_columns=key_columns)
+    return merge_historical_rows(existing, fresh, key_columns=key_columns, min_date=min_date)
 
 
-def merge_historical_rows(existing: pd.DataFrame, fresh: pd.DataFrame, *, key_columns: list[str]) -> pd.DataFrame:
+def merge_historical_rows(existing: pd.DataFrame, fresh: pd.DataFrame, *, key_columns: list[str], min_date: str | None = None) -> pd.DataFrame:
     if existing.empty:
-        return fresh.copy().reset_index(drop=True)
+        return filter_rows_from_date(fresh, min_date).reset_index(drop=True)
     if fresh.empty:
-        return existing.copy().reset_index(drop=True)
+        return filter_rows_from_date(existing, min_date).reset_index(drop=True)
 
     columns = list(dict.fromkeys([*fresh.columns.tolist(), *existing.columns.tolist()]))
     key_columns = [column for column in key_columns if column in columns]
@@ -260,7 +268,18 @@ def merge_historical_rows(existing: pd.DataFrame, fresh: pd.DataFrame, *, key_co
             dedupe[column] = dedupe[column].astype(str)
         combined = combined.loc[~dedupe.duplicated(subset=key_columns, keep="last")]
         combined = combined.sort_values(key_columns)
+    combined = filter_rows_from_date(combined, min_date)
     return combined.reset_index(drop=True).reindex(columns=columns)
+
+
+def filter_rows_from_date(frame: pd.DataFrame, min_date: str | None) -> pd.DataFrame:
+    if not min_date or frame.empty or "date" not in frame.columns:
+        return frame.copy()
+    dates = pd.to_datetime(frame["date"], errors="coerce")
+    start = pd.to_datetime(min_date, errors="coerce")
+    if pd.isna(start):
+        return frame.copy()
+    return frame.loc[dates.isna() | (dates >= start)].copy()
 
 
 def _fetch_histories(codes: list[str], *, workers: int) -> dict[str, pd.DataFrame]:

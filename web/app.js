@@ -773,19 +773,30 @@
     const weight = equity > 0 && cash > 0 ? cash / equity : 1;
     return {
       code: "现金",
-      name: "未持仓资金",
+      name: "可用现金",
       asset_type: "现金",
       weight,
-      entry_price: "",
-      last_price: "",
-      unrealized_return: "",
+      entry_price: "0",
+      last_price: "0",
+      unrealized_return: "0",
     };
+  }
+
+  function buildDisplayPositions(rows, curveRows = []) {
+    const holdings = Array.isArray(rows) ? rows.slice(0, 2) : [];
+    if (holdings.length === 1) {
+      holdings.push(buildCashPosition(curveRows));
+    }
+    if (!holdings.length) {
+      holdings.push(buildCashPosition(curveRows));
+    }
+    return holdings;
   }
 
   function renderBacktestPositions(rows, curveRows = []) {
     const container = document.getElementById("bt-positions");
     if (!container) return;
-    rows = rows.length ? rows : [buildCashPosition(curveRows)];
+    rows = buildDisplayPositions(rows, curveRows);
     if (!rows.length) {
       container.innerHTML = `<div class="mini-empty">暂无持仓</div>`;
       return;
@@ -799,10 +810,6 @@
             <span>${escapeHtml(row.name)}</span>
           </div>
           <div class="holding-metrics">
-            <div>
-              <span>资产</span>
-              <strong>${escapeHtml(row.asset_type || "ETF")}</strong>
-            </div>
             <div>
               <span>仓位</span>
               <strong>${formatPercent(row.weight)}</strong>
@@ -1027,6 +1034,7 @@
     formatUpdateTime,
     selectDisplayPick,
     buildCashPosition,
+    buildDisplayPositions,
     applyHotRanks,
     limitHotRows,
     limitRankRows,

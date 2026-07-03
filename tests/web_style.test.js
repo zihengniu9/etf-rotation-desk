@@ -141,20 +141,20 @@ assert.ok(
   "Trade header should align with the one-line trade row columns",
 );
 assert.ok(
-  /\.trade-header span\s*\{[^}]*text-align:\s*right/.test(css),
-  "Trade header fields should all align to the right",
+  /\.trade-header span\s*\{[^}]*text-align:\s*left/.test(css),
+  "Trade header fields should all align to the left",
 );
 assert.ok(
-  /\.trade-row\s*\{[^}]*text-align:\s*right/.test(css),
-  "Trade row fields should align to the right",
+  /\.trade-row\s*\{[^}]*text-align:\s*left/.test(css),
+  "Trade row fields should align to the left",
 );
 assert.ok(
-  /\.trade-row \.trade-action\s*\{[^}]*justify-self:\s*end/.test(css),
-  "Trade action pills should sit on the right edge of their column",
+  /\.trade-row \.trade-action\s*\{[^}]*justify-self:\s*start/.test(css),
+  "Trade action pills should sit on the left edge of their column",
 );
 assert.ok(
-  /\.trade-top\s*>\s*strong\s*\{[^}]*justify-self:\s*end/.test(css),
-  "Trade code values should sit on the right edge of their column",
+  /\.trade-top\s*>\s*strong\s*\{[^}]*justify-self:\s*start/.test(css),
+  "Trade code values should sit on the left edge of their column",
 );
 assert.ok(
   /\.trade-row\s*\{[^}]*grid-template-columns:\s*42px\s+minmax\(56px,\s*0\.72fr\)\s+82px\s+repeat\(3,\s*minmax\(54px,\s*0\.86fr\)\)/.test(css),
@@ -178,8 +178,8 @@ assert.ok(
   "Holding rows should keep the position summary on one line",
 );
 assert.ok(
-  /\.holding-metrics\s*\{[^}]*grid-template-columns:\s*0\.55fr\s+0\.68fr\s+1\.15fr\s+0\.7fr/.test(css),
-  "Holding rows should label asset type, position, price, and floating return in a readable metric row",
+  /\.holding-metrics\s*\{[^}]*grid-template-columns:\s*0\.7fr\s+1\.15fr\s+0\.7fr/.test(css),
+  "Holding rows should label position, price, and floating return in a readable metric row",
 );
 assert.strictEqual(
   /font-size:\s*[^;]*(clamp\(|vw)/.test(css),

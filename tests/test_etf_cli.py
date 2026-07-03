@@ -51,6 +51,30 @@ class ETFCLITests(unittest.TestCase):
         self.assertEqual(len(merged), 1)
         self.assertAlmostEqual(float(merged.iloc[0]["value"]), 0.83)
 
+    def test_merge_historical_rows_can_preserve_from_start_date(self):
+        existing = pd.DataFrame(
+            [
+                {"date": "2025-06-24", "action": "BUY", "code": "512800", "value": 0.50},
+                {"date": "2025-06-30", "action": "BUY", "code": "515880", "value": 0.49},
+            ]
+        )
+        fresh = pd.DataFrame(
+            [
+                {"date": "2025-06-30", "action": "BUY", "code": "515880", "value": 0.51},
+                {"date": "2026-07-04", "action": "SELL", "code": "588200", "value": 0.62},
+            ]
+        )
+
+        merged = merge_historical_rows(
+            existing,
+            fresh,
+            key_columns=["date", "action", "code"],
+            min_date="2025-06-28",
+        )
+
+        self.assertEqual(merged["date"].tolist(), ["2025-06-30", "2026-07-04"])
+        self.assertAlmostEqual(float(merged.loc[merged["date"] == "2025-06-30", "value"].iloc[0]), 0.49)
+
     def test_latest_curve_date_uses_last_backtest_row(self):
         curve = pd.DataFrame([{"date": "2026-07-01"}, {"date": "2026-07-02"}])
 
