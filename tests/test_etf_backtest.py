@@ -2,7 +2,7 @@ import unittest
 
 import pandas as pd
 
-from low_buy_selector.etf_backtest import build_daily_strength_signals, simulate_rotation_backtest
+from low_buy_selector.etf_backtest import audit_trade_ledger, build_daily_strength_signals, simulate_rotation_backtest
 
 
 class ETFBacktestTests(unittest.TestCase):
@@ -60,6 +60,34 @@ class ETFBacktestTests(unittest.TestCase):
         self.assertAlmostEqual(float(curve.iloc[0]["cash"]), 0.0)
         self.assertAlmostEqual(float(curve.iloc[1]["exposure"]), 1.0)
         self.assertEqual(set(positions["code"].tolist()), {"AAA", "BBB"})
+        self.assertEqual(audit_trade_ledger(trades, positions), [])
+        for column in ["shares", "value", "cost_basis", "realized_pnl", "cash_after", "equity_after"]:
+            self.assertIn(column, trades.columns)
+
+    def test_trade_ledger_audit_rejects_sell_without_position(self):
+        trades = pd.DataFrame(
+            [
+                {"date": "2026-06-01", "action": "SELL", "code": "AAA", "shares": 1.0},
+            ]
+        )
+
+        errors = audit_trade_ledger(trades, pd.DataFrame())
+
+        self.assertTrue(errors)
+        self.assertIn("SELL 1.00000000 exceeds held 0.00000000", errors[0])
+
+    def test_trade_ledger_audit_rejects_final_position_mismatch(self):
+        trades = pd.DataFrame(
+            [
+                {"date": "2026-06-01", "action": "BUY", "code": "AAA", "shares": 1.0},
+                {"date": "2026-06-02", "action": "SELL", "code": "AAA", "shares": 0.4},
+            ]
+        )
+        positions = pd.DataFrame([{"code": "AAA", "shares": 0.5}])
+
+        errors = audit_trade_ledger(trades, positions)
+
+        self.assertEqual(errors, ["AAA: ledger shares 0.60000000 != position shares 0.50000000"])
 
     def test_full_book_can_replace_weakest_with_stronger_different_theme(self):
         signals = pd.DataFrame(

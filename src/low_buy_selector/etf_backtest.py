@@ -4,7 +4,25 @@ from .etf_rotation import score_momentum
 
 
 CURVE_COLUMNS = ["date", "equity", "cash", "position_value", "exposure", "total_return", "drawdown", "positions"]
-TRADE_COLUMNS = ["date", "action", "code", "name", "theme", "price", "shares", "value", "score", "reason", "cash_after", "equity_after"]
+TRADE_COLUMNS = [
+    "date",
+    "action",
+    "code",
+    "name",
+    "theme",
+    "price",
+    "shares",
+    "value",
+    "fee",
+    "stamp_tax",
+    "cost_basis",
+    "realized_pnl",
+    "realized_return",
+    "score",
+    "reason",
+    "cash_after",
+    "equity_after",
+]
 POSITION_COLUMNS = ["code", "name", "theme", "shares", "entry_price", "last_price", "market_value", "weight", "score", "ma30", "below_ma_days", "unrealized_return"]
 SIGNAL_COLUMNS = ["date", "code", "name", "theme", "score", "close", "ma30", "below_ma30", "passed"]
 THEME_BUCKET_KEYWORDS = [
@@ -467,15 +485,28 @@ def _equity(cash: float, positions: dict[str, dict]) -> float:
 
 
 def _trade_row(date: str, action: str, position: dict, value: float, score: float, reason: str, cash_after: float, equity_after: float) -> dict:
+    shares = float(position["shares"])
+    price = float(position["last_price"])
+    gross_value = float(value)
+    fee = 0.0
+    stamp_tax = 0.0
+    cost_basis = shares * float(position.get("entry_price", price))
+    realized_pnl = gross_value - cost_basis - fee - stamp_tax if action == "SELL" else 0.0
+    realized_return = realized_pnl / cost_basis if action == "SELL" and cost_basis else 0.0
     return {
         "date": date,
         "action": action,
         "code": position["code"],
         "name": position.get("name", ""),
         "theme": position.get("theme", ""),
-        "price": round(float(position["last_price"]), 6),
-        "shares": round(float(position["shares"]), 8),
-        "value": round(float(value), 8),
+        "price": round(price, 6),
+        "shares": round(shares, 8),
+        "value": round(gross_value, 8),
+        "fee": round(fee, 8),
+        "stamp_tax": round(stamp_tax, 8),
+        "cost_basis": round(cost_basis, 8),
+        "realized_pnl": round(realized_pnl, 8),
+        "realized_return": round(realized_return, 6),
         "score": round(float(score), 6),
         "reason": reason,
         "cash_after": round(float(cash_after), 8),
@@ -501,3 +532,64 @@ def _position_row(position: dict, equity: float) -> dict:
         "below_ma_days": int(position.get("below_ma_days", 0)),
         "unrealized_return": round(last_price / entry_price - 1.0 if entry_price else 0.0, 6),
     }
+
+
+def audit_trade_ledger(
+    trades: pd.DataFrame,
+    positions: pd.DataFrame | None = None,
+    *,
+    tolerance: float = 0.000001,
+) -> list[str]:
+    if trades.empty:
+        return []
+
+    errors: list[str] = []
+    holdings: dict[str, float] = {}
+    required_columns = {"date", "action", "code", "shares"}
+    missing_columns = sorted(required_columns - set(trades.columns))
+    if missing_columns:
+        return [f"trade ledger missing columns: {', '.join(missing_columns)}"]
+
+    for row_number, row in trades.reset_index(drop=True).iterrows():
+        code = _normalize_code(row.get("code", ""))
+        action = str(row.get("action", "")).upper()
+        date = str(row.get("date", ""))
+        shares = pd.to_numeric(pd.Series([row.get("shares", 0.0)]), errors="coerce").fillna(0.0).iloc[0]
+        shares = float(shares)
+        if shares < -tolerance:
+            errors.append(f"{date} {code} row {row_number + 1}: negative shares {shares}")
+            continue
+        if action == "BUY":
+            holdings[code] = holdings.get(code, 0.0) + shares
+        elif action == "SELL":
+            current_shares = holdings.get(code, 0.0)
+            if shares > current_shares + tolerance:
+                errors.append(
+                    f"{date} {code} row {row_number + 1}: SELL {shares:.8f} exceeds held {current_shares:.8f}"
+                )
+                holdings[code] = current_shares - shares
+            else:
+                holdings[code] = current_shares - shares
+                if abs(holdings[code]) <= tolerance:
+                    holdings.pop(code, None)
+        else:
+            errors.append(f"{date} {code} row {row_number + 1}: unknown action {action}")
+
+    if positions is not None and not positions.empty:
+        expected = {
+            _normalize_code(row.get("code", "")): float(
+                pd.to_numeric(pd.Series([row.get("shares", 0.0)]), errors="coerce").fillna(0.0).iloc[0]
+            )
+            for _, row in positions.iterrows()
+        }
+        for code in sorted(set(holdings) | set(expected)):
+            held = holdings.get(code, 0.0)
+            expected_shares = expected.get(code, 0.0)
+            if abs(held - expected_shares) > tolerance:
+                errors.append(f"{code}: ledger shares {held:.8f} != position shares {expected_shares:.8f}")
+    elif positions is not None and positions.empty:
+        for code, held in sorted(holdings.items()):
+            if abs(held) > tolerance:
+                errors.append(f"{code}: ledger leaves open shares {held:.8f} but positions are empty")
+
+    return errors

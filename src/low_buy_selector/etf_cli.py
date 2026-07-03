@@ -6,7 +6,7 @@ from pathlib import Path
 import pandas as pd
 
 from .etf_data_sources import fetch_all_etfs, fetch_etf_daily_bars, fetch_etf_scales
-from .etf_backtest import run_rotation_backtest
+from .etf_backtest import audit_trade_ledger, run_rotation_backtest
 from .etf_hot import fetch_hot_etfs
 from .etf_pool import build_theme_pool
 from .etf_rotation import rank_etfs_by_momentum
@@ -36,10 +36,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--top", type=int, default=20)
     parser.add_argument("--sse-scale-date", default="")
     parser.add_argument(
-        "--no-preserve-backtest-history",
+        "--preserve-backtest-history",
         action="store_true",
-        help="Overwrite backtest curve and trades instead of merging them with existing output history.",
+        help="Preserve previous curve rows by date. Trades and positions are always overwritten with a coherent fresh ledger.",
     )
+    parser.add_argument("--no-preserve-backtest-history", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args(argv)
 
     output_dir = Path(args.output_dir)
@@ -89,9 +90,11 @@ def main(argv: list[str] | None = None) -> int:
     curve_path = output_dir / "etf_backtest_curve.csv"
     trades_path = output_dir / "etf_backtest_trades.csv"
     positions_path = output_dir / "etf_backtest_positions.csv"
-    if not args.no_preserve_backtest_history:
+    ledger_errors = audit_trade_ledger(trades, positions)
+    if ledger_errors:
+        raise ValueError("Invalid backtest trade ledger: " + "; ".join(ledger_errors[:5]))
+    if args.preserve_backtest_history and not args.no_preserve_backtest_history:
         curve = merge_existing_csv(curve_path, curve, key_columns=["date"])
-        trades = merge_existing_csv(trades_path, trades, key_columns=["date", "action", "code", "reason"])
     curve.to_csv(curve_path, index=False, encoding="utf-8-sig")
     trades.to_csv(trades_path, index=False, encoding="utf-8-sig")
     positions.to_csv(positions_path, index=False, encoding="utf-8-sig")

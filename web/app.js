@@ -140,6 +140,18 @@
     return toNumber(value).toFixed(4);
   }
 
+  function formatSignedNetValue(value) {
+    if (isMissing(value)) return "--";
+    const number = toNumber(value);
+    const prefix = number > 0 ? "+" : number < 0 ? "-" : "";
+    return `${prefix}${Math.abs(number).toFixed(4)}`;
+  }
+
+  function formatShares(value) {
+    if (isMissing(value)) return "--";
+    return toNumber(value).toFixed(4);
+  }
+
   function formatHeat(value) {
     if (isMissing(value)) return "--";
     const number = toNumber(value);
@@ -760,9 +772,22 @@
         (row) => `
         <div class="trade-row">
           <span class="trade-action ${row.action === "BUY" ? "action-buy" : "action-sell"}">${escapeHtml(row.action)}</span>
-          <span>${escapeHtml(row.date)}</span>
-          <strong>${escapeHtml(row.code)}</strong>
-          <span>${formatNetValue(row.value)}</span>
+          <div class="trade-identity">
+            <strong>${escapeHtml(row.code)}</strong>
+            <span>${escapeHtml(row.date)}</span>
+          </div>
+          <div class="trade-field">
+            <span>成交额</span>
+            <strong>${formatNetValue(row.value)}</strong>
+          </div>
+          <div class="trade-field">
+            <span>份额</span>
+            <strong>${formatShares(row.shares)}</strong>
+          </div>
+          <div class="trade-field">
+            <span>盈亏</span>
+            <strong class="${toNumber(row.realized_pnl) > 0 ? "positive" : ""}">${formatSignedNetValue(row.realized_pnl)}</strong>
+          </div>
         </div>`,
       )
       .join("");
@@ -924,6 +949,8 @@
     formatScore,
     formatFundSize,
     formatNetValue,
+    formatSignedNetValue,
+    formatShares,
     formatHeat,
     formatCountBadge,
     formatPickTheme,

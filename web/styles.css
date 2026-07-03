@@ -521,7 +521,26 @@ h2 {
 }
 
 .trade-row {
-  grid-template-columns: 44px 82px minmax(56px, 1fr) auto;
+  grid-template-columns: 42px minmax(64px, 0.9fr) repeat(3, minmax(54px, 1fr));
+  align-items: start;
+}
+
+.trade-identity,
+.trade-field {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.trade-field {
+  justify-items: end;
+  text-align: right;
+}
+
+.trade-field strong {
+  color: var(--ink);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
 }
 
 .trade-action {
