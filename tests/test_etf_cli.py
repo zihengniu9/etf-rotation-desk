@@ -2,7 +2,7 @@ import unittest
 
 import pandas as pd
 
-from low_buy_selector.etf_cli import latest_curve_date, merge_historical_rows
+from low_buy_selector.etf_cli import apply_realtime_quotes_to_histories, latest_curve_date, merge_historical_rows
 
 
 class ETFCLITests(unittest.TestCase):
@@ -56,6 +56,48 @@ class ETFCLITests(unittest.TestCase):
 
         self.assertEqual(latest_curve_date(curve), "2026-07-02")
         self.assertEqual(latest_curve_date(pd.DataFrame()), "")
+
+    def test_realtime_quotes_append_intraday_close_when_daily_history_is_stale(self):
+        histories = {
+            "159516": pd.DataFrame(
+                [
+                    {"date": "2026-07-01", "open": 1.9, "high": 2.0, "low": 1.8, "close": 1.99},
+                    {"date": "2026-07-02", "open": 1.86, "high": 1.93, "low": 1.79, "close": 1.794},
+                ]
+            )
+        }
+        quotes = pd.DataFrame(
+            [
+                {"code": "159516", "realtime_price": 1.88, "realtime_date": "2026-07-03", "realtime_updated_at": "2026-07-03 14:30:05"},
+            ]
+        )
+
+        patched, count, data_date = apply_realtime_quotes_to_histories(histories, quotes)
+
+        self.assertEqual(count, 1)
+        self.assertEqual(data_date, "2026-07-03")
+        self.assertEqual(patched["159516"]["date"].tolist(), ["2026-07-01", "2026-07-02", "2026-07-03"])
+        self.assertAlmostEqual(float(patched["159516"].iloc[-1]["close"]), 1.88)
+        self.assertAlmostEqual(float(patched["159516"].iloc[-1]["open"]), 1.88)
+
+    def test_realtime_quotes_replace_same_day_close_but_ignore_stale_quotes(self):
+        histories = {
+            "159516": pd.DataFrame([{"date": "2026-07-03", "open": 1.8, "high": 1.9, "low": 1.7, "close": 1.82}]),
+            "588200": pd.DataFrame([{"date": "2026-07-03", "open": 4.0, "high": 4.5, "low": 3.9, "close": 4.1}]),
+        }
+        quotes = pd.DataFrame(
+            [
+                {"code": "159516", "realtime_price": 1.86, "realtime_date": "2026-07-03"},
+                {"code": "588200", "realtime_price": 4.2, "realtime_date": "2026-07-02"},
+            ]
+        )
+
+        patched, count, data_date = apply_realtime_quotes_to_histories(histories, quotes)
+
+        self.assertEqual(count, 1)
+        self.assertEqual(data_date, "2026-07-03")
+        self.assertAlmostEqual(float(patched["159516"].iloc[-1]["close"]), 1.86)
+        self.assertAlmostEqual(float(patched["588200"].iloc[-1]["close"]), 4.1)
 
 
 if __name__ == "__main__":

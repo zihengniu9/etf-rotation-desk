@@ -125,8 +125,8 @@ assert.ok(
   "Backtest side rail should hide overflow so the trades area scrolls internally",
 );
 assert.ok(
-  /\.backtest-lists\s*>\s*div:last-child\s*\{[^}]*grid-template-rows:\s*auto\s+minmax\(0,\s*1fr\)/.test(css),
-  "Trades section should make the scroll area fill its available height",
+  /\.backtest-lists\s*>\s*div:last-child\s*\{[^}]*grid-template-rows:\s*auto\s+auto\s+minmax\(0,\s*1fr\)/.test(css),
+  "Trades section should reserve a header row and make the scroll area fill its available height",
 );
 assert.ok(
   /\.trades-scroll\s*\{[^}]*max-height:\s*none/.test(css),
@@ -135,6 +135,14 @@ assert.ok(
 assert.ok(
   /\.trades-scroll\s*\{[^}]*overflow-y:\s*auto/.test(css),
   "Trades list should keep its internal scrolling behavior",
+);
+assert.ok(
+  /\.trade-header\s*\{[^}]*grid-template-columns:\s*42px\s+minmax\(56px,\s*0\.72fr\)\s+82px\s+repeat\(3,\s*minmax\(54px,\s*0\.86fr\)\)/.test(css),
+  "Trade header should align with the one-line trade row columns",
+);
+assert.ok(
+  /\.trade-header span:nth-child\(n \+ 3\)\s*\{[^}]*text-align:\s*right/.test(css),
+  "Trade header numeric columns should align to the right like trade values",
 );
 assert.ok(
   /\.trade-row\s*\{[^}]*grid-template-columns:\s*42px\s+minmax\(56px,\s*0\.72fr\)\s+82px\s+repeat\(3,\s*minmax\(54px,\s*0\.86fr\)\)/.test(css),

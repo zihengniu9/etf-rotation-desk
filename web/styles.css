@@ -452,7 +452,7 @@ h2 {
 
 .backtest-lists > div:last-child {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
   min-height: 0;
 }
 
@@ -539,6 +539,28 @@ h2 {
 
 .trade-field {
   display: block;
+}
+
+.trade-header {
+  display: grid;
+  grid-template-columns: 42px minmax(56px, 0.72fr) 82px repeat(3, minmax(54px, 0.86fr));
+  gap: 7px;
+  align-items: center;
+  padding: 2px 0 7px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.trade-header span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trade-header span:nth-child(n + 3) {
+  text-align: right;
 }
 
 .trade-row {
@@ -1131,6 +1153,10 @@ td.numeric {
   .backtest-stats,
   .trade-row {
     grid-template-columns: 1fr;
+  }
+
+  .trade-header {
+    display: none;
   }
 
   .status {

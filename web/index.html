@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ETF 轮动看板</title>
-    <link rel="stylesheet" href="./styles.css?v=20260703-trade-row-status" />
+    <link rel="stylesheet" href="./styles.css?v=20260703-trade-field-header" />
   </head>
   <body>
     <main class="shell">
@@ -60,6 +60,14 @@
             </div>
             <div>
               <h3>交易记录</h3>
+              <div class="trade-header" aria-label="交易记录字段说明">
+                <span>方向</span>
+                <span>代码</span>
+                <span>日期</span>
+                <span>仓位</span>
+                <span>成交价</span>
+                <span>盈亏</span>
+              </div>
               <div id="bt-trades" class="mini-list trades-scroll"></div>
             </div>
           </div>
@@ -158,6 +166,6 @@
       </section>
     </main>
 
-    <script src="./app.js?v=20260703-trade-row-status"></script>
+    <script src="./app.js?v=20260703-trade-field-header"></script>
   </body>
 </html>

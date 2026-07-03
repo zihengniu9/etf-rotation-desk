@@ -6,7 +6,7 @@ from zoneinfo import ZoneInfo
 
 import pandas as pd
 
-from .etf_data_sources import fetch_all_etfs, fetch_etf_daily_bars, fetch_etf_scales
+from .etf_data_sources import fetch_all_etfs, fetch_etf_daily_bars, fetch_etf_scales, fetch_realtime_etf_quotes
 from .etf_backtest import audit_trade_ledger, run_rotation_backtest
 from .etf_hot import fetch_hot_etfs
 from .etf_pool import build_theme_pool
@@ -39,6 +39,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--workers", type=int, default=1, help="Use 1 for stability with AKShare/Sina ETF history.")
     parser.add_argument("--top", type=int, default=20)
     parser.add_argument("--sse-scale-date", default="")
+    parser.add_argument("--no-realtime-quotes", action="store_true", help="Disable intraday ETF quote patching.")
     parser.add_argument(
         "--preserve-backtest-history",
         action="store_true",
@@ -58,6 +59,15 @@ def main(argv: list[str] | None = None) -> int:
     pool.to_csv(pool_path, index=False, encoding="utf-8-sig")
 
     histories = _fetch_histories(pool["code"].astype(str).tolist(), workers=args.workers)
+    price_mode = "daily_close"
+    realtime_quote_count = 0
+    realtime_data_date = latest_histories_date(histories)
+    if not args.no_realtime_quotes:
+        realtime_quotes = fetch_realtime_etf_quotes(pool["code"].astype(str).tolist())
+        histories, realtime_quote_count, patched_data_date = apply_realtime_quotes_to_histories(histories, realtime_quotes)
+        if realtime_quote_count:
+            price_mode = "realtime_quote"
+            realtime_data_date = patched_data_date
     rank, pick = rank_etfs_by_momentum(
         pool,
         histories,
@@ -113,6 +123,9 @@ def main(argv: list[str] | None = None) -> int:
             {
                 "updated_at": datetime.now(RUN_TZ).strftime("%Y-%m-%d %H:%M:%S"),
                 "data_date": latest_curve_date(curve),
+                "price_mode": price_mode,
+                "realtime_quotes": realtime_quote_count,
+                "realtime_data_date": realtime_data_date,
                 "ranked_count": len(rank),
                 "pick_code": pick.get("code", ""),
                 "pick_name": pick.get("name", ""),
@@ -153,6 +166,73 @@ def latest_curve_date(curve: pd.DataFrame) -> str:
     if dates.empty:
         return ""
     return dates.iloc[-1]
+
+
+def latest_histories_date(histories: dict[str, pd.DataFrame]) -> str:
+    dates: list[str] = []
+    for history in histories.values():
+        if history.empty or "date" not in history.columns:
+            continue
+        parsed = pd.to_datetime(history["date"], errors="coerce").dropna()
+        if not parsed.empty:
+            dates.append(parsed.max().strftime("%Y-%m-%d"))
+    return max(dates) if dates else ""
+
+
+def apply_realtime_quotes_to_histories(
+    histories: dict[str, pd.DataFrame],
+    quotes: pd.DataFrame,
+) -> tuple[dict[str, pd.DataFrame], int, str]:
+    patched = {str(code).zfill(6): history.copy() for code, history in histories.items()}
+    if quotes.empty:
+        return patched, 0, latest_histories_date(patched)
+
+    quote_frame = quotes.copy()
+    required = {"code", "realtime_price", "realtime_date"}
+    if required.difference(quote_frame.columns):
+        return patched, 0, latest_histories_date(patched)
+    quote_frame["code"] = quote_frame["code"].astype(str).str.replace(r"\D", "", regex=True).str.zfill(6).str[-6:]
+    quote_frame["realtime_price"] = pd.to_numeric(quote_frame["realtime_price"], errors="coerce")
+    quote_frame["realtime_date"] = pd.to_datetime(quote_frame["realtime_date"], errors="coerce").dt.strftime("%Y-%m-%d")
+    quote_frame = quote_frame.dropna(subset=["code", "realtime_price", "realtime_date"])
+    quote_frame = quote_frame[quote_frame["realtime_price"] > 0]
+
+    patched_count = 0
+    patched_dates: list[str] = []
+    for _, quote in quote_frame.iterrows():
+        code = str(quote["code"])
+        history = patched.get(code)
+        if history is None or history.empty or "date" not in history.columns or "close" not in history.columns:
+            continue
+        quote_date = str(quote["realtime_date"])
+        quote_price = float(quote["realtime_price"])
+        history = history.copy()
+        history["date"] = history["date"].astype(str)
+        history["close"] = pd.to_numeric(history["close"], errors="coerce")
+        history = history.dropna(subset=["date", "close"]).sort_values("date").reset_index(drop=True)
+        if history.empty:
+            continue
+        latest_date = str(history.iloc[-1]["date"])
+        if quote_date < latest_date:
+            continue
+        if quote_date == latest_date:
+            latest_index = history.index[-1]
+            history.loc[latest_index, "close"] = quote_price
+            if "high" in history.columns:
+                history.loc[latest_index, "high"] = max(float(pd.to_numeric(pd.Series([history.loc[latest_index, "high"]]), errors="coerce").fillna(quote_price).iloc[0]), quote_price)
+            if "low" in history.columns:
+                history.loc[latest_index, "low"] = min(float(pd.to_numeric(pd.Series([history.loc[latest_index, "low"]]), errors="coerce").fillna(quote_price).iloc[0]), quote_price)
+        else:
+            new_row = {column: pd.NA for column in history.columns}
+            new_row["date"] = quote_date
+            for column in ["open", "high", "low", "close"]:
+                if column in history.columns:
+                    new_row[column] = quote_price
+            history = pd.concat([history, pd.DataFrame([new_row])], ignore_index=True)
+        patched[code] = history.reset_index(drop=True)
+        patched_count += 1
+        patched_dates.append(quote_date)
+    return patched, patched_count, max(patched_dates) if patched_dates else latest_histories_date(patched)
 
 
 def merge_existing_csv(path: Path, fresh: pd.DataFrame, *, key_columns: list[str]) -> pd.DataFrame:
