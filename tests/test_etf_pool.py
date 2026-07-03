@@ -2,6 +2,7 @@ import unittest
 
 import pandas as pd
 
+from low_buy_selector.etf_data_sources import append_supplemental_funds, get_supplemental_funds
 from low_buy_selector.etf_pool import (
     build_theme_pool,
     extract_theme,
@@ -25,6 +26,10 @@ class ETFPoolTests(unittest.TestCase):
         self.assertEqual(extract_theme("科创综指ETF东财"), "科创")
         self.assertEqual(extract_theme("华安中证数字经济主题ETF"), "科技成长")
         self.assertEqual(extract_theme("科创债ETF银华"), "债券")
+
+    def test_extract_theme_recognizes_silver_lof(self):
+        self.assertEqual(extract_theme("国投瑞银白银期货证券投资基金(LOF)"), "白银")
+        self.assertEqual(extract_theme("南方原油证券投资基金(LOF)"), "原油")
 
     def test_build_theme_pool_keeps_largest_fund_size_per_theme(self):
         etfs = pd.DataFrame(
@@ -54,6 +59,18 @@ class ETFPoolTests(unittest.TestCase):
         self.assertIn("科创半导体", set(pool["theme"]))
         self.assertIn("中韩半导体", set(pool["theme"]))
         self.assertIn("机器人", set(pool["theme"]))
+
+    def test_supplemental_funds_add_specialty_lof_candidates(self):
+        base = pd.DataFrame([{"code": "512480", "name": "国联安半导体ETF", "latest_nav": 3.0}])
+
+        supplemented = append_supplemental_funds(base)
+        supplemental = get_supplemental_funds()
+
+        self.assertIn("161226", set(supplemental["code"].astype(str)))
+        self.assertIn("513310", set(supplemental["code"].astype(str)))
+        self.assertIn("161226", set(supplemented["code"].astype(str)))
+        silver = supplemented[supplemented["code"].astype(str) == "161226"].iloc[0]
+        self.assertIn("白银", silver["name"])
 
 
 if __name__ == "__main__":

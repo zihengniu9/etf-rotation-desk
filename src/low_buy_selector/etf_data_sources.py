@@ -15,6 +15,13 @@ from .etf_pool import normalize_etf_code
 REALTIME_QUOTE_COLUMNS = ["code", "name", "realtime_price", "realtime_date", "realtime_updated_at"]
 SINA_QUOTE_URL = "https://hq.sinajs.cn/list={symbols}"
 SINA_QUOTE_CHUNK_SIZE = 120
+SUPPLEMENTAL_FUNDS = [
+    {"code": "588170", "name": "科创半导体材料设备ETF华夏", "latest_nav": pd.NA, "fund_type": "ETF", "query_date": pd.NA},
+    {"code": "588200", "name": "嘉实上证科创板芯片ETF", "latest_nav": pd.NA, "fund_type": "ETF", "query_date": pd.NA},
+    {"code": "513310", "name": "华泰柏瑞中证韩交所中韩半导体ETF(QDII)", "latest_nav": pd.NA, "fund_type": "ETF", "query_date": pd.NA},
+    {"code": "161226", "name": "国投瑞银白银期货证券投资基金(LOF)", "latest_nav": pd.NA, "fund_type": "LOF", "query_date": pd.NA},
+    {"code": "501018", "name": "南方原油证券投资基金(LOF)", "latest_nav": pd.NA, "fund_type": "LOF", "query_date": pd.NA},
+]
 
 
 def fetch_all_etfs() -> pd.DataFrame:
@@ -22,7 +29,7 @@ def fetch_all_etfs() -> pd.DataFrame:
         import akshare as ak
 
         frame = ak.fund_etf_spot_ths(date="")
-    return frame.rename(
+    normalized = frame.rename(
         columns={
             "基金代码": "code",
             "基金名称": "name",
@@ -32,6 +39,21 @@ def fetch_all_etfs() -> pd.DataFrame:
             "查询日期": "query_date",
         }
     )
+    return append_supplemental_funds(normalized)
+
+
+def get_supplemental_funds() -> pd.DataFrame:
+    return pd.DataFrame(SUPPLEMENTAL_FUNDS).copy()
+
+
+def append_supplemental_funds(frame: pd.DataFrame) -> pd.DataFrame:
+    supplemental = get_supplemental_funds()
+    if frame.empty:
+        combined = supplemental
+    else:
+        combined = pd.concat([frame, supplemental], ignore_index=True, sort=False)
+    combined["code"] = combined["code"].map(normalize_etf_code)
+    return combined.drop_duplicates(subset=["code"], keep="first").reset_index(drop=True)
 
 
 def fetch_realtime_etf_quotes(codes: list[str] | None = None) -> pd.DataFrame:

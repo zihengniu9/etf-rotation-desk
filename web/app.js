@@ -613,6 +613,12 @@
     setText("updated-at", formatUpdateTime(statusRows));
   }
 
+  function selectDisplayPick(pickRows, rankRows) {
+    const pick = Array.isArray(pickRows) && pickRows.length ? pickRows[0] : {};
+    if (pick && pick.code) return pick;
+    return Array.isArray(rankRows) && rankRows.length ? rankRows[0] : {};
+  }
+
   function renderBacktest(curveRows, tradeRows, positionRows) {
     backtestState.curveRows = curveRows.slice();
     backtestState.tradeRows = tradeRows.slice();
@@ -976,7 +982,7 @@
       const rankedRows = applyHotRanks(industryRankRows, hotRows);
       const topRankRows = limitRankRows(rankedRows);
       renderBacktest(curveRows, tradeRows, positionRows);
-      renderPick(topRankRows[0] || pickRows[0] || {});
+      renderPick(selectDisplayPick(pickRows, topRankRows));
       renderMetrics(rankedRows, poolRows, statusRows);
       renderRankTable(topRankRows);
       renderPoolTable(poolRows);
@@ -1019,6 +1025,7 @@
     formatPickTheme,
     formatPickReason,
     formatUpdateTime,
+    selectDisplayPick,
     buildCashPosition,
     applyHotRanks,
     limitHotRows,

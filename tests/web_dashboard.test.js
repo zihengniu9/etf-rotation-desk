@@ -24,10 +24,10 @@ assert.ok(html.includes('class="chart-column"'));
 assert.ok(html.includes('class="chart-column"') && html.indexOf('class="curve-banner"') > html.indexOf('class="chart-column"'));
 assert.ok(html.indexOf('class="curve-banner"') < html.indexOf('class="backtest-stats"'));
 assert.ok(html.indexOf('class="backtest-stats"') < html.indexOf('class="chart-shell"'));
-assert.ok(html.includes('./styles.css?v=20260703-holding-cash'));
+assert.ok(html.includes('./styles.css?v=20260703-defense-pick-lof'));
 assert.strictEqual(html.includes('<h2>ETF 模拟交易</h2>'), false);
 assert.strictEqual(html.includes('增强自适应 · 近一年'), false);
-assert.ok(html.includes('./app.js?v=20260703-holding-cash'));
+assert.ok(html.includes('./app.js?v=20260703-defense-pick-lof'));
 assert.ok(html.includes('class="trade-header"'));
 assert.ok(html.indexOf('class="trade-header"') < html.indexOf('id="bt-trades"'));
 assert.strictEqual(html.includes('id="theme-count"'), false);
@@ -59,6 +59,11 @@ assert.strictEqual(dashboard.formatTradeWeight({ value: "0.5", equity_after: "1.
 assert.strictEqual(dashboard.formatTradeReturn({ action: "SELL", realized_return: "0.125" }), "+12.50%");
 assert.strictEqual(dashboard.formatTradeReturn({ action: "BUY", realized_return: "0.125" }), "--");
 assert.strictEqual(dashboard.formatUpdateTime([{ updated_at: "2026-07-03T15:30:00" }]), "2026-07-03 15:30:00");
+assert.strictEqual(
+  dashboard.selectDisplayPick([{ code: "511880", name: "货币ETF", mode: "defense" }], [{ code: "588200", name: "芯片ETF" }]).code,
+  "511880",
+);
+assert.strictEqual(dashboard.selectDisplayPick([], [{ code: "588200", name: "芯片ETF" }]).code, "588200");
 const cashPosition = dashboard.buildCashPosition([{ equity: "1.6", cash: "0.8" }]);
 assert.strictEqual(cashPosition.code, "现金");
 assert.strictEqual(cashPosition.asset_type, "现金");
