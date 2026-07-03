@@ -136,6 +136,26 @@ assert.ok(
   /\.trades-scroll\s*\{[^}]*overflow-y:\s*auto/.test(css),
   "Trades list should keep its internal scrolling behavior",
 );
+assert.ok(
+  /\.trade-row\s*\{[^}]*grid-template-columns:\s*1fr/.test(css),
+  "Trade rows should use a stacked layout to avoid overlapping in the narrow side rail",
+);
+assert.ok(
+  /\.trade-row\s*\{[^}]*min-height:\s*76px/.test(css),
+  "Trade rows should reserve enough vertical space for identity and metrics",
+);
+assert.ok(
+  /\.trade-metrics\s*\{[^}]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(css),
+  "Trade row metrics should share a stable three-column second line",
+);
+assert.ok(
+  /\.holding-row\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1\.1fr\)\s+minmax\(0,\s*1\.5fr\)/.test(css),
+  "Holding rows should keep the position summary on one line",
+);
+assert.ok(
+  /\.holding-metrics\s*\{[^}]*grid-template-columns:\s*0\.68fr\s+1\.25fr\s+0\.7fr/.test(css),
+  "Holding rows should label position, price, and floating return in a readable metric row",
+);
 assert.strictEqual(
   /font-size:\s*[^;]*(clamp\(|vw)/.test(css),
   false,

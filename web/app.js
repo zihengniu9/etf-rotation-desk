@@ -147,6 +147,24 @@
     return `${prefix}${Math.abs(number).toFixed(4)}`;
   }
 
+  function formatSignedPercent(value) {
+    if (isMissing(value)) return "--";
+    const number = toNumber(value);
+    const prefix = number > 0 ? "+" : number < 0 ? "-" : "";
+    return `${prefix}${(Math.abs(number) * 100).toFixed(2)}%`;
+  }
+
+  function formatTradeWeight(row) {
+    const value = toNumber(row.value);
+    const equity = toNumber(row.equity_after);
+    if (!Number.isFinite(value) || !Number.isFinite(equity) || equity <= 0) return "--";
+    return formatPercent(value / equity);
+  }
+
+  function formatTradeReturn(row) {
+    return String(row.action || "").toUpperCase() === "SELL" ? formatSignedPercent(row.realized_return) : "--";
+  }
+
   function formatShares(value) {
     if (isMissing(value)) return "--";
     return toNumber(value).toFixed(4);
@@ -745,13 +763,23 @@
       .map(
         (row) => `
         <div class="holding-row">
-          <div>
+          <div class="holding-title">
             <strong>${escapeHtml(row.code)}</strong>
             <span>${escapeHtml(row.name)}</span>
           </div>
-          <div class="holding-meta">
-            <span>${formatPercent(row.weight)}</span>
-            <span>${formatScore(row.score)}</span>
+          <div class="holding-metrics">
+            <div>
+              <span>仓位</span>
+              <strong>${formatPercent(row.weight)}</strong>
+            </div>
+            <div>
+              <span>成本 / 现价</span>
+              <strong>${formatNetValue(row.entry_price)} / ${formatNetValue(row.last_price)}</strong>
+            </div>
+            <div>
+              <span>浮盈</span>
+              <strong class="${toNumber(row.unrealized_return) > 0 ? "positive" : ""}">${formatSignedPercent(row.unrealized_return)}</strong>
+            </div>
           </div>
         </div>`,
       )
@@ -771,22 +799,24 @@
       .map(
         (row) => `
         <div class="trade-row">
-          <span class="trade-action ${row.action === "BUY" ? "action-buy" : "action-sell"}">${escapeHtml(row.action)}</span>
-          <div class="trade-identity">
+          <div class="trade-top">
+            <span class="trade-action ${row.action === "BUY" ? "action-buy" : "action-sell"}">${escapeHtml(row.action)}</span>
             <strong>${escapeHtml(row.code)}</strong>
             <span>${escapeHtml(row.date)}</span>
           </div>
-          <div class="trade-field">
-            <span>成交额</span>
-            <strong>${formatNetValue(row.value)}</strong>
-          </div>
-          <div class="trade-field">
-            <span>份额</span>
-            <strong>${formatShares(row.shares)}</strong>
-          </div>
-          <div class="trade-field">
-            <span>盈亏</span>
-            <strong class="${toNumber(row.realized_pnl) > 0 ? "positive" : ""}">${formatSignedNetValue(row.realized_pnl)}</strong>
+          <div class="trade-metrics">
+            <div class="trade-field">
+              <span>仓位</span>
+              <strong>${formatTradeWeight(row)}</strong>
+            </div>
+            <div class="trade-field">
+              <span>成交价</span>
+              <strong>${formatNetValue(row.price)}</strong>
+            </div>
+            <div class="trade-field">
+              <span>盈亏</span>
+              <strong class="${toNumber(row.realized_return) > 0 ? "positive" : ""}">${formatTradeReturn(row)}</strong>
+            </div>
           </div>
         </div>`,
       )
@@ -831,10 +861,10 @@
           <td>${escapeHtml(row.name)}</td>
           <td>${escapeHtml(row.theme)}</td>
           <td>${row.hotRank ? `<span class="hot-badge" title="${escapeHtml(row.hotName || row.hotCode || "")}">热${escapeHtml(row.hotRank)}</span>` : ""}</td>
-          <td class="numeric">${formatFundSize(row.fund_size)}</td>
+          <td class="numeric score">${formatScore(row.score)}</td>
           <td class="numeric positive">${formatPercent(row.total_return)}</td>
           <td class="numeric">${formatPercent(row.annual_vol)}</td>
-          <td class="numeric score">${formatScore(row.score)}</td>
+          <td class="numeric">${formatFundSize(row.fund_size)}</td>
         </tr>`,
       )
       .join("");
@@ -950,6 +980,9 @@
     formatFundSize,
     formatNetValue,
     formatSignedNetValue,
+    formatSignedPercent,
+    formatTradeWeight,
+    formatTradeReturn,
     formatShares,
     formatHeat,
     formatCountBadge,

@@ -497,7 +497,8 @@ h2 {
 }
 
 .holding-row {
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.5fr);
+  align-items: center;
 }
 
 .holding-row strong,
@@ -506,7 +507,9 @@ h2 {
   font-weight: 700;
 }
 
-.holding-row span {
+.holding-title span,
+.holding-metrics span,
+.trade-row span {
   display: block;
   margin-top: 2px;
   overflow: hidden;
@@ -514,33 +517,60 @@ h2 {
   white-space: nowrap;
 }
 
-.holding-meta {
+.holding-metrics {
   display: grid;
-  gap: 2px;
-  text-align: right;
+  grid-template-columns: 0.68fr 1.25fr 0.7fr;
+  gap: 10px;
+  align-items: end;
 }
 
-.trade-row {
-  grid-template-columns: 42px minmax(64px, 0.9fr) repeat(3, minmax(54px, 1fr));
-  align-items: start;
-}
-
-.trade-identity,
+.holding-metrics div,
 .trade-field {
   display: grid;
   gap: 3px;
   min-width: 0;
 }
 
+.holding-metrics div:not(:first-child),
 .trade-field {
   justify-items: end;
   text-align: right;
 }
 
+.trade-row {
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  min-height: 76px;
+  gap: 9px;
+  padding: 12px 0;
+}
+
+.trade-top {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.trade-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.holding-metrics strong,
 .trade-field strong {
+  display: block;
   color: var(--ink);
   font-size: 12px;
+  line-height: 1.15;
   font-variant-numeric: tabular-nums;
+}
+
+.trade-field span {
+  margin-top: 0;
+  line-height: 1.15;
 }
 
 .trade-action {

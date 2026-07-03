@@ -11,6 +11,12 @@ assert.ok(html.includes('id="pick-reason"'));
 assert.ok(html.includes('id="rank-limit-badge"'));
 assert.ok(html.includes('id="theme-limit-badge"'));
 assert.ok(html.includes('id="hot-limit-badge"'));
+assert.ok(
+  html.indexOf("<th>评分</th>") < html.indexOf("<th>20日收益</th>") &&
+    html.indexOf("<th>20日收益</th>") < html.indexOf("<th>波动</th>") &&
+    html.indexOf("<th>波动</th>") < html.indexOf("<th>规模</th>"),
+  "Strong ranking should show score where scale used to be and move scale to the right",
+);
 assert.strictEqual(html.includes('class="limit-badge">前15</span>'), false);
 assert.strictEqual(html.includes('class="limit-badge">前12</span>'), false);
 assert.ok(html.includes('ETF模拟组合收益曲线'));
@@ -18,10 +24,10 @@ assert.ok(html.includes('class="chart-column"'));
 assert.ok(html.includes('class="chart-column"') && html.indexOf('class="curve-banner"') > html.indexOf('class="chart-column"'));
 assert.ok(html.indexOf('class="curve-banner"') < html.indexOf('class="backtest-stats"'));
 assert.ok(html.indexOf('class="backtest-stats"') < html.indexOf('class="chart-shell"'));
-assert.ok(html.includes('./styles.css?v=20260703-ledger-audit'));
+assert.ok(html.includes('./styles.css?v=20260703-trade-copy-rank-swap'));
 assert.strictEqual(html.includes('<h2>ETF 模拟交易</h2>'), false);
 assert.strictEqual(html.includes('增强自适应 · 近一年'), false);
-assert.ok(html.includes('./app.js?v=20260703-ledger-audit'));
+assert.ok(html.includes('./app.js?v=20260703-trade-copy-rank-swap'));
 assert.strictEqual(html.includes('id="theme-count"'), false);
 assert.strictEqual(html.includes('id="ranked-count"'), false);
 assert.strictEqual(html.includes('id="top-theme"'), false);
@@ -45,6 +51,11 @@ assert.strictEqual(dashboard.formatFundSize(44163729896.6748), "441.6亿");
 assert.strictEqual(dashboard.formatNetValue(0.5), "0.5000");
 assert.strictEqual(dashboard.formatSignedNetValue(0.125), "+0.1250");
 assert.strictEqual(dashboard.formatSignedNetValue(-0.125), "-0.1250");
+assert.strictEqual(dashboard.formatSignedPercent(0.125), "+12.50%");
+assert.strictEqual(dashboard.formatSignedPercent(-0.125), "-12.50%");
+assert.strictEqual(dashboard.formatTradeWeight({ value: "0.5", equity_after: "1.25" }), "40.00%");
+assert.strictEqual(dashboard.formatTradeReturn({ action: "SELL", realized_return: "0.125" }), "+12.50%");
+assert.strictEqual(dashboard.formatTradeReturn({ action: "BUY", realized_return: "0.125" }), "--");
 assert.strictEqual(dashboard.formatShares(0.23346574), "0.2335");
 assert.strictEqual(dashboard.formatHeat(12177850), "1217.8万");
 assert.strictEqual(dashboard.formatCountBadge(15, "只"), "15只");
