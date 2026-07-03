@@ -1,0 +1,3 @@
+﻿code,name,latest_date,close,ma5,prev_ma5,distance_pct,technical_score,hot_score,logic_score,total_score,top_concept,top_heat,concepts,matched_keywords,logic_reason
+600584,长电科技,2026-06-30,103.55,101.312,97.82,2.209,55.82,100.0,45.0,69.12,半导体概念,4953,半导体概念(4953); 存储芯片(604); 中芯概念(215); 苹果概念(210); 长江三角(145),半导体,matched hot concept in business scope text
+002167,东方锆业,2026-06-30,22.07,21.584,21.072,2.252,54.97,91.67,45.0,65.82,固态电池,275,固态电池(275); 稀土永磁(203); 小金属概念(189); 核能核电(134); 新材料(77),新材料,matched hot concept in business scope text

@@ -1,0 +1,4 @@
+﻿strategy,label,start_date,end_date,days,net_value,total_return,annual_return,max_drawdown,annual_vol,sharpe_like,calmar_like,avg_exposure,latest_exposure,trade_count,buy_count,sell_count,daily_buy_violations,current_positions
+aggressive_half,????,2025-06-18,2026-07-01,252,1.530387,0.530387,0.530387,-0.136489,0.275158,1.927574,3.885932,0.618279,1.0,18,10,8,0,159259|159994
+quarter_base,25%??,2025-06-18,2026-07-01,252,1.585198,0.585198,0.585198,-0.157846,0.240568,2.432572,3.707399,0.636283,0.811258,37,20,17,0,159259|159994|159516
+adaptive_quarter,?????,2025-06-18,2026-07-01,252,1.621596,0.621596,0.621596,-0.093402,0.208493,2.981368,6.655057,0.559116,0.826266,29,16,13,0,159259|159994|159516

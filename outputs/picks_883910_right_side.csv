@@ -1,0 +1,6 @@
+﻿code,name,latest_date,close,ma5,prev_ma5,distance_pct,ma5_up_days,recent_drawdown_pct,technical_score,hot_score,logic_score,total_score,top_concept,top_heat,concepts,matched_keywords,logic_reason
+002008,大族激光,2026-06-30,150.11,149.522,148.522,0.393,4,-1.76,93.56,100.0,80.0,93.1,PCB,377,PCB(377); 半导体概念(283); 光刻机(胶)(157); 3D打印(37); OLED(35),半导体,matched hot concept in core business/product text
+002185,华天科技,2026-06-30,22.31,22.034,21.48,1.253,4,-1.108,84.89,100.0,45.0,82.2,半导体概念,3140,半导体概念(3140); 存储芯片(315); 华为概念(83); 人工智能(62); 氮化镓(55),半导体,matched hot concept in business scope text
+002156,通富微电,2026-06-30,75.87,74.5,73.01,1.839,4,-2.493,76.78,100.0,45.0,78.55,半导体概念,2087,半导体概念(2087); 存储芯片(219); 碳化硅(158); 第三代半导体(55); CPO概念(40),半导体,matched hot concept in business scope text
+600584,长电科技,2026-06-30,103.55,101.312,97.82,2.209,4,-0.595,74.99,100.0,45.0,77.74,半导体概念,4953,半导体概念(4953); 存储芯片(604); 中芯概念(215); 苹果概念(210); 长江三角(145),半导体,matched hot concept in business scope text
+002167,东方锆业,2026-06-30,22.07,21.584,21.072,2.252,4,-3.074,71.54,91.67,45.0,73.28,固态电池,275,固态电池(275); 稀土永磁(203); 小金属概念(189); 核能核电(134); 新材料(77),新材料,matched hot concept in business scope text

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ETF 轮动看板</title>
+    <link rel="stylesheet" href="./styles.css?v=20260703-rank-align" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">ETF Rotation Desk</p>
+          <h1>ETF 轮动看板</h1>
+        </div>
+        <div class="status" id="data-status">加载中</div>
+      </header>
+
+      <section class="panel backtest-panel">
+        <div class="backtest-body">
+          <div class="chart-column">
+            <div class="curve-banner">
+              <div>
+                <span>SIMULATED PORTFOLIO</span>
+                <h2>ETF模拟组合收益曲线</h2>
+              </div>
+              <div class="period-tabs" id="bt-period-tabs" aria-label="收益区间">
+                <button type="button" data-period="week" aria-pressed="false">周收益</button>
+                <button type="button" data-period="month" aria-pressed="false">月收益</button>
+                <button type="button" data-period="year" class="active" aria-pressed="true">年收益</button>
+                <button type="button" data-period="all" aria-pressed="false">总收益</button>
+              </div>
+            </div>
+            <div class="backtest-stats">
+              <div>
+                <span>当前净值</span>
+                <strong id="bt-net-value">--</strong>
+              </div>
+              <div>
+                <span id="bt-return-label">总收益</span>
+                <strong id="bt-total-return">--</strong>
+              </div>
+              <div>
+                <span>最大回撤</span>
+                <strong id="bt-max-drawdown">--</strong>
+              </div>
+              <div>
+                <span>当前仓位</span>
+                <strong id="bt-exposure">--</strong>
+              </div>
+            </div>
+            <div class="chart-shell">
+              <svg id="backtest-chart" viewBox="0 0 720 360" role="img" aria-label="近一年增强自适应模拟交易净值曲线"></svg>
+            </div>
+          </div>
+          <div class="backtest-lists">
+            <div>
+              <h3>当前持仓</h3>
+              <div id="bt-positions" class="mini-list"></div>
+            </div>
+            <div>
+              <h3>交易记录</h3>
+              <div id="bt-trades" class="mini-list trades-scroll"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="hero">
+        <div class="pick-block">
+          <span class="label">今日首选</span>
+          <div class="pick-code" id="pick-code">--</div>
+          <div class="pick-name" id="pick-name">--</div>
+          <div class="pick-reason" id="pick-reason">--</div>
+        </div>
+        <div class="pick-side">
+          <div class="pick-side-item">
+            <span>所属板块</span>
+            <strong id="pick-theme">--</strong>
+          </div>
+          <div class="pick-side-item">
+            <span>更新时间</span>
+            <strong id="updated-at">--</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="layout">
+        <div class="panel wide rank-panel">
+          <div class="panel-head">
+            <div class="panel-title">
+              <h2>强势排名</h2>
+              <span class="limit-badge" id="rank-limit-badge">--</span>
+            </div>
+            <input id="rank-search" type="search" placeholder="搜索代码、名称、题材" />
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>排名</th>
+                  <th>代码</th>
+                  <th>名称</th>
+                  <th>题材</th>
+                  <th>热门</th>
+                  <th>规模</th>
+                  <th>20日收益</th>
+                  <th>波动</th>
+                  <th>评分</th>
+                </tr>
+              </thead>
+              <tbody id="rank-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel theme-panel">
+          <div class="panel-head">
+            <div class="panel-title">
+              <h2>题材强度</h2>
+              <span class="limit-badge" id="theme-limit-badge">--</span>
+            </div>
+          </div>
+          <div class="bars" id="theme-bars"></div>
+        </div>
+
+        <div class="panel hot-panel">
+          <div class="panel-head">
+            <div class="panel-title">
+              <h2>热门 ETF</h2>
+              <span class="limit-badge" id="hot-limit-badge">--</span>
+            </div>
+          </div>
+          <div class="hot-list" id="hot-etfs"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>题材代表池</h2>
+          <input id="pool-search" type="search" placeholder="搜索题材、代码、名称" />
+        </div>
+        <div class="table-wrap compact">
+          <table>
+            <thead>
+              <tr>
+                <th>题材</th>
+                <th>代码</th>
+                <th>名称</th>
+                <th>规模</th>
+                <th>来源</th>
+                <th>类型</th>
+              </tr>
+            </thead>
+            <tbody id="pool-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js?v=20260703-rank-align"></script>
+  </body>
+</html>
