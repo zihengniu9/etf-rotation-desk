@@ -470,8 +470,9 @@ h2 {
 }
 
 .trades-scroll {
-  height: 100%;
-  max-height: none;
+  --visible-trades: 10;
+  height: auto;
+  max-height: calc(var(--visible-trades) * 52px);
   min-height: 0;
   overflow-y: auto;
   padding-right: 4px;

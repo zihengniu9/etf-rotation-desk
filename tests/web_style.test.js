@@ -137,12 +137,12 @@ assert.ok(
   "Trades section should stretch to the bottom of the backtest rail",
 );
 assert.ok(
-  /\.trades-scroll\s*\{[^}]*max-height:\s*none/.test(css),
-  "Trades list should size from the bounded side rail rather than a stale fixed max-height",
+  /\.trades-scroll\s*\{[^}]*--visible-trades:\s*10/.test(css),
+  "Trades list should show about ten records before scrolling",
 );
 assert.ok(
-  /\.trades-scroll\s*\{[^}]*height:\s*100%/.test(css),
-  "Trades list should fill the remaining grid row while keeping internal scroll",
+  /\.trades-scroll\s*\{[^}]*max-height:\s*calc\(var\(--visible-trades\)\s*\*\s*52px\)/.test(css),
+  "Trades list should cap the initial viewport near ten compact rows",
 );
 assert.ok(
   /\.trades-scroll\s*\{[^}]*overflow-y:\s*auto/.test(css),
