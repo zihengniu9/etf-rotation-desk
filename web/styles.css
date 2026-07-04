@@ -438,8 +438,9 @@ h2 {
 .backtest-lists {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  height: var(--backtest-rail-height);
-  max-height: var(--backtest-rail-height);
+  align-self: stretch;
+  height: 100%;
+  max-height: none;
   min-height: 0;
   gap: 14px;
   align-content: stretch;

@@ -484,7 +484,7 @@
     }));
   }
 
-  function buildTradeMarkerPoints(curveRows, tradeRows, width, height, padding) {
+  function buildTradeMarkerPoints(curveRows, tradeRows, width, height, padding, options = {}) {
     if (!curveRows.length || !tradeRows.length) return [];
     const curvePoints = parseCurvePointList(buildCurvePoints(curveRows, width, height, padding));
     return buildTradeMarkerPointsFromParsed(curveRows, tradeRows, curvePoints, {
@@ -492,33 +492,42 @@
       right: width - padding,
       top: padding,
       bottom: height - padding,
-    });
+    }, options);
   }
 
-  function buildTradeMarkerPointsInPlot(curveRows, tradeRows, plot, scale = buildEquityAxisScale(curveRows)) {
+  function buildTradeMarkerPointsInPlot(curveRows, tradeRows, plot, scale = buildEquityAxisScale(curveRows), options = {}) {
     if (!curveRows.length || !tradeRows.length) return [];
     const curvePoints = parseCurvePointList(buildCurvePointsInPlot(curveRows, plot, scale));
-    return buildTradeMarkerPointsFromParsed(curveRows, tradeRows, curvePoints, plot);
+    return buildTradeMarkerPointsFromParsed(curveRows, tradeRows, curvePoints, plot, options);
   }
 
-  function buildTradeMarkerPointsFromParsed(curveRows, tradeRows, curvePoints, bounds) {
+  function buildTradeMarkerPointsFromParsed(curveRows, tradeRows, curvePoints, bounds, options = {}) {
     const pointByDate = new Map();
     curveRows.forEach((row, index) => {
       const point = curvePoints[index];
       if (point) pointByDate.set(String(row.date || ""), point);
     });
+    const firstCurveDate = String(curveRows[0]?.date || "");
     const eligibleTrades = tradeRows
       .map((row) => ({ ...row, action: String(row.action || "").toUpperCase() }))
-      .filter((row) => (row.action === "BUY" || row.action === "SELL") && pointByDate.has(String(row.date || "")));
+      .map((row) => {
+        const tradeDate = String(row.date || "");
+        if (pointByDate.has(tradeDate)) return { ...row, markerDate: tradeDate };
+        if (options.includeLeadingMarkers && firstCurveDate && tradeDate && tradeDate < firstCurveDate) {
+          return { ...row, markerDate: firstCurveDate, leadingMarker: true };
+        }
+        return { ...row, markerDate: "" };
+      })
+      .filter((row) => (row.action === "BUY" || row.action === "SELL") && pointByDate.has(String(row.markerDate || "")));
     const tradesByDate = eligibleTrades.reduce((counts, row) => {
-      const date = String(row.date || "");
+      const date = String(row.markerDate || row.date || "");
       counts.set(date, (counts.get(date) || 0) + 1);
       return counts;
     }, new Map());
     const seenByDate = new Map();
 
     return eligibleTrades.map((row) => {
-      const date = String(row.date || "");
+      const date = String(row.markerDate || row.date || "");
       const point = pointByDate.get(date);
       const count = tradesByDate.get(date) || 1;
       const seen = seenByDate.get(date) || 0;
@@ -637,7 +646,7 @@
     setText("bt-total-return", summary.totalReturn);
     setText("bt-max-drawdown", summary.maxDrawdown);
     setText("bt-exposure", summary.exposure);
-    renderBacktestChart(periodRows, backtestState.tradeRows);
+    renderBacktestChart(periodRows, backtestState.tradeRows, { includeLeadingMarkers: backtestState.activePeriod === "all" });
   }
 
   function bindBacktestPeriodTabs() {
@@ -667,7 +676,7 @@
     return match ? `${match[2]}-${match[3]}` : text;
   }
 
-  function renderBacktestChart(curveRows, tradeRows = []) {
+  function renderBacktestChart(curveRows, tradeRows = [], options = {}) {
     const svg = document.getElementById("backtest-chart");
     if (!svg) return;
     if (!curveRows.length) {
@@ -721,7 +730,7 @@
         return `<text x="${x.toFixed(1)}" y="${layout.timeAxis.y}" text-anchor="${anchor}" class="chart-label">${escapeHtml(tick.label)}</text>`;
       })
       .join("");
-    const tradeMarkerRows = buildTradeMarkerPointsInPlot(curveRows, tradeRows, plot, axisScale);
+    const tradeMarkerRows = buildTradeMarkerPointsInPlot(curveRows, tradeRows, plot, axisScale, options);
     const markerCounts = countTradeActions(tradeMarkerRows);
     const tradeMarkers = tradeMarkerRows
       .map((marker) => {

@@ -117,8 +117,12 @@ assert.ok(
   "Backtest side rail should let trades adapt to the remaining height after holdings",
 );
 assert.ok(
-  /\.backtest-lists\s*\{[^}]*height:\s*var\(--backtest-rail-height\)/.test(css),
-  "Backtest side rail should be bounded to the chart column height instead of expanding with all trades",
+  /\.backtest-lists\s*\{[^}]*height:\s*100%/.test(css),
+  "Backtest side rail should stretch to the chart column height",
+);
+assert.ok(
+  /\.backtest-lists\s*\{[^}]*max-height:\s*none/.test(css),
+  "Backtest side rail should not be capped before the curve bottom",
 );
 assert.ok(
   /\.backtest-lists\s*\{[^}]*overflow:\s*hidden/.test(css),

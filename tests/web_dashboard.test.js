@@ -24,10 +24,10 @@ assert.ok(html.includes('class="chart-column"'));
 assert.ok(html.includes('class="chart-column"') && html.indexOf('class="curve-banner"') > html.indexOf('class="chart-column"'));
 assert.ok(html.indexOf('class="curve-banner"') < html.indexOf('class="backtest-stats"'));
 assert.ok(html.indexOf('class="backtest-stats"') < html.indexOf('class="chart-shell"'));
-assert.ok(html.includes('./styles.css?v=20260704-no-lof-trade-fill'));
+assert.ok(html.includes('./styles.css?v=20260704-leading-buy-fill'));
 assert.strictEqual(html.includes('<h2>ETF 模拟交易</h2>'), false);
 assert.strictEqual(html.includes('增强自适应 · 近一年'), false);
-assert.ok(html.includes('./app.js?v=20260704-no-lof-trade-fill'));
+assert.ok(html.includes('./app.js?v=20260704-leading-buy-fill'));
 assert.ok(html.includes('class="trade-header"'));
 assert.ok(html.indexOf('class="trade-header"') < html.indexOf('id="bt-trades"'));
 assert.strictEqual(html.includes('id="theme-count"'), false);
@@ -197,6 +197,21 @@ assert.ok(markers[1].y >= 5);
 const markerCounts = dashboard.countTradeActions(markers);
 assert.strictEqual(markerCounts.buy, 1);
 assert.strictEqual(markerCounts.sell, 1);
+const totalReturnMarkers = dashboard.buildTradeMarkerPoints(
+  [{ date: "2025-06-30", equity: "1.0" }, { date: "2025-07-01", equity: "1.1" }],
+  [
+    { date: "2025-06-24", action: "BUY", code: "512800", name: "bank" },
+    { date: "2025-06-30", action: "BUY", code: "515880", name: "comm" },
+  ],
+  100,
+  50,
+  5,
+  { includeLeadingMarkers: true },
+);
+assert.strictEqual(totalReturnMarkers.length, 2);
+assert.strictEqual(totalReturnMarkers[0].date, "2025-06-24");
+assert.strictEqual(totalReturnMarkers[0].markerDate, "2025-06-30");
+assert.strictEqual(totalReturnMarkers[0].x, 5);
 
 const hotRows = [
   { rank: "1", code: "588170", name: "科创半导体ETF华夏", heat: "13260375.5" },
