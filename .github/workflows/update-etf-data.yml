@@ -3,7 +3,11 @@ name: Update ETF data
 on:
   schedule:
     # 14:30 Asia/Hong_Kong = 06:30 UTC.
-    - cron: "30 6 * * *"
+    # Extra weekday retries reduce the impact of GitHub's delayed/dropped schedule runs.
+    - cron: "30 6 * * 1-5"
+    - cron: "45 6 * * 1-5"
+    - cron: "0 7 * * 1-5"
+    - cron: "15 7 * * 1-5"
   workflow_dispatch:
 
 permissions:
@@ -32,8 +36,37 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Read previous data date
+        id: previous
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import csv
+          from pathlib import Path
+
+          status = Path("outputs/etf_update_status.csv")
+          if not status.exists():
+              print("data_date=")
+              raise SystemExit
+
+          with status.open("r", encoding="utf-8-sig", newline="") as file:
+              row = next(csv.DictReader(file), {})
+          print(f"data_date={row.get('data_date', '')}")
+          PY
+
       - name: Refresh ETF outputs
         run: python run_etf_selector.py
+
+      - name: Read refreshed data date
+        id: refreshed
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import csv
+          from pathlib import Path
+
+          with Path("outputs/etf_update_status.csv").open("r", encoding="utf-8-sig", newline="") as file:
+              row = next(csv.DictReader(file), {})
+          print(f"data_date={row.get('data_date', '')}")
+          PY
 
       - name: Verify
         run: |
@@ -49,6 +82,8 @@ jobs:
           git add outputs
           if git diff --cached --quiet; then
             echo "No output changes to commit."
+          elif [ "${{ github.event_name }}" != "workflow_dispatch" ] && [ "${{ steps.previous.outputs.data_date }}" = "${{ steps.refreshed.outputs.data_date }}" ]; then
+            echo "Data date already refreshed for ${{ steps.refreshed.outputs.data_date }}; skip retry commit."
           else
             git commit -m "Update ETF data"
             git push

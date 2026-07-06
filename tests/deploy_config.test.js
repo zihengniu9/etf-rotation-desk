@@ -14,7 +14,9 @@ for (const dependency of ["akshare", "pandas", "numpy", "requests", "openpyxl", 
 }
 
 const workflow = read(".github/workflows/update-etf-data.yml");
-assert.ok(workflow.includes("30 6 * * *"), "GitHub Actions should run daily at 14:30 Asia/Hong_Kong");
+assert.ok(workflow.includes("30 6 * * 1-5"), "GitHub Actions should run at 14:30 Asia/Hong_Kong on weekdays");
+assert.ok(workflow.includes("45 6 * * 1-5"), "GitHub Actions should retry after the 14:30 schedule");
+assert.ok(workflow.includes("steps.previous.outputs.data_date"), "Workflow should avoid duplicate retry commits for the same data date");
 assert.ok(workflow.includes("python run_etf_selector.py"), "Workflow should refresh ETF outputs");
 assert.ok(workflow.includes("git add outputs"), "Workflow should persist updated output history");
 assert.ok(workflow.includes("git push"), "Workflow should push refreshed outputs for Netlify's Git deploy hook");
