@@ -8,6 +8,7 @@ from low_buy_selector.etf_cli import (
     filter_trade_ledger_from_date,
     latest_curve_date,
     merge_historical_rows,
+    merge_trade_ledger_rows,
 )
 
 
@@ -80,6 +81,27 @@ class ETFCLITests(unittest.TestCase):
 
         self.assertEqual(merged["date"].tolist(), ["2025-06-30", "2026-07-04"])
         self.assertAlmostEqual(float(merged.loc[merged["date"] == "2025-06-30", "value"].iloc[0]), 0.49)
+
+    def test_merge_trade_ledger_rows_keeps_existing_dates_atomic(self):
+        existing = pd.DataFrame(
+            [
+                {"date": "2026-04-21", "action": "BUY", "code": "159259", "reason": "score above threshold", "shares": 1.0},
+                {"date": "2026-04-21", "action": "BUY", "code": "159543", "reason": "score above threshold", "shares": 1.0},
+            ]
+        )
+        fresh = pd.DataFrame(
+            [
+                {"date": "2026-04-21", "action": "SELL", "code": "159259", "reason": "replace weaker ETF", "shares": 1.0},
+                {"date": "2026-04-21", "action": "BUY", "code": "588200", "reason": "stronger non-theme ETF", "shares": 1.0},
+                {"date": "2026-04-22", "action": "SELL", "code": "159543", "reason": "two closes below MA30", "shares": 1.0},
+            ]
+        )
+
+        merged = merge_trade_ledger_rows(existing, fresh)
+
+        self.assertEqual(merged["date"].tolist(), ["2026-04-21", "2026-04-21", "2026-04-22"])
+        self.assertEqual(merged["code"].tolist(), ["159259", "159543", "159543"])
+        self.assertEqual(merged["action"].tolist(), ["BUY", "BUY", "SELL"])
 
     def test_latest_curve_date_uses_last_backtest_row(self):
         curve = pd.DataFrame([{"date": "2026-07-01"}, {"date": "2026-07-02"}])

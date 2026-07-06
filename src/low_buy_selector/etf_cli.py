@@ -108,20 +108,22 @@ def main(argv: list[str] | None = None) -> int:
     curve_path = output_dir / "etf_backtest_curve.csv"
     trades_path = output_dir / "etf_backtest_trades.csv"
     positions_path = output_dir / "etf_backtest_positions.csv"
-    ledger_errors = audit_trade_ledger(trades, positions)
+    max_positions = max(1, int(1.0 / args.position_fraction)) if args.position_fraction > 0 else 1
+    ledger_errors = audit_trade_ledger(trades, positions, max_positions=max_positions)
     if ledger_errors:
         raise ValueError("Invalid backtest trade ledger: " + "; ".join(ledger_errors[:5]))
     if args.preserve_backtest_history and not args.no_preserve_backtest_history:
         curve = merge_existing_csv(curve_path, curve, key_columns=["date"], min_date=args.backtest_history_start_date)
-        trades = merge_existing_csv(
-            trades_path,
-            trades,
-            key_columns=["date", "action", "code", "reason"],
-        )
-        trades = filter_trade_ledger_from_date(trades, args.backtest_history_start_date)
+        if trades_path.exists():
+            trades = merge_trade_ledger_rows(pd.read_csv(trades_path), trades, min_date=args.backtest_history_start_date)
+        else:
+            trades = filter_trade_ledger_from_date(trades, args.backtest_history_start_date)
     else:
         curve = filter_rows_from_date(curve, args.backtest_history_start_date)
         trades = filter_trade_ledger_from_date(trades, args.backtest_history_start_date)
+    ledger_errors = audit_trade_ledger(trades, positions, max_positions=max_positions)
+    if ledger_errors:
+        raise ValueError("Invalid merged backtest trade ledger: " + "; ".join(ledger_errors[:5]))
     curve.to_csv(curve_path, index=False, encoding="utf-8-sig")
     trades.to_csv(trades_path, index=False, encoding="utf-8-sig")
     positions.to_csv(positions_path, index=False, encoding="utf-8-sig")
@@ -275,6 +277,33 @@ def merge_historical_rows(existing: pd.DataFrame, fresh: pd.DataFrame, *, key_co
         combined = combined.sort_values(key_columns)
     combined = filter_rows_from_date(combined, min_date)
     return combined.reset_index(drop=True).reindex(columns=columns)
+
+
+def merge_trade_ledger_rows(existing: pd.DataFrame, fresh: pd.DataFrame, *, min_date: str | None = None) -> pd.DataFrame:
+    if existing.empty:
+        return filter_trade_ledger_from_date(fresh, min_date)
+    if fresh.empty:
+        return filter_trade_ledger_from_date(existing, min_date)
+
+    columns = list(dict.fromkeys([*fresh.columns.tolist(), *existing.columns.tolist()]))
+    existing_filtered = filter_trade_ledger_from_date(existing.reindex(columns=columns), min_date)
+    fresh_filtered = filter_trade_ledger_from_date(fresh.reindex(columns=columns), min_date)
+    if "date" not in columns or existing_filtered.empty:
+        return fresh_filtered.reset_index(drop=True).reindex(columns=columns)
+
+    existing_dates = set(existing_filtered["date"].dropna().astype(str))
+    if existing_dates:
+        fresh_filtered = fresh_filtered.loc[~fresh_filtered["date"].astype(str).isin(existing_dates)].copy()
+
+    existing_filtered = existing_filtered.copy()
+    fresh_filtered = fresh_filtered.copy()
+    existing_filtered["_ledger_order"] = range(len(existing_filtered))
+    fresh_filtered["_ledger_order"] = range(len(existing_filtered), len(existing_filtered) + len(fresh_filtered))
+    combined = pd.concat([existing_filtered, fresh_filtered], ignore_index=True)
+    if "date" in combined.columns:
+        combined["_ledger_date"] = pd.to_datetime(combined["date"], errors="coerce")
+        combined = combined.sort_values(["_ledger_date", "_ledger_order"], na_position="last")
+    return combined.drop(columns=["_ledger_order", "_ledger_date"], errors="ignore").reset_index(drop=True).reindex(columns=columns)
 
 
 def filter_rows_from_date(frame: pd.DataFrame, min_date: str | None) -> pd.DataFrame:

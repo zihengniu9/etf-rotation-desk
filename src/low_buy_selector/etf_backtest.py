@@ -538,6 +538,7 @@ def audit_trade_ledger(
     trades: pd.DataFrame,
     positions: pd.DataFrame | None = None,
     *,
+    max_positions: int | None = None,
     tolerance: float = 0.000001,
 ) -> list[str]:
     if trades.empty:
@@ -549,6 +550,8 @@ def audit_trade_ledger(
     missing_columns = sorted(required_columns - set(trades.columns))
     if missing_columns:
         return [f"trade ledger missing columns: {', '.join(missing_columns)}"]
+
+    max_positions = max(0, int(max_positions or 0))
 
     for row_number, row in trades.reset_index(drop=True).iterrows():
         code = _normalize_code(row.get("code", ""))
@@ -574,6 +577,10 @@ def audit_trade_ledger(
                     holdings.pop(code, None)
         else:
             errors.append(f"{date} {code} row {row_number + 1}: unknown action {action}")
+        if max_positions:
+            open_positions = sum(1 for held_shares in holdings.values() if held_shares > tolerance)
+            if open_positions > max_positions:
+                errors.append(f"{date} {code} row {row_number + 1}: open positions {open_positions} exceeds max {max_positions}")
 
     if positions is not None and not positions.empty:
         expected = {

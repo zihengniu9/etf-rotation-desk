@@ -89,6 +89,19 @@ class ETFBacktestTests(unittest.TestCase):
 
         self.assertEqual(errors, ["AAA: ledger shares 0.60000000 != position shares 0.50000000"])
 
+    def test_trade_ledger_audit_rejects_more_than_two_open_positions(self):
+        trades = pd.DataFrame(
+            [
+                {"date": "2026-06-01", "action": "BUY", "code": "AAA", "shares": 1.0},
+                {"date": "2026-06-01", "action": "BUY", "code": "BBB", "shares": 1.0},
+                {"date": "2026-06-01", "action": "BUY", "code": "CCC", "shares": 1.0},
+            ]
+        )
+
+        errors = audit_trade_ledger(trades, max_positions=2)
+
+        self.assertEqual(errors, ["2026-06-01 CCC row 3: open positions 3 exceeds max 2"])
+
     def test_full_book_can_replace_weakest_with_stronger_different_theme(self):
         signals = pd.DataFrame(
             [
