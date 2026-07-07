@@ -1,2 +1,2 @@
-﻿code,name,theme,score,total_return,annual_vol,fund_size,latest_close,mode,market_strength,defense_threshold,reason
-511880,货币ETF,防守,0.596767,,,,,defense,0.596767,0.6,top ETF score is weak; switch to defense
+﻿code,name,theme,fund_size,score,total_return,annual_vol,latest_close,mode,reason,market_strength,defense_threshold
+159516,国泰中证半导体材料设备主题ETF,半导体,42316007911.9872,0.718832,0.493997,0.706889,1.742,attack,top ETF score is above defense threshold,0.718832,0.6

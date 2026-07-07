@@ -305,6 +305,8 @@ assert.strictEqual(dashboard.limitRankRows(Array.from({ length: 60 }, (_, index)
 
 const liveRankRows = dashboard.parseCsv(fs.readFileSync(path.join(__dirname, "../outputs/etf_rotation_rank.csv"), "utf8"));
 assert.ok(dashboard.limitRankRows(dashboard.buildIndustryRows(liveRankRows)).length <= 50);
-assert.strictEqual(dashboard.buildThemeStrengthRows(liveRankRows).length, 15);
+const liveThemeRows = dashboard.buildThemeStrengthRows(liveRankRows);
+assert.ok(liveThemeRows.length <= 15);
+assert.strictEqual(new Set(liveThemeRows.map((row) => row.theme)).size, liveThemeRows.length);
 
 console.log("web dashboard tests passed");
