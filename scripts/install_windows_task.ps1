@@ -1,6 +1,7 @@
 param(
   [string]$TaskName = "ETF Rotation Daily Update",
-  [string]$Time = "09:00",
+  [Alias("Time")]
+  [string[]]$Times = @("09:30", "10:00", "10:30", "11:00", "11:30", "13:00", "13:30", "14:00", "14:30", "15:00"),
   [string]$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
   [string]$Python = "python"
 )
@@ -14,7 +15,6 @@ if (-not (Test-Path -LiteralPath $UpdateScript)) {
   throw "Update script not found: $UpdateScript"
 }
 
-$at = [datetime]::ParseExact($Time, "HH:mm", [System.Globalization.CultureInfo]::InvariantCulture)
 $arguments = @(
   "-NoProfile",
   "-ExecutionPolicy", "Bypass",
@@ -24,7 +24,10 @@ $arguments = @(
 ) -join " "
 
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument $arguments
-$trigger = New-ScheduledTaskTrigger -Daily -At $at
+$triggers = foreach ($time in $Times) {
+  $at = [datetime]::ParseExact($time, "HH:mm", [System.Globalization.CultureInfo]::InvariantCulture)
+  New-ScheduledTaskTrigger -Daily -At $at
+}
 $settings = New-ScheduledTaskSettingsSet `
   -StartWhenAvailable `
   -MultipleInstances IgnoreNew `
@@ -33,10 +36,10 @@ $settings = New-ScheduledTaskSettingsSet `
 Register-ScheduledTask `
   -TaskName $TaskName `
   -Action $action `
-  -Trigger $trigger `
+  -Trigger $triggers `
   -Settings $settings `
-  -Description "Refresh ETF rotation data and backtest outputs every day at $Time." `
+  -Description "Refresh ETF rotation data and backtest outputs at: $($Times -join ', ')." `
   -Force | Out-Null
 
-Write-Host "Installed scheduled task '$TaskName' at $Time."
+Write-Host "Installed scheduled task '$TaskName' at: $($Times -join ', ')."
 Write-Host "Manual run: powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$UpdateScript`""

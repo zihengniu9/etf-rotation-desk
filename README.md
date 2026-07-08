@@ -25,7 +25,7 @@ Run the ETF dashboard update once:
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\update_etf_data.ps1
 ```
 
-Install a local Windows scheduled task for 09:00 every day:
+Install a local Windows scheduled task for every 30 minutes during A-share trading hours:
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\install_windows_task.ps1
@@ -33,6 +33,6 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\install_windows_
 
 For online deployment, push this repository to GitHub and add
 `NETLIFY_AUTH_TOKEN` plus `NETLIFY_SITE_ID` as repository secrets.
-`.github/workflows/update-etf-data.yml` runs at 09:00 Asia/Hong_Kong on weekdays,
+`.github/workflows/update-etf-data.yml` runs every 30 minutes during A-share trading hours on weekdays,
 refreshes `outputs/`, commits the updated data, and deploys the static dashboard
 to Netlify.
