@@ -14,8 +14,11 @@ for (const dependency of ["akshare", "pandas", "numpy", "requests", "openpyxl", 
 }
 
 const workflow = read(".github/workflows/update-etf-data.yml");
-assert.ok(workflow.includes("30 6 * * 1-5"), "GitHub Actions should run at 14:30 Asia/Hong_Kong on weekdays");
-assert.ok(workflow.includes("45 6 * * 1-5"), "GitHub Actions should retry after the 14:30 schedule");
+assert.ok(workflow.includes("0 1 * * 1-5"), "GitHub Actions should run at 09:00 Asia/Hong_Kong on weekdays");
+assert.strictEqual(workflow.includes("30 6 * * 1-5"), false, "GitHub Actions should no longer wait until 14:30");
+assert.strictEqual(workflow.includes("45 6 * * 1-5"), false, "GitHub Actions should not keep the old 14:45 retry");
+assert.strictEqual(workflow.includes("0 7 * * 1-5"), false, "GitHub Actions should not keep the old 15:00 retry");
+assert.strictEqual(workflow.includes("15 7 * * 1-5"), false, "GitHub Actions should not keep the old 15:15 retry");
 assert.ok(workflow.includes("steps.previous.outputs.data_date"), "Workflow should avoid duplicate retry commits for the same data date");
 assert.ok(workflow.includes("python run_etf_selector.py"), "Workflow should refresh ETF outputs");
 assert.ok(workflow.includes("git add outputs"), "Workflow should persist updated output history");
@@ -35,7 +38,7 @@ assert.ok(updateScript.includes("Start-Sleep"), "Local scheduled update should w
 assert.ok(updateScript.includes("RedirectStandardError"), "Local scheduled update should capture Python stderr without aborting PowerShell logging");
 
 const taskScript = read("scripts/install_windows_task.ps1");
-assert.ok(taskScript.includes("14:30"), "Windows scheduled task installer should default to 14:30");
+assert.ok(taskScript.includes("09:00"), "Windows scheduled task installer should default to 09:00");
 assert.ok(taskScript.includes("Register-ScheduledTask"), "Windows installer should register a scheduled task");
 assert.ok(taskScript.includes("update_etf_data.ps1"), "Windows task should invoke the update script");
 

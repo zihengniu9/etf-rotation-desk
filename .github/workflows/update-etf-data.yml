@@ -2,12 +2,8 @@ name: Update ETF data
 
 on:
   schedule:
-    # 14:30 Asia/Hong_Kong = 06:30 UTC.
-    # Extra weekday retries reduce the impact of GitHub's delayed/dropped schedule runs.
-    - cron: "30 6 * * 1-5"
-    - cron: "45 6 * * 1-5"
-    - cron: "0 7 * * 1-5"
-    - cron: "15 7 * * 1-5"
+    # 09:00 Asia/Hong_Kong = 01:00 UTC.
+    - cron: "0 1 * * 1-5"
   workflow_dispatch:
 
 permissions:

@@ -5,7 +5,7 @@ This project is a static dashboard backed by CSV files in `outputs/`.
 ## Cloud schedule
 
 The GitHub Actions workflow at `.github/workflows/update-etf-data.yml` runs at
-`06:30 UTC`, which is `14:30 Asia/Hong_Kong`.
+`01:00 UTC`, which is `09:00 Asia/Hong_Kong`.
 
 Each run:
 
@@ -23,7 +23,7 @@ To use it:
    - `NETLIFY_AUTH_TOKEN`
    - `NETLIFY_SITE_ID`
 3. Push the repository to GitHub.
-4. Run the workflow manually once from the Actions tab, or wait for 14:30.
+4. Run the workflow manually once from the Actions tab, or wait for 09:00.
 
 The public page root redirects to `/web/`.
 

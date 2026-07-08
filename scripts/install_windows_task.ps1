@@ -1,6 +1,6 @@
 param(
   [string]$TaskName = "ETF Rotation Daily Update",
-  [string]$Time = "14:30",
+  [string]$Time = "09:00",
   [string]$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
   [string]$Python = "python"
 )
