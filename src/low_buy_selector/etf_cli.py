@@ -7,7 +7,7 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 
 from .etf_data_sources import fetch_all_etfs, fetch_etf_daily_bars, fetch_etf_scales, fetch_realtime_etf_quotes
-from .etf_backtest import audit_trade_ledger, run_rotation_backtest
+from .etf_backtest import POSITION_COLUMNS, audit_trade_ledger, run_rotation_backtest
 from .etf_hot import fetch_hot_etfs
 from .etf_pool import build_theme_pool
 from .etf_rotation import rank_etfs_by_momentum
@@ -121,6 +121,8 @@ def main(argv: list[str] | None = None) -> int:
     else:
         curve = filter_rows_from_date(curve, args.backtest_history_start_date)
         trades = filter_trade_ledger_from_date(trades, args.backtest_history_start_date)
+    positions = align_positions_to_trade_ledger(trades, positions)
+    curve = align_latest_curve_to_positions(curve, trades, positions)
     ledger_errors = audit_trade_ledger(trades, positions, max_positions=max_positions)
     if ledger_errors:
         raise ValueError("Invalid merged backtest trade ledger: " + "; ".join(ledger_errors[:5]))
@@ -291,6 +293,12 @@ def merge_trade_ledger_rows(existing: pd.DataFrame, fresh: pd.DataFrame, *, min_
     if "date" not in columns or existing_filtered.empty:
         return fresh_filtered.reset_index(drop=True).reindex(columns=columns)
 
+    existing_dates_parsed = pd.to_datetime(existing_filtered["date"], errors="coerce")
+    latest_existing_date = existing_dates_parsed.max()
+    if pd.notna(latest_existing_date):
+        fresh_dates_parsed = pd.to_datetime(fresh_filtered["date"], errors="coerce")
+        fresh_filtered = fresh_filtered.loc[fresh_dates_parsed > latest_existing_date].copy()
+
     existing_dates = set(existing_filtered["date"].dropna().astype(str))
     if existing_dates:
         fresh_filtered = fresh_filtered.loc[~fresh_filtered["date"].astype(str).isin(existing_dates)].copy()
@@ -304,6 +312,128 @@ def merge_trade_ledger_rows(existing: pd.DataFrame, fresh: pd.DataFrame, *, min_
         combined["_ledger_date"] = pd.to_datetime(combined["date"], errors="coerce")
         combined = combined.sort_values(["_ledger_date", "_ledger_order"], na_position="last")
     return combined.drop(columns=["_ledger_order", "_ledger_date"], errors="ignore").reset_index(drop=True).reindex(columns=columns)
+
+
+def align_positions_to_trade_ledger(trades: pd.DataFrame, positions: pd.DataFrame) -> pd.DataFrame:
+    if trades.empty:
+        return positions.copy().reset_index(drop=True)
+
+    open_books: dict[str, dict] = {}
+    trade_meta: dict[str, dict] = {}
+    for _, row in trades.reset_index(drop=True).iterrows():
+        code = str(row.get("code", "")).strip().zfill(6)
+        if not code:
+            continue
+        action = str(row.get("action", "")).upper()
+        shares = _to_float(row.get("shares", 0.0))
+        value = _to_float(row.get("cost_basis", row.get("value", 0.0)))
+        trade_meta[code] = {
+            "code": code,
+            "name": row.get("name", ""),
+            "theme": row.get("theme", ""),
+        }
+        if shares <= 0:
+            continue
+        if action == "BUY":
+            book = open_books.setdefault(code, {"shares": 0.0, "cost_basis": 0.0})
+            book["shares"] += shares
+            book["cost_basis"] += value
+        elif action == "SELL":
+            book = open_books.get(code)
+            if not book:
+                continue
+            current_shares = float(book.get("shares", 0.0))
+            if current_shares <= 0:
+                continue
+            sell_ratio = min(1.0, shares / current_shares)
+            book["shares"] = current_shares - shares
+            book["cost_basis"] = float(book.get("cost_basis", 0.0)) * (1.0 - sell_ratio)
+            if book["shares"] <= 0.000001:
+                open_books.pop(code, None)
+
+    if not open_books:
+        return pd.DataFrame(columns=POSITION_COLUMNS)
+
+    fresh_by_code = {}
+    if not positions.empty and "code" in positions.columns:
+        fresh = positions.copy()
+        fresh["code"] = fresh["code"].astype(str).str.zfill(6)
+        fresh_by_code = {str(row["code"]): row.to_dict() for _, row in fresh.iterrows()}
+
+    rows = []
+    for code, book in open_books.items():
+        shares = float(book["shares"])
+        if shares <= 0:
+            continue
+        source = {**trade_meta.get(code, {"code": code}), **fresh_by_code.get(code, {})}
+        last_price = _to_float(source.get("last_price", source.get("entry_price", 0.0)))
+        entry_price = float(book.get("cost_basis", 0.0)) / shares if shares else 0.0
+        market_value = shares * last_price
+        rows.append(
+            {
+                "code": code,
+                "name": source.get("name", ""),
+                "theme": source.get("theme", ""),
+                "shares": round(shares, 8),
+                "entry_price": round(entry_price, 6),
+                "last_price": round(last_price, 6),
+                "market_value": round(market_value, 8),
+                "weight": 0.0,
+                "score": round(_to_float(source.get("score", 0.0)), 6),
+                "ma30": round(_to_float(source.get("ma30", 0.0)), 6) if not is_missing_value(source.get("ma30", pd.NA)) else pd.NA,
+                "below_ma_days": int(_to_float(source.get("below_ma_days", 0))),
+                "unrealized_return": round(last_price / entry_price - 1.0 if entry_price else 0.0, 6),
+            }
+        )
+
+    frame = pd.DataFrame(rows, columns=POSITION_COLUMNS)
+    equity = _latest_trade_cash(trades) + float(pd.to_numeric(frame["market_value"], errors="coerce").fillna(0.0).sum())
+    if equity > 0 and not frame.empty:
+        frame["weight"] = (pd.to_numeric(frame["market_value"], errors="coerce").fillna(0.0) / equity).round(6)
+    return frame.reset_index(drop=True)
+
+
+def align_latest_curve_to_positions(curve: pd.DataFrame, trades: pd.DataFrame, positions: pd.DataFrame) -> pd.DataFrame:
+    if curve.empty:
+        return curve.copy()
+    aligned = curve.copy().reset_index(drop=True)
+    latest_index = aligned.index[-1]
+    cash = _latest_trade_cash(trades)
+    position_value = 0.0 if positions.empty else float(pd.to_numeric(positions.get("market_value", pd.Series(dtype=float)), errors="coerce").fillna(0.0).sum())
+    equity = cash + position_value
+    if equity <= 0:
+        return aligned
+    initial_equity = _to_float(aligned.iloc[0].get("equity", 1.0)) or 1.0
+    previous_equities = pd.to_numeric(aligned.loc[:latest_index, "equity"], errors="coerce").fillna(equity)
+    running_peak = max(float(previous_equities.max()), equity)
+    aligned.loc[latest_index, "cash"] = round(cash, 8)
+    aligned.loc[latest_index, "position_value"] = round(position_value, 8)
+    aligned.loc[latest_index, "equity"] = round(equity, 8)
+    aligned.loc[latest_index, "exposure"] = round(position_value / equity if equity else 0.0, 6)
+    aligned.loc[latest_index, "total_return"] = round(equity / initial_equity - 1.0, 6)
+    aligned.loc[latest_index, "drawdown"] = round(equity / running_peak - 1.0 if running_peak else 0.0, 6)
+    if "positions" in aligned.columns:
+        aligned.loc[latest_index, "positions"] = "|".join(positions["code"].astype(str).tolist()) if not positions.empty else ""
+    return aligned
+
+
+def is_missing_value(value: object) -> bool:
+    try:
+        return pd.isna(value)
+    except ValueError:
+        return False
+
+
+def _to_float(value: object) -> float:
+    parsed = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    return 0.0 if pd.isna(parsed) else float(parsed)
+
+
+def _latest_trade_cash(trades: pd.DataFrame) -> float:
+    if trades.empty or "cash_after" not in trades.columns:
+        return 0.0
+    values = pd.to_numeric(trades["cash_after"], errors="coerce").dropna()
+    return float(values.iloc[-1]) if not values.empty else 0.0
 
 
 def filter_rows_from_date(frame: pd.DataFrame, min_date: str | None) -> pd.DataFrame:

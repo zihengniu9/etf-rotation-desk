@@ -7,6 +7,7 @@ from low_buy_selector.etf_cli import (
     filter_backtest_pool,
     filter_trade_ledger_from_date,
     latest_curve_date,
+    align_positions_to_trade_ledger,
     merge_historical_rows,
     merge_trade_ledger_rows,
 )
@@ -102,6 +103,76 @@ class ETFCLITests(unittest.TestCase):
         self.assertEqual(merged["date"].tolist(), ["2026-04-21", "2026-04-21", "2026-04-22"])
         self.assertEqual(merged["code"].tolist(), ["159259", "159543", "159543"])
         self.assertEqual(merged["action"].tolist(), ["BUY", "BUY", "SELL"])
+
+    def test_merge_trade_ledger_rows_does_not_backfill_old_recomputed_trades(self):
+        existing = pd.DataFrame(
+            [
+                {"date": "2026-04-21", "action": "BUY", "code": "159259", "reason": "score above threshold", "shares": 1.0},
+                {"date": "2026-06-02", "action": "SELL", "code": "588690", "reason": "two closes below MA30", "shares": 1.0},
+            ]
+        )
+        fresh = pd.DataFrame(
+            [
+                {"date": "2025-12-16", "action": "BUY", "code": "563230", "reason": "score above threshold", "shares": 1.0},
+                {"date": "2026-04-21", "action": "BUY", "code": "515880", "reason": "score above threshold", "shares": 1.0},
+                {"date": "2026-06-03", "action": "BUY", "code": "588200", "reason": "score above threshold", "shares": 1.0},
+            ]
+        )
+
+        merged = merge_trade_ledger_rows(existing, fresh)
+
+        self.assertEqual(merged["date"].tolist(), ["2026-04-21", "2026-06-02", "2026-06-03"])
+        self.assertEqual(merged["code"].tolist(), ["159259", "588690", "588200"])
+
+    def test_align_positions_to_trade_ledger_uses_preserved_open_shares(self):
+        trades = pd.DataFrame(
+            [
+                {
+                    "date": "2026-05-06",
+                    "action": "BUY",
+                    "code": "588200",
+                    "name": "Chip ETF",
+                    "theme": "chip",
+                    "shares": 0.23346574,
+                    "value": 0.76109833,
+                    "cost_basis": 0.76109833,
+                    "cash_after": 0.0,
+                },
+                {
+                    "date": "2026-06-02",
+                    "action": "SELL",
+                    "code": "588690",
+                    "name": "Other ETF",
+                    "theme": "other",
+                    "shares": 1.0,
+                    "value": 0.78,
+                    "cost_basis": 0.84,
+                    "cash_after": 0.79209388,
+                },
+            ]
+        )
+        positions = pd.DataFrame(
+            [
+                {
+                    "code": "588200",
+                    "name": "Chip ETF",
+                    "theme": "chip",
+                    "shares": 0.24115872,
+                    "entry_price": 3.1,
+                    "last_price": 4.5,
+                    "score": 0.7,
+                    "ma30": 4.0,
+                    "below_ma_days": 0,
+                }
+            ]
+        )
+
+        aligned = align_positions_to_trade_ledger(trades, positions)
+
+        self.assertAlmostEqual(float(aligned.iloc[0]["shares"]), 0.23346574)
+        self.assertAlmostEqual(float(aligned.iloc[0]["entry_price"]), 3.26, places=2)
+        self.assertAlmostEqual(float(aligned.iloc[0]["last_price"]), 4.5)
+        self.assertAlmostEqual(float(aligned.iloc[0]["market_value"]), 0.23346574 * 4.5)
 
     def test_latest_curve_date_uses_last_backtest_row(self):
         curve = pd.DataFrame([{"date": "2026-07-01"}, {"date": "2026-07-02"}])
