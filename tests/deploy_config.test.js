@@ -22,12 +22,16 @@ assert.strictEqual(workflow.includes('cron: "0 1 * * 1-5"'), false, "GitHub Acti
 assert.strictEqual(workflow.includes("Data date already refreshed"), false, "Intraday updates should not be skipped just because the data date matches");
 assert.ok(workflow.includes("python run_etf_selector.py"), "Workflow should refresh ETF outputs");
 assert.ok(workflow.includes("git add outputs"), "Workflow should persist updated output history");
-assert.ok(workflow.includes("git push"), "Workflow should push refreshed outputs for Netlify's Git deploy hook");
+assert.ok(workflow.includes("git push"), "Workflow should push refreshed outputs before deployment");
 assert.ok(workflow.includes("contents: write"), "Workflow needs permission to commit refreshed outputs");
 assert.ok(workflow.includes("python scripts/build_static_site.py"), "Workflow should build the Netlify publish directory");
-assert.strictEqual(workflow.includes("NETLIFY_AUTH_TOKEN"), false, "Workflow should not require a Netlify token secret");
-assert.strictEqual(workflow.includes("NETLIFY_SITE_ID"), false, "Workflow should rely on Netlify's connected Git deploy");
-assert.strictEqual(workflow.includes("netlify-cli deploy"), false, "Workflow should not fail on Netlify CLI auth during scheduled runs");
+assert.ok(workflow.includes("NETLIFY_AUTH_TOKEN"), "Workflow should read the Netlify auth token secret");
+assert.ok(workflow.includes("NETLIFY_SITE_ID"), "Workflow should provide the Netlify site id");
+assert.ok(workflow.includes("c4178e20-01e7-495b-b765-589b07fc93c4"), "Workflow should default to the production Netlify site");
+assert.ok(workflow.includes("netlify-cli@latest deploy"), "Workflow should deploy the static artifact with Netlify CLI");
+assert.ok(workflow.includes("--prod"), "Workflow should publish refreshed data to production");
+assert.ok(workflow.includes("--dir=dist"), "Workflow should deploy the generated dist directory");
+assert.ok(workflow.includes("Missing Netlify secrets"), "Workflow should fail loudly when Netlify secrets are missing");
 
 const updateScript = read("scripts/update_etf_data.ps1");
 assert.ok(updateScript.includes("run_etf_selector.py"), "Local scheduled update should call the ETF runner");

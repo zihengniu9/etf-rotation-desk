@@ -19,6 +19,9 @@ concurrency:
 jobs:
   update-data:
     runs-on: ubuntu-latest
+    env:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID || 'c4178e20-01e7-495b-b765-589b07fc93c4' }}
 
     steps:
       - name: Checkout
@@ -59,3 +62,13 @@ jobs:
 
       - name: Build Netlify artifact
         run: python scripts/build_static_site.py
+
+      - name: Check Netlify deployment secrets
+        run: |
+          if [ -z "$NETLIFY_AUTH_TOKEN" ]; then
+            echo "::error::Missing Netlify secrets. Set NETLIFY_AUTH_TOKEN in GitHub repository secrets so scheduled data updates can publish to Netlify."
+            exit 1
+          fi
+
+      - name: Deploy to Netlify
+        run: npx -y netlify-cli@latest deploy --prod --dir=dist --site="$NETLIFY_SITE_ID" --auth="$NETLIFY_AUTH_TOKEN"

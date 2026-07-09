@@ -32,7 +32,8 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\install_windows_
 ```
 
 For online deployment, push this repository to GitHub and add
-`NETLIFY_AUTH_TOKEN` plus `NETLIFY_SITE_ID` as repository secrets.
+`NETLIFY_AUTH_TOKEN` as a repository secret. `NETLIFY_SITE_ID` is optional
+unless you want to deploy to a different Netlify site.
 `.github/workflows/update-etf-data.yml` runs every 30 minutes during A-share trading hours on weekdays,
 refreshes `outputs/`, commits the updated data, and deploys the static dashboard
 to Netlify.
