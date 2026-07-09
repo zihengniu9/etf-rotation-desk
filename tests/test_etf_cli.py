@@ -10,6 +10,7 @@ from low_buy_selector.etf_cli import (
     align_positions_to_trade_ledger,
     merge_historical_rows,
     merge_trade_ledger_rows,
+    recalculate_trade_cash_after,
 )
 
 
@@ -123,6 +124,59 @@ class ETFCLITests(unittest.TestCase):
 
         self.assertEqual(merged["date"].tolist(), ["2026-04-21", "2026-06-02", "2026-06-03"])
         self.assertEqual(merged["code"].tolist(), ["159259", "588690", "588200"])
+
+    def test_merge_trade_ledger_rows_skips_fresh_sell_for_unpreserved_position(self):
+        existing = pd.DataFrame(
+            [
+                {"date": "2026-05-06", "action": "BUY", "code": "588200", "reason": "score above threshold", "shares": 0.25, "value": 0.5, "cash_after": 0.5},
+                {"date": "2026-05-13", "action": "BUY", "code": "588690", "reason": "score above threshold", "shares": 0.6, "value": 0.4, "cash_after": 0.1},
+                {"date": "2026-06-02", "action": "SELL", "code": "588690", "reason": "two closes below MA30", "shares": 0.6, "value": 0.42, "cash_after": 0.52},
+            ]
+        )
+        fresh = pd.DataFrame(
+            [
+                {"date": "2026-05-20", "action": "BUY", "code": "588770", "reason": "score above threshold", "shares": 0.4, "value": 0.45, "cash_after": 0.55},
+                {"date": "2026-06-11", "action": "SELL", "code": "588770", "reason": "two closes below MA30", "shares": 0.4, "value": 0.46, "cash_after": 1.01},
+                {"date": "2026-06-12", "action": "BUY", "code": "513310", "reason": "score above threshold", "shares": 0.1, "value": 0.3, "cash_after": 0.71},
+            ]
+        )
+
+        merged = merge_trade_ledger_rows(existing, fresh)
+
+        self.assertEqual(merged["date"].tolist(), ["2026-05-06", "2026-05-13", "2026-06-02", "2026-06-12"])
+        self.assertEqual(merged["code"].tolist(), ["588200", "588690", "588690", "513310"])
+        self.assertEqual(merged["action"].tolist(), ["BUY", "BUY", "SELL", "BUY"])
+        self.assertAlmostEqual(float(merged.iloc[-1]["cash_after"]), 0.22)
+
+    def test_recalculate_trade_cash_after_uses_merged_trade_values(self):
+        trades = pd.DataFrame(
+            [
+                {"date": "2026-06-01", "action": "BUY", "code": "AAA", "value": 0.5, "cash_after": 0.5},
+                {"date": "2026-06-02", "action": "SELL", "code": "AAA", "value": 0.55, "cash_after": 0.9},
+                {"date": "2026-06-03", "action": "BUY", "code": "BBB", "value": 0.4, "cash_after": 0.6},
+            ]
+        )
+
+        recalculated = recalculate_trade_cash_after(trades)
+
+        self.assertEqual(recalculated["cash_after"].round(8).tolist(), [0.5, 1.05, 0.65])
+
+    def test_merge_trade_ledger_rows_respects_existing_theme_position_limit(self):
+        existing = pd.DataFrame(
+            [
+                {"date": "2026-05-06", "action": "BUY", "code": "588200", "theme": "科创半导体", "shares": 0.25, "value": 0.5, "cash_after": 0.5},
+            ]
+        )
+        fresh = pd.DataFrame(
+            [
+                {"date": "2026-07-07", "action": "BUY", "code": "588170", "theme": "科创半导体", "shares": 0.6, "value": 0.4, "cash_after": 0.6},
+                {"date": "2026-07-08", "action": "BUY", "code": "159841", "theme": "证券", "shares": 0.3, "value": 0.2, "cash_after": 0.4},
+            ]
+        )
+
+        merged = merge_trade_ledger_rows(existing, fresh, max_positions=2, max_theme_positions=1)
+
+        self.assertEqual(merged["code"].tolist(), ["588200", "159841"])
 
     def test_align_positions_to_trade_ledger_uses_preserved_open_shares(self):
         trades = pd.DataFrame(

@@ -108,6 +108,9 @@ def main(argv: list[str] | None = None) -> int:
     curve_path = output_dir / "etf_backtest_curve.csv"
     trades_path = output_dir / "etf_backtest_trades.csv"
     positions_path = output_dir / "etf_backtest_positions.csv"
+    previous_positions = pd.DataFrame(columns=POSITION_COLUMNS)
+    if args.preserve_backtest_history and not args.no_preserve_backtest_history and positions_path.exists():
+        previous_positions = pd.read_csv(positions_path)
     max_positions = max(1, int(1.0 / args.position_fraction)) if args.position_fraction > 0 else 1
     ledger_errors = audit_trade_ledger(trades, positions, max_positions=max_positions)
     if ledger_errors:
@@ -115,13 +118,19 @@ def main(argv: list[str] | None = None) -> int:
     if args.preserve_backtest_history and not args.no_preserve_backtest_history:
         curve = merge_existing_csv(curve_path, curve, key_columns=["date"], min_date=args.backtest_history_start_date)
         if trades_path.exists():
-            trades = merge_trade_ledger_rows(pd.read_csv(trades_path), trades, min_date=args.backtest_history_start_date)
+            trades = merge_trade_ledger_rows(
+                pd.read_csv(trades_path),
+                trades,
+                min_date=args.backtest_history_start_date,
+                max_positions=max_positions,
+                max_theme_positions=args.max_theme_positions or None,
+            )
         else:
             trades = filter_trade_ledger_from_date(trades, args.backtest_history_start_date)
     else:
         curve = filter_rows_from_date(curve, args.backtest_history_start_date)
         trades = filter_trade_ledger_from_date(trades, args.backtest_history_start_date)
-    positions = align_positions_to_trade_ledger(trades, positions)
+    positions = align_positions_to_trade_ledger(trades, combine_position_metadata(previous_positions, positions))
     curve = align_latest_curve_to_positions(curve, trades, positions)
     ledger_errors = audit_trade_ledger(trades, positions, max_positions=max_positions)
     if ledger_errors:
@@ -281,7 +290,14 @@ def merge_historical_rows(existing: pd.DataFrame, fresh: pd.DataFrame, *, key_co
     return combined.reset_index(drop=True).reindex(columns=columns)
 
 
-def merge_trade_ledger_rows(existing: pd.DataFrame, fresh: pd.DataFrame, *, min_date: str | None = None) -> pd.DataFrame:
+def merge_trade_ledger_rows(
+    existing: pd.DataFrame,
+    fresh: pd.DataFrame,
+    *,
+    min_date: str | None = None,
+    max_positions: int | None = None,
+    max_theme_positions: int | None = None,
+) -> pd.DataFrame:
     if existing.empty:
         return filter_trade_ledger_from_date(fresh, min_date)
     if fresh.empty:
@@ -302,6 +318,12 @@ def merge_trade_ledger_rows(existing: pd.DataFrame, fresh: pd.DataFrame, *, min_
     existing_dates = set(existing_filtered["date"].dropna().astype(str))
     if existing_dates:
         fresh_filtered = fresh_filtered.loc[~fresh_filtered["date"].astype(str).isin(existing_dates)].copy()
+    fresh_filtered = filter_appendable_trade_rows(
+        existing_filtered,
+        fresh_filtered,
+        max_positions=max_positions,
+        max_theme_positions=max_theme_positions,
+    )
 
     existing_filtered = existing_filtered.copy()
     fresh_filtered = fresh_filtered.copy()
@@ -311,7 +333,135 @@ def merge_trade_ledger_rows(existing: pd.DataFrame, fresh: pd.DataFrame, *, min_
     if "date" in combined.columns:
         combined["_ledger_date"] = pd.to_datetime(combined["date"], errors="coerce")
         combined = combined.sort_values(["_ledger_date", "_ledger_order"], na_position="last")
-    return combined.drop(columns=["_ledger_order", "_ledger_date"], errors="ignore").reset_index(drop=True).reindex(columns=columns)
+    combined = combined.drop(columns=["_ledger_order", "_ledger_date"], errors="ignore").reset_index(drop=True).reindex(columns=columns)
+    return recalculate_trade_cash_after(combined)
+
+
+def combine_position_metadata(previous: pd.DataFrame, fresh: pd.DataFrame) -> pd.DataFrame:
+    frames = []
+    for frame in [previous, fresh]:
+        if frame is not None and not frame.empty:
+            frames.append(frame.reindex(columns=POSITION_COLUMNS))
+    if not frames:
+        return pd.DataFrame(columns=POSITION_COLUMNS)
+    return pd.concat(frames, ignore_index=True).reindex(columns=POSITION_COLUMNS)
+
+
+def recalculate_trade_cash_after(trades: pd.DataFrame, initial_cash: float | None = None) -> pd.DataFrame:
+    if trades.empty or {"action", "value", "cash_after"}.difference(trades.columns):
+        return trades.copy().reset_index(drop=True)
+
+    frame = trades.copy().reset_index(drop=True)
+    cash = _infer_initial_cash(frame) if initial_cash is None else float(initial_cash)
+    for index, row in frame.iterrows():
+        action = str(row.get("action", "")).upper()
+        value = _to_float(row.get("value", 0.0))
+        fee = _to_float(row.get("fee", 0.0))
+        stamp_tax = _to_float(row.get("stamp_tax", 0.0))
+        if action == "BUY":
+            cash -= value + fee + stamp_tax
+        elif action == "SELL":
+            cash += value - fee - stamp_tax
+        else:
+            continue
+        frame.at[index, "cash_after"] = round(cash, 8)
+    return frame
+
+
+def _infer_initial_cash(trades: pd.DataFrame) -> float:
+    for _, row in trades.iterrows():
+        cash_after = pd.to_numeric(pd.Series([row.get("cash_after", pd.NA)]), errors="coerce").iloc[0]
+        if pd.isna(cash_after):
+            continue
+        action = str(row.get("action", "")).upper()
+        value = _to_float(row.get("value", 0.0))
+        fee = _to_float(row.get("fee", 0.0))
+        stamp_tax = _to_float(row.get("stamp_tax", 0.0))
+        if action == "BUY":
+            return float(cash_after) + value + fee + stamp_tax
+        if action == "SELL":
+            return float(cash_after) - value + fee + stamp_tax
+    return 1.0
+
+
+def filter_appendable_trade_rows(
+    existing: pd.DataFrame,
+    fresh: pd.DataFrame,
+    *,
+    max_positions: int | None = None,
+    max_theme_positions: int | None = None,
+    tolerance: float = 0.000001,
+) -> pd.DataFrame:
+    if fresh.empty or {"action", "code", "shares"}.difference(fresh.columns):
+        return fresh.copy().reset_index(drop=True)
+
+    holdings: dict[str, float] = {}
+    themes: dict[str, str] = {}
+    if not existing.empty and not {"action", "code", "shares"}.difference(existing.columns):
+        for _, row in existing.reset_index(drop=True).iterrows():
+            code = str(row.get("code", "")).strip().zfill(6)
+            action = str(row.get("action", "")).upper()
+            shares = _to_float(row.get("shares", 0.0))
+            if not code or shares <= 0:
+                continue
+            if action == "BUY":
+                holdings[code] = holdings.get(code, 0.0) + shares
+                themes[code] = _metadata_theme(row)
+            elif action == "SELL":
+                current = holdings.get(code, 0.0)
+                holdings[code] = current - shares
+                if abs(holdings[code]) <= tolerance:
+                    holdings.pop(code, None)
+                    themes.pop(code, None)
+
+    keep_indexes: list[int] = []
+    fresh_ordered = fresh.reset_index(drop=False).rename(columns={"index": "_source_index"})
+    if "date" in fresh_ordered.columns:
+        fresh_ordered["_ledger_date"] = pd.to_datetime(fresh_ordered["date"], errors="coerce")
+        fresh_ordered = fresh_ordered.sort_values(["_ledger_date", "_source_index"], na_position="last")
+    for _, row in fresh_ordered.iterrows():
+        source_index = int(row["_source_index"])
+        code = str(row.get("code", "")).strip().zfill(6)
+        action = str(row.get("action", "")).upper()
+        shares = _to_float(row.get("shares", 0.0))
+        if not code or shares <= 0:
+            keep_indexes.append(source_index)
+            continue
+        if action == "BUY":
+            theme = _metadata_theme(row)
+            if code in holdings and holdings.get(code, 0.0) > tolerance:
+                continue
+            if max_positions and _open_position_count(holdings, tolerance) >= max_positions:
+                continue
+            if max_theme_positions and theme and _open_theme_count(themes, theme) >= max_theme_positions:
+                continue
+            keep_indexes.append(source_index)
+            holdings[code] = holdings.get(code, 0.0) + shares
+            themes[code] = theme
+        elif action == "SELL":
+            current = holdings.get(code, 0.0)
+            if shares > current + tolerance:
+                continue
+            keep_indexes.append(source_index)
+            holdings[code] = current - shares
+            if abs(holdings[code]) <= tolerance:
+                holdings.pop(code, None)
+                themes.pop(code, None)
+        else:
+            keep_indexes.append(source_index)
+    return fresh.loc[keep_indexes].copy().reset_index(drop=True)
+
+
+def _metadata_theme(row: pd.Series) -> str:
+    return str(row.get("theme", "") or "").strip()
+
+
+def _open_position_count(holdings: dict[str, float], tolerance: float) -> int:
+    return sum(1 for shares in holdings.values() if shares > tolerance)
+
+
+def _open_theme_count(themes: dict[str, str], theme: str) -> int:
+    return sum(1 for value in themes.values() if value == theme)
 
 
 def align_positions_to_trade_ledger(trades: pd.DataFrame, positions: pd.DataFrame) -> pd.DataFrame:
@@ -327,10 +477,14 @@ def align_positions_to_trade_ledger(trades: pd.DataFrame, positions: pd.DataFram
         action = str(row.get("action", "")).upper()
         shares = _to_float(row.get("shares", 0.0))
         value = _to_float(row.get("cost_basis", row.get("value", 0.0)))
+        price = _to_float(row.get("price", 0.0))
         trade_meta[code] = {
             "code": code,
             "name": row.get("name", ""),
             "theme": row.get("theme", ""),
+            "last_price": price,
+            "entry_price": price,
+            "score": _to_float(row.get("score", 0.0)),
         }
         if shares <= 0:
             continue
