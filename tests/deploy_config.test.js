@@ -33,6 +33,16 @@ assert.ok(workflow.includes("netlify-cli@latest deploy"), "Workflow should deplo
 assert.ok(workflow.includes("--prod"), "Workflow should publish refreshed data to production");
 assert.ok(workflow.includes("--dir=dist"), "Workflow should deploy the generated dist directory");
 assert.ok(workflow.includes("Missing Netlify secrets"), "Workflow should fail loudly when Netlify secrets are missing");
+assert.ok(workflow.includes("Verify Netlify API access"), "Workflow should verify Netlify access before deployment");
+assert.ok(workflow.includes("https://api.netlify.com/api/v1/user"), "Workflow should validate the Netlify token identity");
+assert.ok(
+  workflow.includes("https://api.netlify.com/api/v1/sites/$NETLIFY_SITE_ID"),
+  "Workflow should validate access to the production Netlify site",
+);
+assert.ok(
+  workflow.includes('Authorization: Bearer $NETLIFY_AUTH_TOKEN'),
+  "Workflow should authenticate Netlify API preflight requests without exposing the token",
+);
 
 const updateScript = read("scripts/update_etf_data.ps1");
 assert.ok(updateScript.includes("run_etf_selector.py"), "Local scheduled update should call the ETF runner");
