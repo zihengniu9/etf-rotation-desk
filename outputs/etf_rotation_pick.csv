@@ -1,2 +1,2 @@
-﻿code,name,theme,fund_size,score,total_return,annual_vol,latest_close,mode,reason,market_strength,defense_threshold
-588200,嘉实上证科创板芯片ETF,科创半导体,65618652405.88,0.603727,0.369878,0.633649,4.848,attack,top ETF score is above defense threshold,0.603727,0.6
+﻿code,name,theme,score,total_return,annual_vol,fund_size,latest_close,mode,market_strength,defense_threshold,reason
+511880,货币ETF,防守,0.576053,,,,,defense,0.576053,0.6,top ETF score is weak; switch to defense
