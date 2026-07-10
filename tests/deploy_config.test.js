@@ -28,6 +28,7 @@ assert.ok(workflow.includes("python scripts/build_static_site.py"), "Workflow sh
 assert.ok(workflow.includes("NETLIFY_AUTH_TOKEN"), "Workflow should read the Netlify auth token secret");
 assert.ok(workflow.includes("NETLIFY_SITE_ID"), "Workflow should provide the Netlify site id");
 assert.ok(workflow.includes("c4178e20-01e7-495b-b765-589b07fc93c4"), "Workflow should default to the production Netlify site");
+assert.strictEqual(workflow.includes("secrets.NETLIFY_SITE_ID"), false, "Workflow should not let a stale GitHub secret override the production Netlify site id");
 assert.ok(workflow.includes("netlify-cli@latest deploy"), "Workflow should deploy the static artifact with Netlify CLI");
 assert.ok(workflow.includes("--prod"), "Workflow should publish refreshed data to production");
 assert.ok(workflow.includes("--dir=dist"), "Workflow should deploy the generated dist directory");
