@@ -72,6 +72,7 @@ assert.ok(buildScript.includes('"web"'), "Static build should publish the dashbo
 assert.ok(buildScript.includes('"outputs"'), "Static build should publish CSV outputs");
 assert.ok(buildScript.includes('"index.html"'), "Static build should publish the root redirect");
 assert.ok(buildScript.includes("*.csv"), "Static build should publish only CSV output data files");
+assert.ok(buildScript.includes('DIST / ".nojekyll"'), "Static build should create a GitHub Pages .nojekyll marker");
 assert.strictEqual(buildScript.includes("scheduled_update.log"), false, "Static build should not publish local scheduler logs");
 
 console.log("deploy config tests passed");

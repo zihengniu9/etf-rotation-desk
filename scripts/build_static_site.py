@@ -32,6 +32,7 @@ def main() -> int:
     for name in ["index.html", "web"]:
         copy_path(name)
     copy_outputs()
+    (DIST / ".nojekyll").touch()
     return 0
 
 
