@@ -15,18 +15,20 @@ Each run:
 3. Runs the Python and web checks.
 4. Commits refreshed `outputs/` so historical curve records are preserved.
 5. Builds `dist/` with `index.html`, `web/`, and `outputs/`.
-6. Deploys `dist/` to Netlify production.
+6. Uploads `dist/` as a GitHub Pages artifact.
+7. Publishes the artifact to the public `github-pages` environment.
 
-To use it:
+One-time setup:
 
-1. Create or link a Netlify site.
-2. Add GitHub repository secrets:
-   - `NETLIFY_AUTH_TOKEN`
-   - `NETLIFY_SITE_ID`
-3. Push the repository to GitHub.
-4. Run the workflow manually once from the Actions tab, or wait for the next trading-hours slot.
+1. Open repository `Settings > Pages`.
+2. Under `Build and deployment`, set `Source` to `GitHub Actions`.
+3. Run `Update ETF data` manually once from the Actions tab.
 
-The public page root redirects to `/web/`.
+Public URL: `https://zihengniu9.github.io/etf-rotation-desk/web/`
+
+The repository, dashboard, and generated CSV files are public. GitHub Secrets
+are not copied into the static artifact. The public page root redirects to
+`./web/` so it works under the repository path used by GitHub Pages.
 
 ## Local Windows schedule
 
