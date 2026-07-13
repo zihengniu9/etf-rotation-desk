@@ -24,25 +24,19 @@ assert.ok(workflow.includes("python run_etf_selector.py"), "Workflow should refr
 assert.ok(workflow.includes("git add outputs"), "Workflow should persist updated output history");
 assert.ok(workflow.includes("git push"), "Workflow should push refreshed outputs before deployment");
 assert.ok(workflow.includes("contents: write"), "Workflow needs permission to commit refreshed outputs");
-assert.ok(workflow.includes("python scripts/build_static_site.py"), "Workflow should build the Netlify publish directory");
-assert.ok(workflow.includes("NETLIFY_AUTH_TOKEN"), "Workflow should read the Netlify auth token secret");
-assert.ok(workflow.includes("NETLIFY_SITE_ID"), "Workflow should provide the Netlify site id");
-assert.ok(workflow.includes("c4178e20-01e7-495b-b765-589b07fc93c4"), "Workflow should default to the production Netlify site");
-assert.strictEqual(workflow.includes("secrets.NETLIFY_SITE_ID"), false, "Workflow should not let a stale GitHub secret override the production Netlify site id");
-assert.ok(workflow.includes("netlify-cli@latest deploy"), "Workflow should deploy the static artifact with Netlify CLI");
-assert.ok(workflow.includes("--prod"), "Workflow should publish refreshed data to production");
-assert.ok(workflow.includes("--dir=dist"), "Workflow should deploy the generated dist directory");
-assert.ok(workflow.includes("Missing Netlify secrets"), "Workflow should fail loudly when Netlify secrets are missing");
-assert.ok(workflow.includes("Verify Netlify API access"), "Workflow should verify Netlify access before deployment");
-assert.ok(workflow.includes("https://api.netlify.com/api/v1/user"), "Workflow should validate the Netlify token identity");
-assert.ok(
-  workflow.includes("https://api.netlify.com/api/v1/sites/$NETLIFY_SITE_ID"),
-  "Workflow should validate access to the production Netlify site",
-);
-assert.ok(
-  workflow.includes('Authorization: Bearer $NETLIFY_AUTH_TOKEN'),
-  "Workflow should authenticate Netlify API preflight requests without exposing the token",
-);
+assert.ok(workflow.includes("python scripts/build_static_site.py"), "Workflow should build the Pages artifact");
+assert.ok(workflow.includes("pages: write"), "Pages deployment needs pages write permission");
+assert.ok(workflow.includes("id-token: write"), "Pages deployment needs an OIDC token");
+assert.ok(workflow.includes("actions/configure-pages@v5"), "Workflow should configure GitHub Pages");
+assert.ok(workflow.includes("actions/upload-pages-artifact@v4"), "Workflow should upload the Pages artifact");
+assert.ok(workflow.includes("path: dist"), "Workflow should upload only the generated dist directory");
+assert.ok(workflow.includes("needs: update-data"), "Pages deployment should wait for the verified build");
+assert.ok(workflow.includes("name: github-pages"), "Workflow should use the GitHub Pages environment");
+assert.ok(workflow.includes("actions/deploy-pages@v5"), "Workflow should publish with the official Pages action");
+assert.strictEqual(workflow.includes("NETLIFY_AUTH_TOKEN"), false, "Workflow should not require a Netlify token");
+assert.strictEqual(workflow.includes("NETLIFY_SITE_ID"), false, "Workflow should not target a Netlify site");
+assert.strictEqual(workflow.includes("api.netlify.com"), false, "Workflow should not call the Netlify API");
+assert.strictEqual(workflow.includes("netlify-cli"), false, "Workflow should not run Netlify CLI");
 
 const updateScript = read("scripts/update_etf_data.ps1");
 assert.ok(updateScript.includes("run_etf_selector.py"), "Local scheduled update should call the ETF runner");

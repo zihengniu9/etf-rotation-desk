@@ -9,20 +9,16 @@ on:
     - cron: "0 7 * * 1-5"
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 concurrency:
   group: etf-dashboard
   cancel-in-progress: false
 
 jobs:
   update-data:
+    permissions:
+      contents: write
+      pages: write
     runs-on: ubuntu-latest
-    env:
-      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      NETLIFY_SITE_ID: c4178e20-01e7-495b-b765-589b07fc93c4
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -60,71 +56,27 @@ jobs:
             git push
           fi
 
-      - name: Build Netlify artifact
+      - name: Build GitHub Pages artifact
         run: python scripts/build_static_site.py
 
-      - name: Check Netlify deployment secrets
-        run: |
-          if [ -z "$NETLIFY_AUTH_TOKEN" ]; then
-            echo "::error::Missing Netlify secrets. Set NETLIFY_AUTH_TOKEN in GitHub repository secrets so scheduled data updates can publish to Netlify."
-            exit 1
-          fi
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
 
-      - name: Verify Netlify API access
-        run: |
-          set -euo pipefail
-          user_response="$RUNNER_TEMP/netlify-user.json"
-          site_response="$RUNNER_TEMP/netlify-site.json"
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
 
-          user_status="$(curl --silent --show-error \
-            --connect-timeout 10 --max-time 30 \
-            --output "$user_response" --write-out "%{http_code}" \
-            --header "Authorization: Bearer $NETLIFY_AUTH_TOKEN" \
-            --header "Accept: application/json" \
-            "https://api.netlify.com/api/v1/user")"
-          site_status="$(curl --silent --show-error \
-            --connect-timeout 10 --max-time 30 \
-            --output "$site_response" --write-out "%{http_code}" \
-            --header "Authorization: Bearer $NETLIFY_AUTH_TOKEN" \
-            --header "Accept: application/json" \
-            "https://api.netlify.com/api/v1/sites/$NETLIFY_SITE_ID")"
-
-          echo "Netlify user endpoint HTTP $user_status"
-          echo "Netlify site endpoint HTTP $site_status"
-          python - "$user_status" "$site_status" "$user_response" "$site_response" "$NETLIFY_SITE_ID" <<'PY'
-          import json
-          import sys
-
-          user_status, site_status, user_path, site_path, expected_site_id = sys.argv[1:]
-
-          def read_payload(path):
-              try:
-                  with open(path, encoding="utf-8") as handle:
-                      return json.load(handle)
-              except (OSError, ValueError):
-                  return {}
-
-          user = read_payload(user_path)
-          site = read_payload(site_path)
-
-          if user_status != "200":
-              message = user.get("message") or user.get("error") or "Netlify rejected the token"
-              print(f"::error::Netlify token identity failed with HTTP {user_status}: {message}")
-              raise SystemExit(1)
-
-          print(f"Netlify user: {user.get('email', 'unknown')}")
-
-          if site_status != "200":
-              message = site.get("message") or site.get("error") or "Netlify rejected site access"
-              print(f"::error::Netlify site access failed with HTTP {site_status}: {message}")
-              raise SystemExit(1)
-
-          actual_site_id = str(site.get("id") or site.get("site_id") or "")
-          print(f"Netlify site: {site.get('name', 'unknown')} ({actual_site_id or 'unknown'})")
-          if actual_site_id != expected_site_id:
-              print(f"::error::Netlify returned unexpected site id: {actual_site_id or 'missing'}")
-              raise SystemExit(1)
-          PY
-
-      - name: Deploy to Netlify
-        run: npx -y netlify-cli@latest deploy --prod --dir=dist --site="$NETLIFY_SITE_ID" --auth="$NETLIFY_AUTH_TOKEN"
+  deploy-pages:
+    needs: update-data
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
