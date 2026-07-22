@@ -4,6 +4,7 @@ import pandas as pd
 
 from low_buy_selector.etf_cli import (
     apply_realtime_quotes_to_histories,
+    align_latest_curve_to_positions,
     filter_backtest_pool,
     filter_trade_ledger_from_date,
     latest_curve_date,
@@ -148,6 +149,55 @@ class ETFCLITests(unittest.TestCase):
         self.assertEqual(merged["action"].tolist(), ["BUY", "BUY", "SELL", "BUY"])
         self.assertAlmostEqual(float(merged.iloc[-1]["cash_after"]), 0.22)
 
+    def test_merge_trade_ledger_rows_closes_preserved_position_with_fresh_exit_signal(self):
+        existing = pd.DataFrame(
+            [
+                {
+                    "date": "2026-05-06",
+                    "action": "BUY",
+                    "code": "588200",
+                    "name": "Chip ETF",
+                    "theme": "chip",
+                    "price": 3.26,
+                    "shares": 0.23346574,
+                    "value": 0.76109833,
+                    "cost_basis": 0.76109833,
+                    "cash_after": 0.0,
+                }
+            ]
+        )
+        fresh = pd.DataFrame(
+            [
+                {
+                    "date": "2026-07-17",
+                    "action": "SELL",
+                    "code": "588200",
+                    "name": "Chip ETF",
+                    "theme": "chip",
+                    "price": 3.746,
+                    "shares": 0.18950360,
+                    "value": 0.70988047,
+                    "fee": 0.0,
+                    "stamp_tax": 0.0,
+                    "cost_basis": 0.61778173,
+                    "realized_pnl": 0.09209875,
+                    "realized_return": 0.14908,
+                    "reason": "two closes below MA30",
+                    "cash_after": 0.70988047,
+                    "equity_after": 0.70988047,
+                }
+            ]
+        )
+
+        merged = merge_trade_ledger_rows(existing, fresh)
+        sell = merged.iloc[-1]
+
+        self.assertAlmostEqual(float(sell["shares"]), 0.23346574)
+        self.assertAlmostEqual(float(sell["value"]), 0.23346574 * 3.746)
+        self.assertAlmostEqual(float(sell["cost_basis"]), 0.76109833)
+        self.assertAlmostEqual(float(sell["equity_after"]), float(sell["cash_after"]))
+        self.assertTrue(align_positions_to_trade_ledger(merged, pd.DataFrame()).empty)
+
     def test_recalculate_trade_cash_after_uses_merged_trade_values(self):
         trades = pd.DataFrame(
             [
@@ -227,6 +277,29 @@ class ETFCLITests(unittest.TestCase):
         self.assertAlmostEqual(float(aligned.iloc[0]["entry_price"]), 3.26, places=2)
         self.assertAlmostEqual(float(aligned.iloc[0]["last_price"]), 4.5)
         self.assertAlmostEqual(float(aligned.iloc[0]["market_value"]), 0.23346574 * 4.5)
+
+    def test_align_latest_curve_clears_stale_values_from_final_exit_date(self):
+        curve = pd.DataFrame(
+            [
+                {"date": "2026-07-16", "equity": 1.08, "cash": 0.5, "position_value": 0.58, "exposure": 0.537, "total_return": 0.08, "drawdown": 0.0, "positions": "588200"},
+                {"date": "2026-07-17", "equity": 1.07, "cash": 0.9, "position_value": 0.17, "exposure": 0.159, "total_return": 0.07, "drawdown": -0.01, "positions": "588200"},
+                {"date": "2026-07-20", "equity": 1.06, "cash": 0.9, "position_value": 0.16, "exposure": 0.151, "total_return": 0.06, "drawdown": -0.02, "positions": "588200"},
+            ]
+        )
+        trades = pd.DataFrame(
+            [
+                {"date": "2026-05-06", "action": "BUY", "code": "588200", "shares": 1.0, "value": 0.5, "cash_after": 0.5},
+                {"date": "2026-07-17", "action": "SELL", "code": "588200", "shares": 1.0, "value": 0.6, "cash_after": 1.1},
+            ]
+        )
+
+        aligned = align_latest_curve_to_positions(curve, trades, pd.DataFrame())
+        after_exit = aligned.loc[aligned["date"] >= "2026-07-17"]
+
+        self.assertEqual(after_exit["equity"].tolist(), [1.1, 1.1])
+        self.assertEqual(after_exit["cash"].tolist(), [1.1, 1.1])
+        self.assertEqual(after_exit["position_value"].tolist(), [0.0, 0.0])
+        self.assertEqual(after_exit["positions"].tolist(), ["", ""])
 
     def test_latest_curve_date_uses_last_backtest_row(self):
         curve = pd.DataFrame([{"date": "2026-07-01"}, {"date": "2026-07-02"}])

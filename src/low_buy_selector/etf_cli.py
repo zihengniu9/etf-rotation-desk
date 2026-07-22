@@ -305,6 +305,7 @@ def merge_trade_ledger_rows(
 
     columns = list(dict.fromkeys([*fresh.columns.tolist(), *existing.columns.tolist()]))
     existing_filtered = filter_trade_ledger_from_date(existing.reindex(columns=columns), min_date)
+    existing_filtered = normalize_full_exit_trade_rows(existing_filtered)
     fresh_filtered = filter_trade_ledger_from_date(fresh.reindex(columns=columns), min_date)
     if "date" not in columns or existing_filtered.empty:
         return fresh_filtered.reset_index(drop=True).reindex(columns=columns)
@@ -353,18 +354,31 @@ def recalculate_trade_cash_after(trades: pd.DataFrame, initial_cash: float | Non
 
     frame = trades.copy().reset_index(drop=True)
     cash = _infer_initial_cash(frame) if initial_cash is None else float(initial_cash)
+    holdings: dict[str, float] = {}
     for index, row in frame.iterrows():
         action = str(row.get("action", "")).upper()
+        code = str(row.get("code", "")).strip().zfill(6)
+        shares = _to_float(row.get("shares", 0.0))
         value = _to_float(row.get("value", 0.0))
         fee = _to_float(row.get("fee", 0.0))
         stamp_tax = _to_float(row.get("stamp_tax", 0.0))
         if action == "BUY":
             cash -= value + fee + stamp_tax
+            if code and shares > 0:
+                holdings[code] = holdings.get(code, 0.0) + shares
         elif action == "SELL":
             cash += value - fee - stamp_tax
+            if code and shares > 0:
+                remaining = holdings.get(code, 0.0) - shares
+                if remaining > 0.000001:
+                    holdings[code] = remaining
+                else:
+                    holdings.pop(code, None)
         else:
             continue
         frame.at[index, "cash_after"] = round(cash, 8)
+        if not holdings and "equity_after" in frame.columns:
+            frame.at[index, "equity_after"] = round(cash, 8)
     return frame
 
 
@@ -396,6 +410,7 @@ def filter_appendable_trade_rows(
         return fresh.copy().reset_index(drop=True)
 
     holdings: dict[str, float] = {}
+    cost_bases: dict[str, float] = {}
     themes: dict[str, str] = {}
     if not existing.empty and not {"action", "code", "shares"}.difference(existing.columns):
         for _, row in existing.reset_index(drop=True).iterrows():
@@ -406,15 +421,20 @@ def filter_appendable_trade_rows(
                 continue
             if action == "BUY":
                 holdings[code] = holdings.get(code, 0.0) + shares
+                cost_bases[code] = cost_bases.get(code, 0.0) + _row_cost_basis(row)
                 themes[code] = _metadata_theme(row)
             elif action == "SELL":
                 current = holdings.get(code, 0.0)
+                sell_ratio = min(1.0, shares / current) if current > tolerance else 0.0
                 holdings[code] = current - shares
+                cost_bases[code] = cost_bases.get(code, 0.0) * (1.0 - sell_ratio)
                 if abs(holdings[code]) <= tolerance:
                     holdings.pop(code, None)
+                    cost_bases.pop(code, None)
                     themes.pop(code, None)
 
     keep_indexes: list[int] = []
+    normalized = fresh.copy()
     fresh_ordered = fresh.reset_index(drop=False).rename(columns={"index": "_source_index"})
     if "date" in fresh_ordered.columns:
         fresh_ordered["_ledger_date"] = pd.to_datetime(fresh_ordered["date"], errors="coerce")
@@ -437,19 +457,76 @@ def filter_appendable_trade_rows(
                 continue
             keep_indexes.append(source_index)
             holdings[code] = holdings.get(code, 0.0) + shares
+            cost_bases[code] = cost_bases.get(code, 0.0) + _row_cost_basis(row)
             themes[code] = theme
         elif action == "SELL":
             current = holdings.get(code, 0.0)
-            if shares > current + tolerance:
+            if current <= tolerance:
                 continue
+            if abs(shares - current) > tolerance:
+                _normalize_exit_row(normalized, source_index, row, current, cost_bases.get(code, 0.0))
             keep_indexes.append(source_index)
-            holdings[code] = current - shares
-            if abs(holdings[code]) <= tolerance:
-                holdings.pop(code, None)
-                themes.pop(code, None)
+            holdings.pop(code, None)
+            cost_bases.pop(code, None)
+            themes.pop(code, None)
         else:
             keep_indexes.append(source_index)
-    return fresh.loc[keep_indexes].copy().reset_index(drop=True)
+    return normalized.loc[keep_indexes].copy().reset_index(drop=True)
+
+
+def normalize_full_exit_trade_rows(trades: pd.DataFrame, tolerance: float = 0.000001) -> pd.DataFrame:
+    if trades.empty or {"action", "code", "shares"}.difference(trades.columns):
+        return trades.copy().reset_index(drop=True)
+
+    normalized = trades.copy().reset_index(drop=True)
+    holdings: dict[str, float] = {}
+    cost_bases: dict[str, float] = {}
+    for index, row in normalized.iterrows():
+        code = str(row.get("code", "")).strip().zfill(6)
+        action = str(row.get("action", "")).upper()
+        shares = _to_float(row.get("shares", 0.0))
+        if not code or shares <= 0:
+            continue
+        if action == "BUY":
+            holdings[code] = holdings.get(code, 0.0) + shares
+            cost_bases[code] = cost_bases.get(code, 0.0) + _row_cost_basis(row)
+        elif action == "SELL" and holdings.get(code, 0.0) > tolerance:
+            if abs(shares - holdings[code]) > tolerance:
+                _normalize_exit_row(normalized, index, row, holdings[code], cost_bases.get(code, 0.0))
+            holdings.pop(code, None)
+            cost_bases.pop(code, None)
+    return normalized
+
+
+def _normalize_exit_row(frame: pd.DataFrame, index: int, row: pd.Series, shares: float, cost_basis: float) -> None:
+    original_shares = _to_float(row.get("shares", 0.0))
+    price = _to_float(row.get("price", 0.0))
+    scale = shares / original_shares if original_shares > 0 else 1.0
+    gross_value = shares * price if price > 0 else _to_float(row.get("value", 0.0)) * scale
+    fee = _to_float(row.get("fee", 0.0)) * scale
+    stamp_tax = _to_float(row.get("stamp_tax", 0.0)) * scale
+    if cost_basis <= 0:
+        cost_basis = _row_cost_basis(row) * scale
+    realized_pnl = gross_value - cost_basis - fee - stamp_tax
+
+    frame.at[index, "shares"] = round(shares, 8)
+    if "value" in frame.columns:
+        frame.at[index, "value"] = round(gross_value, 8)
+    if "fee" in frame.columns:
+        frame.at[index, "fee"] = round(fee, 8)
+    if "stamp_tax" in frame.columns:
+        frame.at[index, "stamp_tax"] = round(stamp_tax, 8)
+    if "cost_basis" in frame.columns:
+        frame.at[index, "cost_basis"] = round(cost_basis, 8)
+    if "realized_pnl" in frame.columns:
+        frame.at[index, "realized_pnl"] = round(realized_pnl, 8)
+    if "realized_return" in frame.columns:
+        frame.at[index, "realized_return"] = round(realized_pnl / cost_basis if cost_basis else 0.0, 6)
+
+
+def _row_cost_basis(row: pd.Series) -> float:
+    cost_basis = _to_float(row.get("cost_basis", 0.0))
+    return cost_basis if cost_basis > 0 else _to_float(row.get("value", 0.0))
 
 
 def _metadata_theme(row: pd.Series) -> str:
@@ -551,13 +628,37 @@ def align_latest_curve_to_positions(curve: pd.DataFrame, trades: pd.DataFrame, p
     if curve.empty:
         return curve.copy()
     aligned = curve.copy().reset_index(drop=True)
-    latest_index = aligned.index[-1]
     cash = _latest_trade_cash(trades)
     position_value = 0.0 if positions.empty else float(pd.to_numeric(positions.get("market_value", pd.Series(dtype=float)), errors="coerce").fillna(0.0).sum())
     equity = cash + position_value
     if equity <= 0:
         return aligned
     initial_equity = _to_float(aligned.iloc[0].get("equity", 1.0)) or 1.0
+
+    if positions.empty and not trades.empty and {"date", "action"}.issubset(trades.columns):
+        ordered_trades = trades.copy().reset_index(drop=True)
+        ordered_trades["_ledger_date"] = pd.to_datetime(ordered_trades["date"], errors="coerce")
+        ordered_trades = ordered_trades.sort_values("_ledger_date", na_position="first")
+        final_trade = ordered_trades.iloc[-1]
+        final_exit_date = final_trade.get("_ledger_date", pd.NaT)
+        if str(final_trade.get("action", "")).upper() == "SELL" and pd.notna(final_exit_date):
+            curve_dates = pd.to_datetime(aligned["date"], errors="coerce")
+            exit_indexes = aligned.index[curve_dates >= final_exit_date]
+            if len(exit_indexes):
+                aligned.loc[exit_indexes, "cash"] = round(cash, 8)
+                aligned.loc[exit_indexes, "position_value"] = 0.0
+                aligned.loc[exit_indexes, "equity"] = round(cash, 8)
+                aligned.loc[exit_indexes, "exposure"] = 0.0
+                aligned.loc[exit_indexes, "total_return"] = round(cash / initial_equity - 1.0, 6)
+                if "positions" in aligned.columns:
+                    aligned.loc[exit_indexes, "positions"] = ""
+                first_exit_index = int(exit_indexes[0])
+                prior_equities = pd.to_numeric(aligned.loc[: first_exit_index - 1, "equity"], errors="coerce").dropna()
+                running_peak = max(float(prior_equities.max()) if not prior_equities.empty else cash, cash)
+                aligned.loc[exit_indexes, "drawdown"] = round(cash / running_peak - 1.0 if running_peak else 0.0, 6)
+                return aligned
+
+    latest_index = aligned.index[-1]
     previous_equities = pd.to_numeric(aligned.loc[:latest_index, "equity"], errors="coerce").fillna(equity)
     running_peak = max(float(previous_equities.max()), equity)
     aligned.loc[latest_index, "cash"] = round(cash, 8)
