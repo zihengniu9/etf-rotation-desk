@@ -1,2 +1,2 @@
 ﻿code,name,theme,fund_size,score,total_return,annual_vol,latest_close,mode,reason,market_strength,defense_threshold
-512800,华宝中证银行ETF,银行,11073654655.95,0.607375,0.119143,0.20284,0.836,attack,top ETF score is above defense threshold,0.607375,0.6
+517180,南方富时中国国企开放共赢ETF,央国企,,0.768577,0.145293,0.194092,1.545,attack,top ETF score is above defense threshold,0.768577,0.6
