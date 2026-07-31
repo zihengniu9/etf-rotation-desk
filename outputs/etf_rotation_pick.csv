@@ -1,2 +1,2 @@
-﻿code,name,theme,fund_size,score,total_return,annual_vol,latest_close,mode,reason,market_strength,defense_threshold
-159021,华夏国证大盘价值ETF,大盘价值,,0.678097,0.109031,0.165676,1.007,attack,top ETF score is above defense threshold,0.678097,0.6
+﻿code,name,theme,score,total_return,annual_vol,fund_size,latest_close,mode,market_strength,defense_threshold,reason
+511880,货币ETF,防守,0.505755,,,,,defense,0.505755,0.6,top ETF score is weak; switch to defense
