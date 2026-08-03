@@ -1,2 +1,2 @@
-﻿code,name,theme,score,total_return,annual_vol,fund_size,latest_close,mode,market_strength,defense_threshold,reason
-511880,货币ETF,防守,0.48107,,,,,defense,0.48107,0.6,top ETF score is weak; switch to defense
+﻿code,name,theme,fund_size,score,total_return,annual_vol,latest_close,mode,reason,market_strength,defense_threshold
+512800,华宝中证银行ETF,银行,10855987037.1,0.607375,0.119143,0.20284,0.836,attack,top ETF score is above defense threshold,0.607375,0.6
