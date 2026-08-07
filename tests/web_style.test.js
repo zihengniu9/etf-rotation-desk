@@ -92,6 +92,15 @@ assert.ok(
   "Hot ETF codes should use dark text",
 );
 assert.ok(
+  /\.backtest-panel\s*\{[^}]*padding:\s*0[^}]*background:\s*transparent/.test(css) &&
+    /\.chart-column\s*\{[^}]*border-radius:\s*22px[^}]*background:\s*var\(--ag-surface-content\)/.test(css),
+  "Backtest area should use the reference two-surface composition",
+);
+assert.ok(
+  /\.layout\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1\.38fr\)/.test(css),
+  "Market modules should use the compact three-column composition",
+);
+assert.ok(
   /\.hot-row\s+span:not\(\.hot-rank\)\s*\{[^}]*font-size:\s*13px/.test(css),
   "Hot ETF names should be readable in the side panel",
 );

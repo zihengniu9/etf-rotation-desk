@@ -2319,6 +2319,503 @@ tbody tr:hover {
   white-space: nowrap;
 }
 
+/* Reference-inspired composition: compact white surfaces on a quiet market backdrop. */
+:root {
+  --ag-radius-panel: 20px;
+  --ag-radius-card: 16px;
+  --ag-shadow-anchor: 0 16px 36px rgb(49 72 99 / 0.1), 0 2px 8px rgb(49 72 99 / 0.04);
+  --ag-shadow-support: 0 10px 24px rgb(49 72 99 / 0.07), 0 2px 6px rgb(49 72 99 / 0.035);
+}
+
+body {
+  background: linear-gradient(180deg, #f8f9fd 0%, #f2f3f8 100%);
+}
+
+body::before {
+  background:
+    linear-gradient(90deg, rgb(37 99 235 / 0.018) 1px, transparent 1px),
+    linear-gradient(180deg, rgb(37 99 235 / 0.015) 1px, transparent 1px);
+  background-size: 72px 72px;
+  opacity: 0.35;
+}
+
+.shell {
+  width: min(1360px, calc(100% - 48px));
+  padding: 20px 0 48px;
+}
+
+.dashboard-tabs {
+  margin-bottom: 18px;
+  padding: 4px;
+  border-radius: 13px;
+  background: rgb(255 255 255 / 0.88);
+  box-shadow: 0 7px 18px rgb(49 72 99 / 0.07);
+}
+
+.dashboard-tab {
+  min-height: 36px;
+  padding: 0 15px;
+  border-radius: 9px;
+}
+
+.topbar {
+  min-height: 68px;
+  padding: 0 0 14px;
+}
+
+.topbar::after {
+  height: 1px;
+  background: linear-gradient(90deg, var(--ag-brand) 0 24%, rgb(180 35 45 / 0.14) 24% 100%);
+}
+
+h1 {
+  font-size: 29px;
+  font-weight: 750;
+}
+
+.eyebrow {
+  margin-bottom: 6px;
+  color: var(--ag-brand);
+  font-size: 10px;
+  letter-spacing: 0;
+}
+
+/* The outer wrapper becomes the gap between the two main surfaces. */
+.backtest-panel {
+  margin: 18px 0 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.backtest-body {
+  --backtest-rail-height: 0px;
+  grid-template-columns: minmax(0, 2fr) minmax(294px, 0.86fr);
+  gap: 16px;
+  height: clamp(470px, 54vh, 590px);
+  min-height: 0;
+  padding: 0;
+}
+
+.chart-column {
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 8px;
+  min-height: 0;
+  padding: 19px 20px 20px;
+  border: 1px solid var(--ag-line);
+  border-radius: 22px;
+  background: var(--ag-surface-content);
+  box-shadow: var(--ag-shadow-anchor);
+}
+
+.curve-banner {
+  padding-bottom: 11px;
+}
+
+.curve-banner span {
+  margin-bottom: 5px;
+  font-size: 10px;
+}
+
+.curve-banner h2 {
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.period-tabs {
+  padding: 3px;
+}
+
+.period-tabs button {
+  min-width: 58px;
+  height: 31px;
+  border-radius: 9px;
+  font-size: 12px;
+}
+
+.backtest-stats {
+  padding: 10px 0 12px;
+}
+
+.backtest-stats div {
+  min-height: 50px;
+  padding: 2px 16px;
+}
+
+.backtest-stats strong {
+  margin-top: 6px;
+  font-size: 21px;
+}
+
+.chart-shell {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 14px;
+  background: #fbfcfe;
+}
+
+#backtest-chart {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.backtest-lists {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 14px;
+  height: 100%;
+  min-height: 0;
+  padding: 18px 18px 16px;
+  border: 1px solid var(--ag-line);
+  border-radius: 22px;
+  background: var(--ag-surface-content);
+  box-shadow: var(--ag-shadow-anchor);
+}
+
+.backtest-lists > div:first-child {
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--ag-line);
+}
+
+.backtest-lists h3 {
+  margin-bottom: 7px;
+  font-size: 13px;
+}
+
+.holding-row,
+.trade-row {
+  padding: 9px 0;
+}
+
+.trade-header {
+  margin-bottom: 2px;
+}
+
+.trade-header span {
+  font-size: 11px;
+}
+
+.trade-row {
+  min-height: 54px;
+}
+
+.hero {
+  margin-bottom: 16px;
+  border-radius: 20px;
+  box-shadow: var(--ag-shadow-anchor);
+}
+
+.pick-block {
+  min-height: 154px;
+  padding: 21px 24px;
+}
+
+.pick-code {
+  margin-top: 7px;
+  font-size: 43px;
+}
+
+.pick-name {
+  margin-top: 8px;
+  font-size: 18px;
+}
+
+.pick-reason {
+  max-width: 720px;
+  margin-top: 10px;
+  padding: 7px 10px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.pick-side-item {
+  min-height: 77px;
+  padding: 16px 20px;
+}
+
+.pick-side-item strong {
+  margin-top: 6px;
+  font-size: 17px;
+}
+
+.pick-theme {
+  margin-top: 6px;
+  padding: 4px 8px;
+}
+
+.layout {
+  --market-panel-height: clamp(410px, 47vh, 540px);
+  grid-template-columns: minmax(0, 1.38fr) minmax(252px, 0.82fr) minmax(252px, 0.82fr);
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.panel {
+  padding: 17px;
+  border-radius: 20px;
+  box-shadow: var(--ag-shadow-support);
+}
+
+.panel-head {
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+}
+
+.panel h2 {
+  font-size: 16px;
+}
+
+.limit-badge {
+  height: 24px;
+  padding: 0 9px;
+  font-size: 11px;
+}
+
+input {
+  height: 36px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.table-wrap {
+  border-radius: 12px;
+}
+
+th,
+td {
+  padding: 10px 11px;
+}
+
+th {
+  font-size: 11px;
+}
+
+.theme-panel .bars,
+.hot-panel .hot-list {
+  overflow-y: auto;
+  scrollbar-color: rgb(180 35 45 / 0.28) transparent;
+  scrollbar-width: thin;
+}
+
+.theme-panel .bar-row {
+  min-height: 30px;
+}
+
+.bar-label {
+  font-size: 13px;
+}
+
+.hot-row {
+  min-height: 42px;
+  padding: 7px 0;
+}
+
+.hot-row strong {
+  font-size: 14px;
+}
+
+.hot-row span:not(.hot-rank),
+.hot-row em {
+  font-size: 11px;
+}
+
+@media (max-width: 1040px) {
+  .backtest-body {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .chart-column {
+    min-height: 500px;
+  }
+
+  .backtest-lists {
+    height: 520px;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+
+  .rank-panel,
+  .theme-panel,
+  .hot-panel {
+    min-height: 420px;
+    height: 420px;
+  }
+}
+
+@media (max-width: 640px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .shell {
+    width: calc(100% - 20px);
+    max-width: 1360px;
+    overflow-x: hidden;
+    padding-top: 14px;
+  }
+
+  .dashboard-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-bottom: 15px;
+    overflow: hidden;
+  }
+
+  .dashboard-tab {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    justify-content: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .topbar {
+    min-height: 64px;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+
+  .backtest-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .backtest-body > *,
+  .hero > *,
+  .layout > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .chart-column {
+    min-height: 420px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    padding: 15px;
+    border-radius: 18px;
+  }
+
+  .curve-banner {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .curve-banner .period-tabs {
+    justify-self: stretch;
+  }
+
+  .period-tabs button {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .backtest-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .backtest-stats div:nth-child(odd) {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .backtest-stats div:nth-child(even) {
+    padding-right: 0;
+  }
+
+  .backtest-lists {
+    height: 500px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 15px;
+    border-radius: 18px;
+  }
+
+  .chart-shell,
+  #backtest-chart {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .hero,
+  .layout {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .table-wrap,
+  .table-wrap.compact {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .hero {
+    border-radius: 18px;
+  }
+
+  .pick-block {
+    min-height: 170px;
+    padding: 20px;
+  }
+
+  .pick-code {
+    font-size: 39px;
+  }
+
+  .pick-name {
+    font-size: 17px;
+  }
+
+  .pick-side-item {
+    min-height: 74px;
+    padding: 15px 20px;
+  }
+
+  .panel {
+    min-height: 0;
+    height: auto;
+    padding: 15px;
+    border-radius: 18px;
+  }
+
+  .rank-panel,
+  .theme-panel,
+  .hot-panel {
+    min-height: 360px;
+    height: 360px;
+  }
+
+  .panel-head {
+    grid-template-columns: 1fr;
+  }
+}
+
 .holding-name {
   display: block;
   overflow: hidden;
