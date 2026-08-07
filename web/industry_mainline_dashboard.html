@@ -466,6 +466,371 @@
       background: linear-gradient(90deg, #f39a93, #981d27);
     }
   </style>
+  <style id="reference-mainline-style">
+    :root {
+      --ink: #171a21;
+      --muted: #6b7280;
+      --line: #e8e8ee;
+      --soft: #f7f7fa;
+      --card: #ffffff;
+      --blue: #5f6877;
+      --blue-soft: #f1f3f7;
+      --red: #c7192e;
+      --red-soft: #fff0f1;
+      --green: #16805f;
+      --shadow: 0 12px 30px rgb(33 40 54 / 0.055);
+    }
+
+    body {
+      color: var(--ink);
+      background: #fafafd;
+      font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    }
+
+    .shell {
+      max-width: 1480px;
+      padding: 26px 28px 48px;
+    }
+
+    .dashboard-tabs {
+      margin-bottom: 20px;
+      padding: 4px;
+      border: 1px solid #ededf2;
+      border-radius: 14px;
+      background: rgb(255 255 255 / 0.92);
+      box-shadow: 0 7px 20px rgb(33 40 54 / 0.055);
+    }
+
+    .dashboard-tab {
+      min-height: 36px;
+      color: #737b89;
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+
+    .dashboard-tab.active,
+    .dashboard-tab:hover {
+      color: var(--red);
+      background: var(--red-soft);
+    }
+
+    .topbar {
+      position: relative;
+      display: block;
+      padding: 27px 30px 29px;
+      margin-bottom: 22px;
+      border: 1px solid #ededf2;
+      border-radius: 20px;
+      background: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .topbar::after {
+      right: 30px;
+      bottom: 0;
+      left: 30px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red) 0 22%, rgb(199 25 46 / 0.12) 22% 72%, rgb(199 25 46 / 0.55) 100%);
+    }
+
+    .eyebrow {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+    }
+
+    h1 {
+      margin: 7px 0 5px;
+      color: var(--ink);
+      font-size: clamp(28px, 3vw, 38px);
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .sample-pill {
+      margin-top: 13px;
+      border: 1px solid #f2c4c8;
+      border-radius: 7px;
+      color: #ad2738;
+      background: var(--red-soft);
+      font-size: 12px;
+    }
+
+    .sample-pill .dot {
+      background: var(--red) !important;
+    }
+
+    .controls {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      padding: 0;
+      margin-bottom: 22px;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .control label {
+      margin-bottom: 7px;
+      color: #4d5665;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+    }
+
+    select,
+    input[type="date"] {
+      height: 48px;
+      border-color: #e6e7ed;
+      border-radius: 12px;
+      padding: 0 14px;
+      color: #343a45;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgb(33 40 54 / 0.025);
+    }
+
+    select:focus,
+    input[type="date"]:focus {
+      border-color: #e59aa3;
+      box-shadow: 0 0 0 3px rgb(199 25 46 / 0.1);
+    }
+
+    .cards {
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .card {
+      border-color: #ededf2;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .kpi {
+      min-height: 116px;
+      padding: 20px 19px 17px;
+    }
+
+    .kpi::after {
+      display: none;
+    }
+
+    .kpi-label {
+      color: #687181;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .kpi-value {
+      margin-top: 7px;
+      color: var(--ink);
+      font-size: 31px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .kpi-note {
+      margin-top: 5px;
+      color: #8a919e;
+      font-size: 11px;
+    }
+
+    .trend-panel {
+      margin-bottom: 18px;
+    }
+
+    .trend-panel .chart-wrap {
+      height: clamp(300px, 31vw, 390px);
+      min-height: 300px;
+      padding-top: 5px;
+    }
+
+    .trend-panel .chart-wrap svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .panel {
+      padding: 21px 22px 17px;
+    }
+
+    .panel-title {
+      color: var(--ink);
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    .panel-desc {
+      color: #7b8492;
+      font-size: 12px;
+    }
+
+    .legend {
+      color: #737d8d;
+    }
+
+    .grid-main {
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .grid-main > .panel .rank-wrap {
+      flex-basis: 335px;
+      height: 335px;
+    }
+
+    .bar-name,
+    .volume-label {
+      color: #4e5867;
+    }
+
+    .bar-track {
+      background: #edf0f4;
+    }
+
+    .bar-fill,
+    .volume-row .bar-fill {
+      background: linear-gradient(90deg, #ef9698, var(--red));
+    }
+
+    .bar-fill.hot,
+    .volume-row .bar-fill.hot {
+      background: linear-gradient(90deg, #e45b67, #a91428);
+    }
+
+    .bar-value {
+      color: #7d8694;
+    }
+
+    table {
+      background: #ffffff;
+    }
+
+    th {
+      color: #707988;
+      background: #fafafd;
+    }
+
+    td {
+      color: #4d5664;
+    }
+
+    .rule-panel {
+      margin-top: 18px !important;
+      padding: 17px;
+    }
+
+    .rule {
+      background: #f7f8fa;
+    }
+
+    .rule-num {
+      color: var(--red);
+    }
+
+    .footnote {
+      color: #8b93a0;
+    }
+
+    @media (max-width: 660px) {
+      html,
+      body {
+        overflow-x: hidden;
+      }
+
+      .shell {
+        width: 100vw;
+        max-width: 100vw;
+        min-width: 0;
+        overflow: hidden;
+        padding: 14px 12px 34px;
+      }
+
+      .topbar {
+        width: 100%;
+        min-width: 0;
+        overflow: hidden;
+        padding: 22px 18px 24px;
+      }
+
+      .topbar > div:first-child {
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      h1 {
+        width: 100%;
+        white-space: normal;
+      }
+
+      .topbar::after {
+        right: 18px;
+        left: 18px;
+      }
+
+      h1,
+      .subtitle {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .sample-pill {
+        max-width: 100%;
+        white-space: normal;
+      }
+
+      .sample-pill span:last-child {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .card,
+      .kpi,
+      .panel,
+      .grid-main,
+      .panel-head {
+        min-width: 0;
+      }
+
+      .kpi-note {
+        white-space: normal;
+        line-height: 1.35;
+      }
+
+      .trend-panel .panel-head {
+        display: block;
+      }
+
+      .trend-panel .legend {
+        justify-content: flex-start;
+        margin-top: 10px;
+      }
+
+      .kpi-value {
+        font-size: 24px;
+      }
+
+      .trend-panel .chart-wrap {
+        height: 300px;
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="shell">
@@ -479,11 +844,6 @@
         <h1>行业资金集中度 · 主线识别器</h1>
         <p class="subtitle">用真实行业成交额、20日放量、当日涨幅和行业扩散度，识别“普通热点”与“可跟踪主线”。</p>
         <div class="sample-pill" id="dataPill"><span class="dot" style="background:#15956d"></span><span>已载入问财真实行情 · 同花顺二级行业指数 · 2025-07-25—2026-08-07</span></div>
-      </div>
-      <div class="actions">
-        <button class="btn" id="downloadBtn">下载 CSV 模板</button>
-        <label class="btn primary" for="fileInput">导入行业 CSV</label>
-        <input class="file-input" id="fileInput" type="file" accept=".csv,text/csv" />
       </div>
     </header>
 
@@ -746,7 +1106,7 @@
       const top = latest.slice(0, 6); const allDates = uniqueDates();
       if (allDates.length < 2) { document.getElementById('lineChart').innerHTML = '<div class="empty">当前真实快照只有 2026-08-05 单日数据；导入多日 CSV 后，这里显示成交占比趋势。</div>'; document.getElementById('lineLegend').innerHTML = ''; return; }
       const W = 780, H = 335, pad = {l: 45, r: 18, t: 18, b: 33}; const iw = W-pad.l-pad.r, ih = H-pad.t-pad.b; const visibleValues = top.filter(r => !hiddenLineIndustries.has(r.industry)).flatMap(r => (byIndustry[r.industry] || []).map(shareOf)); const axisValues = visibleValues.length ? visibleValues : [p.share]; const rawMin = Math.min(...axisValues, p.share); const rawMax = Math.max(...axisValues, p.share); const step = niceStep(Math.max((rawMax - rawMin) / 5, 0.2)); const yMin = Math.max(0, Math.floor((rawMin - step * 0.35) / step) * step); const yMax = Math.ceil((rawMax + step * 0.35) / step) * step; const axisRange = Math.max(step, yMax - yMin); const axisDecimals = step < 1 ? 1 : 0; const x = i => pad.l + i * iw / Math.max(1, allDates.length-1); const y = v => pad.t + (yMax-v) * ih / axisRange;
-      let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="行业成交占比趋势">`;
+      let svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="行业成交占比趋势">`;
       for (let tick=yMin; tick<=yMax + step*0.01; tick+=step) { const value = Number(tick.toFixed(6)); svg += `<line class="gridline" x1="${pad.l}" x2="${W-pad.r}" y1="${y(value)}" y2="${y(value)}"/><text class="axis-label" x="${pad.l-9}" y="${y(value)+3}" text-anchor="end">${value.toFixed(axisDecimals)}%</text>`; }
       svg += `<line x1="${pad.l}" x2="${W-pad.r}" y1="${y(p.share)}" y2="${y(p.share)}" stroke="#e8a0a0" stroke-dasharray="5 5"/><text class="axis-label" x="${W-pad.r-2}" y="${y(p.share)-6}" text-anchor="end" fill="#c26b6b">${p.share}%参考线</text>`;
       const tickIdx = [...new Set([0, Math.floor((allDates.length-1)/2), allDates.length-1])]; tickIdx.forEach(i => svg += `<text class="axis-label" x="${x(i)}" y="${H-10}" text-anchor="${i===0?'start':i===allDates.length-1?'end':'middle'}">${fmtDate(allDates[i])}</text>`);
@@ -776,10 +1136,6 @@
       document.getElementById('detailTable').innerHTML = latest.map((r,i)=>`<tr><td><div class="industry-cell"><span class="rank-index ${i<3?'top':''}">${i+1}</span>${r.industry}</div></td><td>${r.share.toFixed(1)}%</td><td class="${r.ratio>=getParams().ratio?'up':''}">${r.ratio.toFixed(2)}×</td><td class="${r.breadth>=getParams().breadth?'up':'down'}">${r.breadth.toFixed(0)}%</td><td class="${r.excess>=0?'up':'down'}">${r.excess>=0?'+':''}${r.excess.toFixed(1)}%</td><td>${r.passDays}/5</td><td><span class="status ${r.status}">${r.status==='main'?'主线候选':r.status==='watch'?'观察':'普通'}</span></td></tr>`).join('');
     }
     function updateLabels() {}
-    function downloadTemplate() {
-      const text = 'date,industry,turnover,total_turnover,up_count,total_count,return_1d,benchmark_1d,turnover_ratio\n2026-08-05,电子,980,10000,52,80,6.8,2.0,1.8\n2026-08-05,计算机,850,10000,47,75,5.4,2.0,1.6';
-      const blob = new Blob(['\uFEFF' + text], {type:'text/csv;charset=utf-8;'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='industry_flow_template.csv'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href), 300);
-    }
     function renderRanking(latest, p) {
       const rows = sortRows(latest, p); const max = rows[0]?.share || 1;
       document.getElementById('rankDesc').textContent = `${latest[0]?.date || '—'} · ${sortLabel()} · ${rows.length}个行业`;
@@ -806,8 +1162,6 @@
     document.getElementById('detailSortBtn').addEventListener('click', () => { detailReverse = !detailReverse; const button = document.getElementById('detailSortBtn'); button.textContent = detailReverse ? '恢复正序' : '倒序排序'; button.classList.toggle('primary', detailReverse); render(); });
     document.getElementById('dateSelect').addEventListener('change', () => { dateWasSelected = true; render(); });
     document.getElementById('sortSelect').addEventListener('change', render);
-    document.getElementById('downloadBtn').addEventListener('click', downloadTemplate);
-    document.getElementById('fileInput').addEventListener('change', async e => { const file=e.target.files[0]; if(!file) return; try { const rows=parseCSV(await file.text()); if(rows.length<2) throw new Error('没有识别到有效数据行'); data=rows; currentFileName=file.name; dateWasSelected = false; document.getElementById('dataPill').innerHTML='<span class="dot" style="background:#15956d"></span><span>已载入 '+file.name+' · 可随时重新导入</span>'; render(); } catch(err) { alert('CSV 导入失败：'+err.message); } e.target.value=''; });
     function arrangePanels() {
       const grid = document.querySelector('.grid-main');
       const trend = document.getElementById('lineChart')?.closest('.panel');
@@ -818,7 +1172,7 @@
       grid.insertBefore(funds, grid.firstChild);
       grid.appendChild(volume);
       trend.classList.add('trend-panel');
-      grid.parentNode.insertBefore(trend, table);
+      grid.parentNode.insertBefore(trend, grid);
     }
     async function loadIndustryData() {
       try {
