@@ -1,6 +1,13 @@
 name: Update ETF data
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "web/**"
+      - "scripts/**"
+      - ".github/workflows/update-etf-data.yml"
+      - "requirements.txt"
   schedule:
     # A-share trading hours in Asia/Hong_Kong: 09:30-11:30 and 13:00-15:00.
     - cron: "30 1 * * 1-5"
