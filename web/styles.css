@@ -4630,6 +4630,26 @@ th {
   .backtest-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  /* Keep long ranking tables inside their card and re-center compact hot rows. */
+  .rank-panel,
+  .theme-panel,
+  .hot-panel {
+    overflow: hidden;
+  }
+
+  .rank-panel .table-wrap {
+    height: auto !important;
+    min-height: 0;
+    max-height: none;
+    overflow: auto;
+  }
+
+  .hot-panel .hot-row {
+    height: 100%;
+    top: 0;
+    overflow: visible;
+  }
 }
 
 .trade-row .trade-action {
