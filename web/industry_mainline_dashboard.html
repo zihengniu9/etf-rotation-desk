@@ -831,6 +831,53 @@
       }
     }
   </style>
+  <style id="reference-top-style">
+    .topbar {
+      min-height: 214px;
+      padding: 31px 30px 33px;
+      box-shadow: 0 10px 30px rgb(33 40 54 / 0.045);
+    }
+
+    .topbar::after {
+      display: none;
+    }
+
+    .topbar .eyebrow {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+    }
+
+    .topbar h1 {
+      max-width: 900px;
+      margin-top: 9px;
+      font-size: clamp(30px, 3vw, 40px);
+      line-height: 1.16;
+    }
+
+    .topbar .subtitle {
+      max-width: 560px;
+      margin-top: 10px;
+      line-height: 1.55;
+    }
+
+    .topbar .sample-pill {
+      margin-top: 16px;
+      border-color: #f0b6bd;
+      background: #fce4e6;
+    }
+
+    @media (max-width: 660px) {
+      .topbar {
+        min-height: 0;
+        padding: 24px 18px 26px;
+      }
+
+      .topbar h1 {
+        font-size: 28px;
+        line-height: 1.25;
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="shell">
