@@ -881,6 +881,82 @@
       }
     }
   </style>
+  <style id="local-visual-tuning">
+    .title-suffix {
+      display: inline-block;
+      margin-left: 8px;
+      color: #687383;
+      font-size: 0.48em;
+      font-weight: 650;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .card {
+      background: #fcfcff;
+      border-color: rgb(68 84 105 / 0.1);
+      box-shadow: 0 6px 20px rgb(33 40 54 / 0.022);
+    }
+
+    select,
+    input[type="date"] {
+      border-color: rgb(68 84 105 / 0.1);
+      background: #fbfbfe;
+      box-shadow: none;
+    }
+
+    .kpi-value {
+      font-size: 34px;
+    }
+
+    .chart-wrap,
+    .trend-panel .chart-wrap {
+      border: 0 !important;
+      border-radius: 0;
+      padding: 0;
+      background: transparent;
+    }
+
+    .trend-panel .chart-wrap {
+      height: auto;
+      min-height: 0;
+      aspect-ratio: 960 / 360;
+    }
+
+    .trend-panel .chart-wrap svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .gridline {
+      stroke: rgb(68 84 105 / 0.075);
+      stroke-width: 1;
+    }
+
+    .axis-label {
+      fill: #7d8796;
+      font-size: 11px;
+      font-variant-numeric: tabular-nums lining-nums;
+    }
+
+    @media (max-width: 660px) {
+      .title-suffix {
+        display: block;
+        margin: 6px 0 0;
+        font-size: 15px;
+      }
+
+      .kpi-value {
+        font-size: 28px;
+      }
+
+      .trend-panel .chart-wrap {
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 960 / 360;
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="shell">
@@ -890,10 +966,10 @@
     </nav>
     <header class="topbar">
       <div>
-        <div class="eyebrow">A-SHARE · FLOW CONCENTRATION</div>
-        <h1>行业资金集中度 · 主线识别器</h1>
-        <p class="subtitle">用真实行业成交额、20日放量、当日涨幅和行业扩散度，识别“普通热点”与“可跟踪主线”。</p>
-        <div class="sample-pill" id="dataPill"><span class="dot" style="background:#15956d"></span><span>已载入问财真实行情 · 同花顺二级行业指数 · 2025-07-25—2026-08-07</span></div>
+        <div class="eyebrow">A股 · 资金集中度</div>
+        <h1>行业资金集中度 <span class="title-suffix">主线识别器</span></h1>
+        <p class="subtitle">跟踪板块资金流向、20日动量和成交量扩张，以识别主线逻辑和新兴主题。</p>
+        <div class="sample-pill" id="dataPill"><span class="dot" style="background:#15956d"></span><span>历史快照激活：2025-07-25 — 2026-08-07</span></div>
       </div>
     </header>
 
@@ -903,9 +979,9 @@
         <select id="dateSelect"></select>
       </div>
       <div class="control">
-        <label for="sortSelect">行业视图</label>
+        <label for="sortSelect">关注板块</label>
         <select id="sortSelect">
-          <option value="share">全部行业 · 按成交占比排序</option>
+          <option value="share">所有板块 · 按资金集中度排序</option>
           <option value="ratio">放量增长行业 · 按倍数排序</option>
           <option value="main">主线优先</option>
         </select>
@@ -939,7 +1015,7 @@
 
     <article class="card panel">
         <div class="panel-head">
-          <div><h2 class="panel-title">成交占比趋势</h2><p class="panel-desc">虚线为8%参考线；放量倍数=当日成交额÷近20日平均成交额。</p></div>
+          <div><h2 class="panel-title">板块强势趋势</h2><p class="panel-desc">成交占比趋势，虚线为当前参考线；放量倍数为当日成交额÷近20日平均成交额。</p></div>
           <div class="legend" id="lineLegend"></div>
         </div>
         <div class="chart-wrap" id="lineChart"></div>
@@ -1155,16 +1231,17 @@
       hideLineTip();
       const top = latest.slice(0, 6); const allDates = uniqueDates();
       if (allDates.length < 2) { document.getElementById('lineChart').innerHTML = '<div class="empty">当前真实快照只有 2026-08-05 单日数据；导入多日 CSV 后，这里显示成交占比趋势。</div>'; document.getElementById('lineLegend').innerHTML = ''; return; }
-      const W = 780, H = 335, pad = {l: 45, r: 18, t: 18, b: 33}; const iw = W-pad.l-pad.r, ih = H-pad.t-pad.b; const visibleValues = top.filter(r => !hiddenLineIndustries.has(r.industry)).flatMap(r => (byIndustry[r.industry] || []).map(shareOf)); const axisValues = visibleValues.length ? visibleValues : [p.share]; const rawMin = Math.min(...axisValues, p.share); const rawMax = Math.max(...axisValues, p.share); const step = niceStep(Math.max((rawMax - rawMin) / 5, 0.2)); const yMin = Math.max(0, Math.floor((rawMin - step * 0.35) / step) * step); const yMax = Math.ceil((rawMax + step * 0.35) / step) * step; const axisRange = Math.max(step, yMax - yMin); const axisDecimals = step < 1 ? 1 : 0; const x = i => pad.l + i * iw / Math.max(1, allDates.length-1); const y = v => pad.t + (yMax-v) * ih / axisRange;
-      let svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="行业成交占比趋势">`;
+      const W = 960, H = 360, pad = {l: 56, r: 24, t: 18, b: 38}; const iw = W-pad.l-pad.r, ih = H-pad.t-pad.b; const visibleValues = top.filter(r => !hiddenLineIndustries.has(r.industry)).flatMap(r => (byIndustry[r.industry] || []).map(shareOf)); const axisValues = visibleValues.length ? visibleValues : [p.share]; const rawMin = Math.min(...axisValues, p.share); const rawMax = Math.max(...axisValues, p.share); const step = niceStep(Math.max((rawMax - rawMin) / 5, 0.2)); const yMin = Math.max(0, Math.floor((rawMin - step * 0.35) / step) * step); const yMax = Math.ceil((rawMax + step * 0.35) / step) * step; const axisRange = Math.max(step, yMax - yMin); const axisDecimals = step < 1 ? 1 : 0; const x = i => pad.l + i * iw / Math.max(1, allDates.length-1); const y = v => pad.t + (yMax-v) * ih / axisRange;
+      let svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="行业成交占比趋势">`;
       for (let tick=yMin; tick<=yMax + step*0.01; tick+=step) { const value = Number(tick.toFixed(6)); svg += `<line class="gridline" x1="${pad.l}" x2="${W-pad.r}" y1="${y(value)}" y2="${y(value)}"/><text class="axis-label" x="${pad.l-9}" y="${y(value)+3}" text-anchor="end">${value.toFixed(axisDecimals)}%</text>`; }
-      svg += `<line x1="${pad.l}" x2="${W-pad.r}" y1="${y(p.share)}" y2="${y(p.share)}" stroke="#e8a0a0" stroke-dasharray="5 5"/><text class="axis-label" x="${W-pad.r-2}" y="${y(p.share)-6}" text-anchor="end" fill="#c26b6b">${p.share}%参考线</text>`;
+      svg += `<line x1="${pad.l}" x2="${W-pad.r}" y1="${y(p.share)}" y2="${y(p.share)}" stroke="#78a58c" stroke-opacity="0.78" stroke-dasharray="5 5"/><text class="axis-label" x="${W-pad.r-2}" y="${y(p.share)-6}" text-anchor="end" fill="#6f967f">${p.share}%参考线</text>`;
       const tickIdx = [...new Set([0, Math.floor((allDates.length-1)/2), allDates.length-1])]; tickIdx.forEach(i => svg += `<text class="axis-label" x="${x(i)}" y="${H-10}" text-anchor="${i===0?'start':i===allDates.length-1?'end':'middle'}">${fmtDate(allDates[i])}</text>`);
       top.forEach((r, si) => {
         if (hiddenLineIndustries.has(r.industry)) return;
         const rows = byIndustry[r.industry]; const pointRows = allDates.map((d,i) => { const row=rows.find(v=>v.date===d); return row ? {i, row} : null; }).filter(Boolean); const points = pointRows.map(v => `${x(v.i)},${y(shareOf(v.row))}`).join(' ');
-        svg += `<polyline fill="none" stroke="${COLORS[si]}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="${points}"/>`;
-        svg += pointRows.map(v => `<circle class="line-point" cx="${x(v.i)}" cy="${y(shareOf(v.row))}" r="4" fill="${COLORS[si]}" data-industry="${r.industry}" data-date="${v.row.date}" data-share="${shareOf(v.row)}"></circle>`).join('');
+        const primary = si < 2;
+        svg += `<polyline fill="none" stroke="${COLORS[si]}" stroke-width="${primary ? 2.2 : 1.7}" stroke-opacity="${primary ? 0.96 : 0.48}" stroke-linecap="round" stroke-linejoin="round" points="${points}"/>`;
+        svg += pointRows.map(v => `<circle class="line-point" cx="${x(v.i)}" cy="${y(shareOf(v.row))}" r="${primary ? 3.5 : 3}" fill="${COLORS[si]}" fill-opacity="${primary ? 0.78 : 0.38}" data-industry="${r.industry}" data-date="${v.row.date}" data-share="${shareOf(v.row)}"></circle>`).join('');
         const last = rows.find(v => v.date === selected); if (last) svg += `<circle cx="${x(allDates.indexOf(selected))}" cy="${y(shareOf(last))}" r="4" fill="white" stroke="${COLORS[si]}" stroke-width="2"><title>${r.industry} ${shareOf(last).toFixed(1)}%</title></circle>`;
       });
       svg += `<g class="crosshair" style="display:none"><line id="crosshair-v" class="crosshair-line" x1="${pad.l}" x2="${pad.l}" y1="${pad.t}" y2="${pad.t+ih}"/><line id="crosshair-h" class="crosshair-line" x1="${pad.l}" x2="${W-pad.r}" y1="${pad.t+ih}" y2="${pad.t+ih}"/><rect id="crosshair-date-bg" class="crosshair-label-bg" x="${pad.l-32}" y="${H-27}" width="64" height="16" rx="3"/><text id="crosshair-date" class="crosshair-label" x="${pad.l}" y="${H-16}" text-anchor="middle"></text><rect id="crosshair-y-bg" class="crosshair-label-bg" x="0" y="${pad.t}" width="38" height="18" rx="3"/><text id="crosshair-y" class="crosshair-label" x="19" y="${pad.t+13}" text-anchor="middle"></text></g><rect class="chart-hit" x="${pad.l}" y="${pad.t}" width="${iw}" height="${ih}" fill="#fff" fill-opacity="0" pointer-events="all"/>`;
@@ -1243,12 +1320,12 @@
         const isFresh = status?.status === 'success';
         const dotColor = isFresh ? '#2b6f8f' : '#d28a32';
         const message = isFresh
-          ? `已加载自动更新的同花顺二级行业数据 · 数据截至 ${latestDate} · 最近刷新 ${status.attempted_at || '--'}`
-          : `行业数据截至 ${latestDate} · 最近在线刷新未成功，沿用上一版数据`;
+          ? `自动更新 · 数据截至 ${latestDate}`
+          : `数据截至 ${latestDate} · 沿用上一版快照`;
         if (pill) {
           pill.innerHTML = `<span class="dot" style="background:${dotColor}"></span><span></span>`;
           pill.lastElementChild.textContent = message;
-          pill.title = status?.error || '';
+          pill.title = [status?.attempted_at ? `最近尝试刷新：${status.attempted_at}` : '', status?.error || ''].filter(Boolean).join(' · ');
         }
         render();
       } catch (error) {
