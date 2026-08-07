@@ -88,6 +88,10 @@ assert.ok(
   "Hot ETF codes should be prominent enough to scan",
 );
 assert.ok(
+  /\.hot-panel\s+\.hot-row\s+strong\s*\{[^}]*color:\s*var\(--ag-text-primary\)/.test(css),
+  "Hot ETF codes should use dark text",
+);
+assert.ok(
   /\.hot-row\s+span:not\(\.hot-rank\)\s*\{[^}]*font-size:\s*13px/.test(css),
   "Hot ETF names should be readable in the side panel",
 );
