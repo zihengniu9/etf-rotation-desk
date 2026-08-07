@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ETF 轮动看板</title>
-    <link rel="stylesheet" href="./styles.css?v=20260807-right-rail" />
+    <link rel="stylesheet" href="./styles.css?v=20260807-trade-history" />
   </head>
   <body>
     <main class="shell">
@@ -26,6 +26,7 @@
               <div>
                 <span>SIMULATED PORTFOLIO</span>
                 <h2>ETF模拟组合收益曲线</h2>
+                <p class="curve-meta">模拟组合 · 收盘价回测 · 按交易日更新</p>
               </div>
               <div class="period-tabs" id="bt-period-tabs" aria-label="收益区间">
                 <button type="button" data-period="week" aria-pressed="false">周收益</button>
@@ -68,7 +69,6 @@
                 <span>ETF名称</span>
                 <span>日期</span>
                 <span>仓位</span>
-                <span>盈亏</span>
               </div>
               <div id="bt-trades" class="mini-list trades-scroll"></div>
             </div>
@@ -168,6 +168,6 @@
       </section>
     </main>
 
-    <script src="./app.js?v=20260807-trade-code"></script>
+    <script src="./app.js?v=20260807-trade-history"></script>
   </body>
 </html>

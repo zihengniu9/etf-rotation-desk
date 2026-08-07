@@ -239,6 +239,12 @@ assert.ok(
   /\.trade-row\s+\.trade-action\s*\{[^}]*align-self:\s*center/.test(css),
   "BUY and SELL pills should be vertically centered within each trade row",
 );
+assert.ok(
+  /\.holding-summary\s*\{[^}]*justify-items:\s*end/.test(css) &&
+    /\.holding-return\s*\{[^}]*font-size:\s*18px/.test(css) &&
+    /\.holding-allocation\s*\{[^}]*font-size:\s*12px/.test(css),
+  "Holding rows should use the reference code/name and return/allocation structure",
+);
 assert.strictEqual(
   /font-size:\s*[^;]*(clamp\(|vw)/.test(css),
   false,

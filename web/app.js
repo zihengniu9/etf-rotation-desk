@@ -818,19 +818,9 @@
             <strong class="holding-code">${escapeHtml(row.code || "--")}</strong>
             <span class="holding-name">${escapeHtml(row.name || "ETF")}</span>
           </div>
-          <div class="holding-metrics">
-            <div>
-              <span>仓位</span>
-              <strong>${formatPercent(row.weight)}</strong>
-            </div>
-            <div>
-              <span>成本 / 现价</span>
-              <strong>${formatNetValue(row.entry_price)} / ${formatNetValue(row.last_price)}</strong>
-            </div>
-            <div>
-              <span>浮盈</span>
-              <strong class="${toNumber(row.unrealized_return) > 0 ? "positive" : toNumber(row.unrealized_return) < 0 ? "negative" : ""}">${formatSignedPercent(row.unrealized_return)}</strong>
-            </div>
+          <div class="holding-summary">
+            <strong class="holding-return ${toNumber(row.unrealized_return) > 0 ? "positive" : toNumber(row.unrealized_return) < 0 ? "negative" : ""}">${formatSignedPercent(row.unrealized_return)}</strong>
+            <span class="holding-allocation">${formatPercent(row.weight)} 仓位</span>
           </div>
         </div>`,
       )
@@ -852,9 +842,9 @@
         <div class="trade-row">
           <div class="trade-top">
             <span class="trade-action ${row.action === "BUY" ? "action-buy" : "action-sell"}">${escapeHtml(row.action)}</span>
-            <div class="trade-identity" title="${escapeHtml(row.name || row.code)}">
+            <div class="trade-identity" title="${escapeHtml(row.theme || row.name || row.code)}">
               <strong class="trade-code">${escapeHtml(row.code || "--")}</strong>
-              <span class="trade-name">${escapeHtml(row.name || "ETF")}</span>
+              <span class="trade-name">${escapeHtml(row.theme || row.name || "题材")}</span>
             </div>
             <span>${escapeHtml(row.date)}</span>
           </div>
@@ -862,10 +852,6 @@
             <div class="trade-field">
               <span>仓位</span>
               <strong>${formatTradeWeight(row)}</strong>
-            </div>
-            <div class="trade-field">
-              <span>盈亏</span>
-              <strong class="${toNumber(row.realized_return) > 0 ? "positive" : toNumber(row.realized_return) < 0 ? "negative" : ""}">${formatTradeReturn(row)}</strong>
             </div>
           </div>
         </div>`,
