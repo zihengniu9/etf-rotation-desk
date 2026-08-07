@@ -4557,7 +4557,12 @@ th {
 
 .hot-panel .hot-row > * {
   position: relative;
-  top: -5px;
+  top: -6px;
+}
+
+.hot-panel .hot-row {
+  height: calc(100% + 2px);
+  align-self: center;
 }
 
 .trade-row .trade-action {
