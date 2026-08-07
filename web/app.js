@@ -852,7 +852,10 @@
         <div class="trade-row">
           <div class="trade-top">
             <span class="trade-action ${row.action === "BUY" ? "action-buy" : "action-sell"}">${escapeHtml(row.action)}</span>
-            <strong title="${escapeHtml(row.name || row.code)}">${escapeHtml(row.name || row.code)}</strong>
+            <div class="trade-identity" title="${escapeHtml(row.name || row.code)}">
+              <strong class="trade-code">${escapeHtml(row.code || "--")}</strong>
+              <span class="trade-name">${escapeHtml(row.name || "ETF")}</span>
+            </div>
             <span>${escapeHtml(row.date)}</span>
           </div>
           <div class="trade-metrics">

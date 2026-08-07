@@ -2115,10 +2115,40 @@ tbody tr:hover {
 .trade-row .trade-action {
   width: max-content;
   min-width: 48px;
+  align-self: center;
   overflow: visible;
   text-overflow: clip;
   white-space: nowrap;
   justify-self: start;
+}
+
+.trade-identity {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+  justify-items: start;
+}
+
+.trade-code {
+  display: block;
+  overflow: hidden;
+  color: var(--ag-brand-strong) !important;
+  font-size: 13px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trade-name {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--ag-text-secondary) !important;
+  font-size: 11px;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .trades-scroll {

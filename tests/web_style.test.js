@@ -211,6 +211,16 @@ assert.ok(
     /\.holding-name\s*\{[^}]*font-size:\s*12px/.test(css),
   "Holding rows should show the ETF code above the ETF name",
 );
+assert.ok(
+  /\.trade-identity\s*\{[^}]*display:\s*grid/.test(css) &&
+    /\.trade-code\s*\{[^}]*font-size:\s*13px/.test(css) &&
+    /\.trade-name\s*\{[^}]*font-size:\s*11px/.test(css),
+  "Trade rows should show the ETF code above the ETF name",
+);
+assert.ok(
+  /\.trade-row\s+\.trade-action\s*\{[^}]*align-self:\s*center/.test(css),
+  "BUY and SELL pills should be vertically centered within each trade row",
+);
 assert.strictEqual(
   /font-size:\s*[^;]*(clamp\(|vw)/.test(css),
   false,
