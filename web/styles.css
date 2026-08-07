@@ -4557,7 +4557,7 @@ th {
 
 .hot-panel .hot-row > * {
   position: relative;
-  top: -6px;
+  top: 0;
 }
 
 .hot-panel .hot-row {
