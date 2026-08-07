@@ -149,6 +149,15 @@ assert.ok(
   "Trades list should keep its internal scrolling behavior",
 );
 assert.ok(
+  /\.backtest-body\s*\{[^}]*align-items:\s*stretch/.test(css) &&
+    /\.chart-column,\s*\.backtest-lists\s*\{[^}]*height:\s*100%/.test(css),
+  "Chart and holdings/trades rails should share the same bottom edge",
+);
+assert.ok(
+  /\.trades-scroll\s*\{[^}]*max-height:\s*none/.test(css),
+  "Desktop trade scrolling should fill the aligned right rail",
+);
+assert.ok(
   /\.trade-header\s*\{[^}]*grid-template-columns:\s*64px\s+minmax\(0,\s*1fr\)\s+100px\s+66px\s+72px/.test(css),
   "Trade header should align with the one-line trade row columns",
 );

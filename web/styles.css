@@ -2122,7 +2122,44 @@ tbody tr:hover {
 }
 
 .trades-scroll {
-  max-height: calc(var(--visible-trades) * 62px);
+  height: auto;
+  max-height: none;
+}
+
+/* Keep the chart shell and the adjacent holdings/trades rail on one bottom edge. */
+.backtest-body {
+  align-items: stretch;
+}
+
+.chart-column,
+.backtest-lists {
+  height: 100%;
+  min-height: 0;
+}
+
+.chart-shell {
+  min-height: 0;
+  max-height: none;
+}
+
+.backtest-lists > div:last-child,
+.backtest-lists .trades-scroll {
+  min-height: 0;
+}
+
+@media (max-width: 1040px) {
+  .chart-column,
+  .backtest-lists {
+    height: auto;
+  }
+
+  .chart-shell {
+    min-height: 360px;
+  }
+
+  .trades-scroll {
+    max-height: calc(var(--visible-trades) * 62px);
+  }
 }
 
 .dashboard-tab:hover {
