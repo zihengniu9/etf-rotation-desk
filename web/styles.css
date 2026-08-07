@@ -4571,6 +4571,67 @@ th {
   gap: 8px;
 }
 
+@media (max-width: 640px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .shell,
+  .backtest-body,
+  .hero,
+  .layout,
+  .panel,
+  .chart-column,
+  .chart-shell,
+  #backtest-chart {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .shell,
+  .backtest-body,
+  .chart-column,
+  .chart-shell {
+    overflow-x: hidden;
+  }
+
+  .dashboard-tabs {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    gap: 3px !important;
+  }
+
+  .dashboard-tab {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 8px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .chart-shell {
+    min-height: 320px;
+  }
+
+  #backtest-chart {
+    display: block;
+    height: auto;
+    aspect-ratio: 2 / 1;
+  }
+
+  .backtest-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .trade-row .trade-action {
   display: flex;
   align-self: center;
