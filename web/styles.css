@@ -4572,3 +4572,28 @@ th {
   justify-content: center;
   line-height: 1;
 }
+
+.pool-table {
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.pool-table th:nth-child(1),
+.pool-table td:nth-child(1) {
+  width: 30%;
+}
+
+.pool-table th:nth-child(2),
+.pool-table td:nth-child(2) {
+  width: 18%;
+}
+
+.pool-table th:nth-child(3),
+.pool-table td:nth-child(3) {
+  width: 52%;
+}
+
+.pool-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

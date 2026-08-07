@@ -913,9 +913,6 @@
           <td>${escapeHtml(row.theme)}</td>
           <td class="code">${escapeHtml(row.code)}</td>
           <td>${escapeHtml(row.name)}</td>
-          <td class="numeric">${formatFundSize(row.fund_size)}</td>
-          <td>${escapeHtml(row.scale_source || row.capacity_source || "")}</td>
-          <td>${escapeHtml(row.fund_type || "")}</td>
         </tr>`,
       )
       .join("");
