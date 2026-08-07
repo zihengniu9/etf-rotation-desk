@@ -4563,6 +4563,8 @@ th {
 .hot-panel .hot-row {
   height: calc(100% + 2px);
   align-self: center;
+  position: relative;
+  top: -3px;
 }
 
 .holding-summary {
