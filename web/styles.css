@@ -4564,7 +4564,7 @@ th {
   height: calc(100% + 2px);
   align-self: center;
   position: relative;
-  top: -3px;
+  top: -6px;
 }
 
 .holding-summary {
