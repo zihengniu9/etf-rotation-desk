@@ -2026,7 +2026,7 @@ tbody tr:hover {
 }
 
 .trade-header {
-  grid-template-columns: 68px minmax(110px, 1.25fr) 92px repeat(2, minmax(62px, 0.82fr));
+  grid-template-columns: 64px minmax(0, 1fr) 100px 66px 72px;
   gap: 9px;
 }
 
@@ -2036,7 +2036,7 @@ tbody tr:hover {
 
 .trade-row {
   display: grid;
-  grid-template-columns: 68px minmax(110px, 1.25fr) 92px repeat(2, minmax(62px, 0.82fr));
+  grid-template-columns: 64px minmax(0, 1fr) 100px 66px 72px;
   grid-template-rows: 1fr;
   gap: 9px;
   min-height: 58px;
@@ -2071,9 +2071,21 @@ tbody tr:hover {
 }
 
 .trade-row > .trade-top > strong {
+  display: block;
   min-width: 0;
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.trade-row .trade-top > span:last-child {
+  min-width: 0;
+  justify-self: end;
+  font-size: 12px;
   white-space: nowrap;
 }
 
@@ -2101,6 +2113,11 @@ tbody tr:hover {
 }
 
 .trade-row .trade-action {
+  width: max-content;
+  min-width: 48px;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
   justify-self: start;
 }
 
@@ -2165,7 +2182,7 @@ tbody tr:hover {
 
   .trade-row .trade-top {
     display: grid;
-    grid-template-columns: 68px minmax(90px, 1fr) auto;
+    grid-template-columns: 64px minmax(0, 1fr) auto;
     gap: 10px;
   }
 

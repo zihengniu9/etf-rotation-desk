@@ -149,7 +149,7 @@ assert.ok(
   "Trades list should keep its internal scrolling behavior",
 );
 assert.ok(
-  /\.trade-header\s*\{[^}]*grid-template-columns:\s*68px\s+minmax\(110px,\s*1\.25fr\)\s+92px\s+repeat\(2,\s*minmax\(62px,\s*0\.82fr\)\)/.test(css),
+  /\.trade-header\s*\{[^}]*grid-template-columns:\s*64px\s+minmax\(0,\s*1fr\)\s+100px\s+66px\s+72px/.test(css),
   "Trade header should align with the one-line trade row columns",
 );
 assert.ok(
@@ -169,7 +169,7 @@ assert.ok(
   "Trade code values should sit on the left edge of their column",
 );
 assert.ok(
-  /\.trade-row\s*\{[^}]*grid-template-columns:\s*68px\s+minmax\(110px,\s*1\.25fr\)\s+92px\s+repeat\(2,\s*minmax\(62px,\s*0\.82fr\)\)/.test(css),
+  /\.trade-row\s*\{[^}]*grid-template-columns:\s*64px\s+minmax\(0,\s*1fr\)\s+100px\s+66px\s+72px/.test(css),
   "Trade rows should keep action, ETF name, date, weight, and P/L on one compact line",
 );
 assert.ok(
