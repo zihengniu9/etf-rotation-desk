@@ -112,19 +112,54 @@ def fetch_summary() -> pd.DataFrame:
     return ak.stock_board_industry_summary_ths()
 
 
+def latest_data_date(frame: pd.DataFrame) -> str | None:
+    if frame.empty or "date" not in frame.columns:
+        return None
+    dates = frame["date"].dropna().astype(str)
+    return dates.max() if not dates.empty else None
+
+
+def write_status(
+    status_path: Path,
+    *,
+    attempted_at: str,
+    status: str,
+    data_as_of: str | None,
+    rows: int,
+    history_days: int,
+    message: str,
+    error: str | None = None,
+) -> None:
+    payload = {
+        "attempted_at": attempted_at,
+        "status": status,
+        "data_as_of": data_as_of,
+        "rows": rows,
+        "history_days": history_days,
+        "message": message,
+    }
+    if error:
+        payload["error"] = error
+    status_path.parent.mkdir(parents=True, exist_ok=True)
+    status_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Refresh the industry mainline dashboard data.")
     parser.add_argument("--html", default="web/industry_mainline_dashboard.html")
     parser.add_argument("--output", default="outputs/industry_flow.csv")
+    parser.add_argument("--status-output", default="outputs/industry_update_status.json")
     parser.add_argument("--refresh", action="store_true")
     args = parser.parse_args(argv)
 
     html_path = Path(args.html)
     output_path = Path(args.output)
+    status_path = Path(args.status_output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     seed = extract_embedded_data(html_path)
     previous = pd.read_csv(output_path) if output_path.exists() else seed
     previous = normalize_rows(previous)
+    attempted_at = datetime.now(RUN_TZ).isoformat(timespec="seconds")
 
     if args.refresh:
         as_of = datetime.now(RUN_TZ).strftime("%Y-%m-%d")
@@ -134,12 +169,41 @@ def main(argv: list[str] | None = None) -> int:
                 raise ValueError("industry summary returned no usable rows")
             merged = merge_snapshot(previous, snapshot)
             print(f"industry_snapshot={as_of} rows={len(snapshot)} history_days={merged['date'].nunique()}")
+            write_status(
+                status_path,
+                attempted_at=attempted_at,
+                status="success",
+                data_as_of=latest_data_date(merged),
+                rows=len(merged),
+                history_days=merged["date"].nunique(),
+                message="行业主线数据已成功刷新",
+            )
         except Exception as exc:
             merged = previous
-            print(f"industry update skipped: {type(exc).__name__}: {exc}")
+            error = f"{type(exc).__name__}: {exc}"
+            print(f"industry update stale: {error}")
+            write_status(
+                status_path,
+                attempted_at=attempted_at,
+                status="stale",
+                data_as_of=latest_data_date(merged),
+                rows=len(merged),
+                history_days=merged["date"].nunique() if not merged.empty else 0,
+                message="在线接口未返回可用数据，沿用上一版行业数据",
+                error=error,
+            )
     else:
         merged = previous
         print(f"industry seed rows={len(merged)} history_days={merged['date'].nunique()}")
+        write_status(
+            status_path,
+            attempted_at=attempted_at,
+            status="seed",
+            data_as_of=latest_data_date(merged),
+            rows=len(merged),
+            history_days=merged["date"].nunique() if not merged.empty else 0,
+            message="当前为内置行业数据快照，尚未执行在线刷新",
+        )
 
     merged.to_csv(output_path, index=False, encoding="utf-8-sig")
     print(f"wrote {output_path}")

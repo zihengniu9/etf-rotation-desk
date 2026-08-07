@@ -544,18 +544,37 @@
     }
     async function loadIndustryData() {
       try {
-        const response = await fetch('../outputs/industry_flow.csv?ts=' + Date.now(), { cache: 'no-store' });
+        const cacheBust = Date.now();
+        const [response, statusResponse] = await Promise.all([
+          fetch('../outputs/industry_flow.csv?ts=' + cacheBust, { cache: 'no-store' }),
+          fetch('../outputs/industry_update_status.json?ts=' + cacheBust, { cache: 'no-store' }),
+        ]);
         if (!response.ok) throw new Error(`industry_flow.csv ${response.status}`);
         const remoteRows = parseCSV(await response.text());
         if (!remoteRows.length) throw new Error('industry_flow.csv has no rows');
+        const status = statusResponse.ok ? await statusResponse.json() : null;
         data = remoteRows;
         currentFileName = 'GitHub Actions 行业数据';
         const pill = document.getElementById('dataPill');
-        if (pill) pill.innerHTML = '<span class="dot" style="background:#15956d"></span><span>已加载自动更新的同花顺二级行业数据 · ' + remoteRows[remoteRows.length - 1].date + '</span>';
+        const latestDate = remoteRows[remoteRows.length - 1].date;
+        const isFresh = status?.status === 'success';
+        const dotColor = isFresh ? '#2b6f8f' : '#d28a32';
+        const message = isFresh
+          ? `已加载自动更新的同花顺二级行业数据 · 数据截至 ${latestDate} · 最近刷新 ${status.attempted_at || '--'}`
+          : `行业数据截至 ${latestDate} · 最近在线刷新未成功，沿用上一版数据`;
+        if (pill) {
+          pill.innerHTML = `<span class="dot" style="background:${dotColor}"></span><span></span>`;
+          pill.lastElementChild.textContent = message;
+          pill.title = status?.error || '';
+        }
         render();
       } catch (error) {
         const pill = document.getElementById('dataPill');
-        if (pill) pill.innerHTML += '<span> · 在线数据暂不可用，当前使用内置快照</span>';
+        if (pill) {
+          pill.innerHTML = '<span class="dot" style="background:#d28a32"></span><span></span>';
+          pill.lastElementChild.textContent = '在线数据暂不可用，当前使用内置快照';
+          pill.title = error.message || String(error);
+        }
         console.warn('Industry data fallback:', error);
       }
     }

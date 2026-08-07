@@ -20,8 +20,9 @@ def copy_path(name: str) -> None:
 def copy_outputs() -> None:
     output_target = DIST / "outputs"
     output_target.mkdir(parents=True, exist_ok=True)
-    for source in sorted((ROOT / "outputs").glob("*.csv")):
-        shutil.copy2(source, output_target / source.name)
+    for pattern in ("*.csv", "*.json"):
+        for source in sorted((ROOT / "outputs").glob(pattern)):
+            shutil.copy2(source, output_target / source.name)
 
 
 def main() -> int:
