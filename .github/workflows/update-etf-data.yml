@@ -4,8 +4,9 @@ on:
   push:
     branches: [main]
     paths:
-      - "web/**"
-      - "scripts/**"
+      - "run_etf_selector.py"
+      - "src/**"
+      - "scripts/update_industry_data.py"
       - ".github/workflows/update-etf-data.yml"
       - "requirements.txt"
   schedule:

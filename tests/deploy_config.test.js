@@ -14,6 +14,7 @@ for (const dependency of ["akshare", "pandas", "numpy", "requests", "openpyxl", 
 }
 
 const workflow = read(".github/workflows/update-etf-data.yml");
+const pagesWorkflow = read(".github/workflows/deploy-pages.yml");
 assert.ok(workflow.includes("30 1 * * 1-5"), "GitHub Actions should run at 09:30 Asia/Hong_Kong on weekdays");
 assert.ok(workflow.includes("0,30 2-3 * * 1-5"), "GitHub Actions should run every 30 minutes during the morning session");
 assert.ok(workflow.includes("0,30 5-6 * * 1-5"), "GitHub Actions should run every 30 minutes during the afternoon session");
@@ -37,6 +38,15 @@ assert.strictEqual(workflow.includes("NETLIFY_AUTH_TOKEN"), false, "Workflow sho
 assert.strictEqual(workflow.includes("NETLIFY_SITE_ID"), false, "Workflow should not target a Netlify site");
 assert.strictEqual(workflow.includes("api.netlify.com"), false, "Workflow should not call the Netlify API");
 assert.strictEqual(workflow.includes("netlify-cli"), false, "Workflow should not run Netlify CLI");
+
+for (const pathPattern of ["web/**", "outputs/**", "scripts/build_static_site.py"]) {
+  assert.ok(pagesWorkflow.includes(`      - \"${pathPattern}\"`), `Pages workflow should deploy when ${pathPattern} changes`);
+}
+assert.ok(pagesWorkflow.includes("python scripts/build_static_site.py"), "Pages workflow should build the static artifact directly");
+assert.ok(pagesWorkflow.includes("actions/configure-pages@v5"), "Pages workflow should configure GitHub Pages");
+assert.ok(pagesWorkflow.includes("actions/upload-pages-artifact@v4"), "Pages workflow should upload the Pages artifact");
+assert.ok(pagesWorkflow.includes("actions/deploy-pages@v5"), "Pages workflow should publish with the official Pages action");
+assert.ok(pagesWorkflow.includes("cancel-in-progress: true"), "Pages workflow should cancel stale deployments");
 
 const updateScript = read("scripts/update_etf_data.ps1");
 assert.ok(updateScript.includes("run_etf_selector.py"), "Local scheduled update should call the ETF runner");
