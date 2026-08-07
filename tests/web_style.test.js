@@ -101,6 +101,11 @@ assert.ok(
   "Market modules should use the compact three-column composition",
 );
 assert.ok(
+  /\.backtest-lists\s*\{[^}]*padding:\s*0[^}]*background:\s*transparent/.test(css) &&
+    /\.backtest-lists\s*>\s*div\s*\{[^}]*border-radius:\s*24px[^}]*background:\s*#ffffff/.test(css),
+  "Holdings and trade history should render as separate rounded cards",
+);
+assert.ok(
   /\.hot-row\s+span:not\(\.hot-rank\)\s*\{[^}]*font-size:\s*13px/.test(css),
   "Hot ETF names should be readable in the side panel",
 );
