@@ -425,6 +425,48 @@
       .kpi { padding: 15px; }
       .kpi-value { font-size: 24px; }
     }
+
+    /* Red brand accents keep the industry view aligned with the ETF desk. */
+    .dashboard-tab:hover,
+    .dashboard-tab.active {
+      color: #981d27;
+      background: #fef3f2;
+    }
+
+    .dashboard-tab.active {
+      border-bottom: 2px solid #b4232d;
+    }
+
+    .topbar::after {
+      background: linear-gradient(90deg, #b4232d 0 24%, rgb(180 35 45 / 0.12) 24% 72%, rgb(180 35 45 / 0.72) 100%);
+    }
+
+    .eyebrow,
+    .rule-num {
+      color: #b4232d;
+    }
+
+    .btn:hover,
+    .btn.primary {
+      border-color: #b4232d;
+      color: #ffffff;
+      background: #b4232d;
+    }
+
+    .btn:hover {
+      color: #981d27;
+      background: #fef3f2;
+    }
+
+    .bar-fill,
+    .volume-row .bar-fill {
+      background: linear-gradient(90deg, #ed817c, #b4232d);
+    }
+
+    .bar-fill.hot,
+    .volume-row .bar-fill.hot {
+      background: linear-gradient(90deg, #f39a93, #981d27);
+    }
   </style>
 </head>
 <body>
@@ -538,7 +580,7 @@
       <div class="rule"><div class="rule-num">02 / 扩散</div><h3>是否从龙头扩散</h3><p>上涨家数占比≥60%，避免把单只龙头的脉冲误判成板块主线。</p></div>
       <div class="rule"><div class="rule-num">03 / 持续</div><h3>是否具有持续性</h3><p>近5日至少3天达标，并且当日相对行业市场基准有正超额涨幅。</p></div>
     </section>
-    <p class="footnote">数据说明：当前嵌入的是问财/同花顺二级行业指数真实日度数据（2025-07-25—2026-08-05，共250个交易日、90个行业）；放量倍数为当日成交额÷此前20个交易日平均成交额，超额涨幅基准为当日90个行业成交额加权平均涨幅。静态 HTML 不会自动刷新。</p>
+    <p class="footnote">数据说明：页面优先加载 GitHub Actions 自动更新的行业数据；若在线数据不可用，则沿用上一版快照。放量倍数为当日成交额÷此前20个交易日平均成交额，超额涨幅基准为当日90个行业成交额加权平均涨幅。</p>
   </main>
   <div class="tip" id="tip"></div>
 
@@ -547,6 +589,7 @@
     const DEFAULTS = { share: 5, ratio: 1.1, breadth: 60, excess: 2 };
     const hiddenLineIndustries = new Set();
     let detailReverse = false;
+    let dateWasSelected = false;
     const industries = ['电子', '计算机', '通信', '电力设备', '有色金属', '机械设备', '医药生物', '非银金融', '食品饮料', '汽车'];
     const dates = Array.from({length: 66}, (_, i) => {
       const d = new Date('2026-05-06T00:00:00'); d.setDate(d.getDate() + i); return d.toISOString().slice(0, 10);
@@ -659,7 +702,8 @@
     }
     function render() {
       const datesNow = uniqueDates(); const select = document.getElementById('dateSelect');
-      const selected = select.value && datesNow.includes(select.value) ? select.value : datesNow[datesNow.length - 1];
+      const latestDate = datesNow[datesNow.length - 1] || '';
+      const selected = dateWasSelected && select.value && datesNow.includes(select.value) ? select.value : latestDate;
       select.innerHTML = datesNow.map(d => `<option value="${d}">${d}</option>`).join(''); select.value = selected;
       const { byIndustry } = enrich(); const p = getParams(); const latest = data.filter(r => r.date === selected).map(r => metricsFor(selected, r.industry, byIndustry, p)).sort((a,b) => b.share - a.share);
       const main = latest.filter(r => r.status === 'main'); const signalRows = latest.filter(r => r.mainlineScore >= 3); const top3 = latest.slice(0, 3).reduce((s, r) => s + r.share, 0); const maxRatio = latest.reduce((m, r) => Math.max(m, r.ratio), 0);
@@ -780,13 +824,13 @@
     }
     document.getElementById('detailSortBtn').addEventListener('click', () => { detailReverse = !detailReverse; const button = document.getElementById('detailSortBtn'); button.textContent = detailReverse ? '恢复正序' : '倒序排序'; button.classList.toggle('primary', detailReverse); render(); });
     document.querySelectorAll('input[type="range"]').forEach(el => el.addEventListener('input', render));
-    document.getElementById('dateSelect').addEventListener('change', render);
+    document.getElementById('dateSelect').addEventListener('change', () => { dateWasSelected = true; render(); });
     document.getElementById('sortSelect').addEventListener('change', render);
     document.getElementById('resetBtn').addEventListener('click', () => { Object.entries(DEFAULTS).forEach(([k,v]) => document.getElementById(k==='share'?'shareRange':k==='ratio'?'ratioRange':k==='breadth'?'breadthRange':'excessRange').value=v); render(); });
     document.getElementById('resetBtn').addEventListener('click', () => { document.getElementById('sortSelect').value='share'; setTimeout(render, 0); });
     document.getElementById('resetBtn').addEventListener('click', () => { detailReverse = false; const button = document.getElementById('detailSortBtn'); button.textContent = '倒序排序'; button.classList.remove('primary'); });
     document.getElementById('downloadBtn').addEventListener('click', downloadTemplate);
-    document.getElementById('fileInput').addEventListener('change', async e => { const file=e.target.files[0]; if(!file) return; try { const rows=parseCSV(await file.text()); if(rows.length<2) throw new Error('没有识别到有效数据行'); data=rows; currentFileName=file.name; document.getElementById('dataPill').innerHTML='<span class="dot" style="background:#15956d"></span><span>已载入 '+file.name+' · 可随时重新导入</span>'; render(); } catch(err) { alert('CSV 导入失败：'+err.message); } e.target.value=''; });
+    document.getElementById('fileInput').addEventListener('change', async e => { const file=e.target.files[0]; if(!file) return; try { const rows=parseCSV(await file.text()); if(rows.length<2) throw new Error('没有识别到有效数据行'); data=rows; currentFileName=file.name; dateWasSelected = false; document.getElementById('dataPill').innerHTML='<span class="dot" style="background:#15956d"></span><span>已载入 '+file.name+' · 可随时重新导入</span>'; render(); } catch(err) { alert('CSV 导入失败：'+err.message); } e.target.value=''; });
     function arrangePanels() {
       const grid = document.querySelector('.grid-main');
       const trend = document.getElementById('lineChart')?.closest('.panel');
@@ -811,6 +855,7 @@
         if (!remoteRows.length) throw new Error('industry_flow.csv has no rows');
         const status = statusResponse.ok ? await statusResponse.json() : null;
         data = remoteRows;
+        dateWasSelected = false;
         currentFileName = 'GitHub Actions 行业数据';
         const pill = document.getElementById('dataPill');
         const latestDate = remoteRows[remoteRows.length - 1].date;

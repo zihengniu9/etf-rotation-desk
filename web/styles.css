@@ -2014,3 +2014,130 @@ tbody tr:hover {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Final polish: one stable trade row and a restrained red brand accent. */
+:root {
+  --ag-brand: #b4232d;
+  --ag-brand-strong: #981d27;
+  --ag-brand-soft: #fef3f2;
+  --ag-brand-line: rgb(180 35 45 / 0.2);
+}
+
+.trade-header {
+  grid-template-columns: 50px minmax(72px, 1fr) 92px repeat(3, minmax(58px, 0.82fr));
+  gap: 9px;
+}
+
+.trade-header span:nth-child(n + 3) {
+  text-align: right;
+}
+
+.trade-row {
+  display: grid;
+  grid-template-columns: 50px minmax(72px, 1fr) 92px repeat(3, minmax(58px, 0.82fr));
+  grid-template-rows: 1fr;
+  gap: 9px;
+  min-height: 58px;
+  padding: 11px 0;
+}
+
+.trade-row .trade-top,
+.trade-row .trade-metrics {
+  display: contents;
+}
+
+.trade-row .trade-field {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  justify-items: end;
+  text-align: right;
+}
+
+.trade-row .trade-field span {
+  display: none;
+}
+
+.trade-row .trade-field strong {
+  font-size: 12.5px;
+}
+
+.trade-row .trade-action {
+  justify-self: start;
+}
+
+.trades-scroll {
+  max-height: calc(var(--visible-trades) * 62px);
+}
+
+.dashboard-tab:hover {
+  color: var(--ag-brand);
+  background: var(--ag-brand-soft);
+}
+
+.dashboard-tab.active {
+  color: var(--ag-brand-strong);
+  border-bottom: 2px solid var(--ag-brand);
+}
+
+.topbar::after {
+  background: linear-gradient(90deg, var(--ag-brand) 0 24%, rgb(180 35 45 / 0.12) 24% 72%, rgb(180 35 45 / 0.72) 100%);
+}
+
+.curve-banner span,
+.period-tabs button.active {
+  color: var(--ag-brand-strong);
+}
+
+.panel h2::before {
+  background: var(--ag-brand);
+}
+
+.limit-badge,
+.hot-rank,
+.hot-badge {
+  border-color: var(--ag-brand-line);
+  background: var(--ag-brand-soft);
+  color: var(--ag-brand-strong);
+}
+
+.bar-fill {
+  background: linear-gradient(90deg, #ed817c, var(--ag-brand));
+}
+
+.bar-fill.hot {
+  background: linear-gradient(90deg, #f39a93, var(--ag-brand-strong));
+}
+
+.trade-row .action-buy {
+  background: var(--ag-brand-soft);
+  color: var(--ag-brand);
+}
+
+@media (max-width: 640px) {
+  .trade-header {
+    display: none;
+  }
+
+  .trade-row {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 7px;
+  }
+
+  .trade-row .trade-top {
+    display: grid;
+    grid-template-columns: 50px minmax(70px, 1fr) auto;
+    gap: 10px;
+  }
+
+  .trade-row .trade-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .trade-row .trade-field span {
+    display: block;
+  }
+}
