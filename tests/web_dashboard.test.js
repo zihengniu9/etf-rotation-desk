@@ -30,6 +30,7 @@ assert.strictEqual(html.includes('增强自适应 · 近一年'), false);
 assert.ok(html.includes('./app.js?v=20260807-layout-fix'));
 assert.ok(html.includes('class="trade-header"'));
 assert.ok(html.indexOf('class="trade-header"') < html.indexOf('id="bt-trades"'));
+assert.strictEqual(html.includes('id="data-status"'), false);
 assert.ok(html.includes('<span>ETF名称</span>'));
 assert.strictEqual(html.includes('<span>成交价</span>'), false);
 assert.strictEqual(html.includes('id="theme-count"'), false);

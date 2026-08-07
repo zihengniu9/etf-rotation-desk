@@ -815,8 +815,8 @@
         (row) => `
         <div class="holding-row ${row.asset_type === "现金" ? "holding-row-cash" : ""}">
           <div class="holding-title">
-            <strong>${escapeHtml(row.code)}</strong>
-            <span>${escapeHtml(row.name)}</span>
+            <strong class="holding-code">${escapeHtml(row.code || "--")}</strong>
+            <span class="holding-name">${escapeHtml(row.name || "ETF")}</span>
           </div>
           <div class="holding-metrics">
             <div>
@@ -978,7 +978,6 @@
   }
 
   async function boot() {
-    const status = document.getElementById("data-status");
     try {
       const [pickRows, rankRows, poolRows, curveRows, tradeRows, positionRows, hotRows, statusRows] = await Promise.all([
         loadCsv(DATA_FILES.pick),
@@ -1002,15 +1001,7 @@
       renderHotList(hotRows);
       bindSearch("rank-search", topRankRows, renderRankTable);
       bindSearch("pool-search", poolRows, renderPoolTable);
-      if (status) {
-        status.textContent = "数据就绪";
-        status.className = "status ok";
-      }
     } catch (error) {
-      if (status) {
-        status.textContent = "加载失败";
-        status.className = "status error";
-      }
       const shell = document.querySelector(".shell");
       if (shell) {
         const message = document.createElement("div");

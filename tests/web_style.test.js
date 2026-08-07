@@ -206,6 +206,11 @@ assert.ok(
   /\.holding-metrics\s*\{[^}]*grid-template-columns:\s*0\.7fr\s+1\.15fr\s+0\.7fr/.test(css),
   "Holding rows should label position, price, and floating return in a readable metric row",
 );
+assert.ok(
+  /\.holding-code\s*\{[^}]*font-size:\s*13px/.test(css) &&
+    /\.holding-name\s*\{[^}]*font-size:\s*12px/.test(css),
+  "Holding rows should show the ETF code above the ETF name",
+);
 assert.strictEqual(
   /font-size:\s*[^;]*(clamp\(|vw)/.test(css),
   false,
