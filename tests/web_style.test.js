@@ -154,6 +154,10 @@ assert.ok(
   "Chart and holdings/trades rails should share the same bottom edge",
 );
 assert.ok(
+  /@media\s*\(min-width:\s*1041px\)[\s\S]*?\.backtest-body\s*\{[^}]*height:\s*clamp\(520px,\s*62vh,\s*680px\)/.test(css),
+  "Desktop backtest panel should use a bounded responsive height",
+);
+assert.ok(
   /\.trades-scroll\s*\{[^}]*max-height:\s*none/.test(css),
   "Desktop trade scrolling should fill the aligned right rail",
 );

@@ -2233,3 +2233,37 @@ tbody tr:hover {
     display: block;
   }
 }
+
+/* Keep the backtest panel compact and let the trade rail scroll inside it. */
+@media (min-width: 1041px) {
+  .backtest-body {
+    height: clamp(520px, 62vh, 680px);
+    min-height: 0;
+  }
+
+  .chart-column,
+  .backtest-lists {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .chart-shell {
+    display: flex;
+    height: 100%;
+    min-height: 0;
+  }
+
+  #backtest-chart {
+    min-height: 0;
+  }
+
+  .backtest-lists > div:last-child {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .trades-scroll {
+    min-height: 0;
+    overflow-y: auto;
+  }
+}
