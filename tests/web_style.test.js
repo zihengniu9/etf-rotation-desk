@@ -141,7 +141,7 @@ assert.ok(
   "Trades list should show about ten records before scrolling",
 );
 assert.ok(
-  /\.trades-scroll\s*\{[^}]*max-height:\s*calc\(var\(--visible-trades\)\s*\*\s*52px\)/.test(css),
+  /\.trades-scroll\s*\{[^}]*max-height:\s*calc\(var\(--visible-trades\)\s*\*\s*62px\)/.test(css),
   "Trades list should cap the initial viewport near ten compact rows",
 );
 assert.ok(
@@ -149,12 +149,12 @@ assert.ok(
   "Trades list should keep its internal scrolling behavior",
 );
 assert.ok(
-  /\.trade-header\s*\{[^}]*grid-template-columns:\s*42px\s+minmax\(56px,\s*0\.72fr\)\s+82px\s+repeat\(3,\s*minmax\(54px,\s*0\.86fr\)\)/.test(css),
+  /\.trade-header\s*\{[^}]*grid-template-columns:\s*68px\s+minmax\(110px,\s*1\.25fr\)\s+92px\s+repeat\(2,\s*minmax\(62px,\s*0\.82fr\)\)/.test(css),
   "Trade header should align with the one-line trade row columns",
 );
 assert.ok(
-  /\.trade-header span\s*\{[^}]*text-align:\s*left/.test(css),
-  "Trade header fields should all align to the left",
+  /\.trade-header span:nth-child\(n \+ 3\)\s*\{[^}]*text-align:\s*right/.test(css),
+  "Trade date and metric headers should align with their values",
 );
 assert.ok(
   /\.trade-row\s*\{[^}]*text-align:\s*left/.test(css),
@@ -169,12 +169,12 @@ assert.ok(
   "Trade code values should sit on the left edge of their column",
 );
 assert.ok(
-  /\.trade-row\s*\{[^}]*grid-template-columns:\s*42px\s+minmax\(56px,\s*0\.72fr\)\s+82px\s+repeat\(3,\s*minmax\(54px,\s*0\.86fr\)\)/.test(css),
-  "Trade rows should keep action, code, date, weight, price, and P/L on one compact line",
+  /\.trade-row\s*\{[^}]*grid-template-columns:\s*68px\s+minmax\(110px,\s*1\.25fr\)\s+92px\s+repeat\(2,\s*minmax\(62px,\s*0\.82fr\)\)/.test(css),
+  "Trade rows should keep action, ETF name, date, weight, and P/L on one compact line",
 );
 assert.ok(
-  /\.trade-row\s*\{[^}]*min-height:\s*44px/.test(css),
-  "Trade rows should use a compact one-line height",
+  /\.trade-row\s*\{[^}]*min-height:\s*58px/.test(css),
+  "Trade rows should use a readable one-line height",
 );
 assert.ok(
   /\.trade-top\s*\{[^}]*display:\s*contents/.test(css) &&

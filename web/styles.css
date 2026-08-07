@@ -2021,10 +2021,12 @@ tbody tr:hover {
   --ag-brand-strong: #981d27;
   --ag-brand-soft: #fef3f2;
   --ag-brand-line: rgb(180 35 45 / 0.2);
+  --ag-info: #b4232d;
+  --ag-info-surface: #fef3f2;
 }
 
 .trade-header {
-  grid-template-columns: 50px minmax(72px, 1fr) 92px repeat(3, minmax(58px, 0.82fr));
+  grid-template-columns: 68px minmax(110px, 1.25fr) 92px repeat(2, minmax(62px, 0.82fr));
   gap: 9px;
 }
 
@@ -2034,7 +2036,7 @@ tbody tr:hover {
 
 .trade-row {
   display: grid;
-  grid-template-columns: 50px minmax(72px, 1fr) 92px repeat(3, minmax(58px, 0.82fr));
+  grid-template-columns: 68px minmax(110px, 1.25fr) 92px repeat(2, minmax(62px, 0.82fr));
   grid-template-rows: 1fr;
   gap: 9px;
   min-height: 58px;
@@ -2060,6 +2062,42 @@ tbody tr:hover {
 
 .trade-row .trade-field strong {
   font-size: 12.5px;
+}
+
+.trade-row > .trade-top > strong,
+.trade-row .trade-field strong,
+.holding-row strong {
+  color: var(--ag-text);
+}
+
+.trade-row > .trade-top > strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trade-row .trade-field strong.positive,
+.holding-row strong.positive {
+  color: var(--ag-up);
+}
+
+.trade-row .trade-field strong.negative,
+.holding-row strong.negative {
+  color: var(--ag-down);
+}
+
+.positive {
+  color: var(--ag-up) !important;
+}
+
+.negative {
+  color: var(--ag-down) !important;
+}
+
+.code,
+.hot-row strong {
+  color: var(--ag-brand-strong);
 }
 
 .trade-row .trade-action {
@@ -2127,13 +2165,13 @@ tbody tr:hover {
 
   .trade-row .trade-top {
     display: grid;
-    grid-template-columns: 50px minmax(70px, 1fr) auto;
+    grid-template-columns: 68px minmax(90px, 1fr) auto;
     gap: 10px;
   }
 
   .trade-row .trade-metrics {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
 

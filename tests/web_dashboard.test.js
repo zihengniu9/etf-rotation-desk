@@ -27,9 +27,11 @@ assert.ok(html.indexOf('class="backtest-stats"') < html.indexOf('class="chart-sh
 assert.ok(html.includes('./styles.css?v=20260807-ag-glass'));
 assert.strictEqual(html.includes('<h2>ETF 模拟交易</h2>'), false);
 assert.strictEqual(html.includes('增强自适应 · 近一年'), false);
-assert.ok(html.includes('./app.js?v=20260704-trades-ten'));
+assert.ok(html.includes('./app.js?v=20260807-trade-name'));
 assert.ok(html.includes('class="trade-header"'));
 assert.ok(html.indexOf('class="trade-header"') < html.indexOf('id="bt-trades"'));
+assert.ok(html.includes('<span>ETF名称</span>'));
+assert.strictEqual(html.includes('<span>成交价</span>'), false);
 assert.strictEqual(html.includes('id="theme-count"'), false);
 assert.strictEqual(html.includes('id="ranked-count"'), false);
 assert.strictEqual(html.includes('id="top-theme"'), false);

@@ -829,7 +829,7 @@
             </div>
             <div>
               <span>浮盈</span>
-              <strong class="${toNumber(row.unrealized_return) > 0 ? "positive" : ""}">${formatSignedPercent(row.unrealized_return)}</strong>
+              <strong class="${toNumber(row.unrealized_return) > 0 ? "positive" : toNumber(row.unrealized_return) < 0 ? "negative" : ""}">${formatSignedPercent(row.unrealized_return)}</strong>
             </div>
           </div>
         </div>`,
@@ -852,7 +852,7 @@
         <div class="trade-row">
           <div class="trade-top">
             <span class="trade-action ${row.action === "BUY" ? "action-buy" : "action-sell"}">${escapeHtml(row.action)}</span>
-            <strong>${escapeHtml(row.code)}</strong>
+            <strong title="${escapeHtml(row.name || row.code)}">${escapeHtml(row.name || row.code)}</strong>
             <span>${escapeHtml(row.date)}</span>
           </div>
           <div class="trade-metrics">
@@ -861,12 +861,8 @@
               <strong>${formatTradeWeight(row)}</strong>
             </div>
             <div class="trade-field">
-              <span>成交价</span>
-              <strong>${formatNetValue(row.price)}</strong>
-            </div>
-            <div class="trade-field">
               <span>盈亏</span>
-              <strong class="${toNumber(row.realized_return) > 0 ? "positive" : ""}">${formatTradeReturn(row)}</strong>
+              <strong class="${toNumber(row.realized_return) > 0 ? "positive" : toNumber(row.realized_return) < 0 ? "negative" : ""}">${formatTradeReturn(row)}</strong>
             </div>
           </div>
         </div>`,
@@ -913,7 +909,7 @@
           <td>${escapeHtml(row.theme)}</td>
           <td>${row.hotRank ? `<span class="hot-badge" title="${escapeHtml(row.hotName || row.hotCode || "")}">热${escapeHtml(row.hotRank)}</span>` : ""}</td>
           <td class="numeric score">${formatScore(row.score)}</td>
-          <td class="numeric positive">${formatPercent(row.total_return)}</td>
+          <td class="numeric ${toNumber(row.total_return) > 0 ? "positive" : toNumber(row.total_return) < 0 ? "negative" : ""}">${formatPercent(row.total_return)}</td>
           <td class="numeric">${formatPercent(row.annual_vol)}</td>
           <td class="numeric">${formatFundSize(row.fund_size)}</td>
         </tr>`,
