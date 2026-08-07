@@ -51,6 +51,19 @@ def normalize_rows(frame: pd.DataFrame) -> pd.DataFrame:
     return result[OUTPUT_COLUMNS].reset_index(drop=True)
 
 
+def align_turnover_units(snapshot: pd.DataFrame, previous: pd.DataFrame) -> pd.DataFrame:
+    """Align live turnover units with the yuan-based historical series."""
+    result = snapshot.copy()
+    prior = normalize_rows(previous)
+    current_total = result["turnover"].sum()
+    prior_totals = prior.groupby("date")["turnover"].sum()
+    if current_total > 0 and not prior_totals.empty:
+        reference_total = float(prior_totals.tail(20).median())
+        if reference_total > current_total * 10000:
+            result["turnover"] = result["turnover"] * 100_000_000
+    return result
+
+
 def _column(frame: pd.DataFrame, names: tuple[str, ...], fallback_index: int) -> pd.Series:
     for name in names:
         if name in frame.columns:
@@ -69,6 +82,8 @@ def build_daily_snapshot(summary: pd.DataFrame, as_of: str, previous: pd.DataFra
     snapshot["industry"] = _column(summary, ("板块", "行业", "name"), 1).astype(str).str.strip()
     snapshot["code"] = ""
     snapshot["turnover"] = pd.to_numeric(_column(summary, ("总成交额", "成交额", "turnover"), 4), errors="coerce")
+    snapshot = align_turnover_units(snapshot, previous)
+    prior = normalize_rows(previous)
     snapshot["up_count"] = pd.to_numeric(_column(summary, ("上涨家数", "上涨家数"), 6), errors="coerce")
     down_count = pd.to_numeric(_column(summary, ("下跌家数", "下跌家数"), 7), errors="coerce")
     snapshot["total_count"] = snapshot["up_count"].fillna(0) + down_count.fillna(0)
@@ -84,7 +99,6 @@ def build_daily_snapshot(summary: pd.DataFrame, as_of: str, previous: pd.DataFra
         snapshot["turnover_share"] = 0.0
         snapshot["benchmark_1d"] = 0.0
 
-    prior = normalize_rows(previous)
     prior = prior[prior["date"] != as_of]
     history = prior.sort_values("date").groupby("industry", sort=False)["turnover"].tail(20)
     baseline_by_industry = history.groupby(prior.loc[history.index, "industry"]).mean()
