@@ -237,8 +237,8 @@ assert.strictEqual(rankedWithHot[3].hotRank, "3");
 assert.strictEqual(rankedWithHot[4].hotRank, "");
 
 const hotLimitRows = Array.from({ length: 13 }, (_, index) => ({ rank: String(index + 1) }));
-assert.strictEqual(dashboard.limitHotRows(hotLimitRows).length, 12);
-assert.strictEqual(dashboard.limitHotRows(hotLimitRows)[11].rank, "12");
+assert.strictEqual(dashboard.limitHotRows(hotLimitRows).length, 8);
+assert.strictEqual(dashboard.limitHotRows(hotLimitRows)[7].rank, "8");
 
 const themeRows = [
   { theme: "科创成长", score: "0.70" },
@@ -274,7 +274,7 @@ const themeRows = [
   { theme: "浙商之江凤凰", score: "0.27" },
 ];
 const themeStrengthRows = dashboard.buildThemeStrengthRows(themeRows);
-assert.strictEqual(themeStrengthRows.length, 15);
+assert.strictEqual(themeStrengthRows.length, 10);
 assert.strictEqual(new Set(themeStrengthRows.map((row) => row.theme)).size, themeStrengthRows.length);
 assert.strictEqual(themeStrengthRows[0].theme, "半导体");
 assert.strictEqual(themeStrengthRows[1].theme, "科创");
@@ -310,7 +310,7 @@ assert.strictEqual(dashboard.limitRankRows(Array.from({ length: 60 }, (_, index)
 const liveRankRows = dashboard.parseCsv(fs.readFileSync(path.join(__dirname, "../outputs/etf_rotation_rank.csv"), "utf8"));
 assert.ok(dashboard.limitRankRows(dashboard.buildIndustryRows(liveRankRows)).length <= 50);
 const liveThemeRows = dashboard.buildThemeStrengthRows(liveRankRows);
-assert.ok(liveThemeRows.length <= 15);
+assert.ok(liveThemeRows.length <= 10);
 assert.strictEqual(new Set(liveThemeRows.map((row) => row.theme)).size, liveThemeRows.length);
 
 console.log("web dashboard tests passed");

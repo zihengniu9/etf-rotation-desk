@@ -239,7 +239,7 @@
     });
   }
 
-  function limitHotRows(rows, limit = 12) {
+  function limitHotRows(rows, limit = 8) {
     return rows.slice(0, limit);
   }
 
@@ -262,7 +262,7 @@
       .filter(Boolean);
   }
 
-  function buildThemeStrengthRows(rows, limit = 15) {
+  function buildThemeStrengthRows(rows, limit = 10) {
     const grouped = [];
     const seenThemes = new Set();
     rows
@@ -698,14 +698,18 @@
     const pillX = plot.right - pillWidth - 6;
     const pillY = Math.max(plot.top, Math.min(plot.bottom - pillHeight, latestPoint.y - pillHeight / 2));
     const yTicks = buildYAxisTicks(axisScale, plot);
-    const horizontalGrids = yTicks
+    const tickStep = Math.max(1, Math.ceil((yTicks.length - 2) / 3));
+    const displayTicks = yTicks.filter(
+      (_, index) => index === 0 || index === yTicks.length - 1 || index % tickStep === 0,
+    );
+    const horizontalGrids = displayTicks
       .map((tick, index) => {
-        const className = index === yTicks.length - 1 ? "chart-axis" : "chart-grid";
+        const className = index === displayTicks.length - 1 ? "chart-axis" : "chart-grid";
         return `<line x1="${plot.left}" y1="${tick.y.toFixed(1)}" x2="${plot.right}" y2="${tick.y.toFixed(1)}" class="${className}"></line>`;
       })
       .join("");
     const zeroY = equityToY(axisScale.startEquity, axisScale, plot);
-    const yTickLabels = yTicks
+    const yTickLabels = displayTicks
       .map(
         (tick) =>
           `<text x="${layout.axis.left}" y="${tick.y.toFixed(1)}" text-anchor="end" class="chart-y-label chart-y-label-left">${tick.netLabel}</text>
@@ -713,14 +717,7 @@
       )
       .join("");
     const dateTickRows = buildDateTicks(curveRows, 6);
-    const verticalGrids = dateTickRows
-      .slice(1, -1)
-      .map((tick) => {
-        const point = parsedPoints[tick.index];
-        if (!point) return "";
-        return `<line x1="${point.x.toFixed(1)}" y1="${plot.top}" x2="${point.x.toFixed(1)}" y2="${plot.bottom}" class="chart-grid chart-grid-vertical"></line>`;
-      })
-      .join("");
+    const verticalGrids = "";
     const dateTicks = dateTickRows
       .map((tick, index, ticks) => {
         const point = parsedPoints[tick.index];
