@@ -41,6 +41,43 @@ body {
   padding: 18px 0 44px;
 }
 
+.dashboard-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-bottom: 18px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 5px 18px rgba(29, 42, 68, 0.05);
+}
+
+.dashboard-tab {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 750;
+  text-decoration: none;
+  transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.dashboard-tab:hover {
+  color: var(--brand-red-dark);
+  background: var(--brand-red-soft);
+}
+
+.dashboard-tab.active {
+  color: var(--brand-red-dark);
+  background: var(--surface);
+  box-shadow: 0 2px 9px rgba(23, 35, 58, 0.09);
+}
+
 .topbar,
 .panel-head,
 .summary-row,

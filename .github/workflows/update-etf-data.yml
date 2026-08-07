@@ -37,6 +37,9 @@ jobs:
       - name: Refresh ETF outputs
         run: python run_etf_selector.py
 
+      - name: Refresh industry mainline output
+        run: python scripts/update_industry_data.py --refresh
+
       - name: Verify
         run: |
           PYTHONPATH=src python -m unittest discover -s tests -p "test_*.py"

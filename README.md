@@ -31,9 +31,8 @@ Install a local Windows scheduled task for every 30 minutes during A-share tradi
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\install_windows_task.ps1
 ```
 
-For online deployment, push this repository to GitHub and add
-`NETLIFY_AUTH_TOKEN` as a repository secret. `NETLIFY_SITE_ID` is optional
-unless you want to deploy to a different Netlify site.
+For online deployment, enable GitHub Pages with the GitHub Actions source.
 `.github/workflows/update-etf-data.yml` runs every 30 minutes during A-share trading hours on weekdays,
-refreshes `outputs/`, commits the updated data, and deploys the static dashboard
-to Netlify.
+refreshes ETF and industry-mainline data, commits the updated `outputs/`,
+and deploys the static dashboard to GitHub Pages. The `/web/` page contains
+tabs for `ETF 轮动看板` and `行业主线`.

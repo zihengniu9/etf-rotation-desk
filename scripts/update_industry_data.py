@@ -1,0 +1,150 @@
+from __future__ import annotations
+
+import argparse
+import json
+import re
+from datetime import datetime
+from pathlib import Path
+from zoneinfo import ZoneInfo
+
+import pandas as pd
+
+
+RUN_TZ = ZoneInfo("Asia/Hong_Kong")
+OUTPUT_COLUMNS = [
+    "date",
+    "industry",
+    "code",
+    "turnover",
+    "total_turnover",
+    "turnover_share",
+    "up_count",
+    "total_count",
+    "return_1d",
+    "benchmark_1d",
+    "turnover_ratio",
+]
+
+
+def extract_embedded_data(html_path: Path) -> pd.DataFrame:
+    text = html_path.read_text(encoding="utf-8")
+    match = re.search(r"const LIVE_DATA = (\[.*?\]);\s*let data", text, flags=re.DOTALL)
+    if not match:
+        raise ValueError(f"LIVE_DATA not found in {html_path}")
+    rows = json.loads(match.group(1))
+    return normalize_rows(pd.DataFrame(rows))
+
+
+def normalize_rows(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame(columns=OUTPUT_COLUMNS)
+    result = frame.copy()
+    for column in OUTPUT_COLUMNS:
+        if column not in result.columns:
+            result[column] = pd.NA
+    result["date"] = pd.to_datetime(result["date"], errors="coerce").dt.strftime("%Y-%m-%d")
+    result["industry"] = result["industry"].fillna("").astype(str).str.strip()
+    for column in OUTPUT_COLUMNS[3:]:
+        result[column] = pd.to_numeric(result[column], errors="coerce")
+    result = result.dropna(subset=["date"])
+    result = result[result["industry"] != ""]
+    return result[OUTPUT_COLUMNS].reset_index(drop=True)
+
+
+def _column(frame: pd.DataFrame, names: tuple[str, ...], fallback_index: int) -> pd.Series:
+    for name in names:
+        if name in frame.columns:
+            return frame[name]
+    if fallback_index < len(frame.columns):
+        return frame.iloc[:, fallback_index]
+    return pd.Series(index=frame.index, dtype=float)
+
+
+def build_daily_snapshot(summary: pd.DataFrame, as_of: str, previous: pd.DataFrame) -> pd.DataFrame:
+    if summary.empty:
+        return pd.DataFrame(columns=OUTPUT_COLUMNS)
+
+    snapshot = pd.DataFrame(index=summary.index)
+    snapshot["date"] = as_of
+    snapshot["industry"] = _column(summary, ("板块", "行业", "name"), 1).astype(str).str.strip()
+    snapshot["code"] = ""
+    snapshot["turnover"] = pd.to_numeric(_column(summary, ("总成交额", "成交额", "turnover"), 4), errors="coerce")
+    snapshot["up_count"] = pd.to_numeric(_column(summary, ("上涨家数", "上涨家数"), 6), errors="coerce")
+    down_count = pd.to_numeric(_column(summary, ("下跌家数", "下跌家数"), 7), errors="coerce")
+    snapshot["total_count"] = snapshot["up_count"].fillna(0) + down_count.fillna(0)
+    snapshot["return_1d"] = pd.to_numeric(_column(summary, ("涨跌幅", "return_1d"), 2), errors="coerce")
+    snapshot["total_turnover"] = snapshot["turnover"].sum()
+    if snapshot["total_turnover"].iloc[0] > 0:
+        snapshot["turnover_share"] = snapshot["turnover"] / snapshot["total_turnover"].iloc[0] * 100
+        snapshot["benchmark_1d"] = (
+            (snapshot["return_1d"].fillna(0) * snapshot["turnover"].fillna(0)).sum()
+            / snapshot["turnover"].fillna(0).sum()
+        )
+    else:
+        snapshot["turnover_share"] = 0.0
+        snapshot["benchmark_1d"] = 0.0
+
+    prior = normalize_rows(previous)
+    prior = prior[prior["date"] != as_of]
+    history = prior.sort_values("date").groupby("industry", sort=False)["turnover"].tail(20)
+    baseline_by_industry = history.groupby(prior.loc[history.index, "industry"]).mean()
+    snapshot["turnover_ratio"] = snapshot.apply(
+        lambda row: row["turnover"] / baseline_by_industry.get(row["industry"], row["turnover"])
+        if baseline_by_industry.get(row["industry"], row["turnover"]) > 0
+        else 1.0,
+        axis=1,
+    )
+    return normalize_rows(snapshot)
+
+
+def merge_snapshot(previous: pd.DataFrame, snapshot: pd.DataFrame, max_days: int = 252) -> pd.DataFrame:
+    combined = pd.concat([normalize_rows(previous), normalize_rows(snapshot)], ignore_index=True)
+    combined = combined.drop_duplicates(subset=["date", "industry"], keep="last")
+    dates = sorted(combined["date"].dropna().unique())
+    if len(dates) > max_days:
+        combined = combined[combined["date"].isin(dates[-max_days:])]
+    return combined.sort_values(["date", "industry"]).reset_index(drop=True).reindex(columns=OUTPUT_COLUMNS)
+
+
+def fetch_summary() -> pd.DataFrame:
+    import akshare as ak
+
+    return ak.stock_board_industry_summary_ths()
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Refresh the industry mainline dashboard data.")
+    parser.add_argument("--html", default="web/industry_mainline_dashboard.html")
+    parser.add_argument("--output", default="outputs/industry_flow.csv")
+    parser.add_argument("--refresh", action="store_true")
+    args = parser.parse_args(argv)
+
+    html_path = Path(args.html)
+    output_path = Path(args.output)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    seed = extract_embedded_data(html_path)
+    previous = pd.read_csv(output_path) if output_path.exists() else seed
+    previous = normalize_rows(previous)
+
+    if args.refresh:
+        as_of = datetime.now(RUN_TZ).strftime("%Y-%m-%d")
+        try:
+            snapshot = build_daily_snapshot(fetch_summary(), as_of, previous)
+            if snapshot.empty:
+                raise ValueError("industry summary returned no usable rows")
+            merged = merge_snapshot(previous, snapshot)
+            print(f"industry_snapshot={as_of} rows={len(snapshot)} history_days={merged['date'].nunique()}")
+        except Exception as exc:
+            merged = previous
+            print(f"industry update skipped: {type(exc).__name__}: {exc}")
+    else:
+        merged = previous
+        print(f"industry seed rows={len(merged)} history_days={merged['date'].nunique()}")
+
+    merged.to_csv(output_path, index=False, encoding="utf-8-sig")
+    print(f"wrote {output_path}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
