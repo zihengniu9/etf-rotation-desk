@@ -4750,6 +4750,17 @@ th {
   text-overflow: ellipsis;
 }
 
+/* Keep every hot-card column on the same visual center line. */
+.hot-panel .hot-row {
+  top: 0;
+}
+
+.hot-panel .hot-row > * {
+  top: auto !important;
+  align-self: center;
+  transform: translateY(-6px);
+}
+
 /* Final tablet/mobile layout: use explicit flex rows so hot-card content cannot drift. */
 @media (max-width: 1040px) {
   .layout {
