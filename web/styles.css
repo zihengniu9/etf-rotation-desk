@@ -4759,7 +4759,7 @@ th {
   position: static !important;
   top: auto !important;
   align-self: center;
-  transform: none !important;
+  transform: translateY(-8px) !important;
 }
 
 /* Final tablet/mobile layout: use explicit flex rows so hot-card content cannot drift. */
