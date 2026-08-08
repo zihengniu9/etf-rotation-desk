@@ -4652,6 +4652,28 @@ th {
   }
 }
 
+/* Some in-app mobile browsers report a tablet-width viewport around 1024px. */
+@media (max-width: 1040px) {
+  .rank-panel,
+  .theme-panel,
+  .hot-panel {
+    overflow: hidden;
+  }
+
+  .rank-panel .table-wrap {
+    height: auto !important;
+    min-height: 0;
+    max-height: none;
+    overflow: auto;
+  }
+
+  .hot-panel .hot-row {
+    height: 100%;
+    top: 0;
+    overflow: visible;
+  }
+}
+
 .trade-row .trade-action {
   display: flex;
   align-self: center;
