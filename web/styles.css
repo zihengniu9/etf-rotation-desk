@@ -4925,3 +4925,25 @@ th {
     min-width: 0 !important;
   }
 }
+
+/* Zoom-safe sizing: never compress a hot row below its two-line content height. */
+.hot-panel .hot-row {
+  min-height: 78px !important;
+}
+
+@media (max-width: 1040px) {
+  .layout {
+    grid-auto-rows: auto !important;
+  }
+
+  .hot-panel {
+    height: auto !important;
+    min-height: 680px !important;
+  }
+
+  .hot-panel .hot-list {
+    grid-template-rows: repeat(8, minmax(78px, 1fr)) !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+}
