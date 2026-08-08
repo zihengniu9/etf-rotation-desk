@@ -4758,7 +4758,7 @@ th {
 .hot-panel .hot-row > * {
   top: auto !important;
   align-self: center;
-  transform: translateY(-6px);
+  transform: translateY(-18px);
 }
 
 /* Final tablet/mobile layout: use explicit flex rows so hot-card content cannot drift. */
