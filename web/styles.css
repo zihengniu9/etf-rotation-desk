@@ -4749,3 +4749,60 @@ th {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* Final tablet/mobile layout: use explicit flex rows so hot-card content cannot drift. */
+@media (max-width: 1040px) {
+  .layout {
+    grid-auto-rows: 580px;
+  }
+
+  .rank-panel,
+  .theme-panel,
+  .hot-panel {
+    height: 580px !important;
+    min-height: 580px !important;
+    overflow: hidden !important;
+  }
+
+  .rank-panel .table-wrap {
+    flex: 1 1 auto;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: auto !important;
+  }
+
+  .hot-panel .hot-list {
+    display: flex !important;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .hot-panel .hot-row {
+    position: static !important;
+    flex: 1 1 0;
+    height: auto !important;
+    min-height: 0;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    align-items: center;
+    overflow: visible;
+    transform: none !important;
+  }
+
+  .hot-panel .hot-row > div {
+    align-self: center;
+    align-content: center;
+    min-height: 0;
+    gap: 2px;
+  }
+
+  .hot-panel .hot-rank,
+  .hot-panel .hot-row em {
+    align-self: center;
+  }
+}
