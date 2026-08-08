@@ -4818,3 +4818,110 @@ th {
     align-self: center;
   }
 }
+
+/* Final presentation layer: one stable model for hot cards and both tab groups. */
+.hot-panel .hot-list {
+  display: grid !important;
+  grid-template-rows: repeat(8, minmax(0, 1fr)) !important;
+  grid-auto-rows: unset !important;
+  align-items: stretch !important;
+  align-content: stretch !important;
+  gap: 10px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.hot-panel .hot-row {
+  display: grid !important;
+  grid-template-columns: 32px minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  align-self: stretch !important;
+  position: relative !important;
+  top: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 10px 12px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  transform: none !important;
+}
+
+.hot-panel .hot-row > * {
+  position: static !important;
+  top: auto !important;
+  align-self: center !important;
+  transform: none !important;
+}
+
+.hot-panel .hot-row > div {
+  display: grid !important;
+  align-content: center !important;
+  align-self: center !important;
+  min-width: 0 !important;
+  gap: 3px !important;
+}
+
+.hot-panel .hot-rank {
+  width: 30px !important;
+  height: 30px !important;
+  margin: 0 !important;
+}
+
+.dashboard-tabs {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: stretch !important;
+  gap: 4px !important;
+  width: min(100%, 430px) !important;
+  max-width: 430px !important;
+  min-height: 44px !important;
+  margin: 0 auto 18px !important;
+  padding: 4px !important;
+  box-sizing: border-box !important;
+}
+
+.dashboard-tab,
+.dashboard-tab:hover,
+.dashboard-tab.active {
+  display: flex !important;
+  flex: 1 1 0 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 0 !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  padding: 0 12px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.period-tabs {
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  width: fit-content;
+  min-width: 0;
+}
+
+.period-tabs button {
+  flex: 1 1 auto !important;
+  min-width: 58px !important;
+  height: 30px !important;
+}
+
+@media (max-width: 640px) {
+  .dashboard-tabs {
+    width: 100% !important;
+    max-width: 360px !important;
+  }
+
+  .period-tabs {
+    width: 100% !important;
+  }
+
+  .period-tabs button {
+    min-width: 0 !important;
+  }
+}
