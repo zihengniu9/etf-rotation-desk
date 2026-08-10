@@ -1,4 +1,4 @@
-name: Update ETF data
+name: Update ETF and industry data
 
 on:
   push:
@@ -6,6 +6,8 @@ on:
     paths:
       - "run_etf_selector.py"
       - "src/**"
+      - "scripts/update_industry_data.py"
+      - "web/industry_mainline_dashboard.html"
       - ".github/workflows/update-etf-data.yml"
       - "requirements.txt"
   schedule:
@@ -44,14 +46,41 @@ jobs:
       - name: Refresh ETF outputs
         run: python run_etf_selector.py
 
-      - name: Verify
+      - name: Refresh industry mainline outputs
+        run: |
+          python scripts/update_industry_data.py --refresh \
+            --output outputs/industry_flow.csv \
+            --json-output outputs/industry_flow.json \
+            --status-output outputs/industry_update_status.json
+
+      - name: Verify both dashboards
         run: |
           PYTHONPATH=src python -m unittest discover -s tests -p "test_*.py"
           node tests/web_dashboard.test.js
           node tests/web_style.test.js
           node tests/deploy_config.test.js
+          test -s outputs/industry_flow.json
+          python - <<'PY'
+          import json
+          from datetime import datetime
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
 
-      - name: Commit refreshed outputs
+          status = json.loads(Path("outputs/industry_update_status.json").read_text(encoding="utf-8"))
+          expected_date = datetime.now(ZoneInfo("Asia/Hong_Kong")).strftime("%Y-%m-%d")
+          assert status["status"] == "success", f"industry refresh status is {status['status']}: {status.get('error', '')}"
+          assert status["data_as_of"] == expected_date, (
+              f"industry data is stale: expected {expected_date}, got {status['data_as_of']}"
+          )
+          payload = json.loads(Path("outputs/industry_flow.json").read_text(encoding="utf-8"))
+          assert payload["rows"], "industry_flow.json has no rows"
+          assert payload["data_as_of"] == expected_date, (
+              f"industry JSON is stale: expected {expected_date}, got {payload['data_as_of']}"
+          )
+          print(f"industry_json_rows={len(payload['rows'])} data_as_of={payload['data_as_of']}")
+          PY
+
+      - name: Commit refreshed ETF and industry outputs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

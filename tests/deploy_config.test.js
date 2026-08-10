@@ -14,7 +14,6 @@ for (const dependency of ["akshare", "pandas", "numpy", "requests", "openpyxl", 
 }
 
 const workflow = read(".github/workflows/update-etf-data.yml");
-const industryWorkflow = read(".github/workflows/update-industry-data.yml");
 const pagesWorkflow = read(".github/workflows/deploy-pages.yml");
 assert.ok(workflow.includes("30 1 * * 1-5"), "GitHub Actions should run at 09:30 Asia/Hong_Kong on weekdays");
 assert.ok(workflow.includes("0,30 2-3 * * 1-5"), "GitHub Actions should run every 30 minutes during the morning session");
@@ -23,6 +22,8 @@ assert.ok(workflow.includes("0 7 * * 1-5"), "GitHub Actions should run at 15:00 
 assert.strictEqual(workflow.includes('cron: "0 1 * * 1-5"'), false, "GitHub Actions should no longer run only once at 09:00");
 assert.strictEqual(workflow.includes("Data date already refreshed"), false, "Intraday updates should not be skipped just because the data date matches");
 assert.ok(workflow.includes("python run_etf_selector.py"), "Workflow should refresh ETF outputs");
+assert.ok(workflow.includes("python scripts/update_industry_data.py --refresh"), "Workflow should refresh industry outputs");
+assert.ok(workflow.includes("--json-output outputs/industry_flow.json"), "Workflow should publish the industry JSON dataset");
 assert.ok(workflow.includes("git add outputs"), "Workflow should persist updated output history");
 assert.ok(workflow.includes("git push"), "Workflow should push refreshed outputs before deployment");
 assert.ok(workflow.includes("contents: write"), "Workflow needs permission to commit refreshed outputs");
@@ -39,20 +40,13 @@ assert.strictEqual(workflow.includes("NETLIFY_AUTH_TOKEN"), false, "Workflow sho
 assert.strictEqual(workflow.includes("NETLIFY_SITE_ID"), false, "Workflow should not target a Netlify site");
 assert.strictEqual(workflow.includes("api.netlify.com"), false, "Workflow should not call the Netlify API");
 assert.strictEqual(workflow.includes("netlify-cli"), false, "Workflow should not run Netlify CLI");
-assert.strictEqual(workflow.includes("scripts/update_industry_data.py"), false, "ETF workflow should not block the industry refresh");
+assert.ok(workflow.includes("market-data-refresh"), "Unified workflow should serialize market data refreshes");
+assert.ok(workflow.includes("actions/configure-pages@v5"), "Unified workflow should configure GitHub Pages");
+assert.ok(workflow.includes("actions/upload-pages-artifact@v4"), "Unified workflow should upload the refreshed Pages artifact");
+assert.ok(workflow.includes("actions/deploy-pages@v5"), "Unified workflow should deploy the refreshed Pages artifact");
+assert.strictEqual(require("fs").existsSync(require("path").join(root, ".github/workflows/update-industry-data.yml")), false, "Industry data should not have a second scheduled workflow");
 
-for (const cron of ["30 1 * * 1-5", "0,30 2-3 * * 1-5", "0,30 5-6 * * 1-5", "0 7 * * 1-5"]) {
-  assert.ok(industryWorkflow.includes(`cron: \"${cron}\"`), `Industry workflow should include ${cron}`);
-}
-assert.ok(industryWorkflow.includes("python scripts/update_industry_data.py --refresh"), "Industry workflow should refresh the mainline data");
-assert.ok(industryWorkflow.includes("--json-output outputs/industry_flow.json"), "Industry workflow should publish the JSON dataset");
-assert.ok(industryWorkflow.includes("git add outputs/industry_flow.csv outputs/industry_flow.json outputs/industry_update_status.json"), "Industry workflow should persist the JSON dataset");
-assert.ok(industryWorkflow.includes("market-data-refresh"), "Industry workflow should share the data refresh lock");
-assert.ok(industryWorkflow.includes("actions/configure-pages@v5"), "Industry workflow should configure GitHub Pages");
-assert.ok(industryWorkflow.includes("actions/upload-pages-artifact@v4"), "Industry workflow should upload the refreshed Pages artifact");
-assert.ok(industryWorkflow.includes("actions/deploy-pages@v5"), "Industry workflow should deploy the refreshed Pages artifact");
-
-for (const pathPattern of ["web/**", "outputs/**", "scripts/build_static_site.py"]) {
+for (const pathPattern of ["web/**", "scripts/build_static_site.py"]) {
   assert.ok(pagesWorkflow.includes(`      - \"${pathPattern}\"`), `Pages workflow should deploy when ${pathPattern} changes`);
 }
 assert.ok(pagesWorkflow.includes("python scripts/build_static_site.py"), "Pages workflow should build the static artifact directly");
