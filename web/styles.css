@@ -5220,3 +5220,58 @@ h1 {
     max-width: 100%;
   }
 }
+
+/* Keep all eight hot ETF cards readable at every viewport height and zoom level. */
+.hot-panel .hot-row {
+  padding: 8px 12px !important;
+}
+
+.hot-panel .hot-row > div {
+  display: grid !important;
+  grid-template-rows: auto auto;
+  align-content: center !important;
+  row-gap: 2px !important;
+  min-height: 0 !important;
+  overflow: hidden;
+}
+
+.hot-panel .hot-row strong {
+  margin: 0;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.hot-panel .hot-row span:not(.hot-rank) {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+@media (min-width: 1041px) {
+  .layout {
+    --market-panel-height: 660px;
+  }
+
+  .hot-panel .hot-list {
+    grid-template-rows: repeat(8, 60px) !important;
+    align-content: start !important;
+  }
+
+  .hot-panel .hot-row {
+    height: 60px !important;
+    min-height: 60px !important;
+  }
+}
+
+@media (max-width: 1040px) {
+  .hot-panel .hot-list {
+    grid-template-rows: repeat(8, 68px) !important;
+    align-content: start !important;
+  }
+
+  .hot-panel .hot-row {
+    height: 68px !important;
+    min-height: 68px !important;
+    overflow: hidden !important;
+  }
+}

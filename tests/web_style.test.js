@@ -255,4 +255,17 @@ assert.strictEqual(css.includes("font-weight: 900"), false, "Typography should a
 const letterSpacingValues = Array.from(css.matchAll(/letter-spacing:\s*([^;]+);/g)).map((match) => match[1].trim());
 assert.ok(letterSpacingValues.every((value) => value === "0"), "Letter spacing should stay at 0 for a calmer dashboard");
 
+assert.ok(
+  /@media\s*\(min-width:\s*1041px\)[\s\S]*?\.layout\s*\{[^}]*--market-panel-height:\s*660px/.test(css),
+  "Desktop market panels should stay tall enough for eight complete two-line hot ETF cards",
+);
+assert.ok(
+  /\.hot-panel\s+\.hot-list\s*\{[^}]*grid-template-rows:\s*repeat\(8,\s*60px\)[^}]*align-content:\s*start/.test(css),
+  "Desktop hot ETF rows should use a stable content-safe height",
+);
+assert.ok(
+  /@media\s*\(max-width:\s*1040px\)[\s\S]*?\.hot-panel\s+\.hot-list\s*\{[^}]*grid-template-rows:\s*repeat\(8,\s*68px\)/.test(css),
+  "Tablet and phone hot ETF rows should keep a larger touch-friendly height",
+);
+
 console.log("web style tests passed");
