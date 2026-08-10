@@ -48,6 +48,9 @@ assert.ok(industryWorkflow.includes("python scripts/update_industry_data.py --re
 assert.ok(industryWorkflow.includes("--json-output outputs/industry_flow.json"), "Industry workflow should publish the JSON dataset");
 assert.ok(industryWorkflow.includes("git add outputs/industry_flow.csv outputs/industry_flow.json outputs/industry_update_status.json"), "Industry workflow should persist the JSON dataset");
 assert.ok(industryWorkflow.includes("market-data-refresh"), "Industry workflow should share the data refresh lock");
+assert.ok(industryWorkflow.includes("actions/configure-pages@v5"), "Industry workflow should configure GitHub Pages");
+assert.ok(industryWorkflow.includes("actions/upload-pages-artifact@v4"), "Industry workflow should upload the refreshed Pages artifact");
+assert.ok(industryWorkflow.includes("actions/deploy-pages@v5"), "Industry workflow should deploy the refreshed Pages artifact");
 
 for (const pathPattern of ["web/**", "outputs/**", "scripts/build_static_site.py"]) {
   assert.ok(pagesWorkflow.includes(`      - \"${pathPattern}\"`), `Pages workflow should deploy when ${pathPattern} changes`);
