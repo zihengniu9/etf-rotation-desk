@@ -41,6 +41,10 @@ assert.strictEqual(workflow.includes("NETLIFY_SITE_ID"), false, "Workflow should
 assert.strictEqual(workflow.includes("api.netlify.com"), false, "Workflow should not call the Netlify API");
 assert.strictEqual(workflow.includes("netlify-cli"), false, "Workflow should not run Netlify CLI");
 assert.ok(workflow.includes("market-data-refresh"), "Unified workflow should serialize market data refreshes");
+assert.ok(workflow.includes("ref: main"), "Queued refresh jobs should check out the latest main branch");
+assert.ok(workflow.includes("fetch-depth: 0"), "Refresh jobs need full history for a safe rebase");
+assert.ok(workflow.includes("git pull --rebase origin main"), "Refresh jobs should integrate newer remote commits before pushing outputs");
+assert.ok(workflow.includes("git push origin HEAD:main"), "Refresh jobs should push the rebased output commit explicitly to main");
 assert.ok(workflow.includes("actions/configure-pages@v5"), "Unified workflow should configure GitHub Pages");
 assert.ok(workflow.includes("actions/upload-pages-artifact@v4"), "Unified workflow should upload the refreshed Pages artifact");
 assert.ok(workflow.includes("actions/deploy-pages@v5"), "Unified workflow should deploy the refreshed Pages artifact");
