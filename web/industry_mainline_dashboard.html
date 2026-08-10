@@ -1522,6 +1522,241 @@
       }
     }
   </style>
+  <style id="local-layout-alignment">
+    :root {
+      --local-shell-width: 1360px;
+      --local-panel-radius: 20px;
+      --local-section-gap: 16px;
+    }
+
+    html,
+    body {
+      min-width: 0;
+    }
+
+    body {
+      background: linear-gradient(180deg, #f8f9fd 0%, #f2f3f8 100%);
+    }
+
+    .shell {
+      width: min(var(--local-shell-width), calc(100% - 48px));
+      max-width: var(--local-shell-width);
+      padding: 24px 0 48px;
+    }
+
+    .dashboard-tabs {
+      width: min(100%, 430px) !important;
+      max-width: 430px !important;
+      height: 54px !important;
+      min-height: 54px !important;
+      margin: 0 auto 22px !important;
+      padding: 5px !important;
+      border-radius: 14px !important;
+    }
+
+    .dashboard-tab,
+    .dashboard-tab:hover,
+    .dashboard-tab.active {
+      height: 44px !important;
+      min-height: 44px !important;
+      font-size: 15px !important;
+      line-height: 1 !important;
+    }
+
+    .topbar {
+      min-height: 72px;
+      margin-bottom: 20px;
+      padding: 0 0 16px;
+    }
+
+    .topbar h1,
+    h1 {
+      font-size: 30px;
+      line-height: 1.15;
+    }
+
+    .controls {
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      gap: var(--local-section-gap);
+      margin-bottom: 20px;
+    }
+
+    .card,
+    .panel {
+      border-radius: var(--local-panel-radius);
+    }
+
+    .kpi {
+      min-height: 120px;
+      padding: 20px;
+    }
+
+    .kpi-value {
+      font-size: 30px;
+      line-height: 1.1;
+    }
+
+    .grid-main {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: var(--local-section-gap);
+      margin-bottom: 20px;
+    }
+
+    .panel {
+      padding: 20px;
+    }
+
+    .panel-head {
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+    }
+
+    .panel-title {
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .panel-desc {
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .trend-panel .chart-wrap {
+      height: clamp(300px, 31vw, 390px);
+      min-height: 300px;
+    }
+
+    .table-panel,
+    .rule-panel {
+      margin-top: 20px !important;
+    }
+
+    @media (max-width: 1024px) {
+      .shell {
+        width: 100%;
+        max-width: 100%;
+        padding-right: 16px;
+        padding-left: 16px;
+      }
+
+      .grid-main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 660px) {
+      .shell {
+        width: 100%;
+        max-width: 100%;
+        padding: 16px 16px 36px;
+      }
+
+      .dashboard-tabs {
+        width: 100% !important;
+        max-width: 360px !important;
+        margin-bottom: 18px !important;
+      }
+
+      .dashboard-tab,
+      .dashboard-tab:hover,
+      .dashboard-tab.active {
+        padding: 0 10px !important;
+        font-size: 14px !important;
+      }
+
+      .topbar {
+        min-height: 64px;
+        margin-bottom: 16px;
+        padding-bottom: 14px;
+      }
+
+      .topbar h1,
+      h1 {
+        font-size: 28px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .kpi {
+        min-height: 104px;
+        padding: 16px;
+      }
+
+      .kpi-value {
+        font-size: 28px;
+      }
+
+      .panel {
+        padding: 16px;
+      }
+
+      .trend-panel .chart-wrap {
+        height: 300px;
+        min-height: 300px;
+      }
+
+      /* Keep the narrow layout inside the viewport when mobile browsers hide scrollbars. */
+      html,
+      body {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: clip;
+      }
+
+      .shell,
+      .dashboard-tabs,
+      .topbar,
+      .controls,
+      .cards,
+      .card,
+      .grid-main,
+      .grid-main > .panel,
+      .panel,
+      .table-panel,
+      .rule-panel {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+      }
+
+      .dashboard-tabs {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+
+      .controls {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .cards {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+      }
+
+      .kpi,
+      .kpi-value,
+      .kpi-note,
+      .panel-head,
+      .panel-title,
+      .panel-desc {
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .panel-head,
+      .panel-desc {
+        overflow-wrap: anywhere;
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="shell">
