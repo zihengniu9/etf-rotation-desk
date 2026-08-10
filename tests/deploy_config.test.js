@@ -14,6 +14,7 @@ for (const dependency of ["akshare", "pandas", "numpy", "requests", "openpyxl", 
 }
 
 const workflow = read(".github/workflows/update-etf-data.yml");
+const industryWorkflow = read(".github/workflows/update-industry-data.yml");
 const pagesWorkflow = read(".github/workflows/deploy-pages.yml");
 assert.ok(workflow.includes("30 1 * * 1-5"), "GitHub Actions should run at 09:30 Asia/Hong_Kong on weekdays");
 assert.ok(workflow.includes("0,30 2-3 * * 1-5"), "GitHub Actions should run every 30 minutes during the morning session");
@@ -38,6 +39,15 @@ assert.strictEqual(workflow.includes("NETLIFY_AUTH_TOKEN"), false, "Workflow sho
 assert.strictEqual(workflow.includes("NETLIFY_SITE_ID"), false, "Workflow should not target a Netlify site");
 assert.strictEqual(workflow.includes("api.netlify.com"), false, "Workflow should not call the Netlify API");
 assert.strictEqual(workflow.includes("netlify-cli"), false, "Workflow should not run Netlify CLI");
+assert.strictEqual(workflow.includes("scripts/update_industry_data.py"), false, "ETF workflow should not block the industry refresh");
+
+for (const cron of ["30 1 * * 1-5", "0,30 2-3 * * 1-5", "0,30 5-6 * * 1-5", "0 7 * * 1-5"]) {
+  assert.ok(industryWorkflow.includes(`cron: \"${cron}\"`), `Industry workflow should include ${cron}`);
+}
+assert.ok(industryWorkflow.includes("python scripts/update_industry_data.py --refresh"), "Industry workflow should refresh the mainline data");
+assert.ok(industryWorkflow.includes("--json-output outputs/industry_flow.json"), "Industry workflow should publish the JSON dataset");
+assert.ok(industryWorkflow.includes("git add outputs/industry_flow.csv outputs/industry_flow.json outputs/industry_update_status.json"), "Industry workflow should persist the JSON dataset");
+assert.ok(industryWorkflow.includes("market-data-refresh"), "Industry workflow should share the data refresh lock");
 
 for (const pathPattern of ["web/**", "outputs/**", "scripts/build_static_site.py"]) {
   assert.ok(pagesWorkflow.includes(`      - \"${pathPattern}\"`), `Pages workflow should deploy when ${pathPattern} changes`);
@@ -66,6 +76,11 @@ assert.ok(taskScript.includes("update_etf_data.ps1"), "Windows task should invok
 const index = read("index.html");
 assert.ok(index.includes("./web/"), "Root index should redirect users to the dashboard");
 
+const industryHtml = read("web/industry_mainline_dashboard.html");
+assert.ok(industryHtml.includes("../outputs/industry_flow.json?ts="), "Industry dashboard should load the JSON dataset first");
+assert.ok(industryHtml.includes("../outputs/industry_flow.csv?ts="), "Industry dashboard should keep a CSV fallback");
+assert.ok(industryHtml.includes("GitHub Actions 行业 JSON"), "Industry dashboard should identify its live JSON source");
+
 const netlifyConfig = read("netlify.toml");
 assert.ok(netlifyConfig.includes('command = "python scripts/build_static_site.py"'), "Netlify should build the static publish directory");
 assert.ok(netlifyConfig.includes('publish = "dist"'), "Netlify should publish only the clean dist directory");
@@ -76,6 +91,7 @@ assert.ok(buildScript.includes('"web"'), "Static build should publish the dashbo
 assert.ok(buildScript.includes('"outputs"'), "Static build should publish CSV outputs");
 assert.ok(buildScript.includes('"index.html"'), "Static build should publish the root redirect");
 assert.ok(buildScript.includes("*.csv"), "Static build should publish only CSV output data files");
+assert.ok(buildScript.includes("*.json"), "Static build should publish JSON output data files");
 assert.ok(buildScript.includes('DIST / ".nojekyll"'), "Static build should create a GitHub Pages .nojekyll marker");
 assert.strictEqual(buildScript.includes("scheduled_update.log"), false, "Static build should not publish local scheduler logs");
 

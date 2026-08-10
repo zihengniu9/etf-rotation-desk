@@ -1928,19 +1928,30 @@
     async function loadIndustryData() {
       try {
         const cacheBust = Date.now();
-        const [response, statusResponse] = await Promise.all([
-          fetch('../outputs/industry_flow.csv?ts=' + cacheBust, { cache: 'no-store' }),
+        const [jsonResponse, statusResponse] = await Promise.all([
+          fetch('../outputs/industry_flow.json?ts=' + cacheBust, { cache: 'no-store' }),
           fetch('../outputs/industry_update_status.json?ts=' + cacheBust, { cache: 'no-store' }),
         ]);
-        if (!response.ok) throw new Error(`industry_flow.csv ${response.status}`);
-        const remoteRows = parseCSV(await response.text());
+        let remoteRows = [];
+        let dataSource = 'GitHub Actions 行业 JSON';
+        let jsonPayload = null;
+        if (jsonResponse.ok) {
+          jsonPayload = await jsonResponse.json();
+          remoteRows = Array.isArray(jsonPayload) ? jsonPayload : (jsonPayload?.rows || []);
+        }
+        if (!remoteRows.length) {
+          const csvResponse = await fetch('../outputs/industry_flow.csv?ts=' + cacheBust, { cache: 'no-store' });
+          if (!csvResponse.ok) throw new Error(`industry_flow.json ${jsonResponse.status}; industry_flow.csv ${csvResponse.status}`);
+          remoteRows = parseCSV(await csvResponse.text());
+          dataSource = 'GitHub Actions 行业 CSV 回退';
+        }
         if (!remoteRows.length) throw new Error('industry_flow.csv has no rows');
         const status = statusResponse.ok ? await statusResponse.json() : null;
         data = remoteRows;
         dateWasSelected = false;
-        currentFileName = 'GitHub Actions 行业数据';
+        currentFileName = dataSource;
         const pill = document.getElementById('dataPill');
-        const latestDate = remoteRows[remoteRows.length - 1].date;
+        const latestDate = jsonPayload?.data_as_of || remoteRows[remoteRows.length - 1].date;
         const isFresh = status?.status === 'success';
         const dotColor = isFresh ? '#2b6f8f' : '#d28a32';
         const message = isFresh

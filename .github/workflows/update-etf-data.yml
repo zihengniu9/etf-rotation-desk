@@ -6,7 +6,6 @@ on:
     paths:
       - "run_etf_selector.py"
       - "src/**"
-      - "scripts/update_industry_data.py"
       - ".github/workflows/update-etf-data.yml"
       - "requirements.txt"
   schedule:
@@ -18,7 +17,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: etf-dashboard
+  group: market-data-refresh
   cancel-in-progress: false
 
 jobs:
@@ -44,9 +43,6 @@ jobs:
 
       - name: Refresh ETF outputs
         run: python run_etf_selector.py
-
-      - name: Refresh industry mainline output
-        run: python scripts/update_industry_data.py --refresh
 
       - name: Verify
         run: |

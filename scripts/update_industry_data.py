@@ -158,16 +158,31 @@ def write_status(
     status_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def write_json(output_path: Path, frame: pd.DataFrame, *, updated_at: str) -> None:
+    normalized = normalize_rows(frame)
+    normalized = normalized.astype(object).where(pd.notna(normalized), None)
+    payload = {
+        "updated_at": updated_at,
+        "data_as_of": latest_data_date(normalized),
+        "history_days": int(normalized["date"].nunique()) if not normalized.empty else 0,
+        "rows": normalized.to_dict(orient="records"),
+    }
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Refresh the industry mainline dashboard data.")
     parser.add_argument("--html", default="web/industry_mainline_dashboard.html")
     parser.add_argument("--output", default="outputs/industry_flow.csv")
+    parser.add_argument("--json-output", default="outputs/industry_flow.json")
     parser.add_argument("--status-output", default="outputs/industry_update_status.json")
     parser.add_argument("--refresh", action="store_true")
     args = parser.parse_args(argv)
 
     html_path = Path(args.html)
     output_path = Path(args.output)
+    json_output_path = Path(args.json_output)
     status_path = Path(args.status_output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     seed = extract_embedded_data(html_path)
@@ -220,7 +235,9 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     merged.to_csv(output_path, index=False, encoding="utf-8-sig")
+    write_json(json_output_path, merged, updated_at=attempted_at)
     print(f"wrote {output_path}")
+    print(f"wrote {json_output_path}")
     return 0
 
 
