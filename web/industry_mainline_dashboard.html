@@ -461,7 +461,7 @@
     .up { color: var(--ag-up); }
     .down { color: var(--ag-down); }
 
-    .tip { border: 1px solid rgb(255 255 255 / 0.18); border-radius: 12px; background: rgb(23 32 43 / 0.94); box-shadow: 0 12px 28px rgb(49 72 99 / 0.16); }
+    .tip { box-sizing: border-box; max-width: min(520px, calc(100vw - 24px)); border: 1px solid rgb(255 255 255 / 0.18); border-radius: 12px; background: rgb(23 32 43 / 0.94); box-shadow: 0 12px 28px rgb(49 72 99 / 0.16); line-height: 1.45; overflow-wrap: anywhere; }
 
     @media (max-width: 660px) {
       .shell { padding: 14px 10px 36px; }
@@ -2040,7 +2040,14 @@
       const vertical = svg.querySelector('#crosshair-v'); const horizontal = svg.querySelector('#crosshair-h'); const dateBg = svg.querySelector('#crosshair-date-bg'); const dateText = svg.querySelector('#crosshair-date'); const yBg = svg.querySelector('#crosshair-y-bg'); const yText = svg.querySelector('#crosshair-y');
       let active = false;
       const update = event => {
-        const rect = svg.getBoundingClientRect(); const svgX = (event.clientX - rect.left) * config.W / rect.width; const svgY = (event.clientY - rect.top) * config.H / rect.height;
+        const matrix = svg.getScreenCTM();
+        let svgX; let svgY;
+        if (matrix) {
+          const point = svg.createSVGPoint(); point.x = event.clientX; point.y = event.clientY;
+          const local = point.matrixTransform(matrix.inverse()); svgX = local.x; svgY = local.y;
+        } else {
+          const rect = svg.getBoundingClientRect(); svgX = (event.clientX - rect.left) * config.W / rect.width; svgY = (event.clientY - rect.top) * config.H / rect.height;
+        }
         const idx = Math.max(0, Math.min(config.allDates.length - 1, Math.round((svgX - config.pad.l) * Math.max(1, config.allDates.length - 1) / config.iw)));
         const cx = config.x(idx); const cy = Math.max(config.pad.t, Math.min(config.pad.t + config.ih, svgY)); const value = config.yMin + (config.yMax - config.yMin) * (config.pad.t + config.ih - cy) / config.ih;
         const labelX = Math.max(35, Math.min(config.W - 35, cx)); const labelY = Math.max(config.pad.t + 10, Math.min(config.pad.t + config.ih - 10, cy));
@@ -2059,7 +2066,8 @@
       hideLineTip();
       const top = latest.slice(0, 6); const allDates = uniqueDates();
       if (allDates.length < 2) { document.getElementById('lineChart').innerHTML = '<div class="empty">当前真实快照只有 2026-08-05 单日数据；导入多日 CSV 后，这里显示成交占比趋势。</div>'; document.getElementById('lineLegend').innerHTML = ''; return; }
-      const W = 960, H = 360, pad = {l: 56, r: 24, t: 18, b: 38}; const iw = W-pad.l-pad.r, ih = H-pad.t-pad.b; const visibleValues = top.filter(r => !hiddenLineIndustries.has(r.industry)).flatMap(r => (byIndustry[r.industry] || []).map(shareOf)); const axisValues = visibleValues.length ? visibleValues : [p.share]; const rawMin = Math.min(...axisValues, p.share); const rawMax = Math.max(...axisValues, p.share); const step = niceStep(Math.max((rawMax - rawMin) / 5, 0.2)); const yMin = Math.max(0, Math.floor((rawMin - step * 0.35) / step) * step); const yMax = Math.ceil((rawMax + step * 0.35) / step) * step; const axisRange = Math.max(step, yMax - yMin); const axisDecimals = step < 1 ? 1 : 0; const x = i => pad.l + i * iw / Math.max(1, allDates.length-1); const y = v => pad.t + (yMax-v) * ih / axisRange;
+      const chartNode = document.getElementById('lineChart'); const chartRect = chartNode.getBoundingClientRect();
+      const W = Math.max(320, Math.round(chartRect.width || 960)); const H = Math.max(260, Math.round(chartRect.height || 360)); const pad = {l: 56, r: 24, t: 18, b: 38}; const iw = W-pad.l-pad.r, ih = H-pad.t-pad.b; const visibleValues = top.filter(r => !hiddenLineIndustries.has(r.industry)).flatMap(r => (byIndustry[r.industry] || []).map(shareOf)); const axisValues = visibleValues.length ? visibleValues : [p.share]; const rawMin = Math.min(...axisValues, p.share); const rawMax = Math.max(...axisValues, p.share); const step = niceStep(Math.max((rawMax - rawMin) / 5, 0.2)); const yMin = Math.max(0, Math.floor((rawMin - step * 0.35) / step) * step); const yMax = Math.ceil((rawMax + step * 0.35) / step) * step; const axisRange = Math.max(step, yMax - yMin); const axisDecimals = step < 1 ? 1 : 0; const x = i => pad.l + i * iw / Math.max(1, allDates.length-1); const y = v => pad.t + (yMax-v) * ih / axisRange;
       let svg = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="行业成交占比趋势">`;
       for (let tick=yMin; tick<=yMax + step*0.01; tick+=step) { const value = Number(tick.toFixed(6)); svg += `<line class="gridline" x1="${pad.l}" x2="${W-pad.r}" y1="${y(value)}" y2="${y(value)}"/><text class="axis-label" x="${pad.l-9}" y="${y(value)+3}" text-anchor="end">${value.toFixed(axisDecimals)}%</text>`; }
       svg += `<line x1="${pad.l}" x2="${W-pad.r}" y1="${y(p.share)}" y2="${y(p.share)}" stroke="#78a58c" stroke-opacity="0.78" stroke-dasharray="5 5"/><text class="axis-label" x="${W-pad.r-2}" y="${y(p.share)-6}" text-anchor="end" fill="#6f967f">${p.share}%参考线</text>`;
@@ -2149,6 +2157,11 @@
     });
     document.getElementById('dateSelect').addEventListener('change', () => { dateWasSelected = true; render(); });
     document.getElementById('sortSelect').addEventListener('change', render);
+    let chartResizeTimer = 0;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(chartResizeTimer);
+      chartResizeTimer = window.setTimeout(render, 100);
+    }, { passive: true });
     function arrangePanels() {
       const grid = document.querySelector('.grid-main');
       const trend = document.getElementById('lineChart')?.closest('.panel');

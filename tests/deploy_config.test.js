@@ -81,6 +81,11 @@ const industryHtml = read("web/industry_mainline_dashboard.html");
 assert.ok(industryHtml.includes("../outputs/industry_flow.json?ts="), "Industry dashboard should load the JSON dataset first");
 assert.ok(industryHtml.includes("../outputs/industry_flow.csv?ts="), "Industry dashboard should keep a CSV fallback");
 assert.ok(industryHtml.includes("GitHub Actions 行业 JSON"), "Industry dashboard should identify its live JSON source");
+assert.ok(industryHtml.includes("svg.getScreenCTM()"), "Industry trend crosshair should map pointer coordinates through the SVG transform matrix");
+assert.ok(industryHtml.includes("point.matrixTransform(matrix.inverse())"), "Industry trend crosshair should account for viewBox scaling and letterboxing");
+assert.ok(industryHtml.includes("chartNode.getBoundingClientRect()"), "Industry trend chart should size its viewBox from the rendered container");
+assert.ok(industryHtml.includes("window.addEventListener('resize'"), "Industry trend chart should redraw after responsive layout changes");
+assert.strictEqual(industryHtml.includes("const W = 960, H = 360"), false, "Industry trend chart should not keep a fixed viewBox that leaves unused space");
 
 const netlifyConfig = read("netlify.toml");
 assert.ok(netlifyConfig.includes('command = "python scripts/build_static_site.py"'), "Netlify should build the static publish directory");
