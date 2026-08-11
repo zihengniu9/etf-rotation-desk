@@ -23,6 +23,12 @@
     activePeriod: "year",
   };
 
+  const AUTO_REFRESH_INTERVAL_MS = 2 * 60 * 1000;
+  const FOCUS_REFRESH_MIN_GAP_MS = 15 * 1000;
+  let dashboardRefreshPromise = null;
+  let lastDashboardRefreshStartedAt = 0;
+  let autoRefreshBound = false;
+
   const INDUSTRY_RULES = [
     { label: "半导体", pattern: /半导体|芯片|集成电路|电子50|电子ETF|半导体材料|半导体设备/ },
     { label: "科创", pattern: /科创|科综|双创/ },
@@ -583,8 +589,36 @@
     };
   }
 
-  async function loadCsv(path) {
-    const response = await fetch(path, { cache: "no-store" });
+  function withCacheBust(path, value = Date.now()) {
+    const separator = path.includes("?") ? "&" : "?";
+    return `${path}${separator}ts=${encodeURIComponent(value)}`;
+  }
+
+  function getHongKongMarketClock(now = new Date()) {
+    const parts = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Hong_Kong",
+      weekday: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+    }).formatToParts(now);
+    const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+    return {
+      weekday: values.weekday,
+      minutes: Number(values.hour) * 60 + Number(values.minute),
+    };
+  }
+
+  function isTradingRefreshWindow(now = new Date()) {
+    const { weekday, minutes } = getHongKongMarketClock(now);
+    if (["Sat", "Sun"].includes(weekday)) return false;
+    const morning = minutes >= 9 * 60 + 30 && minutes <= 11 * 60 + 30;
+    const afternoon = minutes >= 13 * 60 && minutes <= 15 * 60 + 5;
+    return morning || afternoon;
+  }
+
+  async function loadCsv(path, cacheBust = Date.now()) {
+    const response = await fetch(withCacheBust(path, cacheBust), { cache: "no-store" });
     if (!response.ok) throw new Error(`${path} ${response.status}`);
     return parseCsv(await response.text());
   }
@@ -946,9 +980,9 @@
   function bindSearch(inputId, rows, render) {
     const input = document.getElementById(inputId);
     if (!input) return;
-    input.addEventListener("input", () => {
+    input.oninput = () => {
       render(rows.filter((row) => matchesSearch(row, input.value)));
-    });
+    };
   }
 
   function escapeHtml(value) {
@@ -960,17 +994,35 @@
       .replace(/'/g, "&#039;");
   }
 
-  async function boot() {
+  function clearDashboardLoadError() {
+    document.getElementById("dashboard-load-error")?.remove();
+  }
+
+  function showDashboardLoadError(error) {
+    const shell = document.querySelector(".shell");
+    if (!shell) return;
+    let message = document.getElementById("dashboard-load-error");
+    if (!message) {
+      message = document.createElement("div");
+      message.id = "dashboard-load-error";
+      message.className = "empty";
+      shell.appendChild(message);
+    }
+    message.textContent = `CSV 数据加载失败：${error.message}`;
+  }
+
+  async function refreshDashboard() {
+    const cacheBust = Date.now();
     try {
       const [pickRows, rankRows, poolRows, curveRows, tradeRows, positionRows, hotRows, statusRows] = await Promise.all([
-        loadCsv(DATA_FILES.pick),
-        loadCsv(DATA_FILES.rank),
-        loadCsv(DATA_FILES.pool),
-        loadCsv(DATA_FILES.curve),
-        loadCsv(DATA_FILES.trades),
-        loadCsv(DATA_FILES.positions),
-        loadCsv(DATA_FILES.hot),
-        loadCsv(DATA_FILES.status),
+        loadCsv(DATA_FILES.pick, cacheBust),
+        loadCsv(DATA_FILES.rank, cacheBust),
+        loadCsv(DATA_FILES.pool, cacheBust),
+        loadCsv(DATA_FILES.curve, cacheBust),
+        loadCsv(DATA_FILES.trades, cacheBust),
+        loadCsv(DATA_FILES.positions, cacheBust),
+        loadCsv(DATA_FILES.hot, cacheBust),
+        loadCsv(DATA_FILES.status, cacheBust),
       ]);
       const industryRankRows = buildIndustryRows(rankRows);
       const rankedRows = applyHotRanks(industryRankRows, hotRows);
@@ -984,15 +1036,42 @@
       renderHotList(hotRows);
       bindSearch("rank-search", topRankRows, renderRankTable);
       bindSearch("pool-search", poolRows, renderPoolTable);
+      clearDashboardLoadError();
+      return true;
     } catch (error) {
-      const shell = document.querySelector(".shell");
-      if (shell) {
-        const message = document.createElement("div");
-        message.className = "empty";
-        message.textContent = `CSV 数据加载失败：${error.message}`;
-        shell.appendChild(message);
-      }
+      showDashboardLoadError(error);
+      return false;
     }
+  }
+
+  function requestDashboardRefresh({ force = false } = {}) {
+    if (dashboardRefreshPromise) return dashboardRefreshPromise;
+    const now = Date.now();
+    if (!force && now - lastDashboardRefreshStartedAt < FOCUS_REFRESH_MIN_GAP_MS) {
+      return Promise.resolve(false);
+    }
+    lastDashboardRefreshStartedAt = now;
+    dashboardRefreshPromise = refreshDashboard().finally(() => {
+      dashboardRefreshPromise = null;
+    });
+    return dashboardRefreshPromise;
+  }
+
+  function bindAutoRefresh() {
+    if (autoRefreshBound) return;
+    autoRefreshBound = true;
+    globalScope.setInterval(() => {
+      if (isTradingRefreshWindow(new Date())) requestDashboardRefresh();
+    }, AUTO_REFRESH_INTERVAL_MS);
+    globalScope.addEventListener("focus", () => requestDashboardRefresh());
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) requestDashboardRefresh();
+    });
+  }
+
+  async function boot() {
+    await requestDashboardRefresh({ force: true });
+    bindAutoRefresh();
   }
 
   const api = {
@@ -1031,6 +1110,9 @@
     buildCurveAreaPath,
     buildTradeMarkerPoints,
     countTradeActions,
+    withCacheBust,
+    getHongKongMarketClock,
+    isTradingRefreshWindow,
   };
 
   if (typeof module !== "undefined" && module.exports) {

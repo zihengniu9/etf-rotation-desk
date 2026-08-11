@@ -86,6 +86,17 @@ assert.ok(industryHtml.includes("point.matrixTransform(matrix.inverse())"), "Ind
 assert.ok(industryHtml.includes("chartNode.getBoundingClientRect()"), "Industry trend chart should size its viewBox from the rendered container");
 assert.ok(industryHtml.includes("window.addEventListener('resize'"), "Industry trend chart should redraw after responsive layout changes");
 assert.strictEqual(industryHtml.includes("const W = 960, H = 360"), false, "Industry trend chart should not keep a fixed viewBox that leaves unused space");
+assert.ok(industryHtml.includes("function selectTrendIndustries"), "Industry dashboard should select trend lines with an explicit current-strength rule");
+assert.ok(industryHtml.includes("const top = selectTrendIndustries(latest, 6)"), "Industry trend should use the latest turnover-ratio leaders");
+assert.strictEqual(industryHtml.includes("const top = latest.slice(0, 6)"), false, "Industry trend should not inherit turnover-share ordering");
+assert.ok(industryHtml.includes("let data = []"), "Industry dashboard should wait for online data before the first render");
+assert.ok(industryHtml.includes("requestIndustryRefresh({ force: true, preserveDateSelection: false })"), "Initial industry load should jump to the latest online date");
+assert.ok(industryHtml.includes("window.setInterval"), "Industry dashboard should poll for intraday updates");
+assert.ok(industryHtml.includes("visibilitychange"), "Industry dashboard should refresh after returning to the tab");
+const etfApp = read("web/app.js");
+assert.ok(etfApp.includes("AUTO_REFRESH_INTERVAL_MS = 2 * 60 * 1000"), "ETF dashboard should poll every two minutes during trading hours");
+assert.ok(etfApp.includes('cache: "no-store"'), "ETF dashboard refreshes should bypass the browser cache");
+assert.ok(etfApp.includes('globalScope.addEventListener("focus"'), "ETF dashboard should refresh when the window regains focus");
 
 const netlifyConfig = read("netlify.toml");
 assert.ok(netlifyConfig.includes('command = "python scripts/build_static_site.py"'), "Netlify should build the static publish directory");

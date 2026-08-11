@@ -27,7 +27,7 @@ assert.ok(html.indexOf('class="backtest-stats"') < html.indexOf('class="chart-sh
 assert.ok(html.includes('./styles.css?v=20260810-hot-card-stable'));
 assert.strictEqual(html.includes('<h2>ETF 模拟交易</h2>'), false);
 assert.strictEqual(html.includes('增强自适应 · 近一年'), false);
-assert.ok(html.includes('./app.js?v=20260807-trade-history'));
+assert.ok(html.includes('./app.js?v=20260811-auto-refresh'));
 assert.ok(html.includes('class="trade-header"'));
 assert.ok(html.indexOf('class="trade-header"') < html.indexOf('id="bt-trades"'));
 assert.strictEqual(html.includes('id="data-status"'), false);
@@ -101,6 +101,12 @@ assert.strictEqual(dashboard.formatCountBadge(15, "条"), "15条");
 assert.strictEqual(dashboard.formatPercent(""), "--");
 assert.strictEqual(dashboard.formatScore(""), "--");
 assert.strictEqual(dashboard.formatFundSize(""), "--");
+assert.strictEqual(dashboard.withCacheBust("../outputs/data.csv", 123), "../outputs/data.csv?ts=123");
+assert.strictEqual(dashboard.withCacheBust("../outputs/data.csv?mode=live", 123), "../outputs/data.csv?mode=live&ts=123");
+assert.strictEqual(dashboard.isTradingRefreshWindow(new Date("2026-08-11T02:30:00Z")), true);
+assert.strictEqual(dashboard.isTradingRefreshWindow(new Date("2026-08-11T04:00:00Z")), false);
+assert.strictEqual(dashboard.isTradingRefreshWindow(new Date("2026-08-11T06:30:00Z")), true);
+assert.strictEqual(dashboard.isTradingRefreshWindow(new Date("2026-08-15T02:30:00Z")), false);
 
 const metrics = dashboard.computeDashboardMetrics(rows, [{ theme: "半导体" }, { theme: "科创" }, { theme: "医药" }]);
 assert.strictEqual(metrics.rankedCount, 2);
