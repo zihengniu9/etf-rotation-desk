@@ -2142,8 +2142,8 @@
         const averageRatio = history.length ? history.reduce((sum, row) => sum + row.ratio, 0) / history.length : 0;
         const aboveDays = history.filter(row => row.ratio >= p.ratio).length;
         return { ...current, streak, averageRatio, aboveDays };
-      }).filter(row => row.streak >= 2 || row.aboveDays >= 3)
-        .sort((a, b) => b.streak - a.streak || b.averageRatio - a.averageRatio || b.ratio - a.ratio || b.share - a.share)
+      }).filter(row => row.ratio >= p.ratio && (row.streak >= 2 || row.aboveDays >= 3))
+        .sort((a, b) => b.ratio - a.ratio || b.streak - a.streak || b.averageRatio - a.averageRatio || b.share - a.share)
         .slice(0, 5);
       const list = document.getElementById('mainlineFilterList');
       const count = document.getElementById('mainlineFilterCount');
