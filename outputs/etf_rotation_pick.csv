@@ -1,2 +1,2 @@
-﻿code,name,theme,fund_size,score,total_return,annual_vol,latest_close,mode,reason,market_strength,defense_threshold
-511130,博时上证30年期国债ETF,债券,,0.617646,0.025457,0.042596,108.8,attack,top ETF score is above defense threshold,0.617646,0.6
+﻿code,name,theme,score,total_return,annual_vol,fund_size,latest_close,mode,market_strength,defense_threshold,reason
+511880,货币ETF,防守,0.432624,,,,,defense,0.432624,0.6,top ETF score is weak; switch to defense
