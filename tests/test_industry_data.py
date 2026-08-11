@@ -1,11 +1,31 @@
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import pandas as pd
 
-from scripts.update_industry_data import build_daily_snapshot, merge_snapshot
+from scripts.update_industry_data import build_daily_snapshot, extract_embedded_data, merge_snapshot
 
 
 class IndustryDataTests(unittest.TestCase):
+    def test_extract_embedded_data_stops_at_live_data_array(self):
+        with TemporaryDirectory() as temp_dir:
+            html_path = Path(temp_dir) / "dashboard.html"
+            html_path.write_text(
+                """<script>
+                const LIVE_DATA = [{"date":"2026-08-11","industry":"工业金属","turnover":123}];
+                const fallbackData = LIVE_DATA.length ? LIVE_DATA : [];
+                let data = [];
+                </script>""",
+                encoding="utf-8",
+            )
+
+            rows = extract_embedded_data(html_path)
+
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows.iloc[0]["date"], "2026-08-11")
+        self.assertEqual(rows.iloc[0]["industry"], "工业金属")
+
     def test_build_daily_snapshot_aligns_yuan_history_with_yuan_unit_live_values(self):
         summary = pd.DataFrame(
             [

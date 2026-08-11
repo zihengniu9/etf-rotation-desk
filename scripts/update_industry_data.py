@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -28,10 +27,17 @@ OUTPUT_COLUMNS = [
 
 def extract_embedded_data(html_path: Path) -> pd.DataFrame:
     text = html_path.read_text(encoding="utf-8")
-    match = re.search(r"const LIVE_DATA = (\[.*?\]);\s*let data", text, flags=re.DOTALL)
-    if not match:
+    marker = "const LIVE_DATA ="
+    marker_index = text.find(marker)
+    array_index = text.find("[", marker_index + len(marker)) if marker_index >= 0 else -1
+    if array_index < 0:
         raise ValueError(f"LIVE_DATA not found in {html_path}")
-    rows = json.loads(match.group(1))
+    try:
+        rows, _ = json.JSONDecoder().raw_decode(text[array_index:])
+    except json.JSONDecodeError as error:
+        raise ValueError(f"Invalid LIVE_DATA in {html_path}: {error}") from error
+    if not isinstance(rows, list):
+        raise ValueError(f"LIVE_DATA must be an array in {html_path}")
     return normalize_rows(pd.DataFrame(rows))
 
 
