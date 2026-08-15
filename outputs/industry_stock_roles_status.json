@@ -1,9 +1,16 @@
 {
-  "attempted_at": "2026-08-16T00:40:08+08:00",
-  "status": "success",
-  "data_as_of": "2026-08-15",
-  "industries": 6,
-  "message": "行业主线股票角色已刷新",
+  "attempted_at": "2026-08-16T00:47:23+08:00",
+  "status": "stale",
+  "data_as_of": "2026-08-16",
+  "industries": 0,
+  "message": "未取得行业成分股数据，页面保留无角色状态",
   "source": "同花顺问财个股热度 + 行业成分股行情",
-  "errors": []
+  "errors": [
+    "小金属: AkShare ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+    "通信服务: AkShare ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+    "非金属材料: AkShare ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+    "元件: AkShare ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+    "通信设备: AkShare ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+    "半导体: AkShare ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+  ]
 }
