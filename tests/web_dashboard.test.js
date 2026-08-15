@@ -4,6 +4,7 @@ const path = require("path");
 const dashboard = require("../web/app.js");
 
 const html = fs.readFileSync(path.join(__dirname, "../web/index.html"), "utf8");
+const industryHtml = fs.readFileSync(path.join(__dirname, "../web/industry_mainline_dashboard.html"), "utf8");
 assert.ok(html.includes('class="pick-side"'));
 assert.ok(html.includes('id="pick-theme"'));
 assert.ok(html.includes('id="updated-at"'));
@@ -41,6 +42,22 @@ assert.strictEqual(html.includes('id="pick-size"'), false);
 assert.strictEqual(html.includes('id="pick-return"'), false);
 assert.strictEqual(html.includes('id="pick-score"'), false);
 assert.strictEqual(html.includes('id="pick-vol"'), false);
+for (const id of [
+  "cycleStage",
+  "cycleEnvironment",
+  "cycleShortPower",
+  "cycleTrendPower",
+  "cyclePrimaryLine",
+  "cycleSecondaryLine",
+  "cycleRelationship",
+  "cycleOverflow",
+  "cycleConclusion",
+  "cycleObserveList",
+]) {
+  assert.ok(industryHtml.includes(`id="${id}"`), `Industry cycle review should expose ${id}`);
+}
+assert.ok(industryHtml.includes("function computeCycleReview"));
+assert.ok(industryHtml.includes("function currentSupportScore"));
 
 const csv = `code,name,theme,fund_size,score,total_return,annual_vol,latest_close
 159516,国泰中证半导体材料设备主题ETF,半导体,44163729896.6748,1.327929,0.727909,0.556536,1.975

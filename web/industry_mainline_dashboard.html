@@ -1310,6 +1310,182 @@
       font-size: 12px;
     }
 
+    .cycle-review-panel {
+      margin: 0 0 16px;
+      padding: 20px 22px 18px;
+      background:
+        linear-gradient(135deg, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0.74)) padding-box,
+        linear-gradient(135deg, rgb(255 255 255 / 0.9), rgb(200 40 53 / 0.12)) border-box;
+      border-color: transparent;
+      box-shadow: 10px 20px 40px rgb(49 72 99 / 0.08), inset 0 1px 0 rgb(255 255 255 / 0.62);
+      -webkit-backdrop-filter: blur(18px) saturate(120%);
+      backdrop-filter: blur(18px) saturate(120%);
+    }
+
+    .cycle-review-head,
+    .cycle-observe-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .cycle-kicker,
+    .cycle-label {
+      color: #8993a2;
+      font-size: 11px;
+      font-weight: 760;
+      letter-spacing: .04em;
+    }
+
+    .cycle-review-head .panel-title {
+      margin-top: 3px;
+      font-size: 19px;
+    }
+
+    .cycle-stage {
+      display: grid;
+      grid-template-columns: 8px auto;
+      column-gap: 8px;
+      align-items: center;
+      min-width: 112px;
+      padding: 8px 11px;
+      border: 1px solid #ead7d9;
+      border-radius: 12px;
+      background: #fff8f8;
+    }
+
+    .cycle-stage::before {
+      grid-row: 1 / span 2;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c82835;
+      content: '';
+    }
+
+    .cycle-stage strong {
+      color: #a91f2b;
+      font-size: 14px;
+    }
+
+    .cycle-stage span {
+      grid-column: 2;
+      color: #8993a2;
+      font-size: 10px;
+    }
+
+    .cycle-overview-grid {
+      display: grid;
+      grid-template-columns: minmax(190px, .8fr) minmax(0, 2.2fr);
+      gap: 22px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid #edf0f4;
+    }
+
+    .cycle-environment strong {
+      display: block;
+      margin-top: 5px;
+      color: #273244;
+      font-size: 20px;
+      letter-spacing: -.02em;
+    }
+
+    .cycle-environment p,
+    .cycle-insight p {
+      margin: 5px 0 0;
+      color: #748195;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .cycle-power-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 20px;
+    }
+
+    .cycle-metric {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 4px 10px;
+      align-items: baseline;
+      padding-bottom: 9px;
+      border-bottom: 1px solid #edf0f4;
+    }
+
+    .cycle-metric span {
+      color: #526071;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .cycle-metric strong {
+      color: #273244;
+      font-size: 15px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .cycle-metric small {
+      grid-column: 1 / -1;
+      color: #8993a2;
+      font-size: 11px;
+    }
+
+    .cycle-insight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .cycle-insight {
+      min-width: 0;
+      padding-top: 12px;
+      border-top: 2px solid #f0d5d8;
+    }
+
+    .cycle-insight strong {
+      display: block;
+      margin-top: 5px;
+      color: #2f3948;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cycle-observe {
+      margin-top: 16px;
+      padding-top: 13px;
+      border-top: 1px solid #edf0f4;
+    }
+
+    .cycle-source {
+      color: #a0a8b5;
+      font-size: 10px;
+    }
+
+    .cycle-observe-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px 18px;
+      margin: 10px 0 0;
+      padding: 0 0 0 18px;
+      color: #526071;
+      font-size: 12px;
+    }
+
+    .cycle-observe-list li {
+      padding-left: 3px;
+    }
+
+    .cycle-observe-list li::marker {
+      color: #c82835;
+      font-weight: 800;
+    }
+
     @media (max-width: 900px) {
       .grid-main {
         grid-template-columns: 1fr;
@@ -1519,6 +1695,35 @@
 
       .mainline-metric strong {
         font-size: 14px;
+      }
+
+      .cycle-review-panel {
+        padding: 16px 14px 15px;
+      }
+
+      .cycle-review-head,
+      .cycle-observe-head {
+        display: block;
+      }
+
+      .cycle-stage {
+        width: fit-content;
+        margin-top: 12px;
+      }
+
+      .cycle-overview-grid,
+      .cycle-insight-grid,
+      .cycle-observe-list {
+        grid-template-columns: 1fr;
+      }
+
+      .cycle-power-grid {
+        margin-top: 14px;
+      }
+
+      .cycle-source {
+        display: block;
+        margin-top: 4px;
       }
     }
   </style>
@@ -1795,6 +2000,39 @@
       <article class="card kpi"><div class="kpi-label">最新数据日</div><div class="kpi-value" id="kpiDate">—</div><div class="kpi-note" id="kpiDateNote">数据行数：—</div></article>
     </section>
 
+    <section class="card panel cycle-review-panel" aria-labelledby="cycle-review-title">
+      <div class="cycle-review-head">
+        <div>
+          <div class="cycle-kicker">收盘复盘 · 行业数据推导</div>
+          <h2 class="panel-title" id="cycle-review-title">短线周期与主线切换判断</h2>
+          <p class="panel-desc">主线定方向，分歧看承接；当前模块使用行业成交、放量、扩散和超额涨幅做代理判断。</p>
+        </div>
+        <div class="cycle-stage" id="cycleStage" aria-live="polite"><strong>—</strong><span>等待数据</span></div>
+      </div>
+      <div class="cycle-overview-grid">
+        <div class="cycle-environment">
+          <span class="cycle-label">市场环境</span>
+          <strong id="cycleEnvironment">—</strong>
+          <p id="cycleEnvironmentBasis">等待最新行业快照。</p>
+        </div>
+        <div class="cycle-power-grid">
+          <div class="cycle-metric"><span>短线情绪定价权</span><strong id="cycleShortPower">—</strong><small id="cycleShortBasis">上涨扩散与强势行业的综合代理</small></div>
+          <div class="cycle-metric"><span>趋势资金定价权</span><strong id="cycleTrendPower">—</strong><small id="cycleTrendBasis">成交集中度与放量强度的综合代理</small></div>
+          <div class="cycle-metric"><span>当前主线候选</span><strong id="cyclePrimaryLine">—</strong><small id="cyclePrimaryBasis">需观察次日是否继续主动</small></div>
+          <div class="cycle-metric"><span>次主线候选</span><strong id="cycleSecondaryLine">—</strong><small id="cycleSecondaryBasis">需区分套利与独立承接</small></div>
+        </div>
+      </div>
+      <div class="cycle-insight-grid">
+        <div class="cycle-insight"><span class="cycle-label">核心与板块关系</span><strong id="cycleRelationship">—</strong><p id="cycleRelationshipBasis">—</p></div>
+        <div class="cycle-insight"><span class="cycle-label">情绪外溢 / 低位扩散</span><strong id="cycleOverflow">—</strong><p>低成交占比但出现放量与扩散的方向，先列为伴生观察。</p></div>
+        <div class="cycle-insight"><span class="cycle-label">当前判断</span><strong id="cycleConclusion">—</strong><p id="cycleConclusionBasis">—</p></div>
+      </div>
+      <div class="cycle-observe">
+        <div class="cycle-observe-head"><span class="cycle-label">次一交易日观察点</span><span class="cycle-source" id="cycleSource">数据日期：—</span></div>
+        <ol class="cycle-observe-list" id="cycleObserveList"><li>等待行业数据加载</li></ol>
+      </div>
+    </section>
+
     <section class="grid-main">
 <section class="card panel volume-panel">
       <div class="panel-head">
@@ -2025,6 +2263,7 @@
       document.getElementById('kpiDateNote').textContent = `数据行数：${data.length.toLocaleString()} · ${currentFileName || '内置示例'}`;
       renderLineChart(selected, latest, byIndustry, p);
       renderVolumeRanking(latest, p);
+      renderCycleReview(latest, byIndustry, p, selected);
       renderMainlineFilter(latest, byIndustry, p, selected);
       renderTable(latest, p);
       updateLabels();
@@ -2134,8 +2373,22 @@
       document.getElementById('volumeRankDesc').textContent = `${latest[0]?.date || '—'} · ${eligible}个行业达到${p.ratio.toFixed(1)}×阈值 · 前6名`;
       document.getElementById('volumeRankChart').innerHTML = top.map((r) => `<div class="bar-row"><div class="bar-name" title="${r.industry}">${r.industry}</div><div class="bar-track"><div class="bar-fill ${r.ratio>=p.ratio?'hot':''}" style="width:${Math.max(3, r.ratio/max*100)}%"></div></div><div class="bar-value">${r.ratio.toFixed(2)}×</div></div>`).join('');
     }
-    function renderMainlineFilter(latest, byIndustry, p, selected) {
-      const profiles = latest.map(current => {
+
+    function averageMetric(rows, key) {
+      const values = rows.map(row => Number(row[key])).filter(Number.isFinite);
+      return values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : 0;
+    }
+
+    function clamp01(value) {
+      return Math.max(0, Math.min(1, Number(value) || 0));
+    }
+
+    function currentSupportScore(row) {
+      return Number(row.return_1d >= 0) * 0.4 + Number(row.breadth >= 50) * 0.35 + Number(row.excess >= 0) * 0.15 + Math.min(1, row.ratio / 2) * 0.1;
+    }
+
+    function buildMainlineProfiles(latest, byIndustry, p, selected, limit = 10) {
+      return latest.map(current => {
         const history = (byIndustry[current.industry] || []).filter(row => row.date <= selected).slice(-5);
         let streak = 0;
         for (let i = history.length - 1; i >= 0 && history[i].ratio >= p.ratio; i--) streak += 1;
@@ -2143,8 +2396,98 @@
         const aboveDays = history.filter(row => row.ratio >= p.ratio).length;
         return { ...current, streak, averageRatio, aboveDays };
       }).filter(row => row.ratio >= p.ratio && (row.streak >= 2 || row.aboveDays >= 3))
-        .sort((a, b) => b.ratio - a.ratio || b.streak - a.streak || b.averageRatio - a.averageRatio || b.share - a.share)
-        .slice(0, 5);
+        .sort((a, b) => currentSupportScore(b) - currentSupportScore(a) || b.ratio - a.ratio || b.streak - a.streak || b.averageRatio - a.averageRatio || b.share - a.share)
+        .slice(0, limit);
+    }
+
+    function labelPower(score) {
+      return score >= 0.66 ? '强' : score >= 0.43 ? '中' : '弱';
+    }
+
+    function computeCycleReview(latest, byIndustry, p, selected) {
+      const rows = latest.filter(row => Number.isFinite(row.ratio));
+      const ratioRows = [...rows].sort((a, b) => b.ratio - a.ratio || b.share - a.share);
+      const shareRows = [...rows].sort((a, b) => b.share - a.share || b.ratio - a.ratio);
+      const leaders = ratioRows.slice(0, 5);
+      const profiles = buildMainlineProfiles(rows, byIndustry, p, selected, 10);
+      const primary = profiles[0] || ratioRows[0] || null;
+      const secondary = profiles[1] || null;
+      const breadthAverage = averageMetric(rows, 'breadth');
+      const marketReturn = averageMetric(rows, 'return_1d');
+      const topLeaderBreadth = averageMetric(leaders, 'breadth');
+      const topLeaderExcess = averageMetric(leaders, 'excess');
+      const positiveBreadthShare = rows.length ? rows.filter(row => row.breadth >= 50).length / rows.length : 0;
+      const shortScore = clamp01(topLeaderBreadth / 100 * 0.6 + positiveBreadthShare * 0.25 + clamp01((topLeaderExcess + 2) / 6) * 0.15);
+      const top3Share = shareRows.slice(0, 3).reduce((sum, row) => sum + row.share, 0);
+      const trendScore = clamp01(Math.min(1, top3Share / 15) * 0.55 + Math.min(1, (ratioRows[0]?.ratio || 0) / 2) * 0.45);
+      const activePositive = profiles.filter(row => row.return_1d >= 0 && row.breadth >= 50).length;
+      const leaderReturn = averageMetric(leaders.slice(0, 3), 'return_1d');
+      const leaderCore = shareRows[0] || null;
+      const coreWeak = leaderCore ? leaderCore.return_1d < 0 || leaderCore.excess < 0 : false;
+      const sectorStrong = Boolean(primary && (primary.return_1d >= 0 || primary.breadth >= 50));
+      let stage = '观察';
+      if (breadthAverage < 32 && activePositive === 0) stage = '退潮';
+      else if (leaderReturn < -0.45 || topLeaderBreadth < 45) stage = '分歧';
+      else if (profiles.length >= 4 && shortScore >= 0.58) stage = '发酵';
+      else if (profiles.length >= 3 && trendScore >= 0.55) stage = '启动';
+      const spillover = rows.filter(row => row.ratio >= p.ratio && row.share < 1 && row.breadth >= 55)
+        .sort((a, b) => b.ratio - a.ratio || b.breadth - a.breadth).slice(0, 3);
+      const relationship = coreWeak && sectorStrong ? '核心偏弱 · 板块仍有承接' : !coreWeak && sectorStrong ? '核心与板块共振' : coreWeak ? '核心与板块同步走弱' : '核心暂稳 · 承接待确认';
+      const environment = breadthAverage < 35 ? '风险偏好收缩' : breadthAverage < 50 ? '结构性博弈' : '风险偏好扩张';
+      const conclusion = stage === '分歧' && sectorStrong ? '主线分歧，先看内部承接' : stage === '退潮' ? '全局承接不足，降低进攻' : secondary ? '主线与次主线并行观察' : '等待方向连续确认';
+      const observations = [
+        primary ? `观察${primary.industry}：放量 ${primary.ratio.toFixed(2)}× 后，次日是否仍有上涨扩散。` : '观察放量第一名是否形成连续承接。',
+        secondary ? `观察${secondary.industry}：高开兑现后能否继续主动，避免把单日套利当成切换。` : '观察第二强方向是否出现独立承接。',
+        leaderCore ? `观察资金核心${leaderCore.industry}：当前${leaderCore.return_1d >= 0 ? '仍有支撑' : '偏弱'}，与板块强弱是否继续背离。` : '观察成交占比最高行业与放量方向是否共振。'
+      ];
+      return {
+        stage,
+        environment,
+        breadthAverage,
+        marketReturn,
+        shortScore,
+        trendScore,
+        top3Share,
+        primary,
+        secondary,
+        relationship,
+        leaderCore,
+        spillover,
+        conclusion,
+        observations,
+        stageBasis: `${profiles.length}个方向满足连续性条件 · 当前放量阈值 ${p.ratio.toFixed(1)}×`,
+        environmentBasis: `行业平均上涨扩散度 ${breadthAverage.toFixed(1)}% · 平均当日涨幅 ${marketReturn >= 0 ? '+' : ''}${marketReturn.toFixed(2)}%`,
+        relationshipBasis: leaderCore ? `资金占比最高为${leaderCore.industry}，主线候选同时考虑最新放量与当日承接。` : '暂无足够数据。',
+        conclusionBasis: `短线情绪${labelPower(shortScore)} · 趋势资金${labelPower(trendScore)} · 仅作行业数据研究线索`,
+        source: `数据日期：${selected} · 行业数据推导，不含连板与竞价数据`
+      };
+    }
+
+    function renderCycleReview(latest, byIndustry, p, selected) {
+      const review = computeCycleReview(latest, byIndustry, p, selected);
+      const stage = document.getElementById('cycleStage');
+      stage.innerHTML = `<strong>${review.stage}</strong><span>${review.stageBasis}</span>`;
+      document.getElementById('cycleEnvironment').textContent = review.environment;
+      document.getElementById('cycleEnvironmentBasis').textContent = review.environmentBasis;
+      document.getElementById('cycleShortPower').textContent = labelPower(review.shortScore);
+      document.getElementById('cycleShortBasis').textContent = `强度 ${review.shortScore.toFixed(2)} · 前5放量行业扩散代理`;
+      document.getElementById('cycleTrendPower').textContent = labelPower(review.trendScore);
+      document.getElementById('cycleTrendBasis').textContent = `强度 ${review.trendScore.toFixed(2)} · 前3行业占比 ${review.top3Share.toFixed(1)}%`;
+      document.getElementById('cyclePrimaryLine').textContent = review.primary?.industry || '待确认';
+      document.getElementById('cyclePrimaryBasis').textContent = review.primary ? `最新放量 ${review.primary.ratio.toFixed(2)}× · 连续 ${review.primary.streak}日` : '暂无满足条件的方向';
+      document.getElementById('cycleSecondaryLine').textContent = review.secondary?.industry || '待观察';
+      document.getElementById('cycleSecondaryBasis').textContent = review.secondary ? `最新放量 ${review.secondary.ratio.toFixed(2)}× · 观察独立承接` : '暂无足够连续性证据';
+      document.getElementById('cycleRelationship').textContent = review.relationship;
+      document.getElementById('cycleRelationshipBasis').textContent = review.relationshipBasis;
+      document.getElementById('cycleOverflow').textContent = review.spillover.length ? review.spillover.map(row => row.industry).join('、') : '暂无明显扩散';
+      document.getElementById('cycleConclusion').textContent = review.conclusion;
+      document.getElementById('cycleConclusionBasis').textContent = review.conclusionBasis;
+      document.getElementById('cycleSource').textContent = review.source;
+      document.getElementById('cycleObserveList').innerHTML = review.observations.map(item => `<li>${item}</li>`).join('');
+    }
+
+    function renderMainlineFilter(latest, byIndustry, p, selected) {
+      const profiles = buildMainlineProfiles(latest, byIndustry, p, selected, 5);
       const list = document.getElementById('mainlineFilterList');
       const count = document.getElementById('mainlineFilterCount');
       count.textContent = `${profiles.length}个题材`;
