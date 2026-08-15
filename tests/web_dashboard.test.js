@@ -44,6 +44,17 @@ assert.strictEqual(html.includes('id="pick-score"'), false);
 assert.strictEqual(html.includes('id="pick-vol"'), false);
 for (const id of [
   "cycleStage",
+  "cycleFocusLine",
+  "cycleFocusConclusion",
+  "cycleFocusScore",
+  "cycleFocusMeter",
+  "cycleFocusStats",
+  "cycleLeaderRole",
+  "cycleLeaderRoleBasis",
+  "cycleCenterRole",
+  "cycleCenterRoleBasis",
+  "cycleSpreadRole",
+  "cycleSpreadRoleBasis",
   "cycleEnvironment",
   "cycleShortPower",
   "cycleTrendPower",
@@ -58,6 +69,8 @@ for (const id of [
 }
 assert.ok(industryHtml.includes("function computeCycleReview"));
 assert.ok(industryHtml.includes("function currentSupportScore"));
+assert.ok(industryHtml.includes("function mainlineStrength"));
+assert.ok(industryHtml.includes("规模承载 25% / 放量 18% / 扩散 18%"));
 
 const csv = `code,name,theme,fund_size,score,total_return,annual_vol,latest_close
 159516,国泰中证半导体材料设备主题ETF,半导体,44163729896.6748,1.327929,0.727909,0.556536,1.975

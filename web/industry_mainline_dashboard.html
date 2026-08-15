@@ -1313,13 +1313,11 @@
     .cycle-review-panel {
       margin: 0 0 16px;
       padding: 20px 22px 18px;
-      background:
-        linear-gradient(135deg, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0.74)) padding-box,
-        linear-gradient(135deg, rgb(255 255 255 / 0.9), rgb(200 40 53 / 0.12)) border-box;
-      border-color: transparent;
-      box-shadow: 10px 20px 40px rgb(49 72 99 / 0.08), inset 0 1px 0 rgb(255 255 255 / 0.62);
-      -webkit-backdrop-filter: blur(18px) saturate(120%);
-      backdrop-filter: blur(18px) saturate(120%);
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
     }
 
     .cycle-review-head,
@@ -1373,6 +1371,107 @@
       grid-column: 2;
       color: #8993a2;
       font-size: 10px;
+    }
+
+    .cycle-mainline-focus {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(250px, .65fr);
+      gap: 24px;
+      margin-top: 18px;
+      padding: 17px 0 16px;
+      border-top: 2px solid #c82835;
+      border-bottom: 1px solid #edf0f4;
+    }
+
+    .cycle-focus-line {
+      min-width: 0;
+    }
+
+    .cycle-focus-line strong {
+      display: block;
+      margin-top: 4px;
+      color: #1d2736;
+      font-size: clamp(24px, 2.2vw, 32px);
+      line-height: 1.15;
+      letter-spacing: -.03em;
+    }
+
+    .cycle-focus-line p {
+      max-width: 720px;
+      margin: 7px 0 0;
+      color: #526071;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .cycle-focus-score {
+      min-width: 0;
+      padding-left: 24px;
+      border-left: 1px solid #edf0f4;
+    }
+
+    .cycle-focus-score strong {
+      display: block;
+      margin-top: 2px;
+      color: #c82835;
+      font-size: 28px;
+      line-height: 1.15;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .cycle-focus-meter {
+      height: 7px;
+      margin-top: 9px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #edf0f4;
+    }
+
+    .cycle-focus-meter span {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: #c82835;
+      transition: width .2s ease;
+    }
+
+    .cycle-focus-stats {
+      margin-top: 8px;
+      color: #748195;
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .cycle-role-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .cycle-role {
+      min-width: 0;
+      padding: 12px 14px 11px;
+      border: 1px solid #edf0f4;
+      border-radius: 12px;
+      background: #fbfcfd;
+    }
+
+    .cycle-role strong {
+      display: block;
+      margin-top: 5px;
+      color: #2f3948;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    .cycle-role p {
+      min-height: 32px;
+      margin: 5px 0 0;
+      color: #8993a2;
+      font-size: 11px;
+      line-height: 1.45;
     }
 
     .cycle-overview-grid {
@@ -1706,6 +1805,21 @@
         display: block;
       }
 
+      .cycle-mainline-focus {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .cycle-focus-score {
+        padding: 12px 0 0;
+        border-top: 1px solid #edf0f4;
+        border-left: 0;
+      }
+
+      .cycle-role-grid {
+        grid-template-columns: 1fr;
+      }
+
       .cycle-stage {
         width: fit-content;
         margin-top: 12px;
@@ -2008,6 +2122,24 @@
           <p class="panel-desc">主线定方向，分歧看承接；当前模块使用行业成交、放量、扩散和超额涨幅做代理判断。</p>
         </div>
         <div class="cycle-stage" id="cycleStage" aria-live="polite"><strong>—</strong><span>等待数据</span></div>
+      </div>
+      <div class="cycle-mainline-focus">
+        <div class="cycle-focus-line">
+          <span class="cycle-label">主线结论</span>
+          <strong id="cycleFocusLine">—</strong>
+          <p id="cycleFocusConclusion">等待综合判断。</p>
+        </div>
+        <div class="cycle-focus-score">
+          <span class="cycle-label">主线综合强度</span>
+          <strong id="cycleFocusScore">—</strong>
+          <div class="cycle-focus-meter" aria-hidden="true"><span id="cycleFocusMeter"></span></div>
+          <div class="cycle-focus-stats" id="cycleFocusStats">规模承载 · 放量 · 扩散 · 持续性</div>
+        </div>
+      </div>
+      <div class="cycle-role-grid">
+        <div class="cycle-role"><span class="cycle-label">龙头方向 · 情绪定价</span><strong id="cycleLeaderRole">—</strong><p id="cycleLeaderRoleBasis">等待短线强度判断。</p></div>
+        <div class="cycle-role"><span class="cycle-label">中军方向 · 趋势承载</span><strong id="cycleCenterRole">—</strong><p id="cycleCenterRoleBasis">等待成交承载判断。</p></div>
+        <div class="cycle-role"><span class="cycle-label">补涨 / 扩散方向</span><strong id="cycleSpreadRole">—</strong><p id="cycleSpreadRoleBasis">等待板块扩散判断。</p></div>
       </div>
       <div class="cycle-overview-grid">
         <div class="cycle-environment">
@@ -2383,21 +2515,40 @@
       return Math.max(0, Math.min(1, Number(value) || 0));
     }
 
+    function mainlineStrength(row, p) {
+      const size = clamp01(row.share / Math.max(3, Number(p.share) || 5));
+      const volume = clamp01((row.ratio - 0.85) / 1.35);
+      const breadth = clamp01((row.breadth - 35) / 45);
+      const excess = clamp01((row.excess + 1) / 4);
+      const persistence = clamp01((row.aboveDays || 0) / 5 * 0.6 + (row.streak || 0) / 3 * 0.4);
+      return clamp01(size * 0.25 + volume * 0.18 + breadth * 0.18 + excess * 0.15 + persistence * 0.24);
+    }
+
     function currentSupportScore(row) {
-      return Number(row.return_1d >= 0) * 0.4 + Number(row.breadth >= 50) * 0.35 + Number(row.excess >= 0) * 0.15 + Math.min(1, row.ratio / 2) * 0.1;
+      return Number.isFinite(row.strength) ? row.strength : mainlineStrength(row, { share: 5 });
     }
 
     function buildMainlineProfiles(latest, byIndustry, p, selected, limit = 10) {
-      return latest.map(current => {
+      const scored = latest.map(current => {
         const history = (byIndustry[current.industry] || []).filter(row => row.date <= selected).slice(-5);
         let streak = 0;
         for (let i = history.length - 1; i >= 0 && history[i].ratio >= p.ratio; i--) streak += 1;
         const averageRatio = history.length ? history.reduce((sum, row) => sum + row.ratio, 0) / history.length : 0;
+        const averageShare = history.length ? history.reduce((sum, row) => sum + shareOf(row), 0) / history.length : current.share;
+        const averageBreadth = averageMetric(history, 'breadth');
+        const averageExcess = averageMetric(history, 'excess');
+        const averageReturn = averageMetric(history, 'return_1d');
         const aboveDays = history.filter(row => row.ratio >= p.ratio).length;
-        return { ...current, streak, averageRatio, aboveDays };
-      }).filter(row => row.ratio >= p.ratio && (row.streak >= 2 || row.aboveDays >= 3))
-        .sort((a, b) => currentSupportScore(b) - currentSupportScore(a) || b.ratio - a.ratio || b.streak - a.streak || b.averageRatio - a.averageRatio || b.share - a.share)
-        .slice(0, limit);
+        const profile = { ...current, history, streak, averageRatio, averageShare, averageBreadth, averageExcess, averageReturn, aboveDays };
+        profile.strength = mainlineStrength(profile, p);
+        profile.shortLeaderScore = clamp01((profile.breadth - 35) / 45) * 0.45 + clamp01((profile.excess + 1) / 4) * 0.35 + clamp01(profile.return_1d / 3 + 0.5) * 0.2;
+        profile.centerScore = clamp01(profile.share / Math.max(3, p.share || 5)) * 0.55 + clamp01((profile.averageShare - 1) / 4) * 0.25 + clamp01((profile.averageReturn + 1) / 3) * 0.2;
+        return profile;
+      }).sort((a, b) => currentSupportScore(b) - currentSupportScore(a) || b.share - a.share || b.ratio - a.ratio);
+      const minimumShare = Math.max(1.5, (Number(p.share) || 5) * 0.28);
+      const robust = scored.filter(row => row.ratio >= p.ratio && row.share >= minimumShare && (row.streak >= 2 || row.aboveDays >= 3) && (row.breadth >= 45 || row.excess >= 0));
+      const fallback = scored.filter(row => row.ratio >= p.ratio && row.share >= minimumShare);
+      return (robust.length ? robust : fallback).slice(0, limit);
     }
 
     function labelPower(score) {
@@ -2410,7 +2561,7 @@
       const shareRows = [...rows].sort((a, b) => b.share - a.share || b.ratio - a.ratio);
       const leaders = ratioRows.slice(0, 5);
       const profiles = buildMainlineProfiles(rows, byIndustry, p, selected, 10);
-      const primary = profiles[0] || ratioRows[0] || null;
+      const primary = profiles[0] || null;
       const secondary = profiles[1] || null;
       const breadthAverage = averageMetric(rows, 'breadth');
       const marketReturn = averageMetric(rows, 'return_1d');
@@ -2422,23 +2573,36 @@
       const trendScore = clamp01(Math.min(1, top3Share / 15) * 0.55 + Math.min(1, (ratioRows[0]?.ratio || 0) / 2) * 0.45);
       const activePositive = profiles.filter(row => row.return_1d >= 0 && row.breadth >= 50).length;
       const leaderReturn = averageMetric(leaders.slice(0, 3), 'return_1d');
-      const leaderCore = shareRows[0] || null;
-      const coreWeak = leaderCore ? leaderCore.return_1d < 0 || leaderCore.excess < 0 : false;
-      const sectorStrong = Boolean(primary && (primary.return_1d >= 0 || primary.breadth >= 50));
+      const leaderRole = profiles.length ? [...profiles].sort((a, b) => b.shortLeaderScore - a.shortLeaderScore || b.strength - a.strength)[0] : null;
+      const centerRole = profiles.length ? [...profiles].sort((a, b) => b.centerScore - a.centerScore || b.share - a.share)[0] : null;
+      const spreadRows = profiles.filter(row => row.industry !== primary?.industry && row.breadth >= 50).sort((a, b) => b.strength - a.strength);
+      const spreadRole = spreadRows[0] || secondary || null;
+      const sectorStrong = Boolean(primary && primary.strength >= 0.55);
+      const coreWeak = Boolean(centerRole && centerRole.return_1d < 0 && centerRole.excess < 0);
       let stage = '观察';
       if (breadthAverage < 32 && activePositive === 0) stage = '退潮';
       else if (leaderReturn < -0.45 || topLeaderBreadth < 45) stage = '分歧';
-      else if (profiles.length >= 4 && shortScore >= 0.58) stage = '发酵';
-      else if (profiles.length >= 3 && trendScore >= 0.55) stage = '启动';
-      const spillover = rows.filter(row => row.ratio >= p.ratio && row.share < 1 && row.breadth >= 55)
+      else if (primary && primary.strength >= 0.72 && primary.aboveDays >= 4) stage = '加速';
+      else if (primary && primary.strength >= 0.58 && primary.aboveDays >= 3) stage = '发酵';
+      else if (primary && primary.strength >= 0.5) stage = '启动';
+      const spillover = rows.filter(row => row.ratio >= p.ratio && row.share < Math.max(1.5, (Number(p.share) || 5) * 0.28) && row.breadth >= 55)
         .sort((a, b) => b.ratio - a.ratio || b.breadth - a.breadth).slice(0, 3);
-      const relationship = coreWeak && sectorStrong ? '核心偏弱 · 板块仍有承接' : !coreWeak && sectorStrong ? '核心与板块共振' : coreWeak ? '核心与板块同步走弱' : '核心暂稳 · 承接待确认';
+      const relationship = coreWeak && sectorStrong ? '中军偏弱 · 板块仍有承接' : !coreWeak && sectorStrong ? '情绪与趋势共振' : coreWeak ? '中军与板块同步走弱' : '角色分化 · 承接待确认';
       const environment = breadthAverage < 35 ? '风险偏好收缩' : breadthAverage < 50 ? '结构性博弈' : '风险偏好扩张';
-      const conclusion = stage === '分歧' && sectorStrong ? '主线分歧，先看内部承接' : stage === '退潮' ? '全局承接不足，降低进攻' : secondary ? '主线与次主线并行观察' : '等待方向连续确认';
+      const conclusion = stage === '退潮'
+        ? '全局承接不足，降低进攻，等待新周期'
+        : !primary
+          ? '暂未形成可确认主线，等待规模与持续性同时成立'
+          : stage === '分歧' && sectorStrong
+            ? `主线${primary.industry}出现分歧，先看中军与板块内部承接`
+            : primary.strength >= 0.7
+              ? `主线聚焦${primary.industry}，强度较高但不追最后一次加速`
+              : `主线观察${primary.industry}，强度尚可，等待次日承接确认`;
       const observations = [
-        primary ? `观察${primary.industry}：放量 ${primary.ratio.toFixed(2)}× 后，次日是否仍有上涨扩散。` : '观察放量第一名是否形成连续承接。',
-        secondary ? `观察${secondary.industry}：高开兑现后能否继续主动，避免把单日套利当成切换。` : '观察第二强方向是否出现独立承接。',
-        leaderCore ? `观察资金核心${leaderCore.industry}：当前${leaderCore.return_1d >= 0 ? '仍有支撑' : '偏弱'}，与板块强弱是否继续背离。` : '观察成交占比最高行业与放量方向是否共振。'
+        primary ? `主线证据：${primary.industry} 综合强度 ${Math.round(primary.strength * 100)}分，放量 ${primary.ratio.toFixed(2)}×、成交占比 ${primary.share.toFixed(1)}%、近5日达标 ${primary.aboveDays}/5。` : '观察放量第一名是否形成连续承接。',
+        leaderRole ? `龙头方向看${leaderRole.industry}：上涨扩散 ${leaderRole.breadth.toFixed(0)}%，当日超额 ${leaderRole.excess >= 0 ? '+' : ''}${leaderRole.excess.toFixed(1)}%。` : '观察情绪强度最高方向是否继续主动。',
+        centerRole ? `中军方向看${centerRole.industry}：成交承载 ${centerRole.share.toFixed(1)}%，近5日平均占比 ${centerRole.averageShare.toFixed(1)}%。` : '观察成交占比最高行业与放量方向是否共振。',
+        spreadRole ? `扩散观察${spreadRole.industry}：是否在主线分歧时仍能主动，而不是只做单日套利。` : '观察低位补涨是否出现持续扩散。'
       ];
       return {
         stage,
@@ -2451,15 +2615,17 @@
         primary,
         secondary,
         relationship,
-        leaderCore,
+        leaderRole,
+        centerRole,
+        spreadRole,
         spillover,
         conclusion,
         observations,
-        stageBasis: `${profiles.length}个方向满足连续性条件 · 当前放量阈值 ${p.ratio.toFixed(1)}×`,
+        stageBasis: `${profiles.length}个方向通过规模、放量、扩散和持续性筛选`,
         environmentBasis: `行业平均上涨扩散度 ${breadthAverage.toFixed(1)}% · 平均当日涨幅 ${marketReturn >= 0 ? '+' : ''}${marketReturn.toFixed(2)}%`,
-        relationshipBasis: leaderCore ? `资金占比最高为${leaderCore.industry}，主线候选同时考虑最新放量与当日承接。` : '暂无足够数据。',
-        conclusionBasis: `短线情绪${labelPower(shortScore)} · 趋势资金${labelPower(trendScore)} · 仅作行业数据研究线索`,
-        source: `数据日期：${selected} · 行业数据推导，不含连板与竞价数据`
+        relationshipBasis: centerRole ? `中军代理为${centerRole.industry}，龙头代理为${leaderRole?.industry || '待观察'}；两者一致才提高主线置信度。` : '暂无稳定角色分工',
+        conclusionBasis: `短线情绪${labelPower(shortScore)} · 趋势资金${labelPower(trendScore)} · 采用行业级角色代理判断`,
+        source: `数据日期：${selected} · 综合模型：规模承载 25% / 放量 18% / 扩散 18% / 超额 15% / 持续性 24%`
       };
     }
 
@@ -2467,6 +2633,19 @@
       const review = computeCycleReview(latest, byIndustry, p, selected);
       const stage = document.getElementById('cycleStage');
       stage.innerHTML = `<strong>${review.stage}</strong><span>${review.stageBasis}</span>`;
+      document.getElementById('cycleFocusLine').textContent = review.primary?.industry || '暂无明确主线';
+      document.getElementById('cycleFocusConclusion').textContent = review.conclusion;
+      document.getElementById('cycleFocusScore').textContent = review.primary ? `${Math.round(review.primary.strength * 100)} / 100` : '—';
+      document.getElementById('cycleFocusMeter').style.width = review.primary ? `${Math.round(review.primary.strength * 100)}%` : '0%';
+      document.getElementById('cycleFocusStats').textContent = review.primary
+        ? `成交占比 ${review.primary.share.toFixed(1)}% · 放量 ${review.primary.ratio.toFixed(2)}× · 上涨扩散 ${review.primary.breadth.toFixed(0)}% · 连续达标 ${review.primary.aboveDays}/5`
+        : '规模承载 · 放量 · 扩散 · 持续性尚未同时成立';
+      document.getElementById('cycleLeaderRole').textContent = review.leaderRole ? `${review.leaderRole.industry} · 情绪核心` : '待观察';
+      document.getElementById('cycleLeaderRoleBasis').textContent = review.leaderRole ? `扩散 ${review.leaderRole.breadth.toFixed(0)}% · 超额 ${review.leaderRole.excess >= 0 ? '+' : ''}${review.leaderRole.excess.toFixed(1)}% · 情绪强度最高` : '暂无足够的上涨扩散证据';
+      document.getElementById('cycleCenterRole').textContent = review.centerRole ? `${review.centerRole.industry} · 趋势中军` : '待观察';
+      document.getElementById('cycleCenterRoleBasis').textContent = review.centerRole ? `成交占比 ${review.centerRole.share.toFixed(1)}% · 近5日平均 ${review.centerRole.averageShare.toFixed(1)}% · 趋势承载最高` : '暂无稳定的成交承载方向';
+      document.getElementById('cycleSpreadRole').textContent = review.spreadRole?.industry || '暂无明显扩散';
+      document.getElementById('cycleSpreadRoleBasis').textContent = review.spreadRole ? `强度 ${Math.round(review.spreadRole.strength * 100)}分 · 观察主线分歧时是否独立走强` : '暂无满足条件的补涨方向';
       document.getElementById('cycleEnvironment').textContent = review.environment;
       document.getElementById('cycleEnvironmentBasis').textContent = review.environmentBasis;
       document.getElementById('cycleShortPower').textContent = labelPower(review.shortScore);
