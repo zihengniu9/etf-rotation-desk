@@ -58,6 +58,8 @@ jobs:
             --status-output outputs/industry_update_status.json
 
       - name: Refresh industry stock roles
+        env:
+          IWENCAI_API_KEY: ${{ secrets.IWENCAI_API_KEY }}
         run: |
           python scripts/update_industry_stock_roles.py \
             --industry-input outputs/industry_flow.json \

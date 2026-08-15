@@ -1246,10 +1246,12 @@
     }
 
     .mainline-reason {
+      display: block;
+      margin-top: 4px;
       color: #8993a2;
       font-size: 12px;
       font-variant-numeric: tabular-nums;
-      white-space: nowrap;
+      line-height: 1.45;
     }
 
     .mainline-status {
@@ -2117,9 +2119,9 @@
     <section class="card panel cycle-review-panel" aria-labelledby="cycle-review-title">
       <div class="cycle-review-head">
         <div>
-          <div class="cycle-kicker">收盘复盘 · 行业数据推导</div>
+      <div class="cycle-kicker">收盘复盘 · 股票热榜 + 行业承接</div>
           <h2 class="panel-title" id="cycle-review-title">短线周期与主线切换判断</h2>
-          <p class="panel-desc">主线定方向，分歧看承接；当前模块使用行业成交、放量、扩散和超额涨幅做代理判断。</p>
+          <p class="panel-desc">主线定方向，核心看热榜，分歧看承接；行业强度与股票热榜共同判断主线、外溢和次主线。</p>
         </div>
         <div class="cycle-stage" id="cycleStage" aria-live="polite"><strong>—</strong><span>等待数据</span></div>
       </div>
@@ -2175,11 +2177,11 @@
     </section>
       <section class="card panel mainline-filter-panel">
         <div class="panel-head">
-          <div><h2 class="panel-title">主线筛选</h2><p class="panel-desc">优先选择近期持续放量的行业题材</p></div>
+          <div><h2 class="panel-title">主线筛选 · 股票热榜共振</h2><p class="panel-desc">先按主线家族归并，再用龙头、中军、补涨和热榜强度确认</p></div>
           <span class="filter-count" id="mainlineFilterCount">—</span>
         </div>
         <div class="mainline-list" id="mainlineFilterList"></div>
-        <div class="filter-note"><span class="filter-note-dot"></span>连续放量 ≥2日 · 近5日平均强度优先</div>
+        <div class="filter-note"><span class="filter-note-dot"></span>二级行业保留明细 · 主线家族看热榜、核心与承接</div>
       </section>
 </section>
 
@@ -2239,6 +2241,7 @@
     const fallbackData = LIVE_DATA.length ? LIVE_DATA : makeSampleData();
     let data = [];
     let stockRoles = {};
+    let stockHot = {};
     let currentFileName = '';
     let industryRefreshPromise = null;
     let lastIndustryRefreshStartedAt = 0;
@@ -2396,8 +2399,8 @@
       document.getElementById('kpiDateNote').textContent = `数据行数：${data.length.toLocaleString()} · ${currentFileName || '内置示例'}`;
       renderLineChart(selected, latest, byIndustry, p);
       renderVolumeRanking(latest, p);
-      renderCycleReview(latest, byIndustry, p, selected, stockRoles);
-      renderMainlineFilter(latest, byIndustry, p, selected);
+      renderCycleReview(latest, byIndustry, p, selected, stockRoles, stockHot);
+      renderMainlineFilter(latest, byIndustry, p, selected, stockHot);
       renderTable(latest, p);
       updateLabels();
     }
@@ -2516,20 +2519,115 @@
       return Math.max(0, Math.min(1, Number(value) || 0));
     }
 
-    function mainlineStrength(row, p) {
+    function mainlineStrength(row, p, hot = {}) {
       const size = clamp01(row.share / Math.max(3, Number(p.share) || 5));
       const volume = clamp01((row.ratio - 0.85) / 1.35);
       const breadth = clamp01((row.breadth - 35) / 45);
       const excess = clamp01((row.excess + 1) / 4);
       const persistence = clamp01((row.aboveDays || 0) / 5 * 0.6 + (row.streak || 0) / 3 * 0.4);
-      return clamp01(size * 0.25 + volume * 0.18 + breadth * 0.18 + excess * 0.15 + persistence * 0.24);
+      const hotScore = Number(hot.score) || 0;
+      if (!hotScore) return clamp01(size * 0.25 + volume * 0.18 + breadth * 0.18 + excess * 0.15 + persistence * 0.24);
+      const industryScore = size * 0.18 + volume * 0.12 + breadth * 0.12 + excess * 0.08 + persistence * 0.10;
+      return clamp01(hotScore ? industryScore + hotScore * 0.40 : industryScore + persistence * 0.30);
     }
 
     function currentSupportScore(row) {
       return Number.isFinite(row.strength) ? row.strength : mainlineStrength(row, { share: 5 });
     }
 
-    function buildMainlineProfiles(latest, byIndustry, p, selected, limit = 10) {
+    // 二级行业用于精确统计，周期判断再按资金通常使用的主线家族归并。
+    const LINE_FAMILIES = [
+      { name: '医药', industries: ['中药', '化学制药', '化学原料', '医疗器械', '医疗服务', '医药商业', '生物制品'] },
+      { name: '科技', industries: ['半导体', '元件', '军工电子', '消费电子', '光学光电子', '电子化学品', '通信设备', '通信服务', 'IT服务', '计算机设备', '软件开发', '其他电子'] },
+      { name: '消费', industries: ['饮料制造', '食品加工制造', '家居用品', '小家电', '白酒', '服装家纺', '零售', '旅游及酒店', '影视院线', '游戏', '文化传媒'] },
+      { name: '能源', industries: ['电力', '煤炭开采加工', '油气开采及服务', '石油加工贸易', '燃气', '光伏设备', '风电设备', '其他电源设备', '电池', '电网设备'] },
+      { name: '金属资源', industries: ['小金属', '工业金属', '金属新材料', '钢铁', '贵金属', '能源金属'] },
+      { name: '基建地产', industries: ['建筑装饰', '建筑材料', '房地产', '公路铁路运输', '港口航运', '机场航运', '环保设备', '环境治理'] },
+    ];
+
+    function lineFamilyOf(industry) {
+      return LINE_FAMILIES.find(family => family.industries.includes(industry))?.name || industry;
+    }
+
+    function aggregateHotScore(scores) {
+      const values = scores.map(clamp01).filter(value => value > 0);
+      if (!values.length) return 0;
+      return clamp01((1 - values.reduce((product, value) => product * (1 - value * 0.78), 1)));
+    }
+
+    function chooseLineRoles(industries, stockRoles = {}, hotMap = {}) {
+      const hotCandidates = industries.map(industry => hotMap[industry]?.leader).filter(Boolean);
+      const roleCandidates = industries.flatMap(industry => {
+        const roles = stockRoles[industry] || {};
+        return [roles.leader, roles.center, roles.spread].filter(Boolean);
+      });
+      const allCandidates = [...hotCandidates, ...roleCandidates].filter(Boolean);
+      const unique = [...new Map(allCandidates.map(stock => [stock.code, stock])).values()];
+      const leader = [...hotCandidates, ...roleCandidates]
+        .filter(Boolean)
+        .sort((a, b) => (Number(a.hot_rank) || 9999) - (Number(b.hot_rank) || 9999) || (b.score || 0) - (a.score || 0))[0] || null;
+      const center = [...unique]
+        .filter(stock => stock.code !== leader?.code)
+        .sort((a, b) => (Number(b.amount) || 0) - (Number(a.amount) || 0) || (b.score || 0) - (a.score || 0))[0] || null;
+      const excluded = new Set([leader?.code, center?.code].filter(Boolean));
+      const spread = [...unique]
+        .filter(stock => !excluded.has(stock.code))
+        .sort((a, b) => (Number(b.change) || 0) - (Number(a.change) || 0) || (Number(b.turnover_rate) || 0) - (Number(a.turnover_rate) || 0))[0] || null;
+      return { leader, center, spread };
+    }
+
+    function buildLineProfiles(latest, byIndustry, p, selected, limit = 8, hotMap = stockHot, stockRoles = {}) {
+      const exactProfiles = buildMainlineProfiles(latest, byIndustry, p, selected, 100, hotMap);
+      const groups = new Map();
+      exactProfiles.forEach(profile => {
+        const family = lineFamilyOf(profile.industry);
+        if (!groups.has(family)) groups.set(family, { industry: family, rows: [], industries: [] });
+        const group = groups.get(family);
+        group.rows.push(profile);
+        if (!group.industries.includes(profile.industry)) group.industries.push(profile.industry);
+      });
+      return [...groups.values()].map(group => {
+        const weight = group.rows.reduce((sum, row) => sum + Math.max(0.5, row.share), 0) || 1;
+        const weighted = key => group.rows.reduce((sum, row) => sum + Number(row[key] || 0) * Math.max(0.5, row.share), 0) / weight;
+        const hotScores = group.rows.map(row => row.hotScore).filter(score => score > 0);
+        const hotCount = group.rows.reduce((sum, row) => sum + (row.hotCount || 0), 0);
+        const hotScore = aggregateHotScore(hotScores);
+        const baseStrength = weighted('strength');
+        const breadth = weighted('breadth');
+        const excess = weighted('excess');
+        const ratio = weighted('ratio');
+        const share = group.rows.reduce((sum, row) => sum + row.share, 0);
+        const aboveDays = Math.round(weighted('aboveDays'));
+        const streak = Math.max(...group.rows.map(row => row.streak || 0), 0);
+        const strength = clamp01(baseStrength * 0.52 + hotScore * 0.30 + clamp01((breadth - 35) / 45) * 0.10 + clamp01((excess + 1) / 4) * 0.08);
+        const roleStocks = chooseLineRoles(group.industries, stockRoles, hotMap);
+        const hotLeaders = group.industries
+          .map(industry => hotMap[industry]?.leader)
+          .filter(Boolean)
+          .sort((a, b) => (Number(a.hot_rank) || 9999) - (Number(b.hot_rank) || 9999));
+        const mainline = hotCount >= 4 && hotScore >= 0.42 && strength >= 0.5 && (group.industries.length >= 2 || hotCount >= 6);
+        const resonance = hotCount >= 2 && hotScore >= 0.18;
+        return {
+          ...group,
+          ratio,
+          share,
+          breadth,
+          excess,
+          aboveDays,
+          streak,
+          averageRatio: weighted('averageRatio'),
+          hotCount,
+          hotScore,
+          hotLeader: roleStocks.leader,
+          hotLeaders,
+          roleStocks,
+          strength,
+          lineType: mainline ? '主线候选' : resonance ? '热榜共振' : strength >= 0.42 ? '放量观察' : '情绪外溢',
+        };
+      }).sort((a, b) => currentSupportScore(b) - currentSupportScore(a) || b.hotScore - a.hotScore || b.share - a.share).slice(0, limit);
+    }
+
+    function buildMainlineProfiles(latest, byIndustry, p, selected, limit = 10, hotMap = stockHot) {
       const scored = latest.map(current => {
         const history = (byIndustry[current.industry] || []).filter(row => row.date <= selected).slice(-5);
         let streak = 0;
@@ -2540,28 +2638,34 @@
         const averageExcess = averageMetric(history, 'excess');
         const averageReturn = averageMetric(history, 'return_1d');
         const aboveDays = history.filter(row => row.ratio >= p.ratio).length;
-        const profile = { ...current, history, streak, averageRatio, averageShare, averageBreadth, averageExcess, averageReturn, aboveDays };
-        profile.strength = mainlineStrength(profile, p);
+        const hot = hotMap[current.industry] || {};
+        const profile = { ...current, history, streak, averageRatio, averageShare, averageBreadth, averageExcess, averageReturn, aboveDays, hot };
+        profile.hotCount = Number(hot.count) || 0;
+        profile.hotScore = Number(hot.score) || 0;
+        profile.hotLeader = hot.leader || null;
+        profile.strength = mainlineStrength(profile, p, hot);
         profile.shortLeaderScore = clamp01((profile.breadth - 35) / 45) * 0.45 + clamp01((profile.excess + 1) / 4) * 0.35 + clamp01(profile.return_1d / 3 + 0.5) * 0.2;
         profile.centerScore = clamp01(profile.share / Math.max(3, p.share || 5)) * 0.55 + clamp01((profile.averageShare - 1) / 4) * 0.25 + clamp01((profile.averageReturn + 1) / 3) * 0.2;
         return profile;
       }).sort((a, b) => currentSupportScore(b) - currentSupportScore(a) || b.share - a.share || b.ratio - a.ratio);
-      const minimumShare = Math.max(1.5, (Number(p.share) || 5) * 0.28);
-      const robust = scored.filter(row => row.ratio >= p.ratio && row.share >= minimumShare && (row.streak >= 2 || row.aboveDays >= 3) && (row.breadth >= 45 || row.excess >= 0));
+      const minimumShare = Math.max(1.0, (Number(p.share) || 5) * 0.20);
+      const hotConsensus = scored.filter(row => row.hotCount >= 2 && row.hotScore >= 0.18 && (row.breadth >= 35 || row.excess >= 0));
+      const robust = scored.filter(row => row.ratio >= p.ratio && row.share >= minimumShare && (row.streak >= 2 || row.aboveDays >= 3) && (row.breadth >= 40 || row.excess >= 0));
       const fallback = scored.filter(row => row.ratio >= p.ratio && row.share >= minimumShare);
-      return (robust.length ? robust : fallback).slice(0, limit);
+      const selectedRows = [...new Map([...robust, ...hotConsensus, ...fallback].map(row => [row.industry, row])).values()];
+      return selectedRows.sort((a, b) => currentSupportScore(b) - currentSupportScore(a) || b.hotScore - a.hotScore || b.share - a.share).slice(0, limit);
     }
 
     function labelPower(score) {
       return score >= 0.66 ? '强' : score >= 0.43 ? '中' : '弱';
     }
 
-    function computeCycleReview(latest, byIndustry, p, selected, stockRoles = {}) {
+    function computeCycleReview(latest, byIndustry, p, selected, stockRoles = {}, stockHot = {}) {
       const rows = latest.filter(row => Number.isFinite(row.ratio));
       const ratioRows = [...rows].sort((a, b) => b.ratio - a.ratio || b.share - a.share);
       const shareRows = [...rows].sort((a, b) => b.share - a.share || b.ratio - a.ratio);
       const leaders = ratioRows.slice(0, 5);
-      const profiles = buildMainlineProfiles(rows, byIndustry, p, selected, 10);
+      const profiles = buildLineProfiles(rows, byIndustry, p, selected, 10, stockHot, stockRoles);
       const primary = profiles[0] || null;
       const secondary = profiles[1] || null;
       const breadthAverage = averageMetric(rows, 'breadth');
@@ -2578,12 +2682,13 @@
       const centerDirection = profiles.length ? [...profiles].sort((a, b) => b.centerScore - a.centerScore || b.share - a.share)[0] : null;
       const spreadRows = profiles.filter(row => row.industry !== primary?.industry && row.breadth >= 50).sort((a, b) => b.strength - a.strength);
       const spreadDirection = spreadRows[0] || secondary || null;
-      const stockProfile = primary ? stockRoles[primary.industry] : null;
-      const leaderStock = stockProfile?.leader || null;
-      const centerStock = stockProfile?.center || null;
-      const spreadStock = stockProfile?.spread || null;
-      const sectorStrong = Boolean(primary && primary.strength >= 0.55);
-      const coreWeak = Boolean(centerDirection && centerDirection.return_1d < 0 && centerDirection.excess < 0);
+      const leaderStock = primary?.roleStocks?.leader || null;
+      const centerStock = primary?.roleStocks?.center || null;
+      const spreadStock = primary?.roleStocks?.spread || null;
+      const sectorStrong = Boolean(primary && ((primary.breadth >= 50 && primary.excess >= 0) || (primary.hotCount >= 4 && primary.hotScore >= 0.42)));
+      const secondaryStrong = Boolean(secondary && secondary.hotCount >= 2 && secondary.breadth >= 45 && secondary.excess >= -0.4);
+      const leaderWeak = Boolean(leaderStock && Number(leaderStock.change) < 0);
+      const coreWeak = leaderWeak || Boolean(centerDirection && centerDirection.return_1d < 0 && centerDirection.excess < 0);
       let stage = '观察';
       if (breadthAverage < 32 && activePositive === 0) stage = '退潮';
       else if (leaderReturn < -0.45 || topLeaderBreadth < 45) stage = '分歧';
@@ -2592,7 +2697,7 @@
       else if (primary && primary.strength >= 0.5) stage = '启动';
       const spillover = rows.filter(row => row.ratio >= p.ratio && row.share < Math.max(1.5, (Number(p.share) || 5) * 0.28) && row.breadth >= 55)
         .sort((a, b) => b.ratio - a.ratio || b.breadth - a.breadth).slice(0, 3);
-      const relationship = coreWeak && sectorStrong ? '中军方向偏弱 · 板块仍有承接' : !coreWeak && sectorStrong ? '龙头与中军共振' : coreWeak ? '中军方向与板块同步走弱' : '个股角色分化 · 承接待确认';
+      const relationship = coreWeak && sectorStrong ? '核心分歧 · 板块仍有承接' : !coreWeak && sectorStrong ? '龙头与中军共振' : coreWeak && secondaryStrong ? '主线走弱 · 次主线主动承接' : coreWeak ? '核心与板块同步走弱' : '个股角色分化 · 承接待确认';
       const environment = breadthAverage < 35 ? '风险偏好收缩' : breadthAverage < 50 ? '结构性博弈' : '风险偏好扩张';
       const conclusion = stage === '退潮'
         ? '全局承接不足，降低进攻，等待新周期'
@@ -2600,11 +2705,13 @@
           ? '暂未形成可确认主线，等待规模与持续性同时成立'
           : stage === '分歧' && sectorStrong
             ? `主线${primary.industry}出现分歧，先看中军与板块内部承接`
+            : coreWeak && secondaryStrong
+              ? `主线${primary.industry}核心走弱，${secondary.industry}出现主动承接，先按次主线观察`
             : primary.strength >= 0.7
               ? `主线聚焦${primary.industry}，强度较高但不追最后一次加速`
               : `主线观察${primary.industry}，强度尚可，等待次日承接确认`;
       const observations = [
-        primary ? `主线证据：${primary.industry} 综合强度 ${Math.round(primary.strength * 100)}分，放量 ${primary.ratio.toFixed(2)}×、成交占比 ${primary.share.toFixed(1)}%、近5日达标 ${primary.aboveDays}/5。` : '观察放量第一名是否形成连续承接。',
+        primary ? `主线证据：${primary.industry}（${primary.industries.join('、')}）综合强度 ${Math.round(primary.strength * 100)}分，股票热榜 ${primary.hotCount || 0}只、放量 ${primary.ratio.toFixed(2)}×、成交占比 ${primary.share.toFixed(1)}%、近5日达标 ${primary.aboveDays}/5。` : '观察股票热榜与行业放量是否形成共振。',
         leaderStock ? `龙头个股看${leaderStock.name}（${leaderStock.code}）：热度 ${Math.round(leaderStock.heat).toLocaleString()}、涨幅 ${leaderStock.change >= 0 ? '+' : ''}${leaderStock.change.toFixed(2)}%。` : '等待主线股票热度数据，暂不把行业代理当作龙头。',
         centerStock ? `中军个股看${centerStock.name}（${centerStock.code}）：成交额 ${formatStockAmount(centerStock.amount)}、换手 ${centerStock.turnover_rate.toFixed(2)}%。` : '等待主线股票成交额数据，暂不把行业代理当作中军。',
         spreadStock ? `补涨个股看${spreadStock.name}（${spreadStock.code}）：涨幅 ${spreadStock.change >= 0 ? '+' : ''}${spreadStock.change.toFixed(2)}%、热度 ${Math.round(spreadStock.heat).toLocaleString()}，观察能否脱离主线独立承接。` : '等待主线股票扩散数据。'
@@ -2629,11 +2736,11 @@
         spillover,
         conclusion,
         observations,
-        stageBasis: `${profiles.length}个方向通过规模、放量、扩散和持续性筛选`,
+        stageBasis: `${profiles.length}条主线家族通过规模、热榜、扩散和持续性筛选`,
         environmentBasis: `行业平均上涨扩散度 ${breadthAverage.toFixed(1)}% · 平均当日涨幅 ${marketReturn >= 0 ? '+' : ''}${marketReturn.toFixed(2)}%`,
         relationshipBasis: centerStock ? `龙头 ${leaderStock?.name || '待观察'} · 中军 ${centerStock.name}；股票角色与行业强度同时成立，才提高主线置信度。` : '暂无完整的股票角色数据',
         conclusionBasis: `短线情绪${labelPower(shortScore)} · 趋势资金${labelPower(trendScore)} · 行业识别 + 个股热度/成交额/涨幅/换手率`,
-        source: `数据日期：${selected} · 行业模型：规模 25% / 放量 18% / 扩散 18% / 超额 15% / 持续性 24% · 个股角色：热度/成交额/涨幅/换手率`
+        source: `数据日期：${selected} · 行业强度 + 全市场股票热榜 · 个股角色：热度/成交额/涨幅/换手率`
       };
     }
 
@@ -2646,8 +2753,12 @@
     function stockRoleLabel(role, empty = '个股角色待更新') {
       return role ? `${role.name} ${role.code}` : empty;
     }
-    function renderCycleReview(latest, byIndustry, p, selected, stockRoles = {}) {
-      const review = computeCycleReview(latest, byIndustry, p, selected, stockRoles);
+    function stockRoleScore(role) {
+      const score = Number(role?.score);
+      return Number.isFinite(score) ? score.toFixed(0) : '热榜';
+    }
+    function renderCycleReview(latest, byIndustry, p, selected, stockRoles = {}, stockHot = {}) {
+      const review = computeCycleReview(latest, byIndustry, p, selected, stockRoles, stockHot);
       const stage = document.getElementById('cycleStage');
       stage.innerHTML = `<strong>${review.stage}</strong><span>${review.stageBasis}</span>`;
       document.getElementById('cycleFocusLine').textContent = review.primary?.industry || '暂无明确主线';
@@ -2655,24 +2766,25 @@
       document.getElementById('cycleFocusScore').textContent = review.primary ? `${Math.round(review.primary.strength * 100)} / 100` : '—';
       document.getElementById('cycleFocusMeter').style.width = review.primary ? `${Math.round(review.primary.strength * 100)}%` : '0%';
       document.getElementById('cycleFocusStats').textContent = review.primary
-        ? `成交占比 ${review.primary.share.toFixed(1)}% · 放量 ${review.primary.ratio.toFixed(2)}× · 上涨扩散 ${review.primary.breadth.toFixed(0)}% · 连续达标 ${review.primary.aboveDays}/5`
+        ? `股票热榜 ${review.primary.hotCount || 0}只 · 覆盖 ${review.primary.industries.join('、')} · 成交占比 ${review.primary.share.toFixed(1)}% · 放量 ${review.primary.ratio.toFixed(2)}× · 上涨扩散 ${review.primary.breadth.toFixed(0)}% · 连续达标 ${review.primary.aboveDays}/5`
         : '规模承载 · 放量 · 扩散 · 持续性尚未同时成立';
       document.getElementById('cycleLeaderRole').textContent = stockRoleLabel(review.leaderStock);
-      document.getElementById('cycleLeaderRoleBasis').textContent = review.leaderStock ? `热度 ${Math.round(review.leaderStock.heat).toLocaleString()} · 涨幅 ${review.leaderStock.change >= 0 ? '+' : ''}${review.leaderStock.change.toFixed(2)}% · 角色评分 ${review.leaderStock.score.toFixed(0)}` : '暂无主线个股热度数据';
+      const hotLeaderNames = review.primary?.hotLeaders?.slice(0, 3).map(stock => `${stock.name} ${stock.code}`).join('、') || '';
+      document.getElementById('cycleLeaderRoleBasis').textContent = review.leaderStock ? `热度 ${Math.round(review.leaderStock.heat).toLocaleString()} · 涨幅 ${review.leaderStock.change >= 0 ? '+' : ''}${review.leaderStock.change.toFixed(2)}% · 角色评分 ${stockRoleScore(review.leaderStock)}${hotLeaderNames ? ` · 热榜核心 ${hotLeaderNames}` : ''}` : '暂无主线个股热度数据';
       document.getElementById('cycleCenterRole').textContent = stockRoleLabel(review.centerStock);
-      document.getElementById('cycleCenterRoleBasis').textContent = review.centerStock ? `成交额 ${formatStockAmount(review.centerStock.amount)} · 换手 ${review.centerStock.turnover_rate.toFixed(2)}% · 角色评分 ${review.centerStock.score.toFixed(0)}` : '暂无主线个股成交额数据';
+      document.getElementById('cycleCenterRoleBasis').textContent = review.centerStock ? `成交额 ${formatStockAmount(review.centerStock.amount)} · 换手 ${review.centerStock.turnover_rate.toFixed(2)}% · 角色评分 ${stockRoleScore(review.centerStock)}` : '暂无主线个股成交额数据';
       document.getElementById('cycleSpreadRole').textContent = stockRoleLabel(review.spreadStock, '暂无明显补涨个股');
-      document.getElementById('cycleSpreadRoleBasis').textContent = review.spreadStock ? `涨幅 ${review.spreadStock.change >= 0 ? '+' : ''}${review.spreadStock.change.toFixed(2)}% · 热度 ${Math.round(review.spreadStock.heat).toLocaleString()} · 观察独立承接` : '暂无主线个股扩散数据';
+      document.getElementById('cycleSpreadRoleBasis').textContent = review.spreadStock ? `涨幅 ${review.spreadStock.change >= 0 ? '+' : ''}${review.spreadStock.change.toFixed(2)}% · 热度 ${Math.round(review.spreadStock.heat).toLocaleString()} · 角色评分 ${stockRoleScore(review.spreadStock)} · 观察独立承接` : '暂无主线个股扩散数据';
       document.getElementById('cycleEnvironment').textContent = review.environment;
       document.getElementById('cycleEnvironmentBasis').textContent = review.environmentBasis;
       document.getElementById('cycleShortPower').textContent = labelPower(review.shortScore);
-      document.getElementById('cycleShortBasis').textContent = `强度 ${review.shortScore.toFixed(2)} · 前5放量行业扩散代理`;
+      document.getElementById('cycleShortBasis').textContent = `强度 ${review.shortScore.toFixed(2)} · 热榜核心与上涨扩散`;
       document.getElementById('cycleTrendPower').textContent = labelPower(review.trendScore);
       document.getElementById('cycleTrendBasis').textContent = `强度 ${review.trendScore.toFixed(2)} · 前3行业占比 ${review.top3Share.toFixed(1)}%`;
       document.getElementById('cyclePrimaryLine').textContent = review.primary?.industry || '待确认';
-      document.getElementById('cyclePrimaryBasis').textContent = review.primary ? `最新放量 ${review.primary.ratio.toFixed(2)}× · 连续 ${review.primary.streak}日` : '暂无满足条件的方向';
+      document.getElementById('cyclePrimaryBasis').textContent = review.primary ? `${review.primary.lineType} · 热榜 ${review.primary.hotCount || 0}只 · 最新放量 ${review.primary.ratio.toFixed(2)}×` : '暂无满足条件的方向';
       document.getElementById('cycleSecondaryLine').textContent = review.secondary?.industry || '待观察';
-      document.getElementById('cycleSecondaryBasis').textContent = review.secondary ? `最新放量 ${review.secondary.ratio.toFixed(2)}× · 观察独立承接` : '暂无足够连续性证据';
+      document.getElementById('cycleSecondaryBasis').textContent = review.secondary ? `${review.secondary.lineType} · 热榜 ${review.secondary.hotCount || 0}只 · 观察独立承接` : '暂无足够连续性证据';
       document.getElementById('cycleRelationship').textContent = review.relationship;
       document.getElementById('cycleRelationshipBasis').textContent = review.relationshipBasis;
       document.getElementById('cycleOverflow').textContent = review.spillover.length ? review.spillover.map(row => row.industry).join('、') : '暂无明显扩散';
@@ -2682,19 +2794,22 @@
       document.getElementById('cycleObserveList').innerHTML = review.observations.map(item => `<li>${item}</li>`).join('');
     }
 
-    function renderMainlineFilter(latest, byIndustry, p, selected) {
-      const profiles = buildMainlineProfiles(latest, byIndustry, p, selected, 5);
+    function renderMainlineFilter(latest, byIndustry, p, selected, hotMap = stockHot) {
+      const profiles = buildLineProfiles(latest, byIndustry, p, selected, 6, hotMap, stockRoles);
       const list = document.getElementById('mainlineFilterList');
       const count = document.getElementById('mainlineFilterCount');
-      count.textContent = `${profiles.length}个题材`;
+      count.textContent = `${profiles.length}条主线`;
       if (!profiles.length) {
         list.innerHTML = '<div class="mainline-empty">当前没有满足连续放量条件的题材</div>';
         return;
       }
       list.innerHTML = profiles.map((row, index) => {
-        const strong = row.streak >= 3 && row.averageRatio >= p.ratio;
-        const label = strong ? '主线观察' : '持续放量';
-        return `<div class="mainline-item"><span class="mainline-rank">${String(index + 1).padStart(2, '0')}</span><div class="mainline-copy"><div class="mainline-title"><strong>${row.industry}</strong><span class="mainline-status ${strong ? 'strong' : ''}">${label}</span><span class="mainline-reason">连续放量 ${row.streak}日 · 近5日均值 ${row.averageRatio.toFixed(2)}×</span></div></div><div class="mainline-metric"><strong>${row.ratio.toFixed(2)}×</strong><span>最新</span></div></div>`;
+        const strong = row.lineType === '主线候选';
+        const hotLeaders = row.hotLeaders?.slice(0, 3).map(stock => stock.name).join('、');
+        const leader = hotLeaders ? ` · 热榜核心 ${hotLeaders}` : row.roleStocks?.leader?.name ? ` · 龙头 ${row.roleStocks.leader.name}` : '';
+        const center = row.roleStocks?.center?.name ? ` · 中军 ${row.roleStocks.center.name}` : '';
+        const industries = row.industries.length > 1 ? ` · 覆盖 ${row.industries.join('、')}` : '';
+        return `<div class="mainline-item"><span class="mainline-rank">${String(index + 1).padStart(2, '0')}</span><div class="mainline-copy"><div class="mainline-title"><strong>${row.industry}</strong><span class="mainline-status ${strong ? 'strong' : ''}">${row.lineType}</span></div><span class="mainline-reason">热榜 ${row.hotCount || 0}只 · 强度 ${Math.round(row.strength * 100)}分${leader}${center}${industries}</span></div><div class="mainline-metric"><strong>${Math.round(row.strength * 100)}分</strong><span>综合</span></div></div>`;
       }).join('');
     }
     document.querySelectorAll('[data-detail-sort]').forEach(button => {
@@ -2768,6 +2883,7 @@
         const status = statusResponse.ok ? await statusResponse.json() : null;
         const stockRolesPayload = stockRolesResponse.ok ? await stockRolesResponse.json() : null;
         stockRoles = stockRolesPayload?.industries || {};
+        stockHot = stockRolesPayload?.hot_industries || {};
         data = remoteRows;
         if (!preserveDateSelection) dateWasSelected = false;
         currentFileName = dataSource;

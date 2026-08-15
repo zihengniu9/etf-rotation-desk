@@ -43,6 +43,17 @@ class IndustryStockRolesTests(unittest.TestCase):
         self.assertEqual(roles["center"]["code"], "000002")
         self.assertEqual(roles["spread"]["code"], "000003")
 
+    def test_hot_rank_is_aggregated_by_industry(self):
+        rows = [
+            {"code": "000001", "name": "热度一", "heat": 100, "hot_rank": 1, "industries": ["医药生物", "化学制药"]},
+            {"code": "000002", "name": "热度二", "heat": 80, "hot_rank": 4, "industries": ["医药生物", "化学制药"]},
+            {"code": "000003", "name": "热度三", "heat": 60, "hot_rank": 8, "industries": ["电子", "半导体"]},
+        ]
+        stats = MODULE.build_hot_industry_stats(rows, {"化学制药", "半导体"})
+        self.assertEqual(stats["化学制药"]["count"], 2)
+        self.assertEqual(stats["化学制药"]["leader"]["code"], "000001")
+        self.assertEqual(stats["半导体"]["top_rank"], 8)
+
 
 if __name__ == "__main__":
     unittest.main()

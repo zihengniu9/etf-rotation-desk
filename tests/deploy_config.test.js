@@ -26,6 +26,7 @@ assert.ok(workflow.includes("python scripts/update_industry_data.py --refresh"),
 assert.ok(workflow.includes("--json-output outputs/industry_flow.json"), "Workflow should publish the industry JSON dataset");
 assert.ok(workflow.includes("python scripts/update_industry_stock_roles.py"), "Workflow should refresh stock-level mainline roles");
 assert.ok(workflow.includes("outputs/industry_stock_roles.json"), "Workflow should publish stock-level mainline roles");
+assert.ok(workflow.includes("IWENCAI_API_KEY: ${{ secrets.IWENCAI_API_KEY }}"), "Workflow should pass the stock hot-rank API key to the refresh step");
 assert.ok(workflow.includes("git add outputs"), "Workflow should persist updated output history");
 assert.ok(workflow.includes("git push"), "Workflow should push refreshed outputs before deployment");
 assert.ok(workflow.includes("contents: write"), "Workflow needs permission to commit refreshed outputs");

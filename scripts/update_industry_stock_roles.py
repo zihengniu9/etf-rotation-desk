@@ -171,13 +171,13 @@ def load_mainline_industries(path: Path, limit: int = 6) -> tuple[str | None, li
     return latest_date, [industry for _, industry in sorted(scored, reverse=True)[:limit]]
 
 
-def query_iwencai(industry: str, limit: int = 80) -> list[dict[str, Any]]:
+def query_iwencai(query: str, limit: int = 80) -> list[dict[str, Any]]:
     api_key = os.environ.get("IWENCAI_API_KEY", "")
     if not api_key:
         return []
     body = json.dumps(
         {
-            "query": f"{industry}行业股票同花顺热度排名最新价涨跌幅成交额换手率",
+            "query": query,
             "page": "1",
             "limit": str(limit),
             "is_cache": "1",
@@ -198,6 +198,57 @@ def query_iwencai(industry: str, limit: int = 80) -> list[dict[str, Any]]:
     with urllib.request.urlopen(request, timeout=30) as response:
         payload = json.loads(response.read().decode("utf-8"))
     return payload.get("datas", []) if isinstance(payload, dict) else []
+
+
+def normalize_hot_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    normalized = []
+    for rank, raw in enumerate(rows, start=1):
+        items = normalize_stock_rows([raw], "")
+        if not items:
+            continue
+        item = items[0]
+        item["hot_rank"] = rank
+        item["industries"] = industry_names(raw)
+        normalized.append(item)
+    return normalized
+
+
+def build_hot_industry_stats(rows: list[dict[str, Any]], industries: set[str]) -> dict[str, dict[str, Any]]:
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        matches = [name for name in row.get("industries", []) if name in industries]
+        if not matches:
+            continue
+        grouped.setdefault(matches[0], []).append(row)
+    if not grouped:
+        return {}
+    max_heat = max(sum(number(row.get("heat")) for row in members) for members in grouped.values())
+    max_count = max(len(members) for members in grouped.values())
+    result = {}
+    for industry, members in grouped.items():
+        members = sorted(members, key=lambda row: (row.get("hot_rank", 9999), -number(row.get("heat"))))
+        heat = sum(number(row.get("heat")) for row in members)
+        count_score = min(1.0, len(members) / max(3, max_count))
+        heat_score = heat / max_heat if max_heat else 0.0
+        rank_score = max(0.0, min(1.0, (101 - members[0].get("hot_rank", 100)) / 100))
+        result[industry] = {
+            "count": len(members),
+            "heat": round(heat, 2),
+            "top_rank": members[0].get("hot_rank", 0),
+            "score": round(count_score * 0.4 + heat_score * 0.4 + rank_score * 0.2, 4),
+            "leader": {
+                "role": "hot",
+                "code": members[0]["code"],
+                "name": members[0]["name"],
+                "price": round(number(members[0].get("price")), 4),
+                "change": round(number(members[0].get("change")), 2),
+                "amount": round(number(members[0].get("amount")), 2),
+                "turnover_rate": round(number(members[0].get("turnover_rate")), 2),
+                "heat": round(number(members[0].get("heat")), 2),
+                "hot_rank": members[0].get("hot_rank", 0),
+            },
+        }
+    return result
 
 
 def query_akshare(industry: str, hot_map: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
@@ -253,10 +304,33 @@ def main(argv: list[str] | None = None) -> int:
     status_path = Path(args.status_output)
     attempted_at = datetime.now(RUN_TZ).isoformat(timespec="seconds")
     data_as_of, industries = load_mainline_industries(Path(args.industry_input))
+    industry_payload = json.loads(Path(args.industry_input).read_text(encoding="utf-8"))
+    industry_rows = industry_payload.get("rows", [])
+    industry_universe = {
+        str(row.get("industry", "")).strip()
+        for row in industry_rows
+        if str(row.get("date", "")) == str(data_as_of) and str(row.get("industry", "")).strip()
+    }
     roles: dict[str, Any] = {}
     hot_map = {} if os.environ.get("IWENCAI_API_KEY") else load_hot_map()
     errors: list[str] = []
-    for industry in industries:
+    hot_rows: list[dict[str, Any]] = []
+    hot_stats: dict[str, dict[str, Any]] = {}
+    if not args.raw_input:
+        try:
+            hot_rows = normalize_hot_rows(
+                query_iwencai("A股股票同花顺热度排名所属同花顺行业最新价涨跌幅成交额换手率", 100)
+            )
+            hot_stats = build_hot_industry_stats(hot_rows, industry_universe)
+        except Exception as exc:
+            errors.append(f"全市场股票热榜 {type(exc).__name__}: {exc}")
+    hot_additions = [
+        industry
+        for industry, _ in sorted(hot_stats.items(), key=lambda item: item[1]["score"], reverse=True)
+        if industry not in industries
+    ]
+    requested_industries = list(dict.fromkeys(industries + hot_additions[:6]))
+    for industry in requested_industries:
         industry_source = ""
         rows = load_seed_rows(Path(args.raw_input), industry) if args.raw_input else []
         if args.raw_input and not rows:
@@ -265,7 +339,7 @@ def main(argv: list[str] | None = None) -> int:
             industry_source = "同花顺问财个股热度"
         if not rows:
             try:
-                rows = normalize_stock_rows(query_iwencai(industry), industry)
+                rows = normalize_stock_rows(query_iwencai(f"{industry}行业股票同花顺热度排名最新价涨跌幅成交额换手率"), industry)
                 if rows:
                     industry_source = "同花顺问财个股热度"
             except Exception as exc:
@@ -289,6 +363,7 @@ def main(argv: list[str] | None = None) -> int:
         "updated_at": attempted_at,
         "data_as_of": data_as_of,
         "source": "同花顺问财个股热度 + 行业成分股行情",
+        "hot_industries": hot_stats,
         "industries": roles,
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -301,6 +376,8 @@ def main(argv: list[str] | None = None) -> int:
             "status": status,
             "data_as_of": data_as_of,
             "industries": len(roles),
+            "hot_rows": len(hot_rows),
+            "hot_industries": len(hot_stats),
             "message": "行业主线股票角色已刷新" if roles else "未取得行业成分股数据，页面保留无角色状态",
             "source": "同花顺问财个股热度 + 行业成分股行情",
             "errors": errors[:10],
