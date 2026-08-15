@@ -24,6 +24,8 @@ assert.strictEqual(workflow.includes("Data date already refreshed"), false, "Int
 assert.ok(workflow.includes("python run_etf_selector.py"), "Workflow should refresh ETF outputs");
 assert.ok(workflow.includes("python scripts/update_industry_data.py --refresh"), "Workflow should refresh industry outputs");
 assert.ok(workflow.includes("--json-output outputs/industry_flow.json"), "Workflow should publish the industry JSON dataset");
+assert.ok(workflow.includes("python scripts/update_industry_stock_roles.py"), "Workflow should refresh stock-level mainline roles");
+assert.ok(workflow.includes("outputs/industry_stock_roles.json"), "Workflow should publish stock-level mainline roles");
 assert.ok(workflow.includes("git add outputs"), "Workflow should persist updated output history");
 assert.ok(workflow.includes("git push"), "Workflow should push refreshed outputs before deployment");
 assert.ok(workflow.includes("contents: write"), "Workflow needs permission to commit refreshed outputs");

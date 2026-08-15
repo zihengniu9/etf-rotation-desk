@@ -7,6 +7,7 @@ on:
       - "run_etf_selector.py"
       - "src/**"
       - "scripts/update_industry_data.py"
+      - "scripts/update_industry_stock_roles.py"
       - "web/industry_mainline_dashboard.html"
       - ".github/workflows/update-etf-data.yml"
       - "requirements.txt"
@@ -56,6 +57,13 @@ jobs:
             --json-output outputs/industry_flow.json \
             --status-output outputs/industry_update_status.json
 
+      - name: Refresh industry stock roles
+        run: |
+          python scripts/update_industry_stock_roles.py \
+            --industry-input outputs/industry_flow.json \
+            --output outputs/industry_stock_roles.json \
+            --status-output outputs/industry_stock_roles_status.json
+
       - name: Verify both dashboards
         run: |
           PYTHONPATH=src python -m unittest discover -s tests -p "test_*.py"
@@ -63,6 +71,7 @@ jobs:
           node tests/web_style.test.js
           node tests/deploy_config.test.js
           test -s outputs/industry_flow.json
+          test -s outputs/industry_stock_roles.json
           python - <<'PY'
           import json
           from datetime import datetime

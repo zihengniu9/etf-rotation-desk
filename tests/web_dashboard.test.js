@@ -68,9 +68,13 @@ for (const id of [
   assert.ok(industryHtml.includes(`id="${id}"`), `Industry cycle review should expose ${id}`);
 }
 assert.ok(industryHtml.includes("function computeCycleReview"));
+assert.ok(industryHtml.includes("../outputs/industry_stock_roles.json?ts="));
+assert.ok(industryHtml.includes("个股角色：热度/成交额/涨幅/换手率"));
+assert.ok(industryHtml.includes("function formatStockAmount"));
+assert.ok(industryHtml.includes("龙头个股 · 情绪定价"));
 assert.ok(industryHtml.includes("function currentSupportScore"));
 assert.ok(industryHtml.includes("function mainlineStrength"));
-assert.ok(industryHtml.includes("规模承载 25% / 放量 18% / 扩散 18%"));
+assert.ok(industryHtml.includes("行业模型：规模 25% / 放量 18% / 扩散 18%"));
 
 const csv = `code,name,theme,fund_size,score,total_return,annual_vol,latest_close
 159516,国泰中证半导体材料设备主题ETF,半导体,44163729896.6748,1.327929,0.727909,0.556536,1.975

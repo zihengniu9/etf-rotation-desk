@@ -2137,9 +2137,9 @@
         </div>
       </div>
       <div class="cycle-role-grid">
-        <div class="cycle-role"><span class="cycle-label">龙头方向 · 情绪定价</span><strong id="cycleLeaderRole">—</strong><p id="cycleLeaderRoleBasis">等待短线强度判断。</p></div>
-        <div class="cycle-role"><span class="cycle-label">中军方向 · 趋势承载</span><strong id="cycleCenterRole">—</strong><p id="cycleCenterRoleBasis">等待成交承载判断。</p></div>
-        <div class="cycle-role"><span class="cycle-label">补涨 / 扩散方向</span><strong id="cycleSpreadRole">—</strong><p id="cycleSpreadRoleBasis">等待板块扩散判断。</p></div>
+        <div class="cycle-role"><span class="cycle-label">龙头个股 · 情绪定价</span><strong id="cycleLeaderRole">—</strong><p id="cycleLeaderRoleBasis">等待个股热度与强度判断。</p></div>
+        <div class="cycle-role"><span class="cycle-label">中军个股 · 趋势承载</span><strong id="cycleCenterRole">—</strong><p id="cycleCenterRoleBasis">等待个股成交额与趋势判断。</p></div>
+        <div class="cycle-role"><span class="cycle-label">补涨个股 · 扩散验证</span><strong id="cycleSpreadRole">—</strong><p id="cycleSpreadRoleBasis">等待板块内个股扩散判断。</p></div>
       </div>
       <div class="cycle-overview-grid">
         <div class="cycle-environment">
@@ -2238,6 +2238,7 @@
     const FOCUS_REFRESH_MIN_GAP_MS = 15 * 1000;
     const fallbackData = LIVE_DATA.length ? LIVE_DATA : makeSampleData();
     let data = [];
+    let stockRoles = {};
     let currentFileName = '';
     let industryRefreshPromise = null;
     let lastIndustryRefreshStartedAt = 0;
@@ -2395,7 +2396,7 @@
       document.getElementById('kpiDateNote').textContent = `数据行数：${data.length.toLocaleString()} · ${currentFileName || '内置示例'}`;
       renderLineChart(selected, latest, byIndustry, p);
       renderVolumeRanking(latest, p);
-      renderCycleReview(latest, byIndustry, p, selected);
+      renderCycleReview(latest, byIndustry, p, selected, stockRoles);
       renderMainlineFilter(latest, byIndustry, p, selected);
       renderTable(latest, p);
       updateLabels();
@@ -2555,7 +2556,7 @@
       return score >= 0.66 ? '强' : score >= 0.43 ? '中' : '弱';
     }
 
-    function computeCycleReview(latest, byIndustry, p, selected) {
+    function computeCycleReview(latest, byIndustry, p, selected, stockRoles = {}) {
       const rows = latest.filter(row => Number.isFinite(row.ratio));
       const ratioRows = [...rows].sort((a, b) => b.ratio - a.ratio || b.share - a.share);
       const shareRows = [...rows].sort((a, b) => b.share - a.share || b.ratio - a.ratio);
@@ -2573,12 +2574,16 @@
       const trendScore = clamp01(Math.min(1, top3Share / 15) * 0.55 + Math.min(1, (ratioRows[0]?.ratio || 0) / 2) * 0.45);
       const activePositive = profiles.filter(row => row.return_1d >= 0 && row.breadth >= 50).length;
       const leaderReturn = averageMetric(leaders.slice(0, 3), 'return_1d');
-      const leaderRole = profiles.length ? [...profiles].sort((a, b) => b.shortLeaderScore - a.shortLeaderScore || b.strength - a.strength)[0] : null;
-      const centerRole = profiles.length ? [...profiles].sort((a, b) => b.centerScore - a.centerScore || b.share - a.share)[0] : null;
+      const leaderDirection = profiles.length ? [...profiles].sort((a, b) => b.shortLeaderScore - a.shortLeaderScore || b.strength - a.strength)[0] : null;
+      const centerDirection = profiles.length ? [...profiles].sort((a, b) => b.centerScore - a.centerScore || b.share - a.share)[0] : null;
       const spreadRows = profiles.filter(row => row.industry !== primary?.industry && row.breadth >= 50).sort((a, b) => b.strength - a.strength);
-      const spreadRole = spreadRows[0] || secondary || null;
+      const spreadDirection = spreadRows[0] || secondary || null;
+      const stockProfile = primary ? stockRoles[primary.industry] : null;
+      const leaderStock = stockProfile?.leader || null;
+      const centerStock = stockProfile?.center || null;
+      const spreadStock = stockProfile?.spread || null;
       const sectorStrong = Boolean(primary && primary.strength >= 0.55);
-      const coreWeak = Boolean(centerRole && centerRole.return_1d < 0 && centerRole.excess < 0);
+      const coreWeak = Boolean(centerDirection && centerDirection.return_1d < 0 && centerDirection.excess < 0);
       let stage = '观察';
       if (breadthAverage < 32 && activePositive === 0) stage = '退潮';
       else if (leaderReturn < -0.45 || topLeaderBreadth < 45) stage = '分歧';
@@ -2587,7 +2592,7 @@
       else if (primary && primary.strength >= 0.5) stage = '启动';
       const spillover = rows.filter(row => row.ratio >= p.ratio && row.share < Math.max(1.5, (Number(p.share) || 5) * 0.28) && row.breadth >= 55)
         .sort((a, b) => b.ratio - a.ratio || b.breadth - a.breadth).slice(0, 3);
-      const relationship = coreWeak && sectorStrong ? '中军偏弱 · 板块仍有承接' : !coreWeak && sectorStrong ? '情绪与趋势共振' : coreWeak ? '中军与板块同步走弱' : '角色分化 · 承接待确认';
+      const relationship = coreWeak && sectorStrong ? '中军方向偏弱 · 板块仍有承接' : !coreWeak && sectorStrong ? '龙头与中军共振' : coreWeak ? '中军方向与板块同步走弱' : '个股角色分化 · 承接待确认';
       const environment = breadthAverage < 35 ? '风险偏好收缩' : breadthAverage < 50 ? '结构性博弈' : '风险偏好扩张';
       const conclusion = stage === '退潮'
         ? '全局承接不足，降低进攻，等待新周期'
@@ -2600,9 +2605,9 @@
               : `主线观察${primary.industry}，强度尚可，等待次日承接确认`;
       const observations = [
         primary ? `主线证据：${primary.industry} 综合强度 ${Math.round(primary.strength * 100)}分，放量 ${primary.ratio.toFixed(2)}×、成交占比 ${primary.share.toFixed(1)}%、近5日达标 ${primary.aboveDays}/5。` : '观察放量第一名是否形成连续承接。',
-        leaderRole ? `龙头方向看${leaderRole.industry}：上涨扩散 ${leaderRole.breadth.toFixed(0)}%，当日超额 ${leaderRole.excess >= 0 ? '+' : ''}${leaderRole.excess.toFixed(1)}%。` : '观察情绪强度最高方向是否继续主动。',
-        centerRole ? `中军方向看${centerRole.industry}：成交承载 ${centerRole.share.toFixed(1)}%，近5日平均占比 ${centerRole.averageShare.toFixed(1)}%。` : '观察成交占比最高行业与放量方向是否共振。',
-        spreadRole ? `扩散观察${spreadRole.industry}：是否在主线分歧时仍能主动，而不是只做单日套利。` : '观察低位补涨是否出现持续扩散。'
+        leaderStock ? `龙头个股看${leaderStock.name}（${leaderStock.code}）：热度 ${Math.round(leaderStock.heat).toLocaleString()}、涨幅 ${leaderStock.change >= 0 ? '+' : ''}${leaderStock.change.toFixed(2)}%。` : '等待主线股票热度数据，暂不把行业代理当作龙头。',
+        centerStock ? `中军个股看${centerStock.name}（${centerStock.code}）：成交额 ${formatStockAmount(centerStock.amount)}、换手 ${centerStock.turnover_rate.toFixed(2)}%。` : '等待主线股票成交额数据，暂不把行业代理当作中军。',
+        spreadStock ? `补涨个股看${spreadStock.name}（${spreadStock.code}）：涨幅 ${spreadStock.change >= 0 ? '+' : ''}${spreadStock.change.toFixed(2)}%、热度 ${Math.round(spreadStock.heat).toLocaleString()}，观察能否脱离主线独立承接。` : '等待主线股票扩散数据。'
       ];
       return {
         stage,
@@ -2615,22 +2620,34 @@
         primary,
         secondary,
         relationship,
-        leaderRole,
-        centerRole,
-        spreadRole,
+        leaderDirection,
+        centerDirection,
+        spreadDirection,
+        leaderStock,
+        centerStock,
+        spreadStock,
         spillover,
         conclusion,
         observations,
         stageBasis: `${profiles.length}个方向通过规模、放量、扩散和持续性筛选`,
         environmentBasis: `行业平均上涨扩散度 ${breadthAverage.toFixed(1)}% · 平均当日涨幅 ${marketReturn >= 0 ? '+' : ''}${marketReturn.toFixed(2)}%`,
-        relationshipBasis: centerRole ? `中军代理为${centerRole.industry}，龙头代理为${leaderRole?.industry || '待观察'}；两者一致才提高主线置信度。` : '暂无稳定角色分工',
-        conclusionBasis: `短线情绪${labelPower(shortScore)} · 趋势资金${labelPower(trendScore)} · 采用行业级角色代理判断`,
-        source: `数据日期：${selected} · 综合模型：规模承载 25% / 放量 18% / 扩散 18% / 超额 15% / 持续性 24%`
+        relationshipBasis: centerStock ? `龙头 ${leaderStock?.name || '待观察'} · 中军 ${centerStock.name}；股票角色与行业强度同时成立，才提高主线置信度。` : '暂无完整的股票角色数据',
+        conclusionBasis: `短线情绪${labelPower(shortScore)} · 趋势资金${labelPower(trendScore)} · 行业识别 + 个股热度/成交额/涨幅/换手率`,
+        source: `数据日期：${selected} · 行业模型：规模 25% / 放量 18% / 扩散 18% / 超额 15% / 持续性 24% · 个股角色：热度/成交额/涨幅/换手率`
       };
     }
 
-    function renderCycleReview(latest, byIndustry, p, selected) {
-      const review = computeCycleReview(latest, byIndustry, p, selected);
+    function formatStockAmount(value) {
+      const amount = Number(value) || 0;
+      if (amount >= 100000000) return `${(amount / 100000000).toFixed(1)}亿`;
+      if (amount >= 10000) return `${(amount / 10000).toFixed(0)}万`;
+      return `${Math.round(amount).toLocaleString()}元`;
+    }
+    function stockRoleLabel(role, empty = '个股角色待更新') {
+      return role ? `${role.name} ${role.code}` : empty;
+    }
+    function renderCycleReview(latest, byIndustry, p, selected, stockRoles = {}) {
+      const review = computeCycleReview(latest, byIndustry, p, selected, stockRoles);
       const stage = document.getElementById('cycleStage');
       stage.innerHTML = `<strong>${review.stage}</strong><span>${review.stageBasis}</span>`;
       document.getElementById('cycleFocusLine').textContent = review.primary?.industry || '暂无明确主线';
@@ -2640,12 +2657,12 @@
       document.getElementById('cycleFocusStats').textContent = review.primary
         ? `成交占比 ${review.primary.share.toFixed(1)}% · 放量 ${review.primary.ratio.toFixed(2)}× · 上涨扩散 ${review.primary.breadth.toFixed(0)}% · 连续达标 ${review.primary.aboveDays}/5`
         : '规模承载 · 放量 · 扩散 · 持续性尚未同时成立';
-      document.getElementById('cycleLeaderRole').textContent = review.leaderRole ? `${review.leaderRole.industry} · 情绪核心` : '待观察';
-      document.getElementById('cycleLeaderRoleBasis').textContent = review.leaderRole ? `扩散 ${review.leaderRole.breadth.toFixed(0)}% · 超额 ${review.leaderRole.excess >= 0 ? '+' : ''}${review.leaderRole.excess.toFixed(1)}% · 情绪强度最高` : '暂无足够的上涨扩散证据';
-      document.getElementById('cycleCenterRole').textContent = review.centerRole ? `${review.centerRole.industry} · 趋势中军` : '待观察';
-      document.getElementById('cycleCenterRoleBasis').textContent = review.centerRole ? `成交占比 ${review.centerRole.share.toFixed(1)}% · 近5日平均 ${review.centerRole.averageShare.toFixed(1)}% · 趋势承载最高` : '暂无稳定的成交承载方向';
-      document.getElementById('cycleSpreadRole').textContent = review.spreadRole?.industry || '暂无明显扩散';
-      document.getElementById('cycleSpreadRoleBasis').textContent = review.spreadRole ? `强度 ${Math.round(review.spreadRole.strength * 100)}分 · 观察主线分歧时是否独立走强` : '暂无满足条件的补涨方向';
+      document.getElementById('cycleLeaderRole').textContent = stockRoleLabel(review.leaderStock);
+      document.getElementById('cycleLeaderRoleBasis').textContent = review.leaderStock ? `热度 ${Math.round(review.leaderStock.heat).toLocaleString()} · 涨幅 ${review.leaderStock.change >= 0 ? '+' : ''}${review.leaderStock.change.toFixed(2)}% · 角色评分 ${review.leaderStock.score.toFixed(0)}` : '暂无主线个股热度数据';
+      document.getElementById('cycleCenterRole').textContent = stockRoleLabel(review.centerStock);
+      document.getElementById('cycleCenterRoleBasis').textContent = review.centerStock ? `成交额 ${formatStockAmount(review.centerStock.amount)} · 换手 ${review.centerStock.turnover_rate.toFixed(2)}% · 角色评分 ${review.centerStock.score.toFixed(0)}` : '暂无主线个股成交额数据';
+      document.getElementById('cycleSpreadRole').textContent = stockRoleLabel(review.spreadStock, '暂无明显补涨个股');
+      document.getElementById('cycleSpreadRoleBasis').textContent = review.spreadStock ? `涨幅 ${review.spreadStock.change >= 0 ? '+' : ''}${review.spreadStock.change.toFixed(2)}% · 热度 ${Math.round(review.spreadStock.heat).toLocaleString()} · 观察独立承接` : '暂无主线个股扩散数据';
       document.getElementById('cycleEnvironment').textContent = review.environment;
       document.getElementById('cycleEnvironmentBasis').textContent = review.environmentBasis;
       document.getElementById('cycleShortPower').textContent = labelPower(review.shortScore);
@@ -2729,9 +2746,10 @@
     async function loadIndustryData({ preserveDateSelection = true } = {}) {
       try {
         const cacheBust = Date.now();
-        const [jsonResponse, statusResponse] = await Promise.all([
+        const [jsonResponse, statusResponse, stockRolesResponse] = await Promise.all([
           fetch('../outputs/industry_flow.json?ts=' + cacheBust, { cache: 'no-store' }),
           fetch('../outputs/industry_update_status.json?ts=' + cacheBust, { cache: 'no-store' }),
+          fetch('../outputs/industry_stock_roles.json?ts=' + cacheBust, { cache: 'no-store' }),
         ]);
         let remoteRows = [];
         let dataSource = 'GitHub Actions 行业 JSON';
@@ -2748,6 +2766,8 @@
         }
         if (!remoteRows.length) throw new Error('industry_flow.csv has no rows');
         const status = statusResponse.ok ? await statusResponse.json() : null;
+        const stockRolesPayload = stockRolesResponse.ok ? await stockRolesResponse.json() : null;
+        stockRoles = stockRolesPayload?.industries || {};
         data = remoteRows;
         if (!preserveDateSelection) dateWasSelected = false;
         currentFileName = dataSource;
