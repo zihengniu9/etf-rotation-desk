@@ -1,2 +1,2 @@
-﻿code,name,theme,fund_size,score,total_return,annual_vol,latest_close,mode,reason,market_strength,defense_threshold
-159552,招商中证2000增强策略ETF,中证2000,,0.642879,0.227676,0.365522,2.351,attack,top ETF score is above defense threshold,0.642879,0.6
+﻿code,name,theme,score,total_return,annual_vol,fund_size,latest_close,mode,market_strength,defense_threshold,reason
+511880,货币ETF,防守,0.547107,,,,,defense,0.547107,0.6,top ETF score is weak; switch to defense
