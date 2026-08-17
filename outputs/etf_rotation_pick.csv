@@ -1,2 +1,2 @@
-﻿code,name,theme,score,total_return,annual_vol,fund_size,latest_close,mode,market_strength,defense_threshold,reason
-511880,货币ETF,防守,0.486935,,,,,defense,0.486935,0.6,top ETF score is weak; switch to defense
+﻿code,name,theme,fund_size,score,total_return,annual_vol,latest_close,mode,reason,market_strength,defense_threshold
+159535,嘉实中证2000ETF,嘉实中证2000ETF,,0.612531,0.183164,0.309122,1.518,attack,top ETF score is above defense threshold,0.612531,0.6
