@@ -7,6 +7,9 @@ THEME_PATTERNS: list[tuple[str, str]] = [
     (r"沪深300|300ETF|HS300", "沪深300"),
     (r"中证500|500ETF", "中证500"),
     (r"中证1000|1000ETF", "中证1000"),
+    # Treat CSI 2000, CSI 2000 enhanced and CSI/CSI 2000 variants as one
+    # broad-index bucket so provider names cannot create duplicate themes.
+    (r"中证2000|国证2000|2000增强|2000ETF", "中证2000"),
     (r"科创.*(半导体|芯片)|(半导体|芯片).*科创", "科创半导体"),
     (r"中韩.*(半导体|芯片)|(半导体|芯片).*中韩", "中韩半导体"),
     (r"科创50|科创板|科创100|科创综指|科创200|科创价格", "科创"),

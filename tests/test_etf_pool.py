@@ -22,6 +22,9 @@ class ETFPoolTests(unittest.TestCase):
         self.assertEqual(extract_theme("华泰柏瑞中韩半导体ETF"), "中韩半导体")
         self.assertEqual(extract_theme("易方达国证机器人产业ETF"), "机器人")
         self.assertEqual(extract_theme("华夏沪深300ETF"), "沪深300")
+        self.assertEqual(extract_theme("嘉实中证2000ETF"), "中证2000")
+        self.assertEqual(extract_theme("万家国证2000ETF"), "中证2000")
+        self.assertEqual(extract_theme("2000增强ETF"), "中证2000")
         self.assertEqual(extract_theme("易方达上证科创板50ETF"), "科创")
         self.assertEqual(extract_theme("科创综指ETF东财"), "科创")
         self.assertEqual(extract_theme("华安中证数字经济主题ETF"), "科技成长")
@@ -39,6 +42,8 @@ class ETFPoolTests(unittest.TestCase):
                 {"code": "588170", "name": "华夏上证科创板半导体材料设备主题ETF", "latest_nav": 1.0},
                 {"code": "513310", "name": "华泰柏瑞中韩半导体ETF", "latest_nav": 1.0},
                 {"code": "159530", "name": "易方达国证机器人产业ETF", "latest_nav": 1.5},
+                {"code": "159535", "name": "嘉实中证2000ETF", "latest_nav": 1.5},
+                {"code": "563300", "name": "华泰柏瑞中证2000ETF", "latest_nav": 1.4},
             ]
         )
         scales = pd.DataFrame(
@@ -48,6 +53,8 @@ class ETFPoolTests(unittest.TestCase):
                 {"code": "588170", "shares": 500.0},
                 {"code": "513310", "shares": 400.0},
                 {"code": "159530", "shares": 200.0},
+                {"code": "159535", "shares": 100.0},
+                {"code": "563300", "shares": 1000.0},
             ]
         )
 
@@ -59,6 +66,9 @@ class ETFPoolTests(unittest.TestCase):
         self.assertIn("科创半导体", set(pool["theme"]))
         self.assertIn("中韩半导体", set(pool["theme"]))
         self.assertIn("机器人", set(pool["theme"]))
+        csi2000_rows = pool[pool["theme"] == "中证2000"]
+        self.assertEqual(len(csi2000_rows), 1)
+        self.assertEqual(csi2000_rows.iloc[0]["code"], "563300")
 
     def test_supplemental_funds_add_specialty_lof_candidates(self):
         base = pd.DataFrame([{"code": "512480", "name": "国联安半导体ETF", "latest_nav": 3.0}])
