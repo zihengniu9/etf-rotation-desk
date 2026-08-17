@@ -1,2 +1,2 @@
 ﻿code,name,theme,fund_size,score,total_return,annual_vol,latest_close,mode,reason,market_strength,defense_threshold
-562660,华夏中证2000ETF,华夏中证2000ETF,613607872.8,0.653168,0.197631,0.31213,1.921,attack,top ETF score is above defense threshold,0.653168,0.6
+159552,招商中证2000增强策略ETF,中证2000,,0.642879,0.227676,0.365522,2.351,attack,top ETF score is above defense threshold,0.642879,0.6
