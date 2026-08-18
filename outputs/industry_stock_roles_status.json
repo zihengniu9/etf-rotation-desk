@@ -1,20 +1,11 @@
 {
-  "attempted_at": "2026-08-18T11:01:07+08:00",
+  "attempted_at": "2026-08-18T11:55:06+08:00",
   "status": "success",
   "data_as_of": "2026-08-18",
-  "industries": 8,
+  "industries": 12,
   "hot_rows": 100,
   "hot_industries": 42,
   "message": "行业主线股票角色已刷新",
   "source": "同花顺问财个股热度 + 行业成分股行情",
-  "errors": [
-    "种植业与林业: 问财 URLError: <urlopen error _ssl.c:999: The handshake operation timed out>",
-    "种植业与林业: AkShare ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
-    "农产品加工: 问财 URLError: <urlopen error _ssl.c:999: The handshake operation timed out>",
-    "农产品加工: AkShare ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
-    "小金属: 问财 URLError: <urlopen error _ssl.c:999: The handshake operation timed out>",
-    "小金属: AkShare ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
-    "非金属材料: 问财 RemoteDisconnected: Remote end closed connection without response",
-    "非金属材料: AkShare IndexError: index 0 is out of bounds for axis 0 with size 0"
-  ]
+  "errors": []
 }
