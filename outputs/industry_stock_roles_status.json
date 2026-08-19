@@ -1,11 +1,13 @@
 {
-  "attempted_at": "2026-08-18T15:29:41+08:00",
+  "attempted_at": "2026-08-19T10:46:37+08:00",
   "status": "success",
-  "data_as_of": "2026-08-18",
+  "data_as_of": "2026-08-19",
   "industries": 12,
   "hot_rows": 100,
-  "hot_industries": 37,
+  "hot_industries": 41,
   "message": "行业主线股票角色已刷新",
   "source": "同花顺问财个股热度 + 行业成分股行情",
-  "errors": []
+  "errors": [
+    "银行: 问财 RemoteDisconnected: Remote end closed connection without response"
+  ]
 }
