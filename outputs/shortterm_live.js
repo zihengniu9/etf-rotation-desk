@@ -1,5 +1,5 @@
 window.SHORT_TERM_LIVE = {
-  "updated_at": "2026-08-23T00:15:13",
+  "updated_at": "2026-08-23T00:59:31",
   "date": "2026-08-23",
   "stocks": [
     {
