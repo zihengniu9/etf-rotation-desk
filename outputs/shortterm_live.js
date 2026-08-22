@@ -1,0 +1,74 @@
+window.SHORT_TERM_LIVE = {
+  "updated_at": "2026-08-23T00:15:13",
+  "date": "2026-08-23",
+  "stocks": [
+    {
+      "code": "600793.SH",
+      "name": "宜宾纸业",
+      "price": 14.21,
+      "pct": -0.84,
+      "high": 14.4,
+      "low": 13.81,
+      "open": 14.37
+    },
+    {
+      "code": "001258.SZ",
+      "name": "立新能源",
+      "price": 12.21,
+      "pct": -0.81,
+      "high": 12.7,
+      "low": 11.74,
+      "open": 12.7
+    },
+    {
+      "code": "600664.SH",
+      "name": "哈药股份",
+      "price": 8.17,
+      "pct": -10.02,
+      "high": 8.55,
+      "low": 8.17,
+      "open": 8.17
+    },
+    {
+      "code": "603897.SH",
+      "name": "长城科技",
+      "price": 30.66,
+      "pct": 2.64,
+      "high": 30.98,
+      "low": 29.04,
+      "open": 29.5
+    },
+    {
+      "code": "000428.SZ",
+      "name": "华天酒店",
+      "price": 3.98,
+      "pct": -1.24,
+      "high": 4.08,
+      "low": 3.92,
+      "open": 4.07
+    },
+    {
+      "code": "003032.SZ",
+      "name": "传智教育",
+      "price": 10.76,
+      "pct": -9.96,
+      "high": 11.7,
+      "low": 10.76,
+      "open": 11.5
+    },
+    {
+      "code": "600721.SH",
+      "name": "百花医药",
+      "price": 13.25,
+      "pct": -3.0,
+      "high": 13.6,
+      "low": 12.29,
+      "open": 12.89
+    }
+  ],
+  "sentiment": {
+    "date": "2026-08-23",
+    "limit_up_count": 57,
+    "limit_down_count": 14
+  }
+};

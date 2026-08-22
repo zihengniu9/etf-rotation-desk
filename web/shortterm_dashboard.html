@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>短线观察 · 接力可做度</title>
+    <link rel="stylesheet" href="./styles.css?v=20260823-short-term" />
+    <style>
+      /* ===== 短线观察 页面专属组件（配色/圆角/阴影沿用全局变量） ===== */
+      .st-signal-panel { margin: 16px 0 18px; }
+
+      .st-hero {
+        display: grid;
+        grid-template-columns: minmax(190px, 240px) minmax(220px, 1fr) minmax(300px, 420px);
+        gap: 18px;
+        align-items: stretch;
+      }
+
+      .st-score-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
+        padding: 18px 20px;
+        border-radius: 10px;
+        background: linear-gradient(150deg, rgba(215, 25, 32, 0.08), rgba(29, 78, 216, 0.05));
+        border: 1px solid var(--brand-red-line);
+      }
+      .st-score-block .label { margin: 0; }
+      .st-score-num {
+        font-size: 54px;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        color: var(--navy);
+        font-variant-numeric: tabular-nums;
+      }
+      .st-score-num small { font-size: 20px; color: var(--muted); font-weight: 700; }
+      .st-verdict {
+        width: fit-content;
+        padding: 5px 12px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 800;
+      }
+      .st-verdict.lvl-go   { color: var(--brand-red-dark); background: var(--brand-red-soft); border: 1px solid var(--brand-red-line); }
+      .st-verdict.lvl-try  { color: var(--gold); background: var(--gold-soft); }
+      .st-verdict.lvl-wait { color: var(--blue); background: var(--blue-soft); }
+      .st-verdict.lvl-hold { color: #0f7b55; background: #e9f7f0; }
+      .st-score-track {
+        height: 8px;
+        border-radius: 999px;
+        background: #edf1f6;
+        overflow: hidden;
+      }
+      .st-score-fill {
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, rgba(215, 25, 32, 0.35), var(--brand-red));
+        transition: width 400ms ease;
+      }
+
+      .st-advice {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        padding: 16px 4px;
+      }
+      .st-advice p { margin: 0; font-size: 15px; font-weight: 750; color: var(--ink-soft); }
+      .st-advice .st-fuse { margin: 0; font-size: 12px; font-weight: 700; color: var(--gold); }
+      .st-advice .st-meta { margin: 0; color: var(--muted); font-size: 12px; }
+
+      .st-factors {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        align-content: center;
+      }
+      .st-factor {
+        padding: 13px 14px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--surface-alt);
+      }
+      .st-factor span {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .st-factor strong {
+        display: block;
+        margin-top: 5px;
+        font-size: 22px;
+        letter-spacing: -0.03em;
+        font-variant-numeric: tabular-nums;
+      }
+      .st-factor em {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-style: normal;
+        font-size: 11px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .st-kpis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+        margin: 0 0 18px;
+      }
+      .st-kpi { padding: 15px 17px 13px; }
+      .st-kpi span { color: var(--muted); font-size: 12px; font-weight: 700; }
+      .st-kpi strong {
+        display: block;
+        margin-top: 6px;
+        font-size: 26px;
+        letter-spacing: -0.03em;
+        font-variant-numeric: tabular-nums;
+      }
+      .st-kpi em {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-style: normal;
+        font-size: 11px;
+      }
+      .st-kpi .st-temp { margin-top: 10px; }
+
+      .st-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+      @media (max-width: 1080px) {
+        .st-hero { grid-template-columns: 1fr; }
+        .st-grid-2 { grid-template-columns: 1fr; }
+      }
+
+      /* 表格内小部件 */
+      .st-chip {
+        display: inline-block;
+        min-width: 62px;
+        text-align: center;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-weight: 800;
+        font-size: 13px;
+        font-variant-numeric: tabular-nums;
+      }
+      .st-chip.up   { color: var(--brand-red-dark); background: var(--brand-red-soft); }
+      .st-chip.down { color: #0f7b55; background: #e9f7f0; }
+      .st-chip.flat { color: var(--muted); background: var(--surface-alt); }
+
+      .st-note {
+        display: inline-block;
+        padding: 3px 9px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+      .st-note.tone-hot   { color: var(--brand-red-dark); background: var(--brand-red-soft); }
+      .st-note.tone-warn  { color: var(--gold); background: var(--gold-soft); }
+      .st-note.tone-info  { color: var(--blue); background: var(--blue-soft); }
+      .st-note.tone-cold  { color: #0f7b55; background: #e9f7f0; }
+      .st-note.tone-none  { color: var(--muted); background: var(--surface-alt); }
+
+      .st-range {
+        position: relative;
+        height: 8px;
+        min-width: 90px;
+        border-radius: 999px;
+        background: #edf1f6;
+      }
+      .st-range i {
+        position: absolute;
+        top: -3px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        transform: translateX(-50%);
+        border: 2.5px solid #fff;
+        box-shadow: 0 1px 5px rgba(17, 24, 39, 0.28);
+      }
+      .st-range.up i { background: var(--brand-red); }
+      .st-range.down i { background: #12a06b; }
+
+      .st-consistent { color: #0f7b55; font-weight: 800; }
+      .st-inconsistent { color: var(--brand-red-dark); font-weight: 800; }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <nav class="dashboard-tabs" aria-label="看板页面">
+        <a class="dashboard-tab" href="./">ETF 轮动看板</a>
+        <a class="dashboard-tab" href="./industry_mainline_dashboard.html">行业主线</a>
+        <a class="dashboard-tab active" href="./shortterm_dashboard.html" aria-current="page">短线观察</a>
+      </nav>
+
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Short-Term Watch Desk</p>
+          <h1>短线观察</h1>
+        </div>
+        <div class="status" id="st-status">加载中…</div>
+      </header>
+
+      <!-- 接力可做度 -->
+      <section class="panel st-signal-panel">
+        <div class="panel-head">
+          <div class="panel-title">
+            <h2>接力可做度</h2>
+            <p class="st-meta" style="margin:3px 0 0;color:var(--muted);font-size:12px;">每日 09:25 竞价结束后自动计算 · 数据来源同花顺问财</p>
+          </div>
+          <span class="limit-badge" id="sig-date-badge">--</span>
+        </div>
+        <div class="st-hero">
+          <div class="st-score-block">
+            <span class="label">总分 / 100</span>
+            <div class="st-score-num"><span id="sig-score">--</span><small> 分</small></div>
+            <span class="st-verdict lvl-wait" id="sig-verdict">等待数据</span>
+            <div class="st-score-track"><div class="st-score-fill" id="sig-score-fill" style="width:0%"></div></div>
+          </div>
+          <div class="st-advice">
+            <p id="sig-advice">等待 09:25 信号生成…</p>
+            <p class="st-fuse" id="sig-fuse"></p>
+            <p class="st-meta" id="sig-basis">生态 30 分 · 竞价 50 分 · 龙头 20 分；竞价分 &lt;30 自动熔断降档</p>
+          </div>
+          <div class="st-factors">
+            <div class="st-factor">
+              <span>生态分</span>
+              <strong id="fac-eco">--</strong>
+              <em id="fac-eco-detail">--</em>
+            </div>
+            <div class="st-factor">
+              <span>竞价分</span>
+              <strong id="fac-auction">--</strong>
+              <em id="fac-auction-detail">--</em>
+            </div>
+            <div class="st-factor">
+              <span>龙头分</span>
+              <strong id="fac-leader">--</strong>
+              <em id="fac-leader-detail">--</em>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 市场短线情绪 -->
+      <section class="st-kpis">
+        <div class="panel st-kpi">
+          <span>涨停家数</span>
+          <strong id="kpi-zt" class="positive">--</strong>
+          <em id="kpi-zt-date">--</em>
+        </div>
+        <div class="panel st-kpi">
+          <span>跌停家数</span>
+          <strong id="kpi-dt">--</strong>
+          <em>大面预警指标</em>
+        </div>
+        <div class="panel st-kpi">
+          <span>多空比</span>
+          <strong id="kpi-ratio">--</strong>
+          <em>涨停 ÷ 跌停</em>
+        </div>
+        <div class="panel st-kpi">
+          <span>情绪温度</span>
+          <strong id="kpi-temp-text">--</strong>
+          <div class="st-score-track st-temp"><div class="st-score-fill" id="kpi-temp-bar" style="width:0%"></div></div>
+        </div>
+      </section>
+
+      <div class="st-grid-2">
+        <!-- 梯队观察哨 -->
+        <div class="panel">
+          <div class="panel-head">
+            <div class="panel-title"><h2>梯队观察哨</h2></div>
+            <span class="limit-badge" id="ladder-badge">--</span>
+          </div>
+          <div class="table-wrap compact">
+            <table>
+              <thead>
+                <tr>
+                  <th>标的</th>
+                  <th>位置</th>
+                  <th>昨开板</th>
+                  <th>竞价溢价</th>
+                  <th>信号</th>
+                </tr>
+              </thead>
+              <tbody id="ladder-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 近期对账 -->
+        <div class="panel">
+          <div class="panel-head">
+            <div class="panel-title"><h2>近 5 日对账</h2></div>
+            <span class="limit-badge" id="sample-badge">--</span>
+          </div>
+          <div class="table-wrap compact">
+            <table>
+              <thead>
+                <tr>
+                  <th>日期</th>
+                  <th>分数</th>
+                  <th>档位</th>
+                  <th>实际均幅</th>
+                  <th>晋级率</th>
+                  <th>一致</th>
+                </tr>
+              </thead>
+              <tbody id="sample-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 自选跟踪池 -->
+      <section class="panel">
+        <div class="panel-head">
+          <h2>自选跟踪池</h2>
+          <span class="limit-badge" id="pool-badge">--</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>名称</th>
+                <th>代码</th>
+                <th>现价</th>
+                <th>涨跌幅</th>
+                <th>开盘</th>
+                <th>最高</th>
+                <th>最低</th>
+                <th>日内位置</th>
+              </tr>
+            </thead>
+            <tbody id="pool-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script>
+    (function () {
+      "use strict";
+
+      var LIVE_FILES = {
+        live: "../outputs/shortterm_live",
+        signal: "../outputs/shortterm_signal",
+        samples: "../outputs/shortterm_samples.json"
+      };
+      var VERDICT_LEVELS = {
+        "可做": "lvl-go",
+        "轻仓试错": "lvl-try",
+        "观望": "lvl-wait",
+        "空仓": "lvl-hold"
+      };
+
+      function bust(path) {
+        return path + (path.indexOf("?") >= 0 ? "&" : "?") + "ts=" + Date.now();
+      }
+
+      function loadJson(base) {
+        return fetch(bust(base + ".json"), { cache: "no-store" })
+          .then(function (res) {
+            if (!res.ok) throw new Error(base + " HTTP " + res.status);
+            return res.json();
+          })
+          .catch(function () {
+            // file:// 直开时 fetch 被 CORS 拦截，退回 script 注入
+            return new Promise(function (resolve, reject) {
+              var key = base.indexOf("signal") >= 0 ? "SHORT_SIGNAL" : "SHORT_TERM_LIVE";
+              window[key] = undefined;
+              var s = document.createElement("script");
+              s.src = bust(base + ".js");
+              s.onload = function () {
+                if (window[key]) resolve(window[key]);
+                else reject(new Error(key + " 为空"));
+              };
+              s.onerror = function () { reject(new Error(s.src + " 加载失败")); };
+              document.head.appendChild(s);
+            });
+          });
+      }
+
+      function setText(id, value) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = value;
+      }
+
+      function escapeHtml(value) {
+        return String(value == null ? "" : value)
+          .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+      }
+
+      function fmt(v, digits, suffix) {
+        if (v === null || v === undefined || v === "" || !isFinite(Number(v))) return "--";
+        return Number(v).toFixed(digits == null ? 2 : digits) + (suffix || "");
+      }
+
+      function signed(v, digits) {
+        if (v === null || v === undefined || !isFinite(Number(v))) return "--";
+        var n = Number(v);
+        return (n > 0 ? "+" : "") + n.toFixed(digits == null ? 2 : digits) + "%";
+      }
+
+      function chipClass(v) {
+        if (v === null || v === undefined || !isFinite(Number(v))) return "flat";
+        return Number(v) > 0 ? "up" : Number(v) < 0 ? "down" : "flat";
+      }
+
+      function noteTone(note) {
+        if (!note) return "tone-none";
+        if (note.indexOf("放弃") >= 0 || note.indexOf("走弱") >= 0) return "tone-cold";
+        if (note.indexOf("一字") >= 0 || note.indexOf("烂板") >= 0) return "tone-warn";
+        if (note.indexOf("卡位") >= 0 || note.indexOf("强承") >= 0) return "tone-hot";
+        return "tone-info";
+      }
+
+      function temperature(sentiment) {
+        var zt = Number(sentiment && sentiment.limit_up_count);
+        var dt = Number(sentiment && sentiment.limit_down_count);
+        if (!isFinite(zt) || !isFinite(dt)) return null;
+        var raw = Math.round((zt / Math.max(zt + dt, 1)) * 100);
+        return Math.max(0, Math.min(100, raw));
+      }
+
+      function renderSignal(sig) {
+        var has = sig && sig.status === "ok";
+        setText("sig-date-badge", sig && sig.date ? sig.date : "--");
+        if (!has) {
+          setText("sig-verdict", "无信号");
+          setText("sig-advice", (sig && sig.message) || "今日暂无 09:25 信号");
+          return;
+        }
+        setText("sig-score", String(sig.score));
+        var verdictEl = document.getElementById("sig-verdict");
+        verdictEl.textContent = sig.verdict;
+        verdictEl.className = "st-verdict " + (VERDICT_LEVELS[sig.verdict] || "lvl-wait");
+        document.getElementById("sig-score-fill").style.width = sig.score + "%";
+        setText("sig-advice", sig.advice || "");
+        setText("sig-fuse", sig.advice && sig.advice.indexOf("熔断") >= 0 ? "⚡ 已触发熔断：竞价溢价坍塌" : "");
+
+        var eco = sig.eco || {}, au = sig.auction || {}, le = sig.leader || {};
+        setText("fac-eco", eco.points + "/" + eco.max);
+        setText("fac-eco-detail", "涨停 " + eco.limit_up + " · 跌停 " + eco.limit_down + " · 炸板率 " + Math.round((eco.failed_rate || 0) * 100) + "%");
+        setText("fac-auction", au.points + "/" + au.max);
+        setText("fac-auction-detail", "溢价 " + signed(au.mean_premium) + " · 红盘率 " + Math.round((au.red_ratio || 0) * 100) + "% · 高开≥5% " + (au.hi_open_5 || 0) + "只");
+        setText("fac-leader", le.points + "/" + le.max);
+        setText("fac-leader-detail", "最高标 " + (le["最高板"] || le.highest_board || "--") + " 板 · 竞价 " +
+          (le["龙头溢价"] === null || le["龙头溢价"] === undefined ? "--" : signed(le["龙头溢价"])));
+
+        var rows = (sig.ladder || []).map(function (s) {
+          var gapHtml = s.gap === null || s.gap === undefined
+            ? '<span class="st-chip flat">--</span>'
+            : '<span class="st-chip ' + chipClass(s.gap) + '">' + signed(s.gap, 1) + "</span>";
+          return "<tr>" +
+            '<td><strong>' + escapeHtml(s.name) + "</strong></td>" +
+            "<td>" + escapeHtml(s.jitian || "-") + "</td>" +
+            '<td class="numeric">' + escapeHtml(String(s.opens)) + " 次</td>" +
+            "<td>" + gapHtml + "</td>" +
+            '<td><span class="st-note ' + noteTone(s.note) + '">' + escapeHtml(s.note || "观察") + "</span></td>" +
+            "</tr>";
+        }).join("");
+        document.getElementById("ladder-body").innerHTML =
+          rows || '<tr><td colspan="5">今日梯队数据为空</td></tr>';
+        setText("ladder-badge", ((sig.ladder || []).length) + " 只");
+      }
+
+      function renderLive(live) {
+        var senti = live.sentiment || {};
+        var zt = senti.limit_up_count, dt = senti.limit_down_count;
+        setText("kpi-zt", zt === null || zt === undefined ? "--" : String(zt));
+        setText("kpi-zt-date", live.date ? ("截至 " + live.date) : "--");
+        setText("kpi-dt", dt === null || dt === undefined ? "--" : String(dt));
+        var ratio = (zt !== null && zt !== undefined && dt !== null && dt !== undefined && Number(dt) > 0)
+          ? (Number(zt) / Number(dt)).toFixed(1) + " : 1" : "--";
+        setText("kpi-ratio", ratio);
+
+        var temp = temperature(senti);
+        setText("kpi-temp-text", temp === null ? "--" : temp + " 分");
+        document.getElementById("kpi-temp-bar").style.width = (temp || 0) + "%";
+
+        var stocks = live.stocks || [];
+        setText("pool-badge", stocks.length + " 只");
+        var body = document.getElementById("pool-body");
+        body.innerHTML = stocks.map(function (s) {
+          var lo = Number(s.low), hi = Number(s.high), px = Number(s.price);
+          var pos = (isFinite(lo) && isFinite(hi) && hi > lo && isFinite(px))
+            ? Math.max(2, Math.min(98, ((px - lo) / (hi - lo)) * 100))
+            : null;
+          var range = pos === null
+            ? '<span class="st-chip flat">--</span>'
+            : '<div class="st-range ' + chipClass(s.pct).replace("flat", "up") + '"><i style="left:' + pos.toFixed(1) + '%"></i></div>';
+          return "<tr>" +
+            '<td><strong>' + escapeHtml(s.name) + "</strong></td>" +
+            '<td class="code">' + escapeHtml(s.code) + "</td>" +
+            '<td class="numeric">' + fmt(s.price) + "</td>" +
+            '<td><span class="st-chip ' + chipClass(s.pct) + '">' + signed(s.pct) + "</span></td>" +
+            '<td class="numeric">' + fmt(s.open) + "</td>" +
+            '<td class="numeric">' + fmt(s.high) + "</td>" +
+            '<td class="numeric">' + fmt(s.low) + "</td>" +
+            "<td>" + range + "</td>" +
+            "</tr>";
+        }).join("") || '<tr><td colspan="8">暂无行情数据，收盘后运行 update_data.py 更新</td></tr>';
+
+        var stamp = (live.updated_at || "").replace("T", " ");
+        setStatus(stamp ? "更新于 " + stamp : "数据未更新");
+      }
+
+      function renderSamples(rows) {
+        var list = (rows || []).slice(-5).reverse();
+        setText("sample-badge", list.length + " 条");
+        var body = document.getElementById("sample-body");
+        body.innerHTML = list.map(function (r) {
+          var act = r.act || {};
+          return "<tr>" +
+            '<td class="code">' + escapeHtml(r.date) + "</td>" +
+            '<td class="numeric"><strong>' + escapeHtml(String(r.score)) + "</strong></td>" +
+            "<td>" + escapeHtml(r.verdict) + "</td>" +
+            '<td class="numeric ' + (Number(act.avg_pct) > 0 ? "positive" : "negative") + '">' + signed(act.avg_pct) + "</td>" +
+            '<td class="numeric">' + fmt((Number(act.promo_rate) || 0) * 100, 0, "%") + "</td>" +
+            '<td><span class="' + (r.consistent ? "st-consistent" : "st-inconsistent") + '">' + (r.consistent ? "✓" : "✗") + "</span></td>" +
+            "</tr>";
+        }).join("") || '<tr><td colspan="6">样本积累中（每日 15:15 盘后自动追加）</td></tr>';
+      }
+
+      function setStatus(text, isError) {
+        var el = document.getElementById("st-status");
+        if (!el) return;
+        el.textContent = text;
+        el.className = "status" + (isError ? " error" : " ok");
+      }
+
+      function showLoadError(error) {
+        setStatus("数据加载失败", true);
+        var shell = document.querySelector(".shell");
+        var tip = document.getElementById("st-load-error");
+        if (!tip && shell) {
+          tip = document.createElement("div");
+          tip.id = "st-load-error";
+          tip.className = "empty";
+          shell.appendChild(tip);
+        }
+        if (tip) tip.textContent = "短线数据加载失败：" + error.message + "（请先运行 dashboard/update_data.py 与 signal_0925.py）";
+      }
+
+      function refresh() {
+        var cacheBust = Date.now();
+        return Promise.all([
+          loadJson(LIVE_FILES.live),
+          loadJson(LIVE_FILES.signal),
+          fetch(bust(LIVE_FILES.samples), { cache: "no-store" })
+            .then(function (r) { return r.ok ? r.json() : []; })
+            .catch(function () { return []; })
+        ]).then(function (results) {
+          renderSignal(results[1]);
+          renderLive(results[0]);
+          renderSamples(results[2]);
+          setStatus("更新于 " + new Date().toLocaleString("zh-CN", { hour12: false }));
+        }).catch(showLoadError);
+      }
+
+      function getHongKongMarketClock(now) {
+        var parts = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Asia/Hong_Kong", weekday: "short",
+          hour: "2-digit", minute: "2-digit", hourCycle: "h23"
+        }).formatToParts(now);
+        var v = {};
+        parts.forEach(function (p) { v[p.type] = p.value; });
+        return { weekday: v.weekday, minutes: Number(v.hour) * 60 + Number(v.minute) };
+      }
+
+      function isTradingRefreshWindow(now) {
+        var c = getHongKongMarketClock(now);
+        if (c.weekday === "Sat" || c.weekday === "Sun") return false;
+        return (c.minutes >= 555 && c.minutes <= 690) || (c.minutes >= 780 && c.minutes <= 905);
+      }
+
+      refresh().then(function () {
+        setInterval(function () {
+          if (isTradingRefreshWindow(new Date())) refresh();
+        }, 2 * 60 * 1000);
+        window.addEventListener("focus", function () { refresh(); });
+        document.addEventListener("visibilitychange", function () {
+          if (!document.hidden) refresh();
+        });
+      });
+    })();
+    </script>
+  </body>
+</html>
