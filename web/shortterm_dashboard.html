@@ -440,7 +440,7 @@
           <div class="chart-shell st-chart-shell">
             <svg id="pf-chart" viewBox="0 0 720 260" role="img" aria-label="接力可做度模拟组合净值曲线"></svg>
           </div>
-          <p class="st-chart-note"><b>交易逻辑</b>：每交易日 09:25 按「昨日涨停/跌停/炸板生态 + 今日竞价溢价」打分定档——可做 ≥75 · 轻仓试错 55–74 · 观望 35–54 · 空仓 &lt;35，再叠加 R1–R4 周期修正与熔断降档；档位映射当日仓位：<b>可做 100% · 试错 50% · 观望 20% · 空仓 0%</b>。</p>
+          <p class="st-chart-note"><b>交易逻辑</b>：每交易日 09:25 按「昨日涨停/跌停/炸板生态 + 今日竞价溢价」打分定档——可做 ≥75 · 轻仓试错 55–74 · 观望 35–54 · 空仓 &lt;35，再叠加 R1–R4 周期修正与熔断降档；档位映射当日参与度：<b>可做 100% 仓 · 试错 50% 仓 · 观望/空仓 一律不开仓</b>。</p>
           <p class="st-chart-note"><b>打法口径</b>：09:25 信号只决定<b>今天做不做、做多重</b>；真正的买点只有一个——<b>当日封板涨停的一瞬间（涨停价）</b>，一字板买不进；卖出执行<b>次日竞价</b>。「每日交易记录」按钮按此口径记录每只梯队票的封板结果与打板盈亏。上方曲线是<b>环境温度计</b>（昨日涨停等权组合开盘→收盘均幅 × 仓位，度量环境期望而非逐笔回测），历史各日按现行 v2.1 规则回溯统一重算。</p>
           <div style="margin-top:12px;"><button type="button" id="pf-log-open" class="st-log-btn">每日交易记录<span class="st-log-btn-sub">买了什么 · 为什么买 · 盈亏多少 · 共 <span id="pf-log-count">--</span> 天</span></button></div>
           </div>
@@ -455,7 +455,7 @@
             <button type="button" class="st-modal-close" aria-label="关闭">×</button>
           </div>
           <div class="st-modal-body">
-            <p class="st-trade-legend"><b>买入逻辑</b>：09:25 定档决定今天做不做、做多重（仓位见每日标题）；标的是昨日涨停后走出梯队的核心身份票。<b>买点唯一：当日封板涨停（涨停价成交）</b>——收盘未封住 = 炸板，无有效买点；一字加速 = 买不进；<b>卖出铁律：次日竞价</b>。「打板盈亏」= 次日竞价 − 封板溢价。</p>
+            <p class="st-trade-legend"><b>买入逻辑</b>：09:25 定档决定今天做不做、做多重（仓位见每日标题）；标的是昨日涨停后走出梯队的核心身份票。<b>买点唯一：当日封板涨停（涨停价成交）</b>——收盘未封住 = 炸板，无有效买点；一字加速 = 买不进；<b>卖出铁律：次日竞价</b>。「打板盈亏」= 次日竞价 − 封板溢价。<b>观望/空仓日不开仓</b>，梯队表仅作复盘推演。</p>
             <div id="pf-log-body"></div>
           </div>
         </div>
@@ -720,7 +720,7 @@
       }
 
       // ===== 模拟组合：档位 → 仓位映射 =====
-      var PLAN_POS = { "可做": 1.0, "轻仓试错": 0.5, "观望": 0.2, "空仓": 0 };
+      var PLAN_POS = { "可做": 1.0, "轻仓试错": 0.5, "观望": 0, "空仓": 0 }; // 观望=不开仓（真实执行口径）
 
       function buildPortfolio(rows) {
         var list = [];
@@ -859,7 +859,7 @@
           ? statCell("最新净值", stats.nav.toFixed(4)) +
             statCell("累计收益", signed(stats.total * 100), stats.total > 0 ? "positive" : stats.total < 0 ? "negative" : "") +
             statCell("最大回撤", signed(stats.mdd * 100)) +
-            statCell("空仓日", stats.flat + " / " + stats.days)
+            statCell("不开仓", stats.flat + " / " + stats.days)
           : "";
         renderPortfolioChart("pf-chart", points);
         renderPortfolioLog(points, trades);
@@ -883,17 +883,15 @@
           return;
         }
         body.innerHTML = list.map(function (d) {
+          var pv = PLAN_POS[d.verdict] || 0;
+          var partTag = pv > 0
+            ? "<span>仓位 " + Math.round(pv * 100) + "%</span>"
+            : '<span style="color:#8a8a8a;font-weight:600;">未开仓</span>';
           var head = '<div class="st-trade-head"><b>' + escapeHtml(shortDate(d.date)) + "</b>" +
             "<span>" + d.score + "分 " + escapeHtml(d.verdict) + "</span>" +
-            "<span>仓位 " + Math.round((d.pos || 0) * 100) + "%</span>" +
+            partTag +
             ((d.tags && d.tags.length) ? '<span class="st-trade-tags">' + escapeHtml(d.tags.join("·")) + "</span>" : "") +
             "</div>";
-          if (!d.pos) {
-            var extra = (d.fillable_n > 0 && d.avg_board_pnl !== null && d.avg_board_pnl !== undefined)
-              ? " · 当日可打 " + d.fillable_n + " 只（均盈亏 " + signed(d.avg_board_pnl, 2) + "，未参与）"
-              : "";
-            return '<div class="st-trade-day">' + head + '<div class="st-trade-flat">按纪律空仓，未出手（梯队 ' + (d.stocks || []).length + " 只仅观察）" + extra + "</div></div>";
-          }
           var sealTag = function (s) {
             if (s.yizi) return '<span style="color:#b45309;font-weight:600;">一字·买不进</span>';
             if (s.sealed) return '<span style="color:#c0392b;font-weight:600;">封板✓ 可打</span>';
@@ -910,10 +908,14 @@
               "<td>" + chipCell(s.board_pnl) + "</td>" +
               "</tr>";
           }).join("");
-          var summary = "";
-          if (d.fillable_n > 0 && d.avg_board_pnl !== null && d.avg_board_pnl !== undefined) {
-            summary = '<div class="st-trade-flat">当日可打 ' + d.fillable_n + " 只 · 打板口径单票均盈亏 " + signed(d.avg_board_pnl, 2) + "</div>";
-          }
+          var hasInfo = d.fillable_n > 0 && d.avg_board_pnl !== null && d.avg_board_pnl !== undefined;
+          var summary = pv > 0
+            ? (hasInfo
+                ? '<div class="st-trade-flat">当日可打 ' + d.fillable_n + " 只 · 打板口径单票均盈亏 " + signed(d.avg_board_pnl, 2) + "</div>"
+                : '<div class="st-trade-flat">当日梯队中无满足打板条件的标的（炸板或一字）</div>')
+            : (hasInfo
+                ? '<div class="st-trade-flat">未开仓 · 仅复盘：当日可打 ' + d.fillable_n + " 只（均盈亏 " + signed(d.avg_board_pnl, 2) + "，未参与）</div>"
+                : '<div class="st-trade-flat">未开仓 · 当日亦无可打标的</div>');
           return '<div class="st-trade-day">' + head +
             '<div class="table-wrap compact"><table><thead><tr><th>标的</th><th>位置</th><th>买入逻辑</th><th>封板判定</th><th>收盘</th><th>次日竞价</th><th>打板盈亏</th></tr></thead><tbody>' + rows + "</tbody></table></div>" + summary + "</div>";
         }).join("");
