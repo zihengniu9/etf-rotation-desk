@@ -443,7 +443,7 @@
           <div class="chart-shell st-chart-shell">
             <svg id="pf-chart" viewBox="0 0 720 260" role="img" aria-label="接力可做度模拟组合净值曲线"></svg>
           </div>
-          <p class="st-chart-note">09:25 定档定仓：可做全仓 · 试错半仓 · 观望/空仓不开仓。实盘口径＝<b>封板涨停买入</b>、<b>次日竞价卖出</b>；上方曲线是环境温度计（昨日涨停组合开收均幅 × 仓位）。</p>
+          <p class="st-chart-note">09:25 定档定仓：可做全仓 · 试错半仓 · 观望/空仓不开仓。实盘口径＝<b>封板涨停买入</b>、<b>不板就走</b>（次日不板竞价走 · 连板拿到断板日收盘）；上方曲线是环境温度计（昨日涨停组合开收均幅 × 仓位）。</p>
           <div style="margin-top:12px;"><button type="button" id="pf-log-open" class="st-log-btn">每日交易记录<span class="st-log-btn-sub">买了什么 · 为什么买 · 盈亏多少 · 共 <span id="pf-log-count">--</span> 天</span></button></div>
           </div>
         </div>
@@ -457,7 +457,7 @@
             <button type="button" class="st-modal-close" aria-label="关闭">×</button>
           </div>
           <div class="st-modal-body">
-            <p class="st-trade-legend">口径：封板涨停买入 · 次日竞价卖出 · 观望/空仓不动手。每天三行：操作、结果、原因。</p>
+            <p class="st-trade-legend">口径：封板涨停买入 · 不板就走（次日不板竞价走，连板拿到断板日收盘）。每天三行：操作、结果、原因。</p>
             <div id="pf-log-body"></div>
           </div>
         </div>
@@ -913,11 +913,19 @@
               lines.push("<p><b>操作</b>封板买入 " + bought.map(function (s) {
                 return escapeHtml(s.name) + "（" + escapeHtml(s.note || s.jitian || "") + "）";
               }).join("、") + "</p>");
-              var known = bought.filter(function (s) { return s.board_pnl !== null && s.board_pnl !== undefined; });
-              if (known.length === bought.length) {
-                lines.push("<p><b>结果</b>次日竞价卖出 · 单票均盈亏 <span class=\"st-chip " + chipClass(d.avg_board_pnl) + "\">" + signed(d.avg_board_pnl, 2) + "</span></p>");
-              } else {
-                lines.push("<p><b>持仓</b>隔夜持有中，次一交易日竞价了结</p>");
+              var done = bought.filter(function (s) { return s.board_pnl !== null && s.board_pnl !== undefined; });
+              var holding = bought.filter(function (s) { return s.holding; });
+              if (done.length) {
+                var allDone = done.length === bought.length;
+                lines.push("<p><b>结果</b>" + (allDone ? "已了结" : "已了结 " + done.length + "/" + bought.length) +
+                  " · 单票均盈亏 <span class=\"st-chip " + chipClass(d.avg_board_pnl) + "\">" + signed(d.avg_board_pnl, 2) + "</span></p>");
+              }
+              if (holding.length) {
+                lines.push("<p><b>持仓</b>" + holding.map(function (s) { return escapeHtml(s.name); }).join("、") +
+                  " 连板持有中，断板日收盘了结</p>");
+              }
+              if (!done.length && !holding.length) {
+                lines.push('<p class="st-dim"><b>结果</b>成交明细待次日数据回填</p>');
               }
             } else {
               lines.push('<p class="st-dim"><b>操作</b>当日梯队无封板可打的标的（炸板或一字），实际未成交</p>');
