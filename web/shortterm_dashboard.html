@@ -232,7 +232,26 @@
         font-variant-numeric: tabular-nums;
       }
       .st-chart-note { margin: 8px 0 0; font-size: 11px; line-height: 1.7; color: var(--muted); }
-      .st-chart-shell { padding: 6px 4px 2px; }
+      /* 覆写全局 .chart-shell 的 min-height:390px 与 flex 拉伸：
+         全局规则会让 SVG 被拉高到 390px+，面板内容高度与网格行高计算脱节，
+         图注溢出面板叠印到「明日预案」。此处改为 SVG 按 viewBox 固有比例定高。 */
+      .st-chart-shell {
+        display: block;
+        padding: 6px 4px 2px;
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        overflow: hidden;
+      }
+      .st-chart-shell svg,
+      #pf-chart {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 720 / 260;
+      }
+      /* badge 紧凑化：右对齐小胶囊（恢复 site 标准观感，避免被网格列拉伸成通栏粉条） */
+      .panel .limit-badge { justify-self: end; width: auto; }
 
       /* ===== 明日预案 ===== */
       .st-plan-headline { margin: 2px 0 10px; font-size: 15px; font-weight: 800; color: var(--ink); line-height: 1.55; }
@@ -297,7 +316,7 @@
       <div class="st-fresh" id="st-fresh" role="alert"></div>
 
       <!-- 接力可做度 -->
-      <section class="panel st-signal-panel">
+      <section class="panel wide st-signal-panel">
         <div class="panel-head">
           <div class="panel-title">
             <h2>接力可做度</h2>
@@ -363,13 +382,13 @@
 
       <div class="st-grid-2">
         <!-- 梯队观察哨 -->
-        <div class="panel">
+        <div class="panel wide">
           <div class="panel-head">
             <div class="panel-title"><h2>梯队观察哨</h2></div>
             <span class="limit-badge" id="ladder-badge">--</span>
           </div>
           <div class="table-wrap compact">
-            <table>
+            <table id="ladder-table">
               <thead>
                 <tr>
                   <th>标的</th>
@@ -385,7 +404,7 @@
         </div>
 
         <!-- 模拟组合（参考 ETF 轮动看板净值曲线） -->
-        <div class="panel">
+        <div class="panel wide">
           <div class="panel-head">
             <div class="panel-title"><h2>模拟组合</h2></div>
             <span class="limit-badge" id="pf-badge">--</span>
@@ -399,7 +418,7 @@
       </div>
 
       <!-- 明日预案 -->
-      <section class="panel" style="margin-bottom:18px;">
+      <section class="panel wide" style="margin-bottom:18px;">
         <div class="panel-head">
           <div class="panel-title"><h2>明日预案</h2></div>
           <span class="limit-badge" id="plan-badge">--</span>
@@ -408,7 +427,7 @@
       </section>
 
       <!-- 自选跟踪池 -->
-      <section class="panel">
+      <section class="panel wide">
         <div class="panel-head">
           <h2>自选跟踪池</h2>
           <span class="limit-badge" id="pool-badge">--</span>
@@ -545,21 +564,73 @@
         setText("fac-leader-detail", "最高标 " + (le["最高板"] || le.highest_board || "--") + " 板 · 竞价 " +
           (le["龙头溢价"] === null || le["龙头溢价"] === undefined ? "--" : signed(le["龙头溢价"])));
 
-        var rows = (sig.ladder || []).map(function (s) {
-          var gapHtml = s.gap === null || s.gap === undefined
-            ? '<span class="st-chip flat">--</span>'
-            : '<span class="st-chip ' + chipClass(s.gap) + '">' + signed(s.gap, 1) + "</span>";
-          return "<tr>" +
-            '<td><strong>' + escapeHtml(s.name) + "</strong></td>" +
-            "<td>" + escapeHtml(s.jitian || "-") + "</td>" +
-            '<td class="numeric">' + escapeHtml(String(s.opens)) + " 次</td>" +
-            "<td>" + gapHtml + "</td>" +
-            '<td><span class="st-note ' + noteTone(s.note) + '">' + escapeHtml(s.note || "观察") + "</span></td>" +
-            "</tr>";
-        }).join("");
+        renderLadder(sig);
+      }
+
+      function isMarketClosedForDate(dateStr, now) {
+        var m = String(dateStr || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        if (!m) return false;
+        var cutoff = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]), 15, 0, 0);
+        return now >= cutoff;
+      }
+
+      function gapCell(v) {
+        return (v === null || v === undefined)
+          ? '<td><span class="st-chip flat">--</span></td>'
+          : '<td><span class="st-chip ' + chipClass(v) + '">' + signed(v, 1) + "</span></td>";
+      }
+
+      // 梯队观察哨：默认 09:25 集合竞价快照；当日 15:00 后（盘后）自动切换为收盘最新数据。
+      function renderLadder(sig) {
+        var now = new Date();
+        var ladder = (sig && sig.ladder) || [];
+        var closeData = (sig && sig.ladder_close) || null;
+        var closeMode = !!(closeData && closeData.length && isMarketClosedForDate(sig.date, now));
+        var table = document.getElementById("ladder-table");
+        var thead = table ? table.querySelector("thead") : null;
+        var headHtml = closeMode
+          ? "<tr><th>标的</th><th>连板(晨)</th><th>竞价溢价</th><th>收盘涨跌幅</th><th>状态</th></tr>"
+          : "<tr><th>标的</th><th>连板</th><th>昨开板</th><th>竞价溢价</th><th>信号</th></tr>";
+        var rows;
+        if (closeMode) {
+          var byName = {};
+          closeData.forEach(function (c) { byName[c.name] = c; });
+          rows = ladder.map(function (s) {
+            var c = byName[s.name] || {};
+            var pct = c.close_pct;
+            var pctHtml = (pct === null || pct === undefined)
+              ? '<span class="st-chip flat">--</span>'
+              : '<span class="st-chip ' + chipClass(pct) + '">' + signed(pct, 1) + "</span>";
+            var status = c.promoted
+              ? '<span class="st-note tone-hot">晋级 ✓</span>'
+              : ((pct !== null && pct !== undefined)
+                  ? '<span class="st-note tone-cold">断板 ✗</span>'
+                  : '<span class="st-note tone-none">未匹配</span>');
+            return "<tr>" +
+              '<td><strong>' + escapeHtml(s.name) + "</strong></td>" +
+              "<td>" + escapeHtml(s.jitian || "-") + "</td>" +
+              gapCell(s.gap) +
+              "<td>" + pctHtml + "</td>" +
+              "<td>" + status + "</td>" +
+              "</tr>";
+          });
+        } else {
+          rows = ladder.map(function (s) {
+            return "<tr>" +
+              '<td><strong>' + escapeHtml(s.name) + "</strong></td>" +
+              "<td>" + escapeHtml(s.jitian || "-") + "</td>" +
+              '<td class="numeric">' + escapeHtml(String(s.opens)) + " 次</td>" +
+              gapCell(s.gap) +
+              '<td><span class="st-note ' + noteTone(s.note) + '">' + escapeHtml(s.note || "观察") + "</span></td>" +
+              "</tr>";
+          });
+        }
+        if (thead) thead.innerHTML = headHtml;
         document.getElementById("ladder-body").innerHTML =
-          rows || '<tr><td colspan="5">今日梯队数据为空</td></tr>';
-        setText("ladder-badge", ((sig.ladder || []).length) + " 只");
+          rows.join("") || '<tr><td colspan="5">今日梯队数据为空</td></tr>';
+        setText("ladder-badge",
+          (closeMode ? "盘后 " : "竞价 ") + shortDate(sig.date) + " " +
+          (closeMode ? "收盘" : "09:25") + " · " + ladder.length + " 只");
       }
 
       function renderLive(live) {
