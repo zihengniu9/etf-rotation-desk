@@ -377,7 +377,7 @@
           <div class="chart-shell st-chart-shell">
             <svg id="pf-chart" viewBox="0 0 720 260" role="img" aria-label="接力可做度模拟组合净值曲线"></svg>
           </div>
-          <p class="st-chart-note">规则：09:25 档位映射当日仓位（可做 100% · 轻仓试错 50% · 观望 20% · 空仓 0%），持仓为「昨日涨停股等权组合」，日收益 = 仓位 × 组合当日均幅；基期净值 1.0000。每日 15:15 盘后对账自动追加，样本积累中曲线随之生长。</p>
+          <p class="st-chart-note">规则：09:25 档位映射当日仓位（可做 100% · 轻仓试错 50% · 观望 20% · 空仓 0%），持仓为「昨日涨停股等权组合」，日收益 = 仓位 × 组合当日<b>开盘→收盘</b>均幅（9:25 竞价买入的真实可得口径，已消除隔夜前视偏差）；基期净值 1.0000。每日 15:15 盘后对账自动追加。</p>
         </div>
       </div>
 
@@ -593,8 +593,12 @@
         var list = [];
         var nav = 1;
         (rows || []).forEach(function (r) {
-          var avg = r && r.act ? Number(r.act.avg_pct) : NaN;
-          var pos = r ? PLAN_POS[r.verdict] : undefined;
+          if (!r) return;
+          var act = r.act || {};
+          // 口径：开盘→收盘真实可得收益（9:25 竞价买入）；旧样本无该字段时回退全天均幅
+          var avg = Number(act.oc_avg_pct);
+          if (!isFinite(avg)) avg = Number(act.avg_pct);
+          var pos = PLAN_POS[r.verdict];
           if (!isFinite(avg) || pos === undefined) return;
           var dayRet = pos * avg / 100;
           nav *= (1 + dayRet);
