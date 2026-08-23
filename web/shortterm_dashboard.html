@@ -245,7 +245,17 @@
       .st-modal-head h3 { margin: 0; font-size: 15px; }
       .st-modal-close { cursor: pointer; border: none; background: transparent; font-size: 22px; line-height: 1; color: #888; padding: 0 8px; border-radius: 6px; }
       .st-modal-close:hover { background: rgba(0, 0, 0, 0.07); color: #333; }
-      .st-modal-body { overflow: auto; }
+      .st-modal-body { overflow: auto; padding: 14px 18px 18px; }
+      .st-log-btn { display: inline-flex; align-items: baseline; gap: 10px; border: none; cursor: pointer; background: linear-gradient(135deg, #d64541, #b7232f); color: #fff; font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 9px; box-shadow: 0 3px 10px rgba(183, 35, 47, 0.28); }
+      .st-log-btn:hover { filter: brightness(1.08); }
+      .st-log-btn .st-log-btn-sub { font-size: 11px; font-weight: 500; opacity: 0.85; }
+      .st-trade-legend { margin: 0 0 12px; padding: 10px 12px; background: rgba(0, 0, 0, 0.035); border-radius: 9px; font-size: 12px; line-height: 1.8; color: var(--muted); }
+      .st-trade-legend b { color: inherit; }
+      .st-trade-day { margin-bottom: 18px; }
+      .st-trade-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 6px 2px; border-bottom: 2px solid rgba(0, 0, 0, 0.08); margin-bottom: 8px; font-size: 13px; }
+      .st-trade-head > b { font-size: 14px; }
+      .st-trade-tags { color: #b45309; font-size: 11px; font-weight: 600; }
+      .st-trade-flat { padding: 2px; color: var(--muted); font-size: 12px; }
       /* 覆写全局 .chart-shell 的 min-height:390px 与 flex 拉伸：
          全局规则会让 SVG 被拉高到 390px+，面板内容高度与网格行高计算脱节，
          图注溢出面板叠印到「明日预案」。此处改为 SVG 按 viewBox 固有比例定高。 */
@@ -432,7 +442,7 @@
           </div>
           <p class="st-chart-note"><b>交易逻辑</b>：每交易日 09:25 按「昨日涨停/跌停/炸板生态 + 今日竞价溢价」打分定档——可做 ≥75 · 轻仓试错 55–74 · 观望 35–54 · 空仓 &lt;35，再叠加 R1–R4 周期修正与熔断降档；档位映射当日仓位：<b>可做 100% · 试错 50% · 观望 20% · 空仓 0%</b>。</p>
           <p class="st-chart-note"><b>买什么</b>：不是某一只票，而是「昨日全部涨停股的<b>等权组合</b>」——度量接力环境的系统期望，剥离个股选择运气；当天具体候选见「梯队观察哨」。<b>怎么买卖</b>：09:25 竞价价买入、收盘结算（开盘→收盘，T+1 下真实可得、无隔夜前视偏差），日收益 = 仓位 × 组合开收均幅，净值逐日连乘，基期 1.0000。历史各日按现行 v2.1 规则<b>回溯统一重算</b>（非当时实盘记录）；每日 15:15 盘后对账自动追加当日明细。</p>
-          <p class="st-chart-note" style="margin-top:10px;"><a href="javascript:void(0)" id="pf-log-open" style="color:#c0392b;font-weight:600;">查看每日执行明细（<span id="pf-log-count">--</span> 个交易日）→</a></p>
+          <div style="margin-top:12px;"><button type="button" id="pf-log-open" class="st-log-btn">每日交易记录<span class="st-log-btn-sub">买了什么 · 为什么买 · 盈亏多少 · 共 <span id="pf-log-count">--</span> 天</span></button></div>
           </div>
         </div>
       </div>
@@ -445,16 +455,8 @@
             <button type="button" class="st-modal-close" aria-label="关闭">×</button>
           </div>
           <div class="st-modal-body">
-            <div class="table-wrap compact">
-              <table>
-                <thead>
-                  <tr>
-                    <th>日期</th><th>信号</th><th>仓位</th><th>竞价溢价</th><th>组合开→收</th><th>当日盈亏</th><th>净值</th><th>备注</th>
-                  </tr>
-                </thead>
-                <tbody id="pf-log-body"></tbody>
-              </table>
-            </div>
+            <p class="st-trade-legend"><b>买入逻辑</b>：09:25 评分定档 → 决定今天做不做、做多重（仓位见每日标题）；标的是昨日涨停后走出梯队的<b>核心身份票</b>；<b>买点 = 当日竞价（约等于开盘价）</b>，T+1 制度下<b>收盘结算</b>；「当日盈亏」= 收盘 − 竞价买点。空仓日按纪律不出手。</p>
+            <div id="pf-log-body"></div>
           </div>
         </div>
       </div>
@@ -502,7 +504,8 @@
         live: "../outputs/shortterm_live",
         signal: "../outputs/shortterm_signal",
         samples: "../outputs/shortterm_samples.json",
-        plan: "../outputs/shortterm_plan"
+        plan: "../outputs/shortterm_plan",
+        trades: "../outputs/shortterm_trades"
       };
       var VERDICT_LEVELS = {
         "可做": "lvl-go",
@@ -846,7 +849,7 @@
           markers + pill + dateTicks + labels;
       }
 
-      function renderPortfolio(rows) {
+      function renderPortfolio(rows, trades) {
         rows = (rows || []).slice().sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
         var points = buildPortfolio(rows);
         var stats = portfolioStats(points);
@@ -859,46 +862,53 @@
             statCell("空仓日", stats.flat + " / " + stats.days)
           : "";
         renderPortfolioChart("pf-chart", points);
-        renderPortfolioLog(points);
+        renderPortfolioLog(points, trades);
       }
 
-      // 备注列：把 regime_notes 压缩成短标签
-      function regimeTag(notes) {
-        var tags = [];
-        (notes || []).forEach(function (n) {
-          n = String(n || "");
-          if (!n) return;
-          if (n.indexOf("豁免") >= 0) tags.push("R3豁免");
-          else if (n.indexOf("熔断") === 0) tags.push("熔断降档");
-          else if (n.indexOf("R1") === 0) tags.push("R1压制");
-          else if (n.indexOf("R2") === 0) tags.push("R2警戒");
-          else if (n.indexOf("冰点修复") >= 0 || n.indexOf("大面次日") >= 0) tags.push("冰点观察");
-          else if (n.indexOf("维持降档") >= 0) tags.push("退潮竞价崩");
-        });
-        var uniq = tags.filter(function (t, i) { return tags.indexOf(t) === i; });
-        return uniq.join("·");
+      function chipCell(v) {
+        return '<span class="st-chip ' + chipClass(v) + '">' + (isFinite(Number(v)) ? signed(v, 1) : "--") + "</span>";
       }
 
-      // 每日执行明细（交易记录）：每天什么信号、多少仓位、赚亏多少、净值走到哪
-      function renderPortfolioLog(points) {
+      // 每日交易记录：每天买了哪些票、为什么买、竞价买点、收盘结果、单票盈亏
+      function renderTrades(trades, points) {
         var body = document.getElementById("pf-log-body");
         if (!body) return;
-        if (!points.length) {
-          body.innerHTML = '<tr><td colspan="8" class="empty">样本积累中（每日 15:15 盘后自动追加）</td></tr>';
+        var list = (trades || []).slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+        if (!list.length) {
+          // 兜底：交易数据缺失时退回按天汇总表
+          body.innerHTML = '<div class="table-wrap compact"><table><thead><tr><th>日期</th><th>信号</th><th>仓位</th><th>组合开→收</th><th>当日盈亏</th><th>净值</th></tr></thead><tbody>' +
+            (points || []).slice().reverse().map(function (p) {
+              return "<tr><td>" + escapeHtml(shortDate(p.date)) + "</td><td>" + p.score + "分 " + escapeHtml(p.verdict) + "</td><td>" + Math.round(p.pos * 100) + "%</td><td>" + signed(p.dayPct) + "</td><td>" + signed(p.ret * 100, 2) + "</td><td>" + p.nav.toFixed(4) + "</td></tr>";
+            }).join("") + "</tbody></table></div>";
           return;
         }
-        body.innerHTML = points.slice().reverse().map(function (p) {
-          return "<tr>" +
-            "<td>" + escapeHtml(shortDate(p.date)) + "</td>" +
-            "<td>" + p.score + "分 " + escapeHtml(p.verdict) + "</td>" +
-            "<td>" + Math.round(p.pos * 100) + "%</td>" +
-            '<td><span class="st-chip ' + chipClass(p.openPct) + '">' + (isFinite(p.openPct) ? signed(p.openPct, 1) : "--") + "</span></td>" +
-            '<td><span class="st-chip ' + chipClass(p.dayPct) + '">' + signed(p.dayPct, 2) + "</span></td>" +
-            '<td><span class="st-chip ' + chipClass(p.ret * 100) + '">' + signed(p.ret * 100, 2) + "</span></td>" +
-            "<td>" + p.nav.toFixed(4) + "</td>" +
-            "<td>" + escapeHtml(regimeTag(p.notes)) + "</td>" +
-            "</tr>";
+        body.innerHTML = list.map(function (d) {
+          var head = '<div class="st-trade-head"><b>' + escapeHtml(shortDate(d.date)) + "</b>" +
+            "<span>" + d.score + "分 " + escapeHtml(d.verdict) + "</span>" +
+            "<span>仓位 " + Math.round((d.pos || 0) * 100) + "%</span>" +
+            ((d.tags && d.tags.length) ? '<span class="st-trade-tags">' + escapeHtml(d.tags.join("·")) + "</span>" : "") +
+            "</div>";
+          if (!d.pos) {
+            return '<div class="st-trade-day">' + head + '<div class="st-trade-flat">按纪律空仓，未出手（梯队 ' + (d.stocks || []).length + " 只仅观察）</div></div>";
+          }
+          var rows = (d.stocks || []).map(function (s) {
+            return "<tr>" +
+              '<td><strong title="' + escapeHtml(s.reason || "") + '">' + escapeHtml(s.name) + "</strong></td>" +
+              "<td>" + escapeHtml(s.jitian || "-") + "</td>" +
+              "<td>" + escapeHtml(s.note || "-") + "</td>" +
+              "<td>" + chipCell(s.buy_gap) + "</td>" +
+              "<td>" + chipCell(s.close_pct) + "</td>" +
+              "<td>" + chipCell(s.pnl) + "</td>" +
+              "</tr>";
+          }).join("");
+          return '<div class="st-trade-day">' + head +
+            '<div class="table-wrap compact"><table><thead><tr><th>标的</th><th>位置</th><th>买入逻辑</th><th>买点(竞价)</th><th>收盘</th><th>当日盈亏</th></tr></thead><tbody>' + rows + "</tbody></table></div></div>";
         }).join("");
+      }
+
+      function renderPortfolioLog(points, trades) {
+        setText("pf-log-count", points.length ? String(points.length) : "--");
+        renderTrades(trades, points);
       }
 
       // 明细弹窗开关（遮罩点击 / × / Esc 关闭）
@@ -1009,11 +1019,12 @@
           fetch(bust(LIVE_FILES.samples), { cache: "no-store" })
             .then(function (r) { return r.ok ? r.json() : []; })
             .catch(function () { return []; }),
-          loadJson(LIVE_FILES.plan, "SHORT_PLAN").catch(function () { return null; })
+          loadJson(LIVE_FILES.plan, "SHORT_PLAN").catch(function () { return null; }),
+          loadJson(LIVE_FILES.trades, "SHORT_TRADES").catch(function () { return null; })
         ]).then(function (results) {
           renderSignal(results[1]);
           renderLive(results[0]);
-          renderPortfolio(results[2]);
+          renderPortfolio(results[2], results[4]);
           renderPlan(results[3]);
           renderFreshness(results[1], results[3], results[2]);
           setStatus("更新于 " + new Date().toLocaleString("zh-CN", { hour12: false }));
