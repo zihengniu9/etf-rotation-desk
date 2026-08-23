@@ -232,6 +232,7 @@
         font-variant-numeric: tabular-nums;
       }
       .st-chart-note { margin: 8px 0 0; font-size: 11px; line-height: 1.7; color: var(--muted); }
+      .pf-log-wrap { max-height: 300px; overflow: auto; margin-top: 10px; }
       /* 覆写全局 .chart-shell 的 min-height:390px 与 flex 拉伸：
          全局规则会让 SVG 被拉高到 390px+，面板内容高度与网格行高计算脱节，
          图注溢出面板叠印到「明日预案」。此处改为 SVG 按 viewBox 固有比例定高。 */
@@ -413,7 +414,25 @@
           <div class="chart-shell st-chart-shell">
             <svg id="pf-chart" viewBox="0 0 720 260" role="img" aria-label="接力可做度模拟组合净值曲线"></svg>
           </div>
-          <p class="st-chart-note">规则：09:25 档位映射当日仓位（可做 100% · 轻仓试错 50% · 观望 20% · 空仓 0%），持仓为「昨日涨停股等权组合」，日收益 = 仓位 × 组合当日<b>开盘→收盘</b>均幅（9:25 竞价买入的真实可得口径，已消除隔夜前视偏差）；基期净值 1.0000。每日 15:15 盘后对账自动追加。</p>
+          <p class="st-chart-note"><b>交易逻辑</b>：每交易日 09:25 按「昨日涨停/跌停/炸板生态 + 今日竞价溢价」打分定档——可做 ≥75 · 轻仓试错 55–74 · 观望 35–54 · 空仓 &lt;35，再叠加 R1–R4 周期修正与熔断降档；档位映射当日仓位：<b>可做 100% · 试错 50% · 观望 20% · 空仓 0%</b>。</p>
+          <p class="st-chart-note"><b>买什么</b>：不是某一只票，而是「昨日全部涨停股的<b>等权组合</b>」——度量接力环境的系统期望，剥离个股选择运气；当天具体候选见「梯队观察哨」。<b>怎么买卖</b>：09:25 竞价价买入、收盘结算（开盘→收盘，T+1 下真实可得、无隔夜前视偏差），日收益 = 仓位 × 组合开收均幅，净值逐日连乘，基期 1.0000。历史各日按现行 v2.1 规则<b>回溯统一重算</b>（非当时实盘记录）；每日 15:15 盘后对账自动追加当日明细。</p>
+          <div class="table-wrap compact pf-log-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>日期</th>
+                  <th>信号</th>
+                  <th>仓位</th>
+                  <th>竞价溢价</th>
+                  <th>组合开→收</th>
+                  <th>当日盈亏</th>
+                  <th>净值</th>
+                  <th>备注</th>
+                </tr>
+              </thead>
+              <tbody id="pf-log-body"></tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -693,6 +712,8 @@
           list.push({
             date: r.date, score: r.score, verdict: r.verdict,
             pos: pos, dayPct: avg, ret: dayRet, nav: nav,
+            openPct: Number(act.open_avg_pct),
+            notes: Array.isArray(r.regime_notes) ? r.regime_notes : [],
             consistent: !!r.consistent
           });
         });
@@ -767,7 +788,8 @@
         var markers = points.map(function (p, i) {
           var cls = p.ret > 0 ? "chart-marker chart-marker-buy" : p.ret < 0 ? "chart-marker chart-marker-sell" : "chart-marker";
           var title = p.date + " | " + p.score + "分 " + p.verdict + " | 仓位 " + Math.round(p.pos * 100) + "%" +
-            " | 组合当日 " + signed(p.dayPct) + " | 净值 " + p.nav.toFixed(4) + " | 预判" + (p.consistent ? "一致 ✓" : "不一致 ✗");
+            " | 开盘溢价 " + (isFinite(p.openPct) ? signed(p.openPct) : "--") +
+            " | 组合开收 " + signed(p.dayPct) + " | 净值 " + p.nav.toFixed(4) + " | 预判" + (p.consistent ? "一致 ✓" : "不一致 ✗");
           return '<circle cx="' + xOf(i).toFixed(1) + '" cy="' + yOf(p.nav).toFixed(1) + '" r="4.2" class="' + cls + '"><title>' + escapeHtml(title) + "</title></circle>";
         }).join("");
 
@@ -813,6 +835,46 @@
             statCell("空仓日", stats.flat + " / " + stats.days)
           : "";
         renderPortfolioChart("pf-chart", points);
+        renderPortfolioLog(points);
+      }
+
+      // 备注列：把 regime_notes 压缩成短标签
+      function regimeTag(notes) {
+        var tags = [];
+        (notes || []).forEach(function (n) {
+          n = String(n || "");
+          if (!n) return;
+          if (n.indexOf("豁免") >= 0) tags.push("R3豁免");
+          else if (n.indexOf("熔断") === 0) tags.push("熔断降档");
+          else if (n.indexOf("R1") === 0) tags.push("R1压制");
+          else if (n.indexOf("R2") === 0) tags.push("R2警戒");
+          else if (n.indexOf("冰点修复") >= 0 || n.indexOf("大面次日") >= 0) tags.push("冰点观察");
+          else if (n.indexOf("维持降档") >= 0) tags.push("退潮竞价崩");
+        });
+        var uniq = tags.filter(function (t, i) { return tags.indexOf(t) === i; });
+        return uniq.join("·");
+      }
+
+      // 每日执行明细（交易记录）：每天什么信号、多少仓位、赚亏多少、净值走到哪
+      function renderPortfolioLog(points) {
+        var body = document.getElementById("pf-log-body");
+        if (!body) return;
+        if (!points.length) {
+          body.innerHTML = '<tr><td colspan="8" class="empty">样本积累中（每日 15:15 盘后自动追加）</td></tr>';
+          return;
+        }
+        body.innerHTML = points.slice().reverse().map(function (p) {
+          return "<tr>" +
+            "<td>" + escapeHtml(shortDate(p.date)) + "</td>" +
+            "<td>" + p.score + "分 " + escapeHtml(p.verdict) + "</td>" +
+            "<td>" + Math.round(p.pos * 100) + "%</td>" +
+            '<td><span class="st-chip ' + chipClass(p.openPct) + '">' + (isFinite(p.openPct) ? signed(p.openPct, 1) : "--") + "</span></td>" +
+            '<td><span class="st-chip ' + chipClass(p.dayPct) + '">' + signed(p.dayPct, 2) + "</span></td>" +
+            '<td><span class="st-chip ' + chipClass(p.ret * 100) + '">' + signed(p.ret * 100, 2) + "</span></td>" +
+            "<td>" + p.nav.toFixed(4) + "</td>" +
+            "<td>" + escapeHtml(regimeTag(p.notes)) + "</td>" +
+            "</tr>";
+        }).join("");
       }
 
       // ===== 明日预案 =====
