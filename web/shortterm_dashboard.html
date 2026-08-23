@@ -173,6 +173,21 @@
       .st-note.tone-cold  { color: #0f7b55; background: #e9f7f0; }
       .st-note.tone-none  { color: var(--muted); background: var(--surface-alt); }
 
+      .st-fresh {
+        display: none;
+        margin: 14px 0 0;
+        padding: 11px 14px;
+        border: 1px solid #f0d48a;
+        border-left: 4px solid var(--gold);
+        border-radius: 10px;
+        background: var(--gold-soft);
+        color: var(--gold);
+        font-size: 12.5px;
+        line-height: 1.8;
+      }
+      .st-fresh.show { display: block; }
+      .st-fresh strong { font-weight: 800; }
+
       .st-range {
         position: relative;
         height: 8px;
@@ -278,6 +293,8 @@
         </div>
         <div class="status" id="st-status">加载中…</div>
       </header>
+
+      <div class="st-fresh" id="st-fresh" role="alert"></div>
 
       <!-- 接力可做度 -->
       <section class="panel st-signal-panel">
@@ -779,6 +796,40 @@
         if (tip) tip.textContent = "短线数据加载失败：" + error.message + "（请先运行 dashboard/update_data.py 与 signal_0925.py）";
       }
 
+      function localTodayStr(now) {
+        var y = now.getFullYear();
+        var m = ("0" + (now.getMonth() + 1)).slice(-2);
+        var d = ("0" + now.getDate()).slice(-2);
+        return y + "-" + m + "-" + d;
+      }
+
+      // 数据新鲜度哨兵：工作日三个时点后对应数据未产出则亮黄条（周末隐藏，法定节假日请忽略）
+      function renderFreshness(sig, plan, samples, now) {
+        var el = document.getElementById("st-fresh");
+        now = now || new Date();
+        var dow = now.getDay();
+        if (dow === 0 || dow === 6) { el.className = "st-fresh"; return; }
+        var today = localTodayStr(now);
+        var mins = now.getHours() * 60 + now.getMinutes();
+        var alerts = [];
+        if (mins >= 575 && (!sig || sig.date !== today)) {
+          alerts.push("<strong>今日晨间信号未生成</strong>（应 09:25 后自动产出）");
+        }
+        var lastSample = "";
+        (samples || []).forEach(function (r) { if (r && r.date > lastSample) lastSample = r.date; });
+        if (mins >= 930 && lastSample !== today) {
+          alerts.push("<strong>今日盘后对账未更新</strong>（应 15:15 后自动产出）");
+        }
+        var planDay = plan && plan.generated_at ? String(plan.generated_at).slice(0, 10) : "";
+        if (mins >= 1005 && planDay !== today) {
+          alerts.push("<strong>今日盘后复盘/明日预案未生成</strong>（应 16:30 后自动产出）");
+        }
+        if (!alerts.length) { el.className = "st-fresh"; return; }
+        el.innerHTML = "⚠️ <strong>数据新鲜度提醒</strong>（若为法定节假日请忽略）：本地自动化可能未运行（机器关机 / 断网 / API 异常）——" +
+          alerts.join("；") + "。可在本机手动运行 dashboard/ 下脚本补齐。";
+        el.className = "st-fresh show";
+      }
+
       function refresh() {
         var cacheBust = Date.now();
         return Promise.all([
@@ -793,6 +844,7 @@
           renderLive(results[0]);
           renderPortfolio(results[2]);
           renderPlan(results[3]);
+          renderFreshness(results[1], results[3], results[2]);
           setStatus("更新于 " + new Date().toLocaleString("zh-CN", { hour12: false }));
         }).catch(showLoadError);
       }
