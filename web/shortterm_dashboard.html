@@ -82,6 +82,7 @@
         border: 1px solid var(--line);
         border-radius: 10px;
         background: var(--surface-alt);
+        min-width: 0;
       }
       .st-factor span {
         display: block;
@@ -137,9 +138,10 @@
         gap: 16px;
         margin-bottom: 18px;
       }
-      @media (max-width: 1080px) {
+      @media (max-width: 1200px) {
         .st-hero { grid-template-columns: 1fr; }
         .st-grid-2 { grid-template-columns: 1fr; }
+        .st-plan-branches { grid-template-columns: 1fr; }
       }
 
       /* 表格内小部件 */
@@ -193,6 +195,72 @@
 
       .st-consistent { color: #0f7b55; font-weight: 800; }
       .st-inconsistent { color: var(--brand-red-dark); font-weight: 800; }
+
+      /* ===== 模拟组合 ===== */
+      .st-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 30px;
+        margin: 2px 0 10px;
+      }
+      .st-stats div span {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .st-stats div strong {
+        display: block;
+        margin-top: 3px;
+        font-size: 20px;
+        letter-spacing: -0.02em;
+        font-variant-numeric: tabular-nums;
+      }
+      .st-chart-note { margin: 8px 0 0; font-size: 11px; line-height: 1.7; color: var(--muted); }
+      .st-chart-shell { padding: 6px 4px 2px; }
+
+      /* ===== 明日预案 ===== */
+      .st-plan-headline { margin: 2px 0 10px; font-size: 15px; font-weight: 800; color: var(--ink); line-height: 1.55; }
+      .st-plan-review { margin: 0 0 14px; color: var(--ink-soft); font-size: 12.5px; line-height: 1.75; }
+      .st-plan-branches {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      .st-plan-branch {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 12px 14px 11px;
+        background: var(--surface-alt);
+      }
+      .st-plan-branch h4 { display: flex; align-items: center; gap: 7px; margin: 0 0 8px; font-size: 13px; font-weight: 800; }
+      .st-plan-branch h4 i {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 6px;
+        font-style: normal;
+        font-size: 12px;
+        color: #fff;
+        background: var(--blue);
+      }
+      .st-plan-branch.tone-a h4 i { background: var(--brand-red); }
+      .st-plan-branch.tone-b h4 i { background: var(--gold); }
+      .st-plan-branch.tone-c h4 i { background: var(--blue); }
+      .st-plan-branch p { margin: 0 0 5px; font-size: 12px; line-height: 1.65; color: var(--ink-soft); }
+      .st-plan-branch p strong {
+        display: inline-block;
+        margin-right: 6px;
+        padding: 1px 6px;
+        border-radius: 5px;
+        background: rgba(29, 78, 216, 0.09);
+        color: var(--blue);
+        font-size: 11px;
+      }
+      .st-plan-rules { margin: 12px 0 0; padding-left: 18px; font-size: 12px; line-height: 1.85; color: var(--ink-soft); }
     </style>
   </head>
   <body>
@@ -299,29 +367,28 @@
           </div>
         </div>
 
-        <!-- 近期对账 -->
+        <!-- 模拟组合（参考 ETF 轮动看板净值曲线） -->
         <div class="panel">
           <div class="panel-head">
-            <div class="panel-title"><h2>近 5 日对账</h2></div>
-            <span class="limit-badge" id="sample-badge">--</span>
+            <div class="panel-title"><h2>模拟组合</h2></div>
+            <span class="limit-badge" id="pf-badge">--</span>
           </div>
-          <div class="table-wrap compact">
-            <table>
-              <thead>
-                <tr>
-                  <th>日期</th>
-                  <th>分数</th>
-                  <th>档位</th>
-                  <th>实际均幅</th>
-                  <th>晋级率</th>
-                  <th>一致</th>
-                </tr>
-              </thead>
-              <tbody id="sample-body"></tbody>
-            </table>
+          <div class="st-stats" id="pf-stats"></div>
+          <div class="chart-shell st-chart-shell">
+            <svg id="pf-chart" viewBox="0 0 720 260" role="img" aria-label="接力可做度模拟组合净值曲线"></svg>
           </div>
+          <p class="st-chart-note">规则：09:25 档位映射当日仓位（可做 100% · 轻仓试错 50% · 观望 20% · 空仓 0%），持仓为「昨日涨停股等权组合」，日收益 = 仓位 × 组合当日均幅；基期净值 1.0000。每日 15:15 盘后对账自动追加，样本积累中曲线随之生长。</p>
         </div>
       </div>
+
+      <!-- 明日预案 -->
+      <section class="panel" style="margin-bottom:18px;">
+        <div class="panel-head">
+          <div class="panel-title"><h2>明日预案</h2></div>
+          <span class="limit-badge" id="plan-badge">--</span>
+        </div>
+        <div id="plan-body"><div class="empty">预案尚未生成：每交易日 16:30 自动产出当日复盘 + 次日三分支剧本</div></div>
+      </section>
 
       <!-- 自选跟踪池 -->
       <section class="panel">
@@ -356,7 +423,8 @@
       var LIVE_FILES = {
         live: "../outputs/shortterm_live",
         signal: "../outputs/shortterm_signal",
-        samples: "../outputs/shortterm_samples.json"
+        samples: "../outputs/shortterm_samples.json",
+        plan: "../outputs/shortterm_plan"
       };
       var VERDICT_LEVELS = {
         "可做": "lvl-go",
@@ -369,7 +437,7 @@
         return path + (path.indexOf("?") >= 0 ? "&" : "?") + "ts=" + Date.now();
       }
 
-      function loadJson(base) {
+      function loadJson(base, fallbackKey) {
         return fetch(bust(base + ".json"), { cache: "no-store" })
           .then(function (res) {
             if (!res.ok) throw new Error(base + " HTTP " + res.status);
@@ -378,7 +446,7 @@
           .catch(function () {
             // file:// 直开时 fetch 被 CORS 拦截，退回 script 注入
             return new Promise(function (resolve, reject) {
-              var key = base.indexOf("signal") >= 0 ? "SHORT_SIGNAL" : "SHORT_TERM_LIVE";
+              var key = fallbackKey || (base.indexOf("signal") >= 0 ? "SHORT_SIGNAL" : "SHORT_TERM_LIVE");
               window[key] = undefined;
               var s = document.createElement("script");
               s.src = bust(base + ".js");
@@ -518,21 +586,172 @@
         setStatus(stamp ? "更新于 " + stamp : "数据未更新");
       }
 
-      function renderSamples(rows) {
-        var list = (rows || []).slice(-5).reverse();
-        setText("sample-badge", list.length + " 条");
-        var body = document.getElementById("sample-body");
-        body.innerHTML = list.map(function (r) {
-          var act = r.act || {};
+      // ===== 模拟组合：档位 → 仓位映射 =====
+      var PLAN_POS = { "可做": 1.0, "轻仓试错": 0.5, "观望": 0.2, "空仓": 0 };
+
+      function buildPortfolio(rows) {
+        var list = [];
+        var nav = 1;
+        (rows || []).forEach(function (r) {
+          var avg = r && r.act ? Number(r.act.avg_pct) : NaN;
+          var pos = r ? PLAN_POS[r.verdict] : undefined;
+          if (!isFinite(avg) || pos === undefined) return;
+          var dayRet = pos * avg / 100;
+          nav *= (1 + dayRet);
+          list.push({
+            date: r.date, score: r.score, verdict: r.verdict,
+            pos: pos, dayPct: avg, ret: dayRet, nav: nav,
+            consistent: !!r.consistent
+          });
+        });
+        return list;
+      }
+
+      function portfolioStats(points) {
+        if (!points.length) return null;
+        var peak = 0, mdd = 0, flat = 0;
+        points.forEach(function (p) {
+          peak = Math.max(peak, p.nav);
+          if (peak > 0) mdd = Math.min(mdd, p.nav / peak - 1);
+          if (p.pos === 0) flat += 1;
+        });
+        return {
+          nav: points[points.length - 1].nav,
+          total: points[points.length - 1].nav - 1,
+          mdd: mdd, days: points.length, flat: flat
+        };
+      }
+
+      function statCell(label, value, cls) {
+        return '<div><span>' + label + '</span><strong class="' + (cls || "") + '">' + value + "</strong></div>";
+      }
+
+      function shortDate(d) {
+        var m = String(d || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        return m ? m[2] + "-" + m[3] : String(d || "");
+      }
+
+      // 精简版净值曲线（风格对齐 ETF 看板 backtest-chart）
+      function renderPortfolioChart(svgId, points) {
+        var svg = document.getElementById(svgId);
+        if (!svg) return;
+        if (!points.length) {
+          svg.innerHTML = '<text x="360" y="128" text-anchor="middle" class="chart-empty">样本积累中（每日 15:15 盘后自动追加）</text>';
+          return;
+        }
+        var W = 720, H = 260;
+        var plot = { left: 54, top: 14, right: W - 62, bottom: H - 26 };
+        plot.width = plot.right - plot.left;
+        plot.height = plot.bottom - plot.top;
+
+        var vals = points.map(function (p) { return p.nav; }).concat([1]);
+        var rawMin = Math.min.apply(null, vals);
+        var rawMax = Math.max.apply(null, vals);
+        if (rawMax === rawMin) rawMax += 0.01;
+        var padY = (rawMax - rawMin) * 0.12 || 0.005;
+        rawMin -= padY; rawMax += padY;
+
+        function yOf(v) { return plot.bottom - ((v - rawMin) / (rawMax - rawMin)) * plot.height; }
+        function xOf(i) { return plot.left + (points.length === 1 ? plot.width / 2 : (i / (points.length - 1)) * plot.width); }
+
+        // y 轴刻度：4 条网格，左净值右收益率
+        var grids = "", labels = "";
+        for (var t = 0; t <= 3; t += 1) {
+          var v = rawMin + (rawMax - rawMin) * t / 3;
+          var gy = yOf(v);
+          grids += '<line x1="' + plot.left + '" y1="' + gy.toFixed(1) + '" x2="' + plot.right + '" y2="' + gy.toFixed(1) + '" class="' + (t === 0 ? "chart-axis" : "chart-grid") + '"></line>';
+          labels += '<text x="' + (plot.left - 9) + '" y="' + (gy + 4).toFixed(1) + '" text-anchor="end" class="chart-y-label chart-y-label-left">' + v.toFixed(3) + "</text>" +
+            '<text x="' + (plot.right + 10) + '" y="' + (gy + 4).toFixed(1) + '" class="chart-y-label chart-y-label-right">' + signed((v - 1) * 100, 1) + "</text>";
+        }
+        // 基准线 1.0000
+        var baseY = yOf(1);
+
+        var linePts = points.map(function (p, i) { return xOf(i).toFixed(1) + "," + yOf(p.nav).toFixed(1); }).join(" ");
+        var areaPath = "M " + xOf(0).toFixed(1) + "," + plot.bottom.toFixed(1) +
+          " L " + points.map(function (p, i) { return xOf(i).toFixed(1) + "," + yOf(p.nav).toFixed(1); }).join(" L ") +
+          " L " + xOf(points.length - 1).toFixed(1) + "," + plot.bottom.toFixed(1) + " Z";
+
+        // 数据点：涨红跌绿 + 悬停明细
+        var markers = points.map(function (p, i) {
+          var cls = p.ret > 0 ? "chart-marker chart-marker-buy" : p.ret < 0 ? "chart-marker chart-marker-sell" : "chart-marker";
+          var title = p.date + " | " + p.score + "分 " + p.verdict + " | 仓位 " + Math.round(p.pos * 100) + "%" +
+            " | 组合当日 " + signed(p.dayPct) + " | 净值 " + p.nav.toFixed(4) + " | 预判" + (p.consistent ? "一致 ✓" : "不一致 ✗");
+          return '<circle cx="' + xOf(i).toFixed(1) + '" cy="' + yOf(p.nav).toFixed(1) + '" r="4.2" class="' + cls + '"><title>' + escapeHtml(title) + "</title></circle>";
+        }).join("");
+
+        // x 轴日期 ≤6 个
+        var tickCount = Math.min(6, points.length);
+        var dateTicks = "";
+        for (var d = 0; d < tickCount; d += 1) {
+          var idx = tickCount === 1 ? 0 : Math.round(d / (tickCount - 1) * (points.length - 1));
+          var tx = Math.max(plot.left, Math.min(plot.right, xOf(idx)));
+          var anchor = d === 0 ? "start" : d === tickCount - 1 ? "end" : "middle";
+          dateTicks += '<text x="' + tx.toFixed(1) + '" y="' + (H - 8) + '" text-anchor="' + anchor + '" class="chart-label">' + escapeHtml(shortDate(points[idx].date)) + "</text>";
+        }
+
+        // 末端净值 pill
+        var lastNav = points[points.length - 1].nav;
+        var lastY = Math.max(plot.top, Math.min(plot.bottom - 22, yOf(lastNav)));
+        var pillW = 56, pillH = 20;
+        var pillX = plot.right - pillW + 34;
+        var pill = '<rect x="' + pillX + '" y="' + (lastY - pillH / 2).toFixed(1) + '" width="' + pillW + '" height="' + pillH + '" rx="3" class="chart-price-pill"></rect>' +
+          '<text x="' + (pillX + pillW / 2) + '" y="' + (lastY - pillH / 2 + 14).toFixed(1) + '" text-anchor="middle" class="chart-price-text">' + lastNav.toFixed(4) + "</text>";
+
+        svg.innerHTML =
+          '<defs><linearGradient id="pf-fill" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0%" stop-color="#ff3344" stop-opacity="0.26"></stop>' +
+          '<stop offset="62%" stop-color="#ff3344" stop-opacity="0.08"></stop>' +
+          '<stop offset="100%" stop-color="#ff3344" stop-opacity="0"></stop></linearGradient></defs>' +
+          grids +
+          '<line x1="' + plot.left + '" y1="' + baseY.toFixed(1) + '" x2="' + plot.right + '" y2="' + baseY.toFixed(1) + '" class="chart-zero-guide"></line>' +
+          '<path d="' + areaPath + '" class="chart-area"></path>' +
+          '<polyline points="' + linePts + '" class="chart-line"></polyline>' +
+          markers + pill + dateTicks + labels;
+      }
+
+      function renderPortfolio(rows) {
+        var points = buildPortfolio(rows);
+        var stats = portfolioStats(points);
+        setText("pf-badge", points.length ? points.length + " 个交易日" : "积累中");
+        document.getElementById("pf-stats").innerHTML = stats
+          ? statCell("最新净值", stats.nav.toFixed(4)) +
+            statCell("累计收益", signed(stats.total * 100), stats.total > 0 ? "positive" : stats.total < 0 ? "negative" : "") +
+            statCell("最大回撤", signed(stats.mdd * 100)) +
+            statCell("空仓日", stats.flat + " / " + stats.days)
+          : "";
+        renderPortfolioChart("pf-chart", points);
+      }
+
+      // ===== 明日预案 =====
+      function renderPlan(plan) {
+        var body = document.getElementById("plan-body");
+        setText("plan-badge", plan && plan.for_date ? "预案日 " + plan.for_date : "--");
+        if (!plan || !plan.for_date) {
+          body.innerHTML = '<div class="empty">预案尚未生成：每交易日 16:30 自动产出当日复盘 + 次日三分支剧本</div>';
+          return;
+        }
+        var branches = (plan.branches || []).map(function (b) {
+          return '<div class="st-plan-branch tone-' + escapeHtml(String(b.key || "c").toLowerCase()) + '">' +
+            "<h4><i>" + escapeHtml(b.key || "-") + "</i>" + escapeHtml(b.title || "") + "</h4>" +
+            "<p><strong>条件</strong>" + escapeHtml(b.condition || "--") + "</p>" +
+            "<p><strong>动作</strong>" + escapeHtml(b.action || "--") + "</p></div>";
+        }).join("");
+        var watchRows = (plan.watchlist || []).map(function (w) {
           return "<tr>" +
-            '<td class="code">' + escapeHtml(r.date) + "</td>" +
-            '<td class="numeric"><strong>' + escapeHtml(String(r.score)) + "</strong></td>" +
-            "<td>" + escapeHtml(r.verdict) + "</td>" +
-            '<td class="numeric ' + (Number(act.avg_pct) > 0 ? "positive" : "negative") + '">' + signed(act.avg_pct) + "</td>" +
-            '<td class="numeric">' + fmt((Number(act.promo_rate) || 0) * 100, 0, "%") + "</td>" +
-            '<td><span class="' + (r.consistent ? "st-consistent" : "st-inconsistent") + '">' + (r.consistent ? "✓" : "✗") + "</span></td>" +
+            '<td><strong>' + escapeHtml(w.name) + "</strong></td>" +
+            "<td>" + escapeHtml(w.role || "-") + "</td>" +
+            "<td>" + escapeHtml(w.trigger || "-") + "</td>" +
+            "<td>" + escapeHtml(w.action || "-") + "</td>" +
             "</tr>";
-        }).join("") || '<tr><td colspan="6">样本积累中（每日 15:15 盘后自动追加）</td></tr>';
+        }).join("");
+        var rules = (plan.rules || []).map(function (r) { return "<li>" + escapeHtml(r) + "</li>"; }).join("");
+        body.innerHTML =
+          '<p class="st-plan-headline">' + escapeHtml(plan.headline || "") + "</p>" +
+          (plan.market_review ? '<p class="st-plan-review">' + escapeHtml(plan.market_review) + "</p>" : "") +
+          (branches ? '<div class="st-plan-branches">' + branches + "</div>" : "") +
+          (watchRows ? '<div class="table-wrap compact"><table><thead><tr><th>标的</th><th>角色</th><th>触发条件</th><th>动作</th></tr></thead><tbody>' + watchRows + "</tbody></table></div>" : "") +
+          (rules ? '<ul class="st-plan-rules">' + rules + '<li>以上全部让位于次日 09:25 接力可做度信号，冲突时以信号为准。</li></ul>' : "") +
+          (plan.note ? '<p class="st-chart-note">' + escapeHtml(plan.note) + "</p>" : "");
       }
 
       function setStatus(text, isError) {
@@ -558,15 +777,17 @@
       function refresh() {
         var cacheBust = Date.now();
         return Promise.all([
-          loadJson(LIVE_FILES.live),
-          loadJson(LIVE_FILES.signal),
+          loadJson(LIVE_FILES.live, "SHORT_TERM_LIVE"),
+          loadJson(LIVE_FILES.signal, "SHORT_SIGNAL"),
           fetch(bust(LIVE_FILES.samples), { cache: "no-store" })
             .then(function (r) { return r.ok ? r.json() : []; })
-            .catch(function () { return []; })
+            .catch(function () { return []; }),
+          loadJson(LIVE_FILES.plan, "SHORT_PLAN").catch(function () { return null; })
         ]).then(function (results) {
           renderSignal(results[1]);
           renderLive(results[0]);
-          renderSamples(results[2]);
+          renderPortfolio(results[2]);
+          renderPlan(results[3]);
           setStatus("更新于 " + new Date().toLocaleString("zh-CN", { hour12: false }));
         }).catch(showLoadError);
       }
