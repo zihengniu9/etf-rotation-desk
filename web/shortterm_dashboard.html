@@ -570,7 +570,7 @@
           <div class="chart-shell st-chart-shell">
             <svg id="pf-chart" viewBox="0 0 720 260" role="img" aria-label="接力可做度模拟组合净值曲线"></svg>
           </div>
-          <p class="st-chart-note">09:25 定档定仓：可做全仓 · 试错半仓 · 观望/空仓不开仓。实盘口径＝<b>封板涨停买入</b>、<b>断板分质</b>（缩量调整持有博反包 · 放量长阴/竞价深水开离场）；上方曲线是环境温度计（昨日涨停组合开收均幅 × 仓位）。</p>
+          <p class="st-chart-note">09:25 定档定仓：可做全仓 · 试错半仓<b>只打最强身份票</b> · 观望/空仓不开仓，烂板回避。实盘口径＝<b>封板涨停买入</b>、<b>断板分质</b>（缩量调整持有博反包 · 放量长阴/竞价深水开离场）；上方曲线是环境温度计（昨日涨停组合开收均幅 × 仓位）。</p>
           <div style="margin-top:12px;"><button type="button" id="pf-log-open" class="st-log-btn">每日交易记录<span class="st-log-btn-sub">买了什么 · 为什么买 · 盈亏多少 · 共 <span id="pf-log-count">--</span> 天</span></button></div>
           </div>
         </div>
@@ -584,7 +584,7 @@
             <button type="button" class="st-modal-close" aria-label="关闭">×</button>
           </div>
           <div class="st-modal-body">
-            <p class="st-trade-legend">口径：封板涨停买入 · 断板分质——缩量调整持有博反包，放量长阴或竞价深水开离场。每天三行：操作、结果、原因。</p>
+            <p class="st-trade-legend">口径：封板涨停买入（试错只打最强 · 烂板回避）· 断板分质卖出。每天三行：操作、结果、原因。</p>
             <div id="pf-log-body"></div>
           </div>
         </div>
@@ -1033,12 +1033,15 @@
           var lines = [];
           if (pv > 0) {
             var bought = (d.stocks || []).filter(function (s) {
+              if (typeof s.bought === "boolean") return s.bought;   /* v5: 后端收口 */
               var nt = String(s.note || "");
-              return s.sealed && !s.yizi && nt.indexOf("难上车") < 0 && nt.indexOf("一字") < 0;
+              return s.sealed && !s.yizi &&
+                nt.indexOf("难上车") < 0 && nt.indexOf("一字") < 0 && nt.indexOf("烂板") < 0;
             });
             if (bought.length) {
               lines.push("<p><b>操作</b>封板买入 " + bought.map(function (s) {
-                return escapeHtml(s.name) + "（" + escapeHtml(s.note || s.jitian || "") + "）";
+                var tag = s.note || s.jitian || "";
+                return escapeHtml(s.name) + (tag ? "（" + escapeHtml(tag) + "）" : "");
               }).join("、") + "</p>");
               var done = bought.filter(function (s) { return s.board_pnl !== null && s.board_pnl !== undefined; });
               var holding = bought.filter(function (s) { return s.holding; });
