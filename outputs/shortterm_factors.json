@@ -1,0 +1,470 @@
+{
+ "generated_at": "2026-08-25 16:26:41",
+ "for_date": "2026-08-24",
+ "rules": "阶段新高板=T收盘/前60日最高收盘>=0.998（观察池，回测：单独不构成超额，需叠人气）；热点=概念涨停家数≥3",
+ "high_candidates": [
+  {
+   "hit": true,
+   "r60": 1.1001,
+   "first_break": false,
+   "prev_sealed": true,
+   "name": "汉森制药",
+   "code": "002412.SZ",
+   "close": 12.33,
+   "pct": 10.009814,
+   "pop": 37.1,
+   "note": "硬板强承·卡位候选"
+  },
+  {
+   "hit": true,
+   "r60": 1.061,
+   "first_break": true,
+   "prev_sealed": true,
+   "name": "哈森股份",
+   "code": "603958.SH",
+   "close": 22.26,
+   "pct": 10.024331,
+   "pop": 35.5,
+   "note": ""
+  }
+ ],
+ "hot_board": [
+  {
+   "concept": "锂电池概念",
+   "count": 11,
+   "stocks": [
+    {
+     "name": "深中华A",
+     "boards": 1
+    },
+    {
+     "name": "协鑫能科",
+     "boards": 1
+    },
+    {
+     "name": "同洲电子",
+     "boards": 1
+    },
+    {
+     "name": "圣阳股份",
+     "boards": 1
+    },
+    {
+     "name": "*ST萃华",
+     "boards": 1
+    },
+    {
+     "name": "金龙羽",
+     "boards": 1
+    },
+    {
+     "name": "天力锂能",
+     "boards": 1
+    },
+    {
+     "name": "红星发展",
+     "boards": 1
+    }
+   ]
+  },
+  {
+   "concept": "华为概念",
+   "count": 9,
+   "stocks": [
+    {
+     "name": "众合科技",
+     "boards": 1
+    },
+    {
+     "name": "协鑫能科",
+     "boards": 1
+    },
+    {
+     "name": "东信和平",
+     "boards": 1
+    },
+    {
+     "name": "圣阳股份",
+     "boards": 1
+    },
+    {
+     "name": "华阳集团",
+     "boards": 1
+    },
+    {
+     "name": "楚天龙",
+     "boards": 1
+    },
+    {
+     "name": "上海洗霸",
+     "boards": 1
+    },
+    {
+     "name": "天洋新材",
+     "boards": 1
+    }
+   ]
+  },
+  {
+   "concept": "绿色电力",
+   "count": 8,
+   "stocks": [
+    {
+     "name": "北方国际",
+     "boards": 1
+    },
+    {
+     "name": "协鑫能科",
+     "boards": 1
+    },
+    {
+     "name": "中南文化",
+     "boards": 1
+    },
+    {
+     "name": "*ST瑞和",
+     "boards": 1
+    },
+    {
+     "name": "南网能源",
+     "boards": 1
+    },
+    {
+     "name": "上海能源",
+     "boards": 1
+    },
+    {
+     "name": "芯能科技",
+     "boards": 1
+    },
+    {
+     "name": "同力天启",
+     "boards": 1
+    }
+   ]
+  },
+  {
+   "concept": "一带一路",
+   "count": 8,
+   "stocks": [
+    {
+     "name": "北方国际",
+     "boards": 1
+    },
+    {
+     "name": "众合科技",
+     "boards": 1
+    },
+    {
+     "name": "东信和平",
+     "boards": 1
+    },
+    {
+     "name": "海鸥住工",
+     "boards": 1
+    },
+    {
+     "name": "圣阳股份",
+     "boards": 1
+    },
+    {
+     "name": "华阳集团",
+     "boards": 1
+    },
+    {
+     "name": "锦江航运",
+     "boards": 1
+    },
+    {
+     "name": "风范股份",
+     "boards": 1
+    }
+   ]
+  },
+  {
+   "concept": "储能",
+   "count": 8,
+   "stocks": [
+    {
+     "name": "美锦能源",
+     "boards": 1
+    },
+    {
+     "name": "协鑫能科",
+     "boards": 1
+    },
+    {
+     "name": "同洲电子",
+     "boards": 1
+    },
+    {
+     "name": "圣阳股份",
+     "boards": 1
+    },
+    {
+     "name": "天力锂能",
+     "boards": 1
+    },
+    {
+     "name": "上海能源",
+     "boards": 1
+    },
+    {
+     "name": "芯能科技",
+     "boards": 1
+    },
+    {
+     "name": "同力天启",
+     "boards": 1
+    }
+   ]
+  },
+  {
+   "concept": "机器人概念",
+   "count": 8,
+   "stocks": [
+    {
+     "name": "美锦能源",
+     "boards": 1
+    },
+    {
+     "name": "众合科技",
+     "boards": 1
+    },
+    {
+     "name": "友阿股份",
+     "boards": 1
+    },
+    {
+     "name": "利君股份",
+     "boards": 1
+    },
+    {
+     "name": "华阳集团",
+     "boards": 1
+    },
+    {
+     "name": "德新科技",
+     "boards": 1
+    },
+    {
+     "name": "正裕工业",
+     "boards": 1
+    },
+    {
+     "name": "哈森股份",
+     "boards": 1
+    }
+   ]
+  },
+  {
+   "concept": "西部大开发",
+   "count": 8,
+   "stocks": [
+    {
+     "name": "利君股份",
+     "boards": 1
+    },
+    {
+     "name": "天山生物",
+     "boards": 1
+    },
+    {
+     "name": "红星发展",
+     "boards": 1
+    },
+    {
+     "name": "益佰制药",
+     "boards": 1
+    },
+    {
+     "name": "中毅达",
+     "boards": 1
+    },
+    {
+     "name": "新华百货",
+     "boards": 1
+    },
+    {
+     "name": "白银有色",
+     "boards": 1
+    },
+    {
+     "name": "德新科技",
+     "boards": 1
+    }
+   ]
+  },
+  {
+   "concept": "虚拟电厂",
+   "count": 6,
+   "stocks": [
+    {
+     "name": "北方国际",
+     "boards": 1
+    },
+    {
+     "name": "协鑫能科",
+     "boards": 1
+    },
+    {
+     "name": "南网能源",
+     "boards": 1
+    },
+    {
+     "name": "上海能源",
+     "boards": 1
+    },
+    {
+     "name": "芯能科技",
+     "boards": 1
+    },
+    {
+     "name": "同力天启",
+     "boards": 1
+    }
+   ]
+  }
+ ],
+ "watch_hot": [
+  {
+   "name": "汉森制药",
+   "boards": 1,
+   "hot": true,
+   "best_concept": "医药生物",
+   "concept_count": 6,
+   "pop": 37.1
+  },
+  {
+   "name": "*ST威领",
+   "boards": 3,
+   "hot": false,
+   "best_concept": null,
+   "concept_count": 0,
+   "pop": null
+  },
+  {
+   "name": "中关村",
+   "boards": 1,
+   "hot": true,
+   "best_concept": "医药生物",
+   "concept_count": 6,
+   "pop": 36.4
+  },
+  {
+   "name": "深中华A",
+   "boards": 1,
+   "hot": true,
+   "best_concept": "锂电池概念",
+   "concept_count": 11,
+   "pop": 43.4
+  },
+  {
+   "name": "键凯科技",
+   "boards": 2,
+   "hot": false,
+   "best_concept": null,
+   "concept_count": 0,
+   "pop": null
+  },
+  {
+   "name": "哈森股份",
+   "boards": 1,
+   "hot": true,
+   "best_concept": "华为概念",
+   "concept_count": 9,
+   "pop": 35.5
+  },
+  {
+   "name": "通鼎互联",
+   "boards": 2,
+   "hot": false,
+   "best_concept": null,
+   "concept_count": 0,
+   "pop": null
+  },
+  {
+   "name": "宇环数控",
+   "boards": 2,
+   "hot": false,
+   "best_concept": null,
+   "concept_count": 0,
+   "pop": null
+  }
+ ],
+ "popularity_top": [
+  {
+   "name": "盈新发展",
+   "code": "000620.SZ",
+   "boards": 1,
+   "amount_yi": 21.5,
+   "theme": "乡村振兴",
+   "theme_n": 6,
+   "pop": 51.0
+  },
+  {
+   "name": "美锦能源",
+   "code": "000723.SZ",
+   "boards": 1,
+   "amount_yi": 10.9,
+   "theme": "储能",
+   "theme_n": 8,
+   "pop": 49.7
+  },
+  {
+   "name": "白银有色",
+   "code": "601212.SH",
+   "boards": 1,
+   "amount_yi": 46.5,
+   "theme": "锂电池概念",
+   "theme_n": 11,
+   "pop": 47.8
+  },
+  {
+   "name": "红星发展",
+   "code": "600367.SH",
+   "boards": 1,
+   "amount_yi": 33.8,
+   "theme": "锂电池概念",
+   "theme_n": 11,
+   "pop": 47.0
+  },
+  {
+   "name": "协鑫能科",
+   "code": "002015.SZ",
+   "boards": 1,
+   "amount_yi": 31.7,
+   "theme": "锂电池概念",
+   "theme_n": 11,
+   "pop": 46.3
+  },
+  {
+   "name": "圣阳股份",
+   "code": "002580.SZ",
+   "boards": 1,
+   "amount_yi": 23.4,
+   "theme": "锂电池概念",
+   "theme_n": 11,
+   "pop": 45.6
+  },
+  {
+   "name": "众合科技",
+   "code": "000925.SZ",
+   "boards": 1,
+   "amount_yi": 7.3,
+   "theme": "华为概念",
+   "theme_n": 9,
+   "pop": 44.0
+  },
+  {
+   "name": "湖南白银",
+   "code": "002716.SZ",
+   "boards": 1,
+   "amount_yi": 52.5,
+   "theme": "黄金概念",
+   "theme_n": 4,
+   "pop": 43.7
+  }
+ ],
+ "data_source": "问财"
+}
