@@ -1,10 +1,10 @@
 {
-  "attempted_at": "2026-08-26T11:11:58+08:00",
+  "attempted_at": "2026-08-26T12:13:03+08:00",
   "status": "success",
   "data_as_of": "2026-08-26",
   "industries": 12,
   "hot_rows": 100,
-  "hot_industries": 44,
+  "hot_industries": 40,
   "message": "行业主线股票角色已刷新",
   "source": "同花顺问财个股热度 + 行业成分股行情",
   "errors": []
