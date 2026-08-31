@@ -320,3 +320,72 @@ tbody tr.selected,
     background: #f7f8fb !important;
   }
 }
+
+/* 最终一级导航契约：每个入口占据自己的完整网格单元，旧页面样式不得改变其宽度。 */
+.dashboard-tabs {
+  display: grid !important;
+  grid-template-columns: repeat(9, minmax(0, 1fr)) !important;
+  grid-auto-rows: 40px !important;
+  align-items: stretch !important;
+  justify-items: stretch !important;
+  gap: 5px !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 50px !important;
+  min-height: 50px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  overflow: hidden !important;
+  transform: none !important;
+}
+
+.dashboard-tabs > .dashboard-tab {
+  display: flex !important;
+  flex: none !important;
+  align-items: center !important;
+  align-self: stretch !important;
+  justify-self: stretch !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  margin: 0 !important;
+  padding: 0 8px !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  transform: none !important;
+}
+
+.dashboard-tabs > .dashboard-tab:hover {
+  color: var(--muted, #748195) !important;
+  background: rgb(215 25 32 / .035) !important;
+  box-shadow: inset 0 0 0 1px rgb(215 25 32 / .12) !important;
+  transform: none !important;
+}
+
+.dashboard-tabs > .dashboard-tab.active {
+  color: var(--brand-red-dark) !important;
+  background: var(--brand-red-soft) !important;
+  box-shadow: inset 0 0 0 1px var(--brand-red-line), 0 3px 10px rgb(215 25 32 / .12) !important;
+  transform: none !important;
+}
+
+@media (max-width: 700px) {
+  .dashboard-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    grid-auto-rows: 42px !important;
+    width: calc(100vw - 32px) !important;
+    max-width: calc(100vw - 32px) !important;
+    height: 134px !important;
+    min-height: 134px !important;
+  }
+
+  .dashboard-tabs > .dashboard-tab {
+    height: 42px !important;
+    min-height: 42px !important;
+    padding: 0 6px !important;
+    font-size: 12px !important;
+  }
+}
