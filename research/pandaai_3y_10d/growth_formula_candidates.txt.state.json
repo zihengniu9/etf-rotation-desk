@@ -1,0 +1,46 @@
+{
+ "F-B08": {
+  "spec": "e07d357dbe985c3a",
+  "factor_id": "6a9031f3d15a0fcf52537ec7",
+  "run_id": "6a90320b81d3bc0d682965ec",
+  "raw_result": "growth_formula_candidates.results\\6a90320b81d3bc0d682965ec.json",
+  "metrics": {
+   "ic_mean": "0.0227",
+   "rank_ic": "0.0275",
+   "ic_ir": "0.4574",
+   "ic_p_value": "0.3642",
+   "monotonicity": "0.54",
+   "long_excess": 13.46,
+   "short_excess": -12.41,
+   "turnover": 0.41,
+   "long_sharpe": 6.1702,
+   "long_max_drawdown": 0.48,
+   "long_monthly_win_rate": 66.67
+  }
+ },
+ "F-B09": {
+  "spec": "5bdca17503cb7df0",
+  "factor_id": "6a9031f4d15a0fcf52537ec8",
+  "error": "run: 因子分析执行失败（无详细错误信息）"
+ },
+ "F-B11": {
+  "spec": "a52891c124ba2b3b",
+  "factor_id": "6a9031f51b8bbc7ad18c3635"
+ },
+ "F-B12": {
+  "spec": "6fae45723c9d81bf",
+  "factor_id": "6a9031f6d15a0fcf52537ec9"
+ },
+ "F-B13": {
+  "spec": "708e182d67eb8251",
+  "factor_id": "6a9031f7d15a0fcf52537eca"
+ },
+ "F-B14": {
+  "spec": "08bfa6699c70db45",
+  "factor_id": "6a9031f9d15a0fcf52537ecb"
+ },
+ "F-B15": {
+  "spec": "c55aa8bf77a90319",
+  "factor_id": "6a9031fae5f1627648558b91"
+ }
+}

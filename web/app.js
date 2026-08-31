@@ -617,10 +617,24 @@
     return morning || afternoon;
   }
 
+  function loadLocalFallbackRows(path) {
+    const fallback = globalScope.ETF_LOCAL_DATA;
+    if (!fallback || typeof fallback !== "object") return null;
+    const filename = String(path).split("/").pop().split("?")[0];
+    const key = filename.replace(/\.csv$/i, "");
+    return Array.isArray(fallback[key]) ? fallback[key] : null;
+  }
+
   async function loadCsv(path, cacheBust = Date.now()) {
-    const response = await fetch(withCacheBust(path, cacheBust), { cache: "no-store" });
-    if (!response.ok) throw new Error(`${path} ${response.status}`);
-    return parseCsv(await response.text());
+    try {
+      const response = await fetch(withCacheBust(path, cacheBust), { cache: "no-store" });
+      if (!response.ok) throw new Error(`${path} ${response.status}`);
+      return parseCsv(await response.text());
+    } catch (error) {
+      const fallbackRows = loadLocalFallbackRows(path);
+      if (fallbackRows) return fallbackRows;
+      throw error;
+    }
   }
 
   function setText(id, value) {

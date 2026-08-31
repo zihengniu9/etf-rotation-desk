@@ -5,13 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ETF 轮动看板</title>
     <link rel="stylesheet" href="./styles.css?v=20260810-hot-card-stable" />
+    <link rel="stylesheet" href="./red_theme.css?v=20260826" />
   </head>
   <body>
     <main class="shell">
       <nav class="dashboard-tabs" aria-label="看板页面">
-        <a class="dashboard-tab active" href="./" aria-current="page">ETF 轮动看板</a>
+        <a class="dashboard-tab" href="./market_mode.html">行情模式</a>
+        <a class="dashboard-tab active" href="./index.html" aria-current="page">ETF轮动</a>
         <a class="dashboard-tab" href="./industry_mainline_dashboard.html">行业主线</a>
         <a class="dashboard-tab" href="./shortterm_dashboard.html">短线观察</a>
+        <a class="dashboard-tab" href="./trend_engine.html">趋势因子</a>
+        <a class="dashboard-tab" href="./growth_factor.html">成长因子</a>
+        <a class="dashboard-tab" href="./dividend_factor.html">红利因子</a>
+        <a class="dashboard-tab" href="./shortterm_factor_preview.html">短线因子</a>
+        <a class="dashboard-tab" href="./market_mode.html#daily-review">每日复盘</a>
       </nav>
       <header class="topbar">
         <div>
@@ -166,6 +173,8 @@
       </section>
     </main>
 
-  <script src="./app.js?v=20260811-auto-refresh"></script>
+  <script src="../outputs/etf_local_data.js?v=20260826-local-fallback"></script>
+  <script src="./app.js?v=20260826-local-fallback"></script>
+    <script src="./dashboard_nav.js?v=20260831"></script>
   </body>
 </html>

@@ -1,0 +1,956 @@
+{
+  "data_as_of": "2026-08-28",
+  "source": "同花顺问财 · hithink-astock-selector · 36个历史时点",
+  "engine_selection": {
+    "selected_adapter": "wencai_cross_section",
+    "canonical_contract": "trend-standard-v1",
+    "reason": "当前可复核的标准历史样本来自36个问财主板截面；本地data/trend_bars未提供完整全市场历史，因此不对本地适配器宣称独立回测优胜",
+    "local_adapter_status": "已统一评分与触发契约，待接入完整本地全市场OHLCV后做独立交叉复核"
+  },
+  "signal_dates": [
+    "2023-08-31",
+    "2023-09-28",
+    "2023-10-31",
+    "2023-11-30",
+    "2023-12-29",
+    "2024-01-31",
+    "2024-02-29",
+    "2024-03-29",
+    "2024-04-30",
+    "2024-05-31",
+    "2024-06-28",
+    "2024-07-31",
+    "2024-08-30",
+    "2024-09-30",
+    "2024-10-31",
+    "2024-11-29",
+    "2024-12-31",
+    "2025-01-24",
+    "2025-02-28",
+    "2025-03-31",
+    "2025-04-30",
+    "2025-05-30",
+    "2025-06-30",
+    "2025-07-31",
+    "2025-08-29",
+    "2025-09-30",
+    "2025-10-31",
+    "2025-11-28",
+    "2025-12-31",
+    "2026-01-30",
+    "2026-02-27",
+    "2026-03-31",
+    "2026-04-30",
+    "2026-05-29",
+    "2026-06-30",
+    "2026-07-27"
+  ],
+  "stocks": 3032,
+  "rows": 107177,
+  "history_coverage": [
+    {
+      "date": "2023-08-31",
+      "rows": 2918,
+      "eligible": 70,
+      "eligible_ratio": 0.023989033584647018,
+      "evaluated5": 70,
+      "evaluated10": 70,
+      "evaluated20": 70
+    },
+    {
+      "date": "2023-09-28",
+      "rows": 2927,
+      "eligible": 79,
+      "eligible_ratio": 0.026990092244619065,
+      "evaluated5": 79,
+      "evaluated10": 79,
+      "evaluated20": 79
+    },
+    {
+      "date": "2023-10-31",
+      "rows": 2942,
+      "eligible": 103,
+      "eligible_ratio": 0.03501019714479946,
+      "evaluated5": 103,
+      "evaluated10": 103,
+      "evaluated20": 103
+    },
+    {
+      "date": "2023-11-30",
+      "rows": 2944,
+      "eligible": 131,
+      "eligible_ratio": 0.044497282608695655,
+      "evaluated5": 131,
+      "evaluated10": 131,
+      "evaluated20": 131
+    },
+    {
+      "date": "2023-12-29",
+      "rows": 2943,
+      "eligible": 133,
+      "eligible_ratio": 0.04519198097179748,
+      "evaluated5": 133,
+      "evaluated10": 133,
+      "evaluated20": 133
+    },
+    {
+      "date": "2024-01-31",
+      "rows": 2946,
+      "eligible": 49,
+      "eligible_ratio": 0.016632722335369995,
+      "evaluated5": 49,
+      "evaluated10": 49,
+      "evaluated20": 49
+    },
+    {
+      "date": "2024-02-29",
+      "rows": 2948,
+      "eligible": 105,
+      "eligible_ratio": 0.03561736770691994,
+      "evaluated5": 105,
+      "evaluated10": 105,
+      "evaluated20": 105
+    },
+    {
+      "date": "2024-03-29",
+      "rows": 2948,
+      "eligible": 131,
+      "eligible_ratio": 0.044436906377204884,
+      "evaluated5": 131,
+      "evaluated10": 131,
+      "evaluated20": 131
+    },
+    {
+      "date": "2024-04-30",
+      "rows": 2943,
+      "eligible": 220,
+      "eligible_ratio": 0.07475365273530411,
+      "evaluated5": 220,
+      "evaluated10": 220,
+      "evaluated20": 220
+    },
+    {
+      "date": "2024-05-31",
+      "rows": 2958,
+      "eligible": 105,
+      "eligible_ratio": 0.035496957403651115,
+      "evaluated5": 105,
+      "evaluated10": 105,
+      "evaluated20": 105
+    },
+    {
+      "date": "2024-06-28",
+      "rows": 2966,
+      "eligible": 117,
+      "eligible_ratio": 0.039447066756574514,
+      "evaluated5": 117,
+      "evaluated10": 117,
+      "evaluated20": 117
+    },
+    {
+      "date": "2024-07-31",
+      "rows": 2970,
+      "eligible": 65,
+      "eligible_ratio": 0.021885521885521887,
+      "evaluated5": 65,
+      "evaluated10": 65,
+      "evaluated20": 65
+    },
+    {
+      "date": "2024-08-30",
+      "rows": 2970,
+      "eligible": 24,
+      "eligible_ratio": 0.00808080808080808,
+      "evaluated5": 24,
+      "evaluated10": 24,
+      "evaluated20": 24
+    },
+    {
+      "date": "2024-09-30",
+      "rows": 2975,
+      "eligible": 124,
+      "eligible_ratio": 0.041680672268907565,
+      "evaluated5": 124,
+      "evaluated10": 124,
+      "evaluated20": 124
+    },
+    {
+      "date": "2024-10-31",
+      "rows": 2970,
+      "eligible": 556,
+      "eligible_ratio": 0.1872053872053872,
+      "evaluated5": 556,
+      "evaluated10": 556,
+      "evaluated20": 556
+    },
+    {
+      "date": "2024-11-29",
+      "rows": 2971,
+      "eligible": 645,
+      "eligible_ratio": 0.21709861999326827,
+      "evaluated5": 645,
+      "evaluated10": 645,
+      "evaluated20": 645
+    },
+    {
+      "date": "2024-12-31",
+      "rows": 2971,
+      "eligible": 225,
+      "eligible_ratio": 0.07573207674183777,
+      "evaluated5": 225,
+      "evaluated10": 225,
+      "evaluated20": 225
+    },
+    {
+      "date": "2025-01-24",
+      "rows": 2980,
+      "eligible": 186,
+      "eligible_ratio": 0.06241610738255034,
+      "evaluated5": 186,
+      "evaluated10": 186,
+      "evaluated20": 186
+    },
+    {
+      "date": "2025-02-28",
+      "rows": 2979,
+      "eligible": 288,
+      "eligible_ratio": 0.09667673716012085,
+      "evaluated5": 288,
+      "evaluated10": 288,
+      "evaluated20": 288
+    },
+    {
+      "date": "2025-03-31",
+      "rows": 2979,
+      "eligible": 117,
+      "eligible_ratio": 0.03927492447129909,
+      "evaluated5": 117,
+      "evaluated10": 117,
+      "evaluated20": 117
+    },
+    {
+      "date": "2025-04-30",
+      "rows": 2973,
+      "eligible": 131,
+      "eligible_ratio": 0.04406323578876556,
+      "evaluated5": 131,
+      "evaluated10": 131,
+      "evaluated20": 131
+    },
+    {
+      "date": "2025-05-30",
+      "rows": 2983,
+      "eligible": 221,
+      "eligible_ratio": 0.07408649011062689,
+      "evaluated5": 221,
+      "evaluated10": 221,
+      "evaluated20": 221
+    },
+    {
+      "date": "2025-06-30",
+      "rows": 2983,
+      "eligible": 320,
+      "eligible_ratio": 0.10727455581629232,
+      "evaluated5": 320,
+      "evaluated10": 320,
+      "evaluated20": 320
+    },
+    {
+      "date": "2025-07-31",
+      "rows": 2991,
+      "eligible": 460,
+      "eligible_ratio": 0.1537947174857907,
+      "evaluated5": 460,
+      "evaluated10": 460,
+      "evaluated20": 460
+    },
+    {
+      "date": "2025-08-29",
+      "rows": 2994,
+      "eligible": 762,
+      "eligible_ratio": 0.2545090180360721,
+      "evaluated5": 762,
+      "evaluated10": 762,
+      "evaluated20": 762
+    },
+    {
+      "date": "2025-09-30",
+      "rows": 2993,
+      "eligible": 593,
+      "eligible_ratio": 0.19812896759104578,
+      "evaluated5": 593,
+      "evaluated10": 593,
+      "evaluated20": 593
+    },
+    {
+      "date": "2025-10-31",
+      "rows": 3003,
+      "eligible": 501,
+      "eligible_ratio": 0.16683316683316685,
+      "evaluated5": 501,
+      "evaluated10": 501,
+      "evaluated20": 501
+    },
+    {
+      "date": "2025-11-28",
+      "rows": 2999,
+      "eligible": 244,
+      "eligible_ratio": 0.08136045348449483,
+      "evaluated5": 244,
+      "evaluated10": 244,
+      "evaluated20": 244
+    },
+    {
+      "date": "2025-12-31",
+      "rows": 3004,
+      "eligible": 307,
+      "eligible_ratio": 0.10219707057256991,
+      "evaluated5": 307,
+      "evaluated10": 307,
+      "evaluated20": 307
+    },
+    {
+      "date": "2026-01-30",
+      "rows": 3007,
+      "eligible": 476,
+      "eligible_ratio": 0.15829730628533423,
+      "evaluated5": 476,
+      "evaluated10": 476,
+      "evaluated20": 476
+    },
+    {
+      "date": "2026-02-27",
+      "rows": 3008,
+      "eligible": 651,
+      "eligible_ratio": 0.21642287234042554,
+      "evaluated5": 651,
+      "evaluated10": 651,
+      "evaluated20": 651
+    },
+    {
+      "date": "2026-03-31",
+      "rows": 3006,
+      "eligible": 151,
+      "eligible_ratio": 0.05023286759813706,
+      "evaluated5": 151,
+      "evaluated10": 151,
+      "evaluated20": 151
+    },
+    {
+      "date": "2026-04-30",
+      "rows": 3015,
+      "eligible": 305,
+      "eligible_ratio": 0.1011608623548922,
+      "evaluated5": 305,
+      "evaluated10": 305,
+      "evaluated20": 305
+    },
+    {
+      "date": "2026-05-29",
+      "rows": 3023,
+      "eligible": 213,
+      "eligible_ratio": 0.07045980813761164,
+      "evaluated5": 213,
+      "evaluated10": 213,
+      "evaluated20": 213
+    },
+    {
+      "date": "2026-06-30",
+      "rows": 3017,
+      "eligible": 205,
+      "eligible_ratio": 0.06794829300629765,
+      "evaluated5": 205,
+      "evaluated10": 205,
+      "evaluated20": 205
+    },
+    {
+      "date": "2026-07-27",
+      "rows": 3030,
+      "eligible": 34,
+      "eligible_ratio": 0.011221122112211221,
+      "evaluated5": 34,
+      "evaluated10": 34,
+      "evaluated20": 34
+    }
+  ],
+  "best_holding": {
+    "strategy": "健康延续",
+    "horizon": 10,
+    "count": 2616,
+    "avg_return": 0.014249999039901672,
+    "median_return": 0.0047519058083067,
+    "win_rate": 0.5240825688073395,
+    "profit_factor": 1.5105515487280974,
+    "quality": 0.013841989685490495,
+    "tradable": true,
+    "selection_rule": "标准回测优先：10日平均收益、中位数、胜率与盈亏质量综合；样本数至少80，且平均收益/中位数/胜率/PF分别通过交易门槛",
+    "label": "健康延续 · 持有10日"
+  },
+  "strategies": {
+    "流动性趋势结构": {
+      "signals": 9047,
+      "evaluated": 9047,
+      "horizons": {
+        "5": {
+          "count": 9047,
+          "win_rate": 0.4987288603957113,
+          "avg_return": 0.004880894623170016,
+          "median_return": 0.0,
+          "profit_factor": 1.1715312079809244,
+          "max_adverse": -0.3945945945945945,
+          "avg_adverse": -0.05813341867605246
+        },
+        "10": {
+          "count": 9047,
+          "win_rate": 0.48623853211009177,
+          "avg_return": 0.0073577912232153835,
+          "median_return": -0.0022075055187639,
+          "profit_factor": 1.200603726310298,
+          "max_adverse": -0.472972972972973,
+          "avg_adverse": -0.07147140592053312
+        },
+        "20": {
+          "count": 9047,
+          "win_rate": 0.43561401569581076,
+          "avg_return": 0.0006297792081565883,
+          "median_return": -0.0173983912689131,
+          "profit_factor": 1.0109749774398458,
+          "max_adverse": -0.6175238095238096,
+          "avg_adverse": -0.1016322981973395
+        }
+      },
+      "label": "趋势赚钱效应偏弱"
+    },
+    "健康延续": {
+      "signals": 2616,
+      "evaluated": 2616,
+      "horizons": {
+        "5": {
+          "count": 2616,
+          "win_rate": 0.5263761467889908,
+          "avg_return": 0.007526832175041788,
+          "median_return": 0.00403429250349925,
+          "profit_factor": 1.3284580629719425,
+          "max_adverse": -0.3692614770459081,
+          "avg_adverse": -0.04901226068390999
+        },
+        "10": {
+          "count": 2616,
+          "win_rate": 0.5240825688073395,
+          "avg_return": 0.014249999039901672,
+          "median_return": 0.0047519058083067,
+          "profit_factor": 1.5105515487280974,
+          "max_adverse": -0.3843396402855272,
+          "avg_adverse": -0.05984237678444982
+        },
+        "20": {
+          "count": 2616,
+          "win_rate": 0.46368501529051986,
+          "avg_return": 0.008823926395538712,
+          "median_return": -0.007245851317694899,
+          "profit_factor": 1.1983436762406825,
+          "max_adverse": -0.4724770642201835,
+          "avg_adverse": -0.08550280172002754
+        }
+      },
+      "label": "趋势赚钱效应偏正"
+    },
+    "放量突破": {
+      "signals": 713,
+      "evaluated": 713,
+      "horizons": {
+        "5": {
+          "count": 713,
+          "win_rate": 0.40953716690042075,
+          "avg_return": -0.008739351672115413,
+          "median_return": -0.0146594237828431,
+          "profit_factor": 0.7735675184406413,
+          "max_adverse": -0.3502415458937198,
+          "avg_adverse": -0.07245900069379699
+        },
+        "10": {
+          "count": 713,
+          "win_rate": 0.41935483870967744,
+          "avg_return": -0.003628211699296737,
+          "median_return": -0.0206251601332309,
+          "profit_factor": 0.921502961736779,
+          "max_adverse": -0.4009661835748792,
+          "avg_adverse": -0.08655098009015232
+        },
+        "20": {
+          "count": 713,
+          "win_rate": 0.3884992987377279,
+          "avg_return": -0.012598350050155374,
+          "median_return": -0.03690036900369,
+          "profit_factor": 0.8088983138865095,
+          "max_adverse": -0.5276695951453674,
+          "avg_adverse": -0.11518032407630258
+        }
+      },
+      "label": "趋势赚钱效应偏弱"
+    },
+    "缩量回踩": {
+      "signals": 2112,
+      "evaluated": 2112,
+      "horizons": {
+        "5": {
+          "count": 2112,
+          "win_rate": 0.5350378787878788,
+          "avg_return": 0.00937331072992175,
+          "median_return": 0.00461016861096205,
+          "profit_factor": 1.4534884719310763,
+          "max_adverse": -0.3945945945945945,
+          "avg_adverse": -0.04546629474843804
+        },
+        "10": {
+          "count": 2112,
+          "win_rate": 0.5118371212121212,
+          "avg_return": 0.012002848366540109,
+          "median_return": 0.00287529265485915,
+          "profit_factor": 1.4306220179862978,
+          "max_adverse": -0.472972972972973,
+          "avg_adverse": -0.05578988839180535
+        },
+        "20": {
+          "count": 2112,
+          "win_rate": 0.4659090909090909,
+          "avg_return": 0.011549184842626039,
+          "median_return": -0.007889898536783999,
+          "profit_factor": 1.267390342221645,
+          "max_adverse": -0.5817567567567568,
+          "avg_adverse": -0.08027317270016207
+        }
+      },
+      "label": "趋势赚钱效应偏正"
+    },
+    "综合Top1%": {
+      "signals": 113,
+      "evaluated": 113,
+      "horizons": {
+        "5": {
+          "count": 113,
+          "win_rate": 0.5221238938053098,
+          "avg_return": 0.0024032636473684133,
+          "median_return": 0.0046383104707392,
+          "profit_factor": 1.0963465166901438,
+          "max_adverse": -0.2446663640490241,
+          "avg_adverse": -0.04980180714556816
+        },
+        "10": {
+          "count": 113,
+          "win_rate": 0.5486725663716814,
+          "avg_return": 0.010977057118765714,
+          "median_return": 0.006240516582433,
+          "profit_factor": 1.3396973060777144,
+          "max_adverse": -0.3236495687698593,
+          "avg_adverse": -0.06375531328118277
+        },
+        "20": {
+          "count": 113,
+          "win_rate": 0.4778761061946903,
+          "avg_return": -0.0011052638244739876,
+          "median_return": -0.0106666666666666,
+          "profit_factor": 0.9781797272404463,
+          "max_adverse": -0.4822282608695653,
+          "avg_adverse": -0.09008964462470162
+        }
+      },
+      "label": "趋势赚钱效应偏正"
+    },
+    "综合Top3%": {
+      "signals": 289,
+      "evaluated": 289,
+      "horizons": {
+        "5": {
+          "count": 289,
+          "win_rate": 0.49480968858131485,
+          "avg_return": 0.0021277357034402027,
+          "median_return": 0.0,
+          "profit_factor": 1.0941046177366047,
+          "max_adverse": -0.2446663640490241,
+          "avg_adverse": -0.05053100676625421
+        },
+        "10": {
+          "count": 289,
+          "win_rate": 0.4602076124567474,
+          "avg_return": 0.004424160465143539,
+          "median_return": -0.0060204961090105,
+          "profit_factor": 1.1400718138761263,
+          "max_adverse": -0.3236495687698593,
+          "avg_adverse": -0.06371379325352441
+        },
+        "20": {
+          "count": 289,
+          "win_rate": 0.43944636678200694,
+          "avg_return": -0.005042601559872192,
+          "median_return": -0.014765100671141,
+          "profit_factor": 0.897859654026191,
+          "max_adverse": -0.4822282608695653,
+          "avg_adverse": -0.0917637906029527
+        }
+      },
+      "label": "趋势赚钱效应偏弱"
+    },
+    "综合Top5%": {
+      "signals": 474,
+      "evaluated": 474,
+      "horizons": {
+        "5": {
+          "count": 474,
+          "win_rate": 0.48945147679324896,
+          "avg_return": 0.0038725928910434628,
+          "median_return": -0.0007012096911883,
+          "profit_factor": 1.1709242663319777,
+          "max_adverse": -0.2446663640490241,
+          "avg_adverse": -0.05152360906290321
+        },
+        "10": {
+          "count": 474,
+          "win_rate": 0.46835443037974683,
+          "avg_return": 0.008527098512753226,
+          "median_return": -0.004707208916832999,
+          "profit_factor": 1.2774082317532915,
+          "max_adverse": -0.3236495687698593,
+          "avg_adverse": -0.06338552721267035
+        },
+        "20": {
+          "count": 474,
+          "win_rate": 0.4472573839662447,
+          "avg_return": 0.0022599549185503744,
+          "median_return": -0.01158445762206635,
+          "profit_factor": 1.047932343562698,
+          "max_adverse": -0.4822282608695653,
+          "avg_adverse": -0.09054653374709151
+        }
+      },
+      "label": "趋势赚钱效应偏弱"
+    },
+    "综合Top10%": {
+      "signals": 927,
+      "evaluated": 927,
+      "horizons": {
+        "5": {
+          "count": 927,
+          "win_rate": 0.5080906148867314,
+          "avg_return": 0.005616026997053154,
+          "median_return": 0.0014992503748125,
+          "profit_factor": 1.2484434247301441,
+          "max_adverse": -0.2446663640490241,
+          "avg_adverse": -0.05160850893882262
+        },
+        "10": {
+          "count": 927,
+          "win_rate": 0.49083063646170444,
+          "avg_return": 0.012186393938851443,
+          "median_return": -0.0012241664866422,
+          "profit_factor": 1.4118997364498966,
+          "max_adverse": -0.3236495687698593,
+          "avg_adverse": -0.06315119556864972
+        },
+        "20": {
+          "count": 927,
+          "win_rate": 0.45307443365695793,
+          "avg_return": -0.0004939038178159804,
+          "median_return": -0.010062893081761,
+          "profit_factor": 0.9896947185813602,
+          "max_adverse": -0.504,
+          "avg_adverse": -0.09034373662411074
+        }
+      },
+      "label": "趋势赚钱效应偏弱"
+    }
+  },
+  "market_decision": {
+    "mode": "趋势模式观察",
+    "action": "等待趋势宽度升至8%",
+    "reason": "趋势仍是少数个股行情，固定持有的稳定性不足",
+    "allow_new_entries": false,
+    "tone": "warning",
+    "preferred_setups": [],
+    "default_holding_days": null,
+    "gate": {
+      "eligible_ratio_min": 0.08,
+      "positive_r20_ratio_min": 0.5,
+      "rows": 3033,
+      "eligible_count": 91,
+      "eligible_ratio": 0.030003297065611605,
+      "positive_r20_ratio": 0.7388724035608308,
+      "median_r20": 0.05933682373472946,
+      "full_alignment_ratio": 0.04813715792944279
+    }
+  },
+  "market_gate_validation": {
+    "selected": {
+      "width_min": 0.08,
+      "positive_r20_min": 0.5,
+      "active_dates": 10,
+      "early_active_dates": 2,
+      "late_active_dates": 8,
+      "signals": 1493,
+      "avg_return": 0.026528692708068867,
+      "median_return": 0.0121359223300969,
+      "win_rate": 0.5760214333556597,
+      "positive_date_rate": 0.8,
+      "worst_date_return": -0.01739061906201727
+    },
+    "selection_rule": "趋势宽度先保留8%的安全下限；在R20扩散50%与55%邻近组合中，选择后半样本仍有至少8个有效期的50%门槛，不因小样本均值最高而过拟合",
+    "candidates": [
+      {
+        "width_min": 0.05,
+        "positive_r20_min": 0.5,
+        "active_dates": 12,
+        "early_active_dates": 3,
+        "late_active_dates": 9,
+        "signals": 1646,
+        "avg_return": 0.02629324813877358,
+        "median_return": 0.01224739224702715,
+        "win_rate": 0.5759416767922235,
+        "positive_date_rate": 0.8333333333333334,
+        "worst_date_return": -0.01739061906201727
+      },
+      {
+        "width_min": 0.05,
+        "positive_r20_min": 0.55,
+        "active_dates": 9,
+        "early_active_dates": 2,
+        "late_active_dates": 7,
+        "signals": 1218,
+        "avg_return": 0.03267335323479253,
+        "median_return": 0.01433152733734365,
+        "win_rate": 0.5944170771756979,
+        "positive_date_rate": 0.8888888888888888,
+        "worst_date_return": -0.011610557573200364
+      },
+      {
+        "width_min": 0.08,
+        "positive_r20_min": 0.5,
+        "active_dates": 10,
+        "early_active_dates": 2,
+        "late_active_dates": 8,
+        "signals": 1493,
+        "avg_return": 0.026528692708068867,
+        "median_return": 0.0121359223300969,
+        "win_rate": 0.5760214333556597,
+        "positive_date_rate": 0.8,
+        "worst_date_return": -0.01739061906201727
+      },
+      {
+        "width_min": 0.08,
+        "positive_r20_min": 0.55,
+        "active_dates": 8,
+        "early_active_dates": 2,
+        "late_active_dates": 6,
+        "signals": 1149,
+        "avg_return": 0.03268197282279315,
+        "median_return": 0.0142857142857142,
+        "win_rate": 0.5935596170583116,
+        "positive_date_rate": 0.875,
+        "worst_date_return": -0.011610557573200364
+      },
+      {
+        "width_min": 0.1,
+        "positive_r20_min": 0.5,
+        "active_dates": 9,
+        "early_active_dates": 2,
+        "late_active_dates": 7,
+        "signals": 1416,
+        "avg_return": 0.02458908579638479,
+        "median_return": 0.01078174949142685,
+        "win_rate": 0.5692090395480226,
+        "positive_date_rate": 0.7777777777777778,
+        "worst_date_return": -0.01739061906201727
+      },
+      {
+        "width_min": 0.1,
+        "positive_r20_min": 0.55,
+        "active_dates": 7,
+        "early_active_dates": 2,
+        "late_active_dates": 5,
+        "signals": 1072,
+        "avg_return": 0.030561934746197183,
+        "median_return": 0.01313372492411785,
+        "win_rate": 0.585820895522388,
+        "positive_date_rate": 0.8571428571428571,
+        "worst_date_return": -0.011610557573200364
+      }
+    ]
+  },
+  "gated_strategies": {
+    "健康延续": {
+      "signals": 1493,
+      "evaluated": 1493,
+      "horizons": {
+        "5": {
+          "count": 1493,
+          "win_rate": 0.5693235097119893,
+          "avg_return": 0.016596304325002847,
+          "median_return": 0.008362369337979,
+          "profit_factor": 2.023846363177123,
+          "max_adverse": -0.3090439674771684,
+          "avg_adverse": -0.042618298752761866,
+          "date_count": 10,
+          "date_avg_return": 0.01865429219947006,
+          "date_median_return": 0.02245719311161274,
+          "positive_date_rate": 0.7,
+          "worst_date_return": -0.012284152071868944,
+          "best_date_return": 0.06833786085843144
+        },
+        "10": {
+          "count": 1493,
+          "win_rate": 0.5760214333556597,
+          "avg_return": 0.026528692708068867,
+          "median_return": 0.0121359223300969,
+          "profit_factor": 2.2942025523528735,
+          "max_adverse": -0.3090439674771684,
+          "avg_adverse": -0.04815206960611707,
+          "date_count": 10,
+          "date_avg_return": 0.027473939716358847,
+          "date_median_return": 0.0310116271108827,
+          "positive_date_rate": 0.8,
+          "worst_date_return": -0.01739061906201727,
+          "best_date_return": 0.0621973081229345
+        },
+        "20": {
+          "count": 1493,
+          "win_rate": 0.45411922304085733,
+          "avg_return": 0.01056110349035603,
+          "median_return": -0.0089664936290704,
+          "profit_factor": 1.257006445349472,
+          "max_adverse": -0.3534821343040522,
+          "avg_adverse": -0.08243667626010043,
+          "date_count": 10,
+          "date_avg_return": 0.014301571659784134,
+          "date_median_return": 0.016380373500618953,
+          "positive_date_rate": 0.6,
+          "worst_date_return": -0.08498594834764128,
+          "best_date_return": 0.0962179963721788
+        }
+      },
+      "label": "趋势赚钱效应偏正",
+      "active_dates": 10
+    },
+    "缩量回踩": {
+      "signals": 1171,
+      "evaluated": 1171,
+      "horizons": {
+        "5": {
+          "count": 1171,
+          "win_rate": 0.5644748078565329,
+          "avg_return": 0.015189208499278269,
+          "median_return": 0.0061899117608323,
+          "profit_factor": 2.001717473960221,
+          "max_adverse": -0.2082853855005754,
+          "avg_adverse": -0.039350724599122616,
+          "date_count": 10,
+          "date_avg_return": 0.02246748555805071,
+          "date_median_return": 0.023021276375218724,
+          "positive_date_rate": 0.7,
+          "worst_date_return": -0.015943134409922358,
+          "best_date_return": 0.05926962755136094
+        },
+        "10": {
+          "count": 1171,
+          "win_rate": 0.5584970111016225,
+          "avg_return": 0.022468647861431365,
+          "median_return": 0.0109321058688147,
+          "profit_factor": 2.1383379293376494,
+          "max_adverse": -0.2082853855005754,
+          "avg_adverse": -0.04407788501041127,
+          "date_count": 10,
+          "date_avg_return": 0.025389385100205986,
+          "date_median_return": 0.03308187920833176,
+          "positive_date_rate": 0.9,
+          "worst_date_return": -0.032292523545192714,
+          "best_date_return": 0.05730728336673333
+        },
+        "20": {
+          "count": 1171,
+          "win_rate": 0.44321093082835183,
+          "avg_return": 0.006612013512242641,
+          "median_return": -0.0148911798396335,
+          "profit_factor": 1.1570425755354752,
+          "max_adverse": -0.3770588235294118,
+          "avg_adverse": -0.07604578085958634,
+          "date_count": 10,
+          "date_avg_return": 0.008041686966654438,
+          "date_median_return": 0.006993979158538647,
+          "positive_date_rate": 0.5,
+          "worst_date_return": -0.09513645650317591,
+          "best_date_return": 0.06523772523340449
+        }
+      },
+      "label": "趋势赚钱效应偏正",
+      "active_dates": 10
+    },
+    "放量突破": {
+      "signals": 335,
+      "evaluated": 335,
+      "horizons": {
+        "5": {
+          "count": 335,
+          "win_rate": 0.43582089552238806,
+          "avg_return": 0.002766816382348917,
+          "median_return": -0.0112888555989513,
+          "profit_factor": 1.0923802144630403,
+          "max_adverse": -0.2865873271148279,
+          "avg_adverse": -0.06391660103695379,
+          "date_count": 10,
+          "date_avg_return": 0.006653312150545121,
+          "date_median_return": -0.00552741545184601,
+          "positive_date_rate": 0.4,
+          "worst_date_return": -0.028746533228331563,
+          "best_date_return": 0.07532418839527481
+        },
+        "10": {
+          "count": 335,
+          "win_rate": 0.47761194029850745,
+          "avg_return": 0.01413572167583246,
+          "median_return": -0.0051020408163264,
+          "profit_factor": 1.395833961386534,
+          "max_adverse": -0.2865873271148279,
+          "avg_adverse": -0.07264222379394725,
+          "date_count": 10,
+          "date_avg_return": 0.01729294429856658,
+          "date_median_return": 0.011887079397130781,
+          "positive_date_rate": 0.8,
+          "worst_date_return": -0.05914739558058324,
+          "best_date_return": 0.11616002914451579
+        },
+        "20": {
+          "count": 335,
+          "win_rate": 0.417910447761194,
+          "avg_return": -0.0043823928541145505,
+          "median_return": -0.0309545395674135,
+          "profit_factor": 0.9291846204576832,
+          "max_adverse": -0.3211456429006702,
+          "avg_adverse": -0.11250410488420427,
+          "date_count": 10,
+          "date_avg_return": 0.004781117659061666,
+          "date_median_return": 0.033475830932161776,
+          "positive_date_rate": 0.6,
+          "worst_date_return": -0.10904450537240022,
+          "best_date_return": 0.08178833048918106
+        }
+      },
+      "label": "趋势赚钱效应偏弱",
+      "active_dates": 10
+    }
+  },
+  "factor_rule": {
+    "version": "trend-standard-v1",
+    "signal": "收盘确认；仅使用信号日及之前数据",
+    "entry": "下一交易日开盘",
+    "exit": "第5/10/20个交易日收盘",
+    "universe": "沪深主板非ST；成交额>=1亿元；换手率0.5%-15%",
+    "setups": [
+      "健康延续",
+      "放量突破",
+      "缩量回踩",
+      "综合分位"
+    ],
+    "selected_strategy": "健康延续",
+    "selected_horizon": 10,
+    "selection_rule": "标准回测优先：10日平均收益、中位数、胜率与盈亏质量综合；样本数至少80，且平均收益/中位数/胜率/PF分别通过交易门槛",
+    "costs": "当前输出为毛收益，未计佣金、印花税和滑点；后续净收益复核必须沿用同一信号口径"
+  }
+}

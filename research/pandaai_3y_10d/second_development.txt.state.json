@@ -1,0 +1,21 @@
+{
+ "F-S16": {
+  "spec": "8b386cc596697460",
+  "factor_id": "6a9035bbd3d1ffea2f8f94d6",
+  "run_id": "6a9035bdd3d1ffea2f8f94d7",
+  "raw_result": "second_development.results\\6a9035bdd3d1ffea2f8f94d7.json",
+  "metrics": {
+   "ic_mean": "0.0014",
+   "rank_ic": "0.0013",
+   "ic_ir": "0.0183",
+   "ic_p_value": "0.8916",
+   "monotonicity": "0.01",
+   "long_excess": -0.04,
+   "short_excess": -0.42,
+   "turnover": 7.02,
+   "long_sharpe": 0.8163,
+   "long_max_drawdown": 19.95,
+   "long_monthly_win_rate": 58.62
+  }
+ }
+}

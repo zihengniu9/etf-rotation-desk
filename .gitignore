@@ -7,3 +7,7 @@ dist/
 node_modules/
 outputs/*.log
 outputs/*.tmp
+temp_download/
+outputs/growth_backtest_panel.csv.gz
+outputs/growth_rightside_panel.csv.gz
+outputs/growth_rightside_signals.csv.gz

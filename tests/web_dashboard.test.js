@@ -4,7 +4,15 @@ const path = require("path");
 const dashboard = require("../web/app.js");
 
 const html = fs.readFileSync(path.join(__dirname, "../web/index.html"), "utf8");
+const rootHtml = fs.readFileSync(path.join(__dirname, "../index.html"), "utf8");
 const industryHtml = fs.readFileSync(path.join(__dirname, "../web/industry_mainline_dashboard.html"), "utf8");
+const growthHtml = fs.readFileSync(path.join(__dirname, "../web/growth_factor.html"), "utf8");
+const dividendHtml = fs.readFileSync(path.join(__dirname, "../web/dividend_factor.html"), "utf8");
+const growthSnapshot = JSON.parse(fs.readFileSync(path.join(__dirname, "../outputs/growth_factor_snapshot.json"), "utf8"));
+const dividendSnapshot = JSON.parse(fs.readFileSync(path.join(__dirname, "../outputs/dividend_factor_snapshot.json"), "utf8"));
+assert.ok(rootHtml.includes('url=./web/market_mode.html'));
+assert.ok(rootHtml.includes('window.location.replace("./web/market_mode.html")'));
+assert.ok(html.includes('href="./market_mode.html#daily-review"'));
 assert.ok(html.includes('class="pick-side"'));
 assert.ok(html.includes('id="pick-theme"'));
 assert.ok(html.includes('id="updated-at"'));
@@ -28,7 +36,8 @@ assert.ok(html.indexOf('class="backtest-stats"') < html.indexOf('class="chart-sh
 assert.ok(html.includes('./styles.css?v=20260810-hot-card-stable'));
 assert.strictEqual(html.includes('<h2>ETF 模拟交易</h2>'), false);
 assert.strictEqual(html.includes('增强自适应 · 近一年'), false);
-assert.ok(html.includes('./app.js?v=20260811-auto-refresh'));
+assert.ok(html.includes('../outputs/etf_local_data.js?v=20260826-local-fallback'));
+assert.ok(html.includes('./app.js?v=20260826-local-fallback'));
 assert.ok(html.includes('class="trade-header"'));
 assert.ok(html.indexOf('class="trade-header"') < html.indexOf('id="bt-trades"'));
 assert.strictEqual(html.includes('id="data-status"'), false);
@@ -79,6 +88,21 @@ assert.ok(industryHtml.includes("const LINE_FAMILIES"));
 assert.ok(industryHtml.includes("function buildLineProfiles"));
 assert.ok(industryHtml.includes("股票热榜 + 行业承接"));
 assert.ok(industryHtml.includes("股票热榜 ${review.primary.hotCount || 0}只"));
+assert.ok(growthHtml.includes('href="./growth_factor.html"'));
+assert.ok(growthHtml.includes("成长核心"));
+assert.ok(growthHtml.includes("历史资讯"));
+assert.ok(growthHtml.includes("window.GROWTH_FACTOR_SNAPSHOT"));
+assert.strictEqual(growthSnapshot.version, "growth-factor-v1");
+assert.ok(growthSnapshot.universe.stocks_financial_valid > 0);
+assert.ok(growthSnapshot.candidates.length > 0);
+assert.ok(dividendHtml.includes('class="dashboard-tabs"'));
+assert.ok(dividendHtml.includes("红利质量因子"));
+assert.ok(dividendHtml.includes("DQC = 30%估值 + 35%分红 + 35%现金流质量"));
+assert.ok(dividendHtml.includes('src="./dashboard_nav.js?v=20260831"'));
+assert.strictEqual(dividendSnapshot.version, "dividend-quality-v1");
+assert.strictEqual(dividendSnapshot.validation.backtest_claim_allowed, false);
+assert.ok(dividendSnapshot.universe.valid > 0);
+assert.ok(dividendSnapshot.candidates.length > 0);
 
 const csv = `code,name,theme,fund_size,score,total_return,annual_vol,latest_close
 159516,国泰中证半导体材料设备主题ETF,半导体,44163729896.6748,1.327929,0.727909,0.556536,1.975

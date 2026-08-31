@@ -1,0 +1,17 @@
+# name ~ Python file ~ direction
+F-A01 ~ factors/f_a01_trend_structure.py ~ 1
+F-A02 ~ factors/f_a02_trend_rs.py ~ 1
+F-A03 ~ factors/f_a03_trend_breakout.py ~ 1
+F-A04 ~ factors/f_a04_trend_volume.py ~ 1
+F-A05 ~ factors/f_a05_trend_quality.py ~ 1
+F-A06 ~ factors/f_a06_trend_pullback.py ~ 1
+F-A07 ~ factors/f_a07_trend_composite.py ~ 1
+F-A08 ~ factors/f_a08_growth_core.py ~ 1
+F-A09 ~ factors/f_a09_growth_quality.py ~ 1
+F-A10 ~ factors/f_a10_balance_quality.py ~ 1
+F-A11 ~ factors/f_a11_financial_composite.py ~ 1
+F-A12 ~ factors/f_a12_double_high_min.py ~ 1
+F-A13 ~ factors/f_a13_growth_quality_geom.py ~ 1
+F-A14 ~ factors/f_a14_quality_heavy.py ~ 1
+F-A15 ~ factors/f_a15_balanced_gq.py ~ 1
+

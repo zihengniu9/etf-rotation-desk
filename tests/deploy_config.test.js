@@ -13,48 +13,19 @@ for (const dependency of ["akshare", "pandas", "numpy", "requests", "openpyxl", 
   assert.ok(requirements.includes(dependency), `requirements.txt should include ${dependency}`);
 }
 
-const workflow = read(".github/workflows/update-etf-data.yml");
+const validateWorkflow = read(".github/workflows/validate-dashboard.yml");
 const pagesWorkflow = read(".github/workflows/deploy-pages.yml");
-assert.ok(workflow.includes("30 1 * * 1-5"), "GitHub Actions should run at 09:30 Asia/Hong_Kong on weekdays");
-assert.ok(workflow.includes("0,30 2-3 * * 1-5"), "GitHub Actions should run every 30 minutes during the morning session");
-assert.ok(workflow.includes("0,30 5-6 * * 1-5"), "GitHub Actions should run every 30 minutes during the afternoon session");
-assert.ok(workflow.includes("0 7 * * 1-5"), "GitHub Actions should run at 15:00 Asia/Hong_Kong on weekdays");
-assert.strictEqual(workflow.includes('cron: "0 1 * * 1-5"'), false, "GitHub Actions should no longer run only once at 09:00");
-assert.strictEqual(workflow.includes("Data date already refreshed"), false, "Intraday updates should not be skipped just because the data date matches");
-assert.ok(workflow.includes("python run_etf_selector.py"), "Workflow should refresh ETF outputs");
-assert.ok(workflow.includes("python scripts/update_industry_data.py --refresh"), "Workflow should refresh industry outputs");
-assert.ok(workflow.includes("--json-output outputs/industry_flow.json"), "Workflow should publish the industry JSON dataset");
-assert.ok(workflow.includes("python scripts/update_industry_stock_roles.py"), "Workflow should refresh stock-level mainline roles");
-assert.ok(workflow.includes("outputs/industry_stock_roles.json"), "Workflow should publish stock-level mainline roles");
-assert.ok(workflow.includes("IWENCAI_API_KEY: ${{ secrets.IWENCAI_API_KEY }}"), "Workflow should pass the stock hot-rank API key to the refresh step");
-assert.ok(workflow.includes("git add outputs"), "Workflow should persist updated output history");
-assert.ok(workflow.includes("git push"), "Workflow should push refreshed outputs before deployment");
-assert.ok(workflow.includes("contents: write"), "Workflow needs permission to commit refreshed outputs");
-assert.ok(workflow.includes("python scripts/build_static_site.py"), "Workflow should build the Pages artifact");
-assert.ok(workflow.includes("pages: write"), "Pages deployment needs pages write permission");
-assert.ok(workflow.includes("id-token: write"), "Pages deployment needs an OIDC token");
-assert.ok(workflow.includes("actions/configure-pages@v5"), "Workflow should configure GitHub Pages");
-assert.ok(workflow.includes("actions/upload-pages-artifact@v4"), "Workflow should upload the Pages artifact");
-assert.ok(workflow.includes("path: dist"), "Workflow should upload only the generated dist directory");
-assert.ok(workflow.includes("needs: update-data"), "Pages deployment should wait for the verified build");
-assert.ok(workflow.includes("name: github-pages"), "Workflow should use the GitHub Pages environment");
-assert.ok(workflow.includes("actions/deploy-pages@v5"), "Workflow should publish with the official Pages action");
-assert.strictEqual(workflow.includes("NETLIFY_AUTH_TOKEN"), false, "Workflow should not require a Netlify token");
-assert.strictEqual(workflow.includes("NETLIFY_SITE_ID"), false, "Workflow should not target a Netlify site");
-assert.strictEqual(workflow.includes("api.netlify.com"), false, "Workflow should not call the Netlify API");
-assert.strictEqual(workflow.includes("netlify-cli"), false, "Workflow should not run Netlify CLI");
-assert.ok(workflow.includes("market-data-refresh"), "Unified workflow should serialize market data refreshes");
-assert.ok(workflow.includes("ref: main"), "Queued refresh jobs should check out the latest main branch");
-assert.ok(workflow.includes("fetch-depth: 0"), "Refresh jobs need full history for a safe rebase");
-assert.ok(workflow.includes("git pull --rebase origin main"), "Refresh jobs should integrate newer remote commits before pushing outputs");
-assert.ok(workflow.includes("git push origin HEAD:main"), "Refresh jobs should push the rebased output commit explicitly to main");
-assert.ok(workflow.includes("actions/configure-pages@v5"), "Unified workflow should configure GitHub Pages");
-assert.ok(workflow.includes("actions/upload-pages-artifact@v4"), "Unified workflow should upload the refreshed Pages artifact");
-assert.ok(workflow.includes("actions/deploy-pages@v5"), "Unified workflow should deploy the refreshed Pages artifact");
-assert.strictEqual(require("fs").existsSync(require("path").join(root, ".github/workflows/update-industry-data.yml")), false, "Industry data should not have a second scheduled workflow");
+assert.strictEqual(validateWorkflow.includes("schedule:"), false, "Hosted CI must not collect market data on a cron");
+assert.strictEqual(validateWorkflow.includes("openapi.iwencai.com"), false, "Hosted CI must not call Wencai");
+assert.ok(validateWorkflow.includes("python -m unittest discover"), "CI should validate Python factors");
+assert.ok(validateWorkflow.includes("node tests/web_dashboard.test.js"), "CI should validate dashboard contracts");
+assert.ok(validateWorkflow.includes("node tests/deploy_config.test.js"), "CI should validate deployment configuration");
+assert.ok(validateWorkflow.includes("python scripts/build_static_site.py"), "CI should verify the static bundle");
+assert.ok(validateWorkflow.includes("authenticated local tun tunnel"), "CI should document the local tunnel trust boundary");
+assert.strictEqual(fs.existsSync(path.join(root, ".github/workflows/update-etf-data.yml")), false, "Remote market-data collector should be removed");
 
-for (const pathPattern of ["web/**", "scripts/build_static_site.py"]) {
-  assert.ok(pagesWorkflow.includes(`      - \"${pathPattern}\"`), `Pages workflow should deploy when ${pathPattern} changes`);
+for (const pathPattern of ["web/**", "outputs/**", "scripts/build_static_site.py"]) {
+  assert.ok(pagesWorkflow.includes(`      - "${pathPattern}"`), `Pages workflow should deploy when ${pathPattern} changes`);
 }
 assert.ok(pagesWorkflow.includes("python scripts/build_static_site.py"), "Pages workflow should build the static artifact directly");
 assert.ok(pagesWorkflow.includes("actions/configure-pages@v5"), "Pages workflow should configure GitHub Pages");
@@ -62,40 +33,48 @@ assert.ok(pagesWorkflow.includes("actions/upload-pages-artifact@v4"), "Pages wor
 assert.ok(pagesWorkflow.includes("actions/deploy-pages@v5"), "Pages workflow should publish with the official Pages action");
 assert.ok(pagesWorkflow.includes("cancel-in-progress: true"), "Pages workflow should cancel stale deployments");
 
-const updateScript = read("scripts/update_etf_data.ps1");
-assert.ok(updateScript.includes("run_etf_selector.py"), "Local scheduled update should call the ETF runner");
-assert.ok(updateScript.includes("scheduled_update.log"), "Local scheduled update should append a log file");
-assert.ok(updateScript.includes("$env:PYTHONPATH"), "Local scheduled update should set PYTHONPATH");
-assert.ok(updateScript.includes("$MaxAttempts = 3"), "Local scheduled update should retry transient data-source failures");
-assert.ok(updateScript.includes("Start-Sleep"), "Local scheduled update should wait between retries");
-assert.ok(updateScript.includes("RedirectStandardError"), "Local scheduled update should capture Python stderr without aborting PowerShell logging");
+const etfUpdateScript = read("scripts/update_etf_data.ps1");
+assert.ok(etfUpdateScript.includes("run_etf_selector.py"), "Local ETF update should call the selector");
+assert.ok(etfUpdateScript.includes("scheduled_update.log"), "Local ETF update should append a log file");
+assert.ok(etfUpdateScript.includes("$env:PYTHONPATH"), "Local ETF update should set PYTHONPATH");
+assert.ok(etfUpdateScript.includes("$MaxAttempts = 1"), "Network collection should make one initial attempt by default");
+assert.ok(etfUpdateScript.includes("RedirectStandardError"), "Local ETF update should capture Python stderr");
 
-const taskScript = read("scripts/install_windows_task.ps1");
-for (const time of ["09:30", "10:00", "10:30", "11:00", "11:30", "13:00", "13:30", "14:00", "14:30", "15:00"]) {
-  assert.ok(taskScript.includes(time), `Windows scheduled task installer should include ${time}`);
+const dailyRunner = read("scripts/update_dashboard_daily.ps1");
+for (const mode of ["Morning", "Intraday", "Close", "Full"]) {
+  assert.ok(dailyRunner.includes(`\"${mode}\"`), `Daily runner should support ${mode}`);
 }
-assert.ok(taskScript.includes("Register-ScheduledTask"), "Windows installer should register a scheduled task");
-assert.ok(taskScript.includes("update_etf_data.ps1"), "Windows task should invoke the update script");
+assert.ok(dailyRunner.includes("Test-Tunnel"), "Daily runner should verify the tunnel before collection");
+assert.ok(dailyRunner.includes("curl.exe --proxy $TunnelProxy"), "Tunnel verification should use HTTPS through the proxy");
+assert.ok(dailyRunner.includes("https://openapi.iwencai.com"), "Tunnel probe should target the official HTTPS endpoint");
+assert.strictEqual(dailyRunner.includes("ws://"), false, "Daily runner must not use WebSocket");
+assert.strictEqual(dailyRunner.includes("wss://"), false, "Daily runner must not use WebSocket");
+assert.ok(dailyRunner.includes('Get-RequiredEnvironment "IWENCAI_API_KEY"'), "Daily runner should require the API key from environment storage");
+assert.ok(dailyRunner.includes('"-MaxAttempts", "1"'), "Daily runner should enforce a single ETF collection attempt");
+assert.ok(dailyRunner.includes("git add -- outputs"), "Daily runner should stage generated outputs only");
+assert.ok(dailyRunner.includes("git pull --rebase origin main"), "Daily runner should integrate remote changes before publishing");
+assert.ok(dailyRunner.includes("git push origin HEAD:main"), "Daily runner should publish generated outputs to main");
+
+const taskInstaller = read("scripts/install_dashboard_tasks.ps1");
+for (const time of ["09:28", "10:00", "11:30", "14:00", "16:20"]) {
+  assert.ok(taskInstaller.includes(time), `Windows task installer should include ${time}`);
+}
+for (const task of ["AI Stock Dashboard Morning", "AI Stock Dashboard Intraday", "AI Stock Dashboard Close"]) {
+  assert.ok(taskInstaller.includes(task), `Windows task installer should register ${task}`);
+}
+assert.ok(taskInstaller.includes("Register-ScheduledTask"), "Windows installer should register scheduled tasks");
+assert.ok(taskInstaller.includes("update_dashboard_daily.ps1"), "Windows tasks should invoke the unified runner");
 
 const index = read("index.html");
-assert.ok(index.includes("./web/"), "Root index should redirect users to the dashboard");
+assert.ok(index.includes("./web/market_mode.html"), "Root index should open the market-mode decision page first");
 
 const industryHtml = read("web/industry_mainline_dashboard.html");
 assert.ok(industryHtml.includes("../outputs/industry_flow.json?ts="), "Industry dashboard should load the JSON dataset first");
 assert.ok(industryHtml.includes("../outputs/industry_flow.csv?ts="), "Industry dashboard should keep a CSV fallback");
-assert.ok(industryHtml.includes("GitHub Actions 行业 JSON"), "Industry dashboard should identify its live JSON source");
-assert.ok(industryHtml.includes("svg.getScreenCTM()"), "Industry trend crosshair should map pointer coordinates through the SVG transform matrix");
-assert.ok(industryHtml.includes("point.matrixTransform(matrix.inverse())"), "Industry trend crosshair should account for viewBox scaling and letterboxing");
-assert.ok(industryHtml.includes("chartNode.getBoundingClientRect()"), "Industry trend chart should size its viewBox from the rendered container");
-assert.ok(industryHtml.includes("window.addEventListener('resize'"), "Industry trend chart should redraw after responsive layout changes");
-assert.strictEqual(industryHtml.includes("const W = 960, H = 360"), false, "Industry trend chart should not keep a fixed viewBox that leaves unused space");
-assert.ok(industryHtml.includes("function selectTrendIndustries"), "Industry dashboard should select trend lines with an explicit current-strength rule");
-assert.ok(industryHtml.includes("const top = selectTrendIndustries(latest, 6)"), "Industry trend should use the latest turnover-ratio leaders");
-assert.strictEqual(industryHtml.includes("const top = latest.slice(0, 6)"), false, "Industry trend should not inherit turnover-share ordering");
-assert.ok(industryHtml.includes("let data = []"), "Industry dashboard should wait for online data before the first render");
-assert.ok(industryHtml.includes("requestIndustryRefresh({ force: true, preserveDateSelection: false })"), "Initial industry load should jump to the latest online date");
+assert.ok(industryHtml.includes("svg.getScreenCTM()"), "Industry trend crosshair should account for SVG transforms");
 assert.ok(industryHtml.includes("window.setInterval"), "Industry dashboard should poll for intraday updates");
 assert.ok(industryHtml.includes("visibilitychange"), "Industry dashboard should refresh after returning to the tab");
+
 const etfApp = read("web/app.js");
 assert.ok(etfApp.includes("AUTO_REFRESH_INTERVAL_MS = 2 * 60 * 1000"), "ETF dashboard should poll every two minutes during trading hours");
 assert.ok(etfApp.includes('cache: "no-store"'), "ETF dashboard refreshes should bypass the browser cache");
@@ -108,11 +87,18 @@ assert.ok(netlifyConfig.includes('publish = "dist"'), "Netlify should publish on
 const buildScript = read("scripts/build_static_site.py");
 assert.ok(buildScript.includes("shutil.copytree"), "Static build should copy dashboard folders");
 assert.ok(buildScript.includes('"web"'), "Static build should publish the dashboard");
-assert.ok(buildScript.includes('"outputs"'), "Static build should publish CSV outputs");
+assert.ok(buildScript.includes('"outputs"'), "Static build should publish generated data");
 assert.ok(buildScript.includes('"index.html"'), "Static build should publish the root redirect");
-assert.ok(buildScript.includes("*.csv"), "Static build should publish only CSV output data files");
-assert.ok(buildScript.includes("*.json"), "Static build should publish JSON output data files");
+for (const pattern of ["*.csv", "*.json", "*.js"]) {
+  assert.ok(buildScript.includes(`"${pattern}"`), `Static build should publish ${pattern} outputs`);
+}
 assert.ok(buildScript.includes('DIST / ".nojekyll"'), "Static build should create a GitHub Pages .nojekyll marker");
-assert.strictEqual(buildScript.includes("scheduled_update.log"), false, "Static build should not publish local scheduler logs");
+assert.strictEqual(buildScript.includes("dashboard_daily_update.log"), false, "Static build should not publish local scheduler logs");
+
+const statusBuilder = read("scripts/build_dashboard_status.py");
+assert.ok(statusBuilder.includes('"industry_flow_latest.json"'), "Status builder should create a compact latest-industry payload");
+assert.ok(statusBuilder.includes('"industry_flow_latest.js"'), "Status builder should create a file-protocol industry fallback");
+assert.ok(statusBuilder.includes('"trend_engine_snapshot.js"'), "Status builder should create a file-protocol trend fallback");
+assert.ok(statusBuilder.includes('"shortterm_signal.js"'), "Status builder should keep the short-term file fallback synchronized");
 
 console.log("deploy config tests passed");

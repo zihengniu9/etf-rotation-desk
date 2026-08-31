@@ -1,0 +1,243 @@
+/*
+ * AI 选股 · 统一红色主题
+ *
+ * 以短线观察看板的 brand-red 为唯一主色：
+ * - 红色：品牌主色、上涨、主要动作
+ * - 绿色：下跌/风险释放
+ * - 金色：预警、等待确认
+ * - 中性色：数据、结构和说明
+ *
+ * 该文件放在各页面最后加载，覆盖历史页面各自的蓝色主题，
+ * 不改变数据逻辑，也不把“观察”误渲染成“买入”。
+ */
+:root {
+  --brand-red: #d71920;
+  --brand-red-dark: #a6151b;
+  --brand-red-soft: #fff3f4;
+  --brand-red-line: rgb(215 25 32 / .20);
+  --brand-red-shadow: rgb(215 25 32 / .12);
+
+  /* 旧页面把 blue 当作品牌色使用，统一映射到红色。 */
+  --blue: #c82835 !important;
+  --blue-soft: #fff3f4 !important;
+  --red: #d71920 !important;
+  --red-soft: #fff3f4 !important;
+  --up: #d71920 !important;
+  --up-soft: #fff3f4 !important;
+  --ag-info: #c82835 !important;
+  --ag-info-surface: #fff3f4 !important;
+  --ag-brand: #b4232d !important;
+  --ag-brand-strong: #981d27 !important;
+  --ag-brand-soft: #fff3f4 !important;
+}
+
+body {
+  background:
+    radial-gradient(circle at 5% 0%, rgb(255 219 221 / .42), transparent 30rem),
+    radial-gradient(circle at 95% 8%, rgb(255 235 222 / .46), transparent 26rem),
+    linear-gradient(145deg, #fffafb 0%, #f7f8fb 53%, #f1f4f7 100%) !important;
+}
+
+/* 所有页面导航统一为短线看板的圆角、红色选中态。 */
+.dashboard-tabs,
+.tabs {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 4px !important;
+  border: 1px solid var(--line, rgb(68 84 105 / .15)) !important;
+  border-radius: 14px !important;
+  background: rgb(255 255 255 / .82) !important;
+  box-shadow: 0 5px 18px rgb(49 72 99 / .06) !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin;
+  scrollbar-color: #e6a5ab transparent;
+}
+
+.dashboard-tab,
+.tab {
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  width: auto !important;
+  min-width: max-content !important;
+  height: auto !important;
+  min-height: 36px !important;
+  padding: 0 14px !important;
+  border-radius: 10px !important;
+  color: var(--muted, var(--text-3, #748195)) !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  font-size: 13px !important;
+  font-weight: 750 !important;
+}
+
+.dashboard-tab:hover,
+.dashboard-tab:focus-visible,
+.tab:hover,
+.tab:focus-visible {
+  color: var(--brand-red-dark) !important;
+  background: var(--brand-red-soft) !important;
+  outline-color: var(--brand-red) !important;
+}
+
+.dashboard-tab.active,
+.tab.active {
+  color: var(--brand-red-dark) !important;
+  background: var(--brand-red-soft) !important;
+  box-shadow: 0 3px 10px rgb(215 25 32 / .12) !important;
+}
+
+/* 历史页面曾用 ::after 画红线，统一导航只保留红色选中底。 */
+.dashboard-tab::after,
+.tab::after,
+.dashboard-tab.active::after,
+.tab.active::after {
+  display: none !important;
+  content: none !important;
+}
+
+.eyebrow,
+.kicker,
+.route-card .route-tag,
+.score-total,
+.detail-score,
+.strategy-return strong,
+.pick-code,
+.pick-name {
+  color: var(--brand-red-dark) !important;
+}
+
+.btn.primary,
+.tool.active,
+.period-tabs button.active,
+.refresh.primary {
+  border-color: var(--brand-red) !important;
+  background: var(--brand-red) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 16px rgb(215 25 32 / .18);
+}
+
+.btn:hover,
+.tool:hover,
+.tool:focus-visible,
+input:focus,
+select:focus,
+input[type="date"]:focus {
+  border-color: rgb(215 25 32 / .46) !important;
+  color: var(--brand-red-dark) !important;
+  box-shadow: 0 0 0 3px rgb(215 25 32 / .10) !important;
+}
+
+.bar-fill,
+.bar i,
+.factor-track i,
+.score i::after,
+.trend-score i::after,
+.st-mseq-bar i,
+.st-fx-bar-fill {
+  background: linear-gradient(90deg, #e25a62, var(--brand-red)) !important;
+}
+
+.selected-row td,
+tbody tr:hover,
+tbody tr.selected,
+.trend-table tbody tr:hover,
+.trend-table tbody tr.selected,
+.st-mseq-table tbody tr:hover,
+.st-mseq-table tbody tr.selected {
+  background: rgb(215 25 32 / .055) !important;
+}
+
+.rank,
+.trend-rank,
+.st-mseq-action.watch,
+.signal-tag.watch,
+.action.watch,
+.gate,
+.st-mseq-gate,
+.trend-link,
+.detail-note {
+  color: var(--brand-red-dark) !important;
+  background: var(--brand-red-soft) !important;
+}
+
+.trend-link,
+.refresh,
+.trend-gate,
+.trend-profit-summary {
+  border-color: rgb(215 25 32 / .20) !important;
+}
+
+.trend-gate:not(.blocked) {
+  background: linear-gradient(145deg, #fff4f5, #fff) !important;
+}
+
+.state-orb {
+  background: conic-gradient(var(--brand-red) var(--score, 0%), #e7dadd 0) !important;
+  box-shadow: 0 10px 24px rgb(215 25 32 / .17) !important;
+}
+
+.score-ring {
+  background: conic-gradient(var(--brand-red) calc(var(--value, 0) * 1%), #e7dadd 0) !important;
+  box-shadow: 0 10px 24px rgb(215 25 32 / .17) !important;
+}
+
+.st-mseq-orb {
+  background: conic-gradient(var(--brand-red) var(--mseq-score, 0%), #e7dadd 0) !important;
+  box-shadow: 0 10px 24px rgb(215 25 32 / .17) !important;
+}
+
+.curve-banner,
+.st-score-block {
+  border-color: rgb(215 25 32 / .20) !important;
+  background:
+    linear-gradient(135deg, rgb(215 25 32 / .12), rgb(255 247 248 / .82) 52%, rgb(255 238 225 / .72)),
+    linear-gradient(180deg, #fff, #fffafb) !important;
+}
+
+.curve-banner-visual i,
+.st-score-fill {
+  background: linear-gradient(90deg, rgb(215 25 32 / .18), var(--brand-red)) !important;
+  box-shadow: 0 8px 18px rgb(215 25 32 / .13) !important;
+}
+
+.curve-banner-visual i:nth-child(2),
+.curve-banner-visual i:nth-child(3) {
+  background: linear-gradient(90deg, rgb(215 25 32 / .12), rgb(215 25 32 / .54)) !important;
+}
+
+.status.ok,
+.signal-score,
+.st-verdict.lvl-go,
+.st-note.tone-hot,
+.st-fx-chip.hot {
+  color: var(--brand-red-dark) !important;
+  border-color: var(--brand-red-line) !important;
+  background: var(--brand-red-soft) !important;
+}
+
+/* 保留语义色：绿色只表示下跌/风险释放，金色只表示等待或预警。 */
+.up,
+.positive,
+.st-chip.up,
+.st-range.up i {
+  color: var(--brand-red) !important;
+}
+
+@media (max-width: 700px) {
+  .dashboard-tabs,
+  .tabs {
+    width: 100% !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  body {
+    background: #f7f8fb !important;
+  }
+}

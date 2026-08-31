@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>成长因子 · 财务成长与历史证据</title>
+  <link rel="stylesheet" href="./red_theme.css?v=20260827">
+  <style>
+    :root { color-scheme: light; --ink:#17202b; --muted:#667386; --line:rgb(68 84 105 / .16); --red:#c82835; --red-soft:#fff3f4; --surface:#fff; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-width:320px; color:var(--ink); background:linear-gradient(145deg,#fffafb,#f1f4f7); font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif; font-variant-numeric:tabular-nums lining-nums; }
+    button,a { font:inherit; }
+    .shell { width:min(1400px,calc(100% - 40px)); margin:auto; padding:24px 0 46px; }
+    .tabs { display:flex; gap:5px; width:max-content; max-width:100%; overflow:auto; padding:4px; border:1px solid var(--line); border-radius:14px; background:#ffffffe8; }
+    .tab { min-height:36px; display:inline-flex; align-items:center; padding:0 13px; border-radius:10px; color:var(--muted); text-decoration:none; font-size:13px; font-weight:750; white-space:nowrap; }
+    .tab:hover,.tab:focus-visible,.tab.active { color:var(--red); background:var(--red-soft); outline:0; }
+    .tab.active { box-shadow:inset 0 -2px 0 var(--red); }
+    .topbar { display:flex; justify-content:space-between; align-items:flex-end; gap:20px; margin:24px 0 16px; }
+    .eyebrow { margin:0 0 7px; color:var(--red); font-size:11px; font-weight:850; letter-spacing:.14em; }
+    h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:8px; font-size:clamp(27px,3vw,38px); letter-spacing:-.045em; } h2 { margin-bottom:5px; font-size:20px; } h3 { margin-bottom:6px; font-size:15px; }
+    .subtitle { margin:0; color:var(--muted); font-size:13px; line-height:1.7; }
+    .data-state { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:8px; }
+    .pill,.tag { display:inline-flex; align-items:center; min-height:29px; padding:0 10px; border:1px solid var(--line); border-radius:999px; color:var(--muted); background:#ffffffe8; font-size:11px; white-space:nowrap; }
+    .dot { width:7px; height:7px; margin-right:7px; border-radius:50%; background:#d97706; } .dot.ready { background:#16805f; }
+    .anchor { padding:25px; border:1px solid #ffffffec; border-radius:30px; background:#ffffffe0; box-shadow:10px 20px 42px rgb(49 72 99 / .11),0 2px 8px rgb(49 72 99 / .05); -webkit-backdrop-filter:blur(26px) saturate(125%); backdrop-filter:blur(26px) saturate(125%); }
+    .anchor-top { display:flex; justify-content:space-between; align-items:flex-start; gap:18px; }
+    .decision { display:flex; align-items:center; gap:16px; margin-top:19px; padding:16px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .decision strong { color:var(--red); font-size:25px; letter-spacing:-.04em; } .decision p { margin:0; color:var(--muted); font-size:12px; line-height:1.6; }
+    .stat-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-top:16px; }
+    .stat { min-height:84px; padding:13px; border:1px solid var(--line); border-radius:14px; background:#fff; } .stat span { display:block; color:var(--muted); font-size:10.5px; } .stat strong { display:block; margin-top:8px; font-size:22px; } .stat small { display:block; margin-top:4px; color:var(--muted); font-size:10px; }
+    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:15px; margin:25px 0 11px; } .section-head p { margin:0; color:var(--muted); font-size:11px; line-height:1.6; }
+    .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:11px; } .card { padding:16px; border:1px solid var(--line); border-radius:16px; background:#fff; } .card .weight { float:right; color:var(--red); font-size:11px; font-weight:800; } .card p { margin:9px 0 0; color:var(--muted); font-size:11.5px; line-height:1.65; } .formula { margin-top:11px; padding:9px; border-radius:10px; color:#273447; background:#f7f8fa; font-size:11px; line-height:1.6; }
+    .panel { border:1px solid #ffffffec; border-radius:18px; background:#fffffff0; box-shadow:0 12px 28px rgb(49 72 99 / .075); } .table-panel { padding:17px; } .note { margin:-2px 0 13px; color:var(--muted); font-size:11px; line-height:1.65; } .table-wrap { overflow-x:auto; } table { width:100%; min-width:1050px; border-collapse:collapse; font-size:12px; } th { padding:0 9px 10px; color:var(--muted); font-size:10.5px; text-align:left; white-space:nowrap; } td { padding:11px 9px; border-top:1px solid var(--line); vertical-align:middle; } th:first-child,td:first-child { padding-left:0; } th:last-child,td:last-child { padding-right:0; }
+    .stock { display:flex; align-items:center; gap:8px; min-width:155px; } .rank { display:grid; width:24px; height:24px; place-items:center; border-radius:8px; color:var(--red); background:var(--red-soft); font-size:10px; font-weight:850; } .stock strong { display:block; font-size:12.5px; } .stock small { display:block; margin-top:3px; color:var(--muted); font-size:10px; }
+    .stock-button { width:100%; padding:0; border:0; background:transparent; color:inherit; text-align:left; cursor:pointer; } .stock-button:focus-visible { outline:2px solid var(--red); outline-offset:4px; border-radius:8px; }
+    .score { display:flex; align-items:center; gap:8px; min-width:110px; } .score i { display:block; width:64px; height:7px; border-radius:99px; background:#eee; overflow:hidden; } .score i::after { content:""; display:block; width:var(--value); height:100%; background:linear-gradient(90deg,#e25a62,var(--red)); }
+    .tag { min-height:24px; padding:0 8px; border:0; font-weight:800; } .tag.primary { color:#8d1820; background:#fff0f1; } .tag.watch { color:#8a5500; background:#fff7e8; } .tag.risk { color:#a33a16; background:#fff1e9; } .muted { color:var(--muted); } .up { color:#c82835; } .down { color:#16805f; }
+    .detail-layout { display:grid; grid-template-columns:.9fr 1.1fr; gap:12px; margin-top:12px; } .detail { padding:18px; min-height:236px; } .detail-head { display:flex; justify-content:space-between; gap:14px; } .detail h3 { margin:0; font-size:19px; } .detail h3 small { display:block; margin-top:5px; color:var(--muted); font-size:10.5px; font-weight:500; } .detail-score { color:var(--red); font-size:28px; font-weight:850; } .mini-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:16px; } .mini { padding:10px; border-radius:11px; background:#f7f8fa; } .mini span { display:block; color:var(--muted); font-size:9.5px; } .mini strong { display:block; margin-top:4px; font-size:13px; } .detail-note { margin:14px 0 0; padding:10px 11px; color:var(--muted); background:var(--red-soft); border-radius:10px; font-size:11px; line-height:1.65; }
+    .evidence { margin:0; padding-left:18px; } .evidence li { margin:0 0 10px; color:var(--muted); font-size:11px; line-height:1.55; } .evidence a { color:var(--red); text-decoration:none; } .evidence a:hover,.evidence a:focus-visible { text-decoration:underline; }
+    .footer { margin-top:19px; padding:14px 16px; border:1px solid var(--line); border-radius:14px; color:var(--muted); background:#ffffffe0; font-size:11px; line-height:1.7; } .footer strong { color:var(--ink); }
+    .empty { padding:28px 10px; color:var(--muted); font-size:12px; line-height:1.7; }
+    @media (max-width:1050px) { .stat-grid { grid-template-columns:repeat(3,1fr); } .grid { grid-template-columns:repeat(2,1fr); } .detail-layout { grid-template-columns:1fr; } }
+    @media (max-width:620px) { .shell { width:calc(100% - 24px); padding-top:14px; } .topbar,.anchor-top { flex-direction:column; align-items:flex-start; } .data-state { justify-content:flex-start; } .anchor { padding:18px; border-radius:24px; } .decision { align-items:flex-start; flex-direction:column; gap:6px; } .stat-grid { grid-template-columns:1fr 1fr; } .grid { grid-template-columns:1fr; } .section-head { align-items:flex-start; flex-direction:column; } .table-panel,.detail { padding:14px; } .mini-grid { grid-template-columns:1fr 1fr; } table { min-width:0; } th:nth-child(4),td:nth-child(4),th:nth-child(5),td:nth-child(5),th:nth-child(7),td:nth-child(7) { display:none; } }
+    @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))) { .anchor { background:#fff; } }
+    @media (prefers-reduced-transparency:reduce) { .anchor { background:#fff; -webkit-backdrop-filter:none; backdrop-filter:none; } } @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition-duration:.01ms!important; animation-duration:.01ms!important; scroll-behavior:auto!important; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="dashboard-tabs" aria-label="看板页面">
+      <a class="dashboard-tab" href="./market_mode.html">行情模式</a>
+      <a class="dashboard-tab" href="./index.html">ETF轮动</a>
+      <a class="dashboard-tab" href="./industry_mainline_dashboard.html">行业主线</a>
+      <a class="dashboard-tab" href="./shortterm_dashboard.html">短线观察</a>
+      <a class="dashboard-tab" href="./trend_engine.html">趋势因子</a>
+      <a class="dashboard-tab active" href="./growth_factor.html" aria-current="page">成长因子</a>
+      <a class="dashboard-tab" href="./dividend_factor.html">红利因子</a>
+      <a class="dashboard-tab" href="./shortterm_factor_preview.html">短线因子</a>
+      <a class="dashboard-tab" href="./market_mode.html#daily-review">每日复盘</a>
+    </nav>
+    <header class="topbar"><div><p class="eyebrow">GROWTH FACTOR RESEARCH</p><h1>成长因子</h1><p class="subtitle">先看收入与利润是否持续，再看现金流、资产负债和历史资讯能否解释成长。</p></div><div class="data-state"><span class="pill"><i class="dot" id="source-dot"></i><span id="source-label">等待成长数据</span></span><span class="pill" id="data-date">数据日期 —</span></div></header>
+    <section class="anchor" aria-labelledby="scope-title"><div class="anchor-top"><div><p class="eyebrow">UNIVERSE SCOPE</p><h2 id="scope-title">沪深主板成长研究池</h2><p class="subtitle" id="scope-note">沪深主板、非 ST、总市值不低于 50 亿元；财务字段按报告期分层。</p></div><span class="pill" id="pit-status">研究截面 · 非历史回测</span></div><div class="decision"><strong id="decision-label">先分型，再排序</strong><p id="decision-note">综合分只用于研究排序；“成长质量优先”不等于买入指令。历史资讯只占 10%，且未查询股票不会被标成资讯确认。</p></div><div class="stat-grid"><div class="stat"><span>扫描股票</span><strong id="scanned">—</strong><small>问财主板样本</small></div><div class="stat"><span>有效财务</span><strong id="valid">—</strong><small>关键字段覆盖</small></div><div class="stat"><span>持续成长</span><strong id="persistent">—</strong><small>三期收入与利润为正</small></div><div class="stat"><span>加速/反转</span><strong id="accel">—</strong><small>需要继续验证</small></div><div class="stat"><span>资讯覆盖</span><strong id="news-covered">—</strong><small>当前只查核心候选</small></div></div></section>
+    <div class="section-head"><div><h2>因子组成</h2><p>财务增长是主因，历史资讯是解释与风险校验层。</p></div><p>版本 <span id="version">growth-factor-v1</span></p></div>
+    <section class="grid" aria-label="成长因子定义"><article class="card"><span class="weight">45%核心</span><h3>成长增速</h3><p>看当前报告期的收入与利润增长，但不单独追逐极端同比。</p><div class="formula">收入 25% · 归母净利 35%<br>加速度 30% · 持续性 10%</div></article><article class="card"><span class="weight">30%质量</span><h3>现金与回报</h3><p>确认利润是否有经营现金流支撑，避免只看利润表。</p><div class="formula">经营现金流/收入 35%<br>现金流/净利润 25% · ROE/净利率 40%</div></article><article class="card"><span class="weight">15%风险</span><h3>资产负债</h3><p>高负债不直接否定成长，但会降低扩张兑现的容错率。</p><div class="formula">BalanceScore = 100 − 资产负债率</div></article><article class="card"><span class="weight">10%证据</span><h3>历史资讯</h3><p>抽取订单、产能、产品、研发、景气和治理风险，并按发布时间过滤。</p><div class="formula">中性 50 · 正面事件加分<br>负面证据扣分 · 重复标题去重</div></article></section>
+    <div class="section-head"><div><h2>成长候选</h2><p class="note">当前排序来自财务截面；资讯列为空表示尚未查询，不代表利空。点击个股查看历史资讯证据。</p></div></div>
+    <section class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>股票</th><th>分型</th><th>综合分</th><th>成长核心</th><th>质量</th><th>负债风险</th><th>资讯证据</th><th>状态</th></tr></thead><tbody id="candidate-body"><tr><td colspan="8"><div class="empty">正在加载 outputs/growth_factor_snapshot.json…</div></td></tr></tbody></table></div></section>
+    <section class="detail-layout"><article class="panel detail" id="detail-panel"><div class="empty">选择一只股票查看因子拆解。</div></article><article class="panel detail"><h3>资讯证据摘要</h3><p class="note">只展示发布时间不晚于 2026-08-27 的已查询记录；资讯来自同花顺问财 news-search，属于研究线索，不是独立财务事实。</p><ul class="evidence" id="evidence-list"><li>选择股票后显示标题、日期和来源链接。</li></ul></article></section>
+    <footer class="footer"><strong>研究边界：</strong>本页是成长因子探索结果，不构成投资建议。当前只有报告期分层的单次截面，尚未接入逐股披露日回溯和未来收益标签；因此不输出历史收益结论，也不使用“确定性机会”等表述。</footer>
+  </main>
+  <script src="../outputs/growth_factor_snapshot.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      var data = window.GROWTH_FACTOR_SNAPSHOT;
+      var state = { rows: [], selected: 0 };
+      function $(id) { return document.getElementById(id); }
+      function num(v) { var n = Number(v); return Number.isFinite(n) ? n : null; }
+      function esc(v) { return String(v == null ? "" : v).replace(/[&<>\"']/g, function (x) { return ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;", "'":"&#39;" })[x]; }); }
+      function pct(v) { var n = num(v); return n == null ? "—" : n.toFixed(1) + "%"; }
+      function score(v) { var n = num(v); return n == null ? "—" : n.toFixed(1); }
+      function tagClass(status) { return status === "成长质量优先" ? "primary" : (status === "加速/反转观察" ? "watch" : "risk"); }
+      function profileClass(profile) { return profile === "持续成长" ? "primary" : (profile === "增速观察" ? "watch" : "risk"); }
+      function renderMeta() {
+        var u = data.universe || {}; var profiles = {};
+        (data.candidates || []).forEach(function (r) { profiles[r.growth_profile] = (profiles[r.growth_profile] || 0) + 1; });
+        $("source-label").textContent = data.source || "同花顺问财研究数据"; $("source-dot").className = "dot ready"; $("data-date").textContent = "数据日期 " + (data.data_as_of || "—");
+        $("scanned").textContent = u.stocks_scanned == null ? "—" : u.stocks_scanned.toLocaleString(); $("valid").textContent = u.stocks_financial_valid == null ? "—" : u.stocks_financial_valid.toLocaleString(); $("persistent").textContent = (profiles["持续成长"] || "—").toLocaleString(); $("accel").textContent = ((profiles["加速成长"] || 0) + (profiles["反转/低基数"] || 0)).toLocaleString(); $("news-covered").textContent = u.news_queried_stocks == null ? "—" : u.news_queried_stocks.toLocaleString(); $("version").textContent = data.version || "growth-factor-v1"; $("pit-status").textContent = data.point_in_time_status || "研究截面";
+      }
+      function renderRows() {
+        state.rows = (data.candidates || []).slice(); var body = $("candidate-body");
+        if (!state.rows.length) { body.innerHTML = '<tr><td colspan="8"><div class="empty">当前没有可展示的成长候选。</div></td></tr>'; return; }
+        body.innerHTML = state.rows.map(function (r, i) { return '<tr data-index="' + i + '"><td><button class="stock-button" type="button" aria-label="查看 ' + esc(r.name || r.code6) + '"><div class="stock"><span class="rank">' + (i + 1) + '</span><div><strong>' + esc(r.name || "—") + '</strong><small>' + esc(String(r.code6 || "").padStart(6, "0")) + '</small></div></div></button></td><td><span class="tag ' + profileClass(r.growth_profile) + '">' + esc(r.growth_profile || "—") + '</span></td><td><div class="score"><i style="--value:' + Math.max(0, Math.min(100, num(r.final_score) || 0)) + '%"></i><strong>' + score(r.final_score) + '</strong></div></td><td>' + score(r.growth_core) + '</td><td>' + score(r.quality_score) + '</td><td>' + pct(r.current_debt_ratio) + '</td><td>' + (r.news_news_score == null ? '<span class="muted">未查询</span>' : score(r.news_news_score)) + '</td><td><span class="tag ' + tagClass(r.final_status) + '">' + esc(r.final_status || "观察") + '</span></td></tr>'; }).join("");
+        Array.prototype.forEach.call(body.querySelectorAll("tr[data-index]"), function (row) { row.addEventListener("click", function () { state.selected = Number(row.dataset.index) || 0; renderDetail(state.rows[state.selected]); }); }); renderDetail(state.rows[0]);
+      }
+      function renderDetail(r) { if (!r) return; $("detail-panel").innerHTML = '<div class="detail-head"><div><h3>' + esc(r.name || "—") + '<small>' + esc(String(r.code6 || "").padStart(6, "0")) + ' · ' + esc(r.growth_profile || "—") + '</small></h3></div><div class="detail-score">' + score(r.final_score) + '</div></div><div class="mini-grid"><div class="mini"><span>收入同比</span><strong>' + pct(r.current_revenue_growth) + '</strong></div><div class="mini"><span>利润同比</span><strong>' + pct(r.current_profit_growth) + '</strong></div><div class="mini"><span>收入加速度</span><strong>' + pct(r.revenue_acceleration) + '</strong></div><div class="mini"><span>利润加速度</span><strong>' + pct(r.profit_acceleration) + '</strong></div><div class="mini"><span>现金流/净利</span><strong>' + score(r.cash_to_profit) + '×</strong></div><div class="mini"><span>资讯分</span><strong>' + score(r.news_news_score) + '</strong></div></div><p class="detail-note">状态：' + esc(r.final_status || "观察") + '。风险标记：' + esc((r.risk_flags || []).join("、") || "暂无结构化风险标记") + '。当前仅用于研究排序，不替代披露日回测。</p>'; var evidence = (r.news_evidence || []); $("evidence-list").innerHTML = evidence.length ? evidence.map(function (x) { return '<li><span class="muted">' + esc(x.publish_date || "—") + '</span> · ' + (x.url ? '<a href="' + esc(x.url) + '" target="_blank" rel="noreferrer">' + esc(x.title || "资讯") + '</a>' : esc(x.title || "资讯")) + '</li>'; }).join("") : '<li>当前没有已查询的历史资讯证据。</li>'; }
+      if (!data || !data.universe) { $("candidate-body").innerHTML = '<tr><td colspan="8"><div class="empty">未找到成长数据。请先运行 scripts/run_growth_factor_analysis.py 生成 outputs/growth_factor_snapshot.js。</div></td></tr>'; return; }
+      renderMeta(); renderRows();
+    }());
+  </script>
+  <script src="./dashboard_nav.js?v=20260831"></script>
+</body>
+</html>

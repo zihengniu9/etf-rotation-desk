@@ -1,0 +1,4 @@
+# Canonical benchmark and low-debt survivor, development window.
+F-D07 ~ factors/f_a07_trend_composite.py ~ 1
+F-D10 ~ factors/f_a10_balance_quality.py ~ 1
+

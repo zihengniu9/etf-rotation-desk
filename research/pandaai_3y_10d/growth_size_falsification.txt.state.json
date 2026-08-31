@@ -1,0 +1,21 @@
+{
+ "F-Z08": {
+  "spec": "d7d22d7b7bb3e75f",
+  "factor_id": "6a9036a2d5a023b98a272b47",
+  "run_id": "6a9036a3d5a023b98a272b48",
+  "raw_result": "growth_size_falsification.results\\6a9036a3d5a023b98a272b48.json",
+  "metrics": {
+   "ic_mean": "-0.0236",
+   "rank_ic": "-0.0308",
+   "ic_ir": "-0.1574",
+   "ic_p_value": "0.2437",
+   "monotonicity": "0.59",
+   "long_excess": -0.99,
+   "short_excess": 16.84,
+   "turnover": 7.73,
+   "long_sharpe": 0.7191,
+   "long_max_drawdown": 22.54,
+   "long_monthly_win_rate": 55.17
+  }
+ }
+}

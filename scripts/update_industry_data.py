@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -184,6 +184,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--json-output", default="outputs/industry_flow.json")
     parser.add_argument("--status-output", default="outputs/industry_update_status.json")
     parser.add_argument("--refresh", action="store_true")
+    parser.add_argument("--as-of", default="", help="Completed trading date, YYYY-MM-DD")
     args = parser.parse_args(argv)
 
     html_path = Path(args.html)
@@ -197,7 +198,18 @@ def main(argv: list[str] | None = None) -> int:
     attempted_at = datetime.now(RUN_TZ).isoformat(timespec="seconds")
 
     if args.refresh:
-        as_of = datetime.now(RUN_TZ).strftime("%Y-%m-%d")
+        if not __import__("os").environ.get("HTTPS_PROXY"):
+            raise RuntimeError("HTTPS_PROXY is not configured; refusing direct network access")
+        if args.as_of:
+            as_of = date.fromisoformat(args.as_of).isoformat()
+        else:
+            now = datetime.now(RUN_TZ)
+            candidate = now.date()
+            if candidate.weekday() >= 5 or now.time() < datetime.strptime("15:30", "%H:%M").time():
+                candidate -= timedelta(days=1)
+                while candidate.weekday() >= 5:
+                    candidate -= timedelta(days=1)
+            as_of = candidate.isoformat()
         try:
             snapshot = build_daily_snapshot(fetch_summary(), as_of, previous)
             if snapshot.empty:

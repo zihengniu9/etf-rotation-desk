@@ -1,0 +1,189 @@
+{
+ "F-A01": {
+  "spec": "d82042e179592324",
+  "factor_id": "6a90309caefbfcab3cb44803",
+  "run_id": "6a9030beaefbfcab3cb44808",
+  "raw_result": "candidates.results\\6a9030beaefbfcab3cb44808.json",
+  "metrics": {
+   "ic_mean": "-0.0301",
+   "rank_ic": "-0.0643",
+   "ic_ir": "-0.2318",
+   "ic_p_value": "0.6315",
+   "monotonicity": "0.66",
+   "long_excess": -10.12,
+   "short_excess": -2.51,
+   "turnover": 67.74,
+   "long_sharpe": 3.2397,
+   "long_max_drawdown": 3.21,
+   "long_monthly_win_rate": 66.67
+  }
+ },
+ "F-A02": {
+  "spec": "f02ce1d5df6fb3de",
+  "factor_id": "6a90309daefbfcab3cb44804",
+  "run_id": "6a9030eaaefbfcab3cb4480a",
+  "raw_result": "candidates.results\\6a9030eaaefbfcab3cb4480a.json",
+  "metrics": {
+   "ic_mean": "-0.0419",
+   "rank_ic": "-0.1062",
+   "ic_ir": "-0.2425",
+   "ic_p_value": "0.6163",
+   "monotonicity": "0.79",
+   "long_excess": -16.53,
+   "short_excess": 21.1,
+   "turnover": 50.96,
+   "long_sharpe": 2.2067,
+   "long_max_drawdown": 5.56,
+   "long_monthly_win_rate": 66.67
+  }
+ },
+ "F-A03": {
+  "spec": "10b101d9e5dbf555",
+  "factor_id": "6a90309eaefbfcab3cb44805",
+  "run_id": "6a9030f41496f90f073fa63c",
+  "raw_result": "candidates.results\\6a9030f41496f90f073fa63c.json",
+  "metrics": {
+   "ic_mean": "-0.0239",
+   "rank_ic": "-0.0372",
+   "ic_ir": "-0.2159",
+   "ic_p_value": "0.6544",
+   "monotonicity": "0.23",
+   "long_excess": -18.55,
+   "short_excess": -2.42,
+   "turnover": 60.73,
+   "long_sharpe": 3.641,
+   "long_max_drawdown": 1.73,
+   "long_monthly_win_rate": 66.67
+  }
+ },
+ "F-A04": {
+  "spec": "2251f213e1de9125",
+  "factor_id": "6a9030a01b8bbc7ad18c362b",
+  "run_id": "6a9030fe1b8bbc7ad18c362f",
+  "raw_result": "candidates.results\\6a9030fe1b8bbc7ad18c362f.json",
+  "metrics": {
+   "ic_mean": "-0.0326",
+   "rank_ic": "-0.0410",
+   "ic_ir": "-0.4282",
+   "ic_p_value": "0.3924",
+   "monotonicity": "0.87",
+   "long_excess": -16.14,
+   "short_excess": 7.78,
+   "turnover": 89.91,
+   "long_sharpe": 5.1318,
+   "long_max_drawdown": 0.92,
+   "long_monthly_win_rate": 66.67
+  }
+ },
+ "F-A05": {
+  "spec": "6006153dba67f7ca",
+  "factor_id": "6a9030a1aefbfcab3cb44806",
+  "run_id": "6a903107a7a8074cb892865c",
+  "raw_result": "candidates.results\\6a903107a7a8074cb892865c.json",
+  "metrics": {
+   "ic_mean": "-0.0593",
+   "rank_ic": "-0.0717",
+   "ic_ir": "-0.5805",
+   "ic_p_value": "0.2640",
+   "monotonicity": "0.99",
+   "long_excess": -21.54,
+   "short_excess": 22.53,
+   "turnover": 82.44,
+   "long_sharpe": 4.8309,
+   "long_max_drawdown": 1.39,
+   "long_monthly_win_rate": 66.67
+  }
+ },
+ "F-A06": {
+  "spec": "7aaea74f9d6403cc",
+  "factor_id": "6a9030a2aefbfcab3cb44807",
+  "run_id": "6a903112d15a0fcf52537ec4",
+  "raw_result": "candidates.results\\6a903112d15a0fcf52537ec4.json",
+  "metrics": {
+   "ic_mean": "-0.0188",
+   "rank_ic": "-0.0462",
+   "ic_ir": "-0.2852",
+   "ic_p_value": "0.5581",
+   "monotonicity": "0.37",
+   "long_excess": 1.51,
+   "short_excess": 1.66,
+   "turnover": 70.03,
+   "long_sharpe": 4.5907,
+   "long_max_drawdown": 1.94,
+   "long_monthly_win_rate": 66.67
+  }
+ },
+ "F-A07": {
+  "spec": "99bddfec436faa4d",
+  "factor_id": "6a9030a31b8bbc7ad18c362c",
+  "run_id": "6a90311ca7a8074cb892865e",
+  "raw_result": "candidates.results\\6a90311ca7a8074cb892865e.json",
+  "metrics": {
+   "ic_mean": "-0.0411",
+   "rank_ic": "-0.1032",
+   "ic_ir": "-0.3090",
+   "ic_p_value": "0.5274",
+   "monotonicity": "0.81",
+   "long_excess": -2.62,
+   "short_excess": 24.61,
+   "turnover": 57.82,
+   "long_sharpe": 4.3788,
+   "long_max_drawdown": 1.41,
+   "long_monthly_win_rate": 66.67
+  }
+ },
+ "F-A08": {
+  "spec": "e4e190c6884c9027",
+  "factor_id": "6a9030a41b8bbc7ad18c362d",
+  "error": "run: 因子分析执行失败（无详细错误信息）"
+ },
+ "F-A09": {
+  "spec": "3418844d78647aa3",
+  "factor_id": "6a9030a51b8bbc7ad18c362e",
+  "error": "run: 因子分析执行失败（无详细错误信息）"
+ },
+ "F-A10": {
+  "spec": "3eff48f49a8b818e",
+  "factor_id": "6a9030a6d15a0fcf52537ec2",
+  "run_id": "6a90312ea7a8074cb8928664",
+  "raw_result": "candidates.results\\6a90312ea7a8074cb8928664.json",
+  "metrics": {
+   "ic_mean": "0.0295",
+   "rank_ic": "0.0367",
+   "ic_ir": "0.3818",
+   "ic_p_value": "0.4414",
+   "monotonicity": "0.64",
+   "long_excess": 1.67,
+   "short_excess": -28.01,
+   "turnover": 0.88,
+   "long_sharpe": 3.9538,
+   "long_max_drawdown": 3.03,
+   "long_monthly_win_rate": 66.67
+  }
+ },
+ "F-A11": {
+  "spec": "a6ec73bf44599a85",
+  "factor_id": "6a9030a7d15a0fcf52537ec3",
+  "error": "run: 因子分析执行失败（无详细错误信息）"
+ },
+ "F-A12": {
+  "spec": "4510f0593619ab75",
+  "factor_id": "6a9030a8becc96115db32b6d",
+  "error": "run: 因子分析执行失败（无详细错误信息）"
+ },
+ "F-A13": {
+  "spec": "0982576da12e7e4d",
+  "factor_id": "6a9030a9e5f1627648558b8c",
+  "error": "run: 因子分析执行失败（无详细错误信息）"
+ },
+ "F-A14": {
+  "spec": "142174eb3907fd8a",
+  "factor_id": "6a9030ab81d3bc0d682965e9",
+  "error": "run: 因子分析执行失败（无详细错误信息）"
+ },
+ "F-A15": {
+  "spec": "dd25e01753f979bc",
+  "factor_id": "6a9030acbecc96115db32b6e",
+  "error": "run: 因子分析执行失败（无详细错误信息）"
+ }
+}

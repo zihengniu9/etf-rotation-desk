@@ -1,0 +1,21 @@
+{
+ "F-MG01": {
+  "spec": "27bd97dbb45198bb",
+  "factor_id": "6a90392f4e214cea5e4a5173",
+  "run_id": "6a9039304e214cea5e4a5174",
+  "raw_result": "growth_market_probe.results\\6a9039304e214cea5e4a5174.json",
+  "metrics": {
+   "ic_mean": "0.0048",
+   "rank_ic": "-0.0560",
+   "ic_ir": "0.0436",
+   "ic_p_value": "0.9271",
+   "monotonicity": "0.27",
+   "long_excess": 6.2,
+   "short_excess": 8.56,
+   "turnover": 35.26,
+   "long_sharpe": 5.0548,
+   "long_max_drawdown": 2.05,
+   "long_monthly_win_rate": 66.67
+  }
+ }
+}

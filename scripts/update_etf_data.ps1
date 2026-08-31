@@ -1,7 +1,7 @@
 param(
   [string]$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
   [string]$Python = "python",
-  [int]$MaxAttempts = 3,
+  [int]$MaxAttempts = 1,
   [int]$RetryDelaySeconds = 90
 )
 
@@ -12,6 +12,7 @@ $ProjectRoot = (Resolve-Path -LiteralPath $ProjectRoot).Path
 $OutputDir = Join-Path $ProjectRoot "outputs"
 $LogPath = Join-Path $OutputDir "scheduled_update.log"
 $Runner = Join-Path $ProjectRoot "run_etf_selector.py"
+$FallbackBuilder = Join-Path $ProjectRoot "scripts\build_etf_local_fallback.py"
 
 New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 Set-Location -LiteralPath $ProjectRoot
@@ -47,6 +48,10 @@ for ($attempt = 1; $attempt -le $MaxAttempts; $attempt++) {
 
   $exitCode = $process.ExitCode
   if ($exitCode -eq 0) {
+    & $Python $FallbackBuilder --output-dir $OutputDir
+    if ($LASTEXITCODE -ne 0) {
+      throw "ETF local fallback build failed with exit=$LASTEXITCODE"
+    }
     $finishedAt = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     "[$finishedAt] completed ETF scheduled update" | Tee-Object -FilePath $LogPath -Append
     Remove-Item -LiteralPath $stdoutPath, $stderrPath -Force -ErrorAction SilentlyContinue

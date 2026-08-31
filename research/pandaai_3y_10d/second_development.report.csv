@@ -1,0 +1,2 @@
+name,direction,status,factor_id,run_id,rank_ic,ic_mean,ic_ir,ic_p_value,monotonicity,long_excess_pct,turnover_pct,annual_cost_pct,net_excess_pct,long_sharpe,long_max_drawdown_pct,long_monthly_win_rate_pct,raw_result,error
+F-S16,1,completed,6a9035bbd3d1ffea2f8f94d6,6a9035bdd3d1ffea2f8f94d7,0.0013,0.0014,0.0183,0.8916,0.01,-0.04,7.02,1.061424,-1.101424,0.8163,19.95,58.62,second_development.results\6a9035bdd3d1ffea2f8f94d7.json,

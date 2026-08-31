@@ -1,0 +1,2 @@
+name,direction,status,factor_id,run_id,rank_ic,ic_mean,ic_ir,ic_p_value,monotonicity,long_excess_pct,turnover_pct,annual_cost_pct,net_excess_pct,long_sharpe,long_max_drawdown_pct,long_monthly_win_rate_pct,raw_result,error
+F-MG01,1,completed,6a90392f4e214cea5e4a5173,6a9039304e214cea5e4a5174,-0.0560,0.0048,0.0436,0.9271,0.27,6.2,35.26,5.331312,0.8686880000000006,5.0548,2.05,66.67,growth_market_probe.results\6a9039304e214cea5e4a5174.json,

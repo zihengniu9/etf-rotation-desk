@@ -1,0 +1,3 @@
+# Reserved confirmation window. Only the development-window survivor is included.
+F-O08 ~ 0.25*RANK(gr_oper_rev_ttm)+0.35*RANK(gr_np_parent_ttm)+0.15*RANK(gr_oper_rev_ttm-gr_oper_rev_lyr)+0.15*RANK(gr_np_parent_ttm-gr_np_parent_lyr)+0.025*(AS_FLOAT(gr_oper_rev_ttm>0)+AS_FLOAT(gr_oper_rev_lyr>0)+AS_FLOAT(gr_np_parent_ttm>0)+AS_FLOAT(gr_np_parent_lyr>0)) ~ 1
+

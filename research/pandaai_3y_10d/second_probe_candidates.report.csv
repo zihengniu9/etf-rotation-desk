@@ -1,0 +1,8 @@
+name,direction,status,factor_id,run_id,rank_ic,ic_mean,ic_ir,ic_p_value,monotonicity,long_excess_pct,turnover_pct,annual_cost_pct,net_excess_pct,long_sharpe,long_max_drawdown_pct,long_monthly_win_rate_pct,raw_result,error
+F-E16,1,completed,6a90351ebda27a65e29a57da,6a9035264b2c22a9c68c5750,0.0204,0.0177,0.4069,0.4143,0.53,1.87,0.63,0.095256,1.774744,6.1767,0.48,66.67,second_probe_candidates.results\6a9035264b2c22a9c68c5750.json,
+F-E17,1,completed,6a90351f4b2c22a9c68c574c,6a903532bda27a65e29a57db,0.0066,0.0003,0.0081,0.9865,0.13,-7.02,0.63,0.095256,-7.115256,7.6975,0.0,100.0,second_probe_candidates.results\6a903532bda27a65e29a57db.json,
+F-E18,1,completed,6a9035204b2c22a9c68c574d,6a90353ed3d1ffea2f8f94d2,0.0069,0.0004,0.0111,0.9813,0.15,-6.88,0.59,0.089208,-6.969208,7.839,0.0,100.0,second_probe_candidates.results\6a90353ed3d1ffea2f8f94d2.json,
+F-E19,1,completed,6a9035214b2c22a9c68c574e,6a903548bda27a65e29a57dd,-0.0478,-0.0189,-0.1726,0.7190,0.66,-3.48,51.93,7.851816,-11.331816,3.7002,2.73,66.67,second_probe_candidates.results\6a903548bda27a65e29a57dd.json,
+F-E20,1,completed,6a903522fef4b0935523f9bf,6a903558d3d1ffea2f8f94d4,-0.0114,-0.0052,-0.0956,0.8410,0.40,-2.71,21.58,3.2628959999999996,-5.9728959999999995,5.2116,1.72,66.67,second_probe_candidates.results\6a903558d3d1ffea2f8f94d4.json,
+F-E21,1,completed,6a9035234b2c22a9c68c574f,6a9035654e214cea5e4a516f,-0.0274,-0.0134,-0.1937,0.6871,0.75,-3.47,32.89,4.972968,-8.442968,4.876,2.11,66.67,second_probe_candidates.results\6a9035654e214cea5e4a516f.json,
+F-E22,1,completed,6a903524fef4b0935523f9c0,6a9035714e214cea5e4a5171,-0.0443,-0.0215,-0.2435,0.6150,0.92,-5.85,42.61,6.442632,-12.292632,4.7469,2.22,66.67,second_probe_candidates.results\6a9035714e214cea5e4a5171.json,

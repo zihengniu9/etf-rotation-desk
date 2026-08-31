@@ -3,6 +3,8 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
+from build_etf_local_fallback import build_payload, write_payload
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
@@ -20,9 +22,10 @@ def copy_path(name: str) -> None:
 def copy_outputs() -> None:
     output_target = DIST / "outputs"
     output_target.mkdir(parents=True, exist_ok=True)
-    for pattern in ("*.csv", "*.json"):
+    for pattern in ("*.csv", "*.json", "*.js"):
         for source in sorted((ROOT / "outputs").glob(pattern)):
             shutil.copy2(source, output_target / source.name)
+    write_payload(output_target / "etf_local_data.js", build_payload(ROOT / "outputs"))
 
 
 def main() -> int:

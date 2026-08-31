@@ -1,0 +1,7 @@
+name,direction,status,factor_id,run_id,rank_ic,ic_mean,ic_ir,ic_p_value,monotonicity,long_excess_pct,turnover_pct,annual_cost_pct,net_excess_pct,long_sharpe,long_max_drawdown_pct,long_monthly_win_rate_pct,raw_result,error
+F-C09,1,completed,6a903266e5f1627648558b92,6a903279d15a0fcf52537ecd,-0.0285,-0.0317,-0.3262,0.5061,0.74,-24.25,0.34,0.051408,-24.301408,6.7293,0.0,100.0,growth_derived_candidates.results\6a903279d15a0fcf52537ecd.json,
+F-C11,1,completed,6a903267aefbfcab3cb44810,6a903292e5f1627648558b94,0.0157,0.0098,0.2027,0.6739,0.19,-1.19,0.33,0.049895999999999996,-1.2398959999999999,5.6743,0.92,66.67,growth_derived_candidates.results\6a903292e5f1627648558b94.json,
+F-C12,1,completed,6a903268e5f1627648558b93,6a90329dd15a0fcf52537ecf,0.0079,0.0028,0.0456,0.9237,0.00,-5.77,0.51,0.077112,-5.847111999999999,6.4317,0.12,66.67,growth_derived_candidates.results\6a90329dd15a0fcf52537ecf.json,
+F-C13,1,completed,6a903269d15a0fcf52537ecc,6a9032a9e5f1627648558b96,0.0033,-0.0013,-0.0188,0.9682,0.23,-8.71,0.42,0.063504,-8.773504,6.2602,0.0,100.0,growth_derived_candidates.results\6a9032a9e5f1627648558b96.json,
+F-C14,1,completed,6a90326aaefbfcab3cb44811,6a9032b7a7a8074cb892866d,-0.0004,-0.0052,-0.0842,0.8596,0.34,-9.22,0.44,0.066528,-9.286528,5.9815,0.44,66.67,growth_derived_candidates.results\6a9032b7a7a8074cb892866d.json,
+F-C15,1,completed,6a90326cbecc96115db32b73,6a9032c61b8bbc7ad18c3636,0.0069,0.0016,0.0279,0.9532,0.14,-5.19,0.31,0.046872000000000004,-5.236872,5.597,0.86,66.67,growth_derived_candidates.results\6a9032c61b8bbc7ad18c3636.json,

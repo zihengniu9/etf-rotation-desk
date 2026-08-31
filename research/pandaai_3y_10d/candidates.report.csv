@@ -1,0 +1,16 @@
+name,direction,status,factor_id,run_id,rank_ic,ic_mean,ic_ir,ic_p_value,monotonicity,long_excess_pct,turnover_pct,annual_cost_pct,net_excess_pct,long_sharpe,long_max_drawdown_pct,long_monthly_win_rate_pct,raw_result,error
+F-A01,1,completed,6a90309caefbfcab3cb44803,6a9030beaefbfcab3cb44808,-0.0643,-0.0301,-0.2318,0.6315,0.66,-10.12,67.74,10.242287999999999,-20.362288,3.2397,3.21,66.67,candidates.results\6a9030beaefbfcab3cb44808.json,
+F-A02,1,completed,6a90309daefbfcab3cb44804,6a9030eaaefbfcab3cb4480a,-0.1062,-0.0419,-0.2425,0.6163,0.79,-16.53,50.96,7.705152000000001,-24.235152000000003,2.2067,5.56,66.67,candidates.results\6a9030eaaefbfcab3cb4480a.json,
+F-A03,1,completed,6a90309eaefbfcab3cb44805,6a9030f41496f90f073fa63c,-0.0372,-0.0239,-0.2159,0.6544,0.23,-18.55,60.73,9.182376,-27.732376000000002,3.641,1.73,66.67,candidates.results\6a9030f41496f90f073fa63c.json,
+F-A04,1,completed,6a9030a01b8bbc7ad18c362b,6a9030fe1b8bbc7ad18c362f,-0.0410,-0.0326,-0.4282,0.3924,0.87,-16.14,89.91,13.594391999999997,-29.734392,5.1318,0.92,66.67,candidates.results\6a9030fe1b8bbc7ad18c362f.json,
+F-A05,1,completed,6a9030a1aefbfcab3cb44806,6a903107a7a8074cb892865c,-0.0717,-0.0593,-0.5805,0.2640,0.99,-21.54,82.44,12.464928,-34.004928,4.8309,1.39,66.67,candidates.results\6a903107a7a8074cb892865c.json,
+F-A06,1,completed,6a9030a2aefbfcab3cb44807,6a903112d15a0fcf52537ec4,-0.0462,-0.0188,-0.2852,0.5581,0.37,1.51,70.03,10.588536,-9.078536,4.5907,1.94,66.67,candidates.results\6a903112d15a0fcf52537ec4.json,
+F-A07,1,completed,6a9030a31b8bbc7ad18c362c,6a90311ca7a8074cb892865e,-0.1032,-0.0411,-0.3090,0.5274,0.81,-2.62,57.82,8.742384,-11.362383999999999,4.3788,1.41,66.67,candidates.results\6a90311ca7a8074cb892865e.json,
+F-A08,1,failed,6a9030a41b8bbc7ad18c362d,,,,,,,,,,,,,,,run: 因子分析执行失败（无详细错误信息）
+F-A09,1,failed,6a9030a51b8bbc7ad18c362e,,,,,,,,,,,,,,,run: 因子分析执行失败（无详细错误信息）
+F-A10,1,completed,6a9030a6d15a0fcf52537ec2,6a90312ea7a8074cb8928664,0.0367,0.0295,0.3818,0.4414,0.64,1.67,0.88,0.133056,1.5369439999999999,3.9538,3.03,66.67,candidates.results\6a90312ea7a8074cb8928664.json,
+F-A11,1,failed,6a9030a7d15a0fcf52537ec3,,,,,,,,,,,,,,,run: 因子分析执行失败（无详细错误信息）
+F-A12,1,failed,6a9030a8becc96115db32b6d,,,,,,,,,,,,,,,run: 因子分析执行失败（无详细错误信息）
+F-A13,1,failed,6a9030a9e5f1627648558b8c,,,,,,,,,,,,,,,run: 因子分析执行失败（无详细错误信息）
+F-A14,1,failed,6a9030ab81d3bc0d682965e9,,,,,,,,,,,,,,,run: 因子分析执行失败（无详细错误信息）
+F-A15,1,failed,6a9030acbecc96115db32b6e,,,,,,,,,,,,,,,run: 因子分析执行失败（无详细错误信息）

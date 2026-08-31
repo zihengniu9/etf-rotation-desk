@@ -1,0 +1,21 @@
+{
+ "F-O08": {
+  "spec": "a700e5a9d0c266d1",
+  "factor_id": "6a9034874b2c22a9c68c574a",
+  "run_id": "6a903489bda27a65e29a57d8",
+  "raw_result": "oos_formula.results\\6a903489bda27a65e29a57d8.json",
+  "metrics": {
+   "ic_mean": "0.0202",
+   "rank_ic": "0.0264",
+   "ic_ir": "0.2366",
+   "ic_p_value": "0.3749",
+   "monotonicity": "0.78",
+   "long_excess": 12.73,
+   "short_excess": -10.61,
+   "turnover": 8.24,
+   "long_sharpe": 0.1976,
+   "long_max_drawdown": 17.11,
+   "long_monthly_win_rate": 62.5
+  }
+ }
+}

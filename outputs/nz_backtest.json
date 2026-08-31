@@ -1,0 +1,6244 @@
+{
+ "generated_at": "2026-08-24 20:51:10",
+ "window_start": "2026-07-27",
+ "stocks_scanned": 130,
+ "events_total": 461,
+ "yizi_excluded": 87,
+ "hit_group": {
+  "n": 62,
+  "next_open": {
+   "mean": 1.17,
+   "med": 1.55,
+   "win": 56.5,
+   "min": -10.0,
+   "max": 10.0
+  },
+  "next_close": {
+   "mean": 1.88,
+   "med": 1.44,
+   "win": 59.7,
+   "min": -10.0,
+   "max": 10.07
+  },
+  "hold_board": {
+   "mean": 1.76,
+   "med": 0.63,
+   "win": 58.1,
+   "min": -10.0,
+   "max": 33.99
+  },
+  "nx_seal_rate": 24.2
+ },
+ "base_group": {
+  "n": 312,
+  "next_open": {
+   "mean": 2.62,
+   "med": 2.39,
+   "win": 67.9,
+   "min": -10.0,
+   "max": 14.61
+  },
+  "next_close": {
+   "mean": 3.47,
+   "med": 4.54,
+   "win": 65.1,
+   "min": -10.73,
+   "max": 20.22
+  },
+  "hold_board": {
+   "mean": 6.1,
+   "med": 3.34,
+   "win": 63.5,
+   "min": -10.73,
+   "max": 81.89
+  },
+  "nx_seal_rate": 36.2
+ },
+ "base_fresh_group": {
+  "n": 213,
+  "next_open": {
+   "mean": 2.4,
+   "med": 1.53,
+   "win": 68.1,
+   "min": -10.0,
+   "max": 14.61
+  },
+  "next_close": {
+   "mean": 3.79,
+   "med": 4.61,
+   "win": 67.6,
+   "min": -10.06,
+   "max": 20.22
+  },
+  "hold_board": {
+   "mean": 6.77,
+   "med": 4.03,
+   "win": 66.7,
+   "min": -10.06,
+   "max": 81.89
+  },
+  "nx_seal_rate": 36.6
+ },
+ "base_lianban_group": {
+  "n": 99,
+  "next_open": {
+   "mean": 3.09,
+   "med": 3.77,
+   "win": 67.7,
+   "min": -9.9,
+   "max": 13.35
+  },
+  "next_close": {
+   "mean": 2.78,
+   "med": 3.03,
+   "win": 59.6,
+   "min": -10.73,
+   "max": 12.19
+  },
+  "hold_board": {
+   "mean": 4.65,
+   "med": 1.91,
+   "win": 56.6,
+   "min": -10.73,
+   "max": 51.36
+  },
+  "nx_seal_rate": 35.4
+ },
+ "score_bands": {
+  ">=80": {
+   "n": 22,
+   "next_open": {
+    "mean": 1.24,
+    "med": 0.23,
+    "win": 54.5,
+    "min": -6.29,
+    "max": 9.9
+   },
+   "next_close": {
+    "mean": 3.34,
+    "med": 3.17,
+    "win": 72.7,
+    "min": -9.99,
+    "max": 10.07
+   },
+   "hold_board": {
+    "mean": 4.14,
+    "med": 2.49,
+    "win": 72.7,
+    "min": -9.99,
+    "max": 33.99
+   },
+   "nx_seal_rate": 31.8
+  },
+  ">=70": {
+   "n": 55,
+   "next_open": {
+    "mean": 1.52,
+    "med": 2.07,
+    "win": 60.0,
+    "min": -10.0,
+    "max": 10.0
+   },
+   "next_close": {
+    "mean": 2.2,
+    "med": 1.25,
+    "win": 60.0,
+    "min": -10.0,
+    "max": 10.07
+   },
+   "hold_board": {
+    "mean": 2.06,
+    "med": 0.46,
+    "win": 58.2,
+    "min": -10.0,
+    "max": 33.99
+   },
+   "nx_seal_rate": 27.3
+  },
+  ">=60": {
+   "n": 61,
+   "next_open": {
+    "mean": 1.23,
+    "med": 2.02,
+    "win": 57.4,
+    "min": -10.0,
+    "max": 10.0
+   },
+   "next_close": {
+    "mean": 1.88,
+    "med": 1.25,
+    "win": 59.0,
+    "min": -10.0,
+    "max": 10.07
+   },
+   "hold_board": {
+    "mean": 1.76,
+    "med": 0.46,
+    "win": 57.4,
+    "min": -10.0,
+    "max": 33.99
+   },
+   "nx_seal_rate": 24.6
+  }
+ },
+ "samples": [
+  {
+   "name": "一鸣食品",
+   "code": "605179.SH",
+   "events": [
+    {
+     "t": "20260728",
+     "yizi": false,
+     "hit": false,
+     "next_open": 6.12,
+     "next_close": 10.03,
+     "hold_board": 49.07,
+     "nx_sealed": true,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260729",
+     "yizi": false,
+     "hit": false,
+     "next_open": 9.99,
+     "next_close": 9.99,
+     "hold_board": 35.48,
+     "nx_sealed": true,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260730",
+     "yizi": true,
+     "hit": false,
+     "next_open": -0.97,
+     "next_close": 9.99,
+     "hold_board": 23.17,
+     "nx_sealed": true,
+     "nx_date": "20260731"
+    },
+    {
+     "t": "20260731",
+     "yizi": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 10.02,
+     "hold_board": 11.98,
+     "nx_sealed": true,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260803",
+     "yizi": false,
+     "hit": false,
+     "next_open": -6.15,
+     "next_close": 1.78,
+     "hold_board": 1.78,
+     "nx_sealed": false,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "hit": false,
+     "next_open": 2.39,
+     "next_close": 9.99,
+     "hold_board": 27.03,
+     "nx_sealed": true,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "hit": false,
+     "next_open": 0.62,
+     "next_close": 9.99,
+     "hold_board": 15.49,
+     "nx_sealed": true,
+     "nx_date": "20260812"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "hit": false,
+     "next_open": 5.3,
+     "next_close": 10.0,
+     "hold_board": 5.0,
+     "nx_sealed": true,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260813",
+     "yizi": false,
+     "hit": false,
+     "next_open": 2.69,
+     "next_close": -4.55,
+     "hold_board": -4.55,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 1.56,
+     "breakout": true,
+     "next_open": 0.0,
+     "next_close": 10.0,
+     "hold_board": -1.0,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "hit": false,
+     "next_open": -10.0,
+     "next_close": -10.0,
+     "hold_board": -10.0,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "风范股份",
+   "code": "601700.SH",
+   "events": [
+    {
+     "t": "20260803",
+     "yizi": false,
+     "hit": false,
+     "next_open": 8.18,
+     "next_close": 10.04,
+     "hold_board": 19.7,
+     "nx_sealed": true,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "hit": false,
+     "next_open": 9.97,
+     "next_close": 9.97,
+     "hold_board": 8.78,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": true,
+     "hit": false,
+     "next_open": 9.06,
+     "next_close": 9.98,
+     "hold_board": -1.08,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "hit": false,
+     "next_open": -4.05,
+     "next_close": -10.06,
+     "hold_board": -10.06,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "hit": true,
+     "score": 75,
+     "gap": 4,
+     "shrink": 1.02,
+     "breakout": true,
+     "next_open": -1.71,
+     "next_close": -6.46,
+     "hold_board": -6.46,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "hit": true,
+     "score": 80,
+     "gap": 3,
+     "shrink": 1.19,
+     "breakout": true,
+     "next_open": 4.57,
+     "next_close": 1.25,
+     "hold_board": 1.25,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260820",
+     "yizi": false,
+     "hit": true,
+     "score": 85,
+     "gap": 3,
+     "shrink": 1.34,
+     "breakout": true,
+     "next_open": 0.4,
+     "next_close": -6.53,
+     "hold_board": -6.53,
+     "nx_sealed": false,
+     "nx_date": "20260821"
+    }
+   ]
+  },
+  {
+   "name": "爱丽家居",
+   "code": "603221.SH",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": true,
+     "hit": false,
+     "next_open": 10.0,
+     "next_close": 10.0,
+     "hold_board": 46.36,
+     "nx_sealed": true,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260728",
+     "yizi": true,
+     "hit": false,
+     "next_open": 9.98,
+     "next_close": 9.98,
+     "hold_board": 33.06,
+     "nx_sealed": true,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260729",
+     "yizi": true,
+     "hit": false,
+     "next_open": 9.98,
+     "next_close": 9.98,
+     "hold_board": 20.98,
+     "nx_sealed": true,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260730",
+     "yizi": true,
+     "hit": false,
+     "next_open": 10.01,
+     "next_close": 10.01,
+     "hold_board": 10.01,
+     "nx_sealed": true,
+     "nx_date": "20260731"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "hit": true,
+     "score": 75,
+     "gap": 4,
+     "shrink": null,
+     "breakout": true,
+     "next_open": -4.88,
+     "next_close": 0.12,
+     "hold_board": 0.12,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "hit": true,
+     "score": 75,
+     "gap": 6,
+     "shrink": null,
+     "breakout": true,
+     "next_open": -10.0,
+     "next_close": -10.0,
+     "hold_board": -10.0,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "传智教育",
+   "code": "003032.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "hit": false,
+     "next_open": 1.66,
+     "next_close": 9.97,
+     "hold_board": 81.89,
+     "nx_sealed": true,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260728",
+     "yizi": false,
+     "hit": false,
+     "next_open": 9.97,
+     "next_close": 9.97,
+     "hold_board": 65.41,
+     "nx_sealed": true,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260729",
+     "yizi": true,
+     "hit": false,
+     "next_open": 7.14,
+     "next_close": 10.03,
+     "hold_board": 50.41,
+     "nx_sealed": true,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260730",
+     "yizi": false,
+     "hit": false,
+     "next_open": 9.99,
+     "next_close": 9.99,
+     "hold_board": 36.7,
+     "nx_sealed": true,
+     "nx_date": "20260731"
+    },
+    {
+     "t": "20260731",
+     "yizi": true,
+     "hit": false,
+     "next_open": 9.99,
+     "next_close": 9.99,
+     "hold_board": 24.29,
+     "nx_sealed": true,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260803",
+     "yizi": true,
+     "hit": false,
+     "next_open": 9.91,
+     "next_close": 10.01,
+     "hold_board": 13.0,
+     "nx_sealed": true,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260804",
+     "yizi": true,
+     "hit": false,
+     "next_open": 9.94,
+     "next_close": 10.04,
+     "hold_board": 2.72,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": true,
+     "hit": false,
+     "next_open": -1.96,
+     "next_close": -6.65,
+     "hold_board": -6.65,
+     "nx_sealed": false,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "hit": true,
+     "score": 60,
+     "gap": 5,
+     "shrink": 1.91,
+     "breakout": true,
+     "next_open": -8.75,
+     "next_close": -9.99,
+     "hold_board": -9.99,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    }
+   ]
+  },
+  {
+   "name": "艾艾精工",
+   "code": "603580.SH",
+   "events": [
+    {
+     "t": "20260728",
+     "yizi": false,
+     "hit": true,
+     "score": 90,
+     "gap": 2,
+     "shrink": 0.96,
+     "breakout": true,
+     "next_open": 3.81,
+     "next_close": 10.0,
+     "hold_board": 6.64,
+     "nx_sealed": true,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260729",
+     "yizi": false,
+     "hit": false,
+     "next_open": -4.78,
+     "next_close": -3.05,
+     "hold_board": -3.05,
+     "nx_sealed": false,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "hit": false,
+     "next_open": 0.02,
+     "next_close": 4.52,
+     "hold_board": 4.52,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "hit": true,
+     "score": 75,
+     "gap": 4,
+     "shrink": 1.23,
+     "breakout": true,
+     "next_open": -1.99,
+     "next_close": -3.94,
+     "hold_board": -3.94,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "hit": true,
+     "score": 75,
+     "gap": 5,
+     "shrink": 0.81,
+     "breakout": true,
+     "next_open": 3.01,
+     "next_close": 10.0,
+     "hold_board": 16.82,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "hit": false,
+     "next_open": 1.53,
+     "next_close": 6.2,
+     "hold_board": 6.2,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    },
+    {
+     "t": "20260820",
+     "yizi": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 2.63,
+     "breakout": true,
+     "next_open": 3.09,
+     "next_close": 8.01,
+     "hold_board": 8.01,
+     "nx_sealed": false,
+     "nx_date": "20260821"
+    }
+   ]
+  },
+  {
+   "name": "宝鼎科技",
+   "code": "002552.SZ",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.17,
+     "next_close": -7.25,
+     "hold_board": -7.25,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.98,
+     "next_close": 10.01,
+     "hold_board": 52.71,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 3.74,
+     "next_close": 9.99,
+     "hold_board": 38.82,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 8.62,
+     "next_close": 10.01,
+     "hold_board": 26.21,
+     "nx_sealed": true,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.0,
+     "next_close": 10.0,
+     "hold_board": 14.73,
+     "nx_sealed": true,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260810",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 1.24,
+     "next_close": 4.3,
+     "hold_board": 4.3,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 2.47,
+     "breakout": true,
+     "next_open": 3.21,
+     "next_close": -2.35,
+     "hold_board": -2.35,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260820",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.07,
+     "next_close": -3.33,
+     "hold_board": -3.33,
+     "nx_sealed": false,
+     "nx_date": "20260821"
+    }
+   ]
+  },
+  {
+   "name": "百花医药",
+   "code": "600721.SH",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.97,
+     "next_close": 9.97,
+     "hold_board": 83.08,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.53,
+     "next_close": 9.99,
+     "hold_board": 66.48,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 6.99,
+     "next_close": 10.02,
+     "hold_board": 51.36,
+     "nx_sealed": true,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.96,
+     "next_close": 9.96,
+     "hold_board": 37.57,
+     "nx_sealed": true,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260810",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.01,
+     "next_close": 10.01,
+     "hold_board": 25.11,
+     "nx_sealed": true,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260811",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 4.94,
+     "next_close": 10.04,
+     "hold_board": 13.73,
+     "nx_sealed": true,
+     "nx_date": "20260812"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -3.06,
+     "next_close": 3.35,
+     "hold_board": 3.35,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    }
+   ]
+  },
+  {
+   "name": "天洋新材",
+   "code": "603330.SH",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.78,
+     "next_close": 6.35,
+     "hold_board": 6.35,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 1.81,
+     "next_close": 9.97,
+     "hold_board": 26.73,
+     "nx_sealed": true,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260813",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 4.94,
+     "next_close": 9.99,
+     "hold_board": 15.24,
+     "nx_sealed": true,
+     "nx_date": "20260814"
+    },
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.02,
+     "next_close": 10.02,
+     "hold_board": 4.78,
+     "nx_sealed": true,
+     "nx_date": "20260817"
+    },
+    {
+     "t": "20260817",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.04,
+     "next_close": -4.77,
+     "hold_board": -4.77,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 10.03,
+     "hold_board": 10.03,
+     "nx_sealed": true,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "开开实业",
+   "code": "600272.SH",
+   "events": [
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.93,
+     "next_close": 10.01,
+     "hold_board": 35.71,
+     "nx_sealed": true,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.02,
+     "next_close": 10.02,
+     "hold_board": 23.36,
+     "nx_sealed": true,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260810",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 4.41,
+     "next_close": 10.02,
+     "hold_board": 12.12,
+     "nx_sealed": true,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 0.06,
+     "next_close": 10.0,
+     "hold_board": 1.91,
+     "nx_sealed": true,
+     "nx_date": "20260812"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -9.9,
+     "next_close": -7.35,
+     "hold_board": -7.35,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 90,
+     "gap": 2,
+     "shrink": 0.82,
+     "breakout": true,
+     "next_open": 0.06,
+     "next_close": 8.13,
+     "hold_board": 8.13,
+     "nx_sealed": false,
+     "nx_date": "20260817"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -4.44,
+     "next_close": -6.83,
+     "hold_board": -6.83,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "*ST威领",
+   "code": "002667.SZ",
+   "events": [
+    {
+     "t": "20260729",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.19,
+     "next_close": 10.05,
+     "hold_board": 4.88,
+     "nx_sealed": true,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260730",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 2.39,
+     "next_close": -4.69,
+     "hold_board": -4.69,
+     "nx_sealed": false,
+     "nx_date": "20260731"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 75,
+     "gap": 5,
+     "shrink": 1.12,
+     "breakout": true,
+     "next_open": 3.86,
+     "next_close": 7.57,
+     "hold_board": 7.57,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.06,
+     "next_close": -8.78,
+     "hold_board": -8.78,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260819",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.02,
+     "next_close": 10.02,
+     "hold_board": 22.56,
+     "nx_sealed": true,
+     "nx_date": "20260820"
+    },
+    {
+     "t": "20260820",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.02,
+     "next_close": 10.02,
+     "hold_board": 11.4,
+     "nx_sealed": true,
+     "nx_date": "20260821"
+    },
+    {
+     "t": "20260821",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 4.11,
+     "next_close": 1.25,
+     "hold_board": 1.25,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "京投发展",
+   "code": "600683.SH",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 1.33,
+     "next_close": -5.8,
+     "hold_board": -5.8,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.99,
+     "next_close": 9.99,
+     "hold_board": 19.88,
+     "nx_sealed": true,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260811",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.02,
+     "next_close": 10.02,
+     "hold_board": 8.99,
+     "nx_sealed": true,
+     "nx_date": "20260812"
+    },
+    {
+     "t": "20260812",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.04,
+     "next_close": 10.04,
+     "hold_board": -0.94,
+     "nx_sealed": true,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260813",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.98,
+     "next_close": -9.98,
+     "hold_board": -9.98,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    },
+    {
+     "t": "20260820",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -3.1,
+     "next_close": -6.01,
+     "hold_board": -6.01,
+     "nx_sealed": false,
+     "nx_date": "20260821"
+    }
+   ]
+  },
+  {
+   "name": "德龙汇能",
+   "code": "000593.SZ",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.99,
+     "next_close": 9.99,
+     "hold_board": 34.28,
+     "nx_sealed": true,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260803",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.99,
+     "next_close": 9.99,
+     "hold_board": 22.08,
+     "nx_sealed": true,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260804",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.01,
+     "next_close": 10.01,
+     "hold_board": 10.99,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 0.89,
+     "hold_board": 0.89,
+     "nx_sealed": false,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.75,
+     "next_close": 10.01,
+     "hold_board": -0.99,
+     "nx_sealed": true,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260813",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -4.35,
+     "next_close": -10.0,
+     "hold_board": -10.0,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    }
+   ]
+  },
+  {
+   "name": "豪尔赛",
+   "code": "002963.SZ",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 5.3,
+     "next_close": 9.98,
+     "hold_board": 39.94,
+     "nx_sealed": true,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260803",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 6.12,
+     "next_close": 9.97,
+     "hold_board": 27.24,
+     "nx_sealed": true,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 5.07,
+     "next_close": 10.01,
+     "hold_board": 15.7,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.95,
+     "next_close": 10.01,
+     "hold_board": 5.17,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 6.77,
+     "next_close": -4.39,
+     "hold_board": -4.39,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 85,
+     "gap": 3,
+     "shrink": 1.15,
+     "breakout": true,
+     "next_open": -3.38,
+     "next_close": -4.93,
+     "hold_board": -4.93,
+     "nx_sealed": false,
+     "nx_date": "20260812"
+    }
+   ]
+  },
+  {
+   "name": "澳洋健康",
+   "code": "002172.SZ",
+   "events": [
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.13,
+     "next_close": 10.13,
+     "hold_board": 21.07,
+     "nx_sealed": true,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260813",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.93,
+     "next_close": 9.93,
+     "hold_board": 9.93,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    }
+   ]
+  },
+  {
+   "name": "神奇制药",
+   "code": "600613.SH",
+   "events": [
+    {
+     "t": "20260813",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.95,
+     "next_close": 9.95,
+     "hold_board": 9.95,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.07,
+     "next_close": 10.07,
+     "hold_board": 10.35,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 5.54,
+     "next_close": 0.26,
+     "hold_board": 0.26,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    },
+    {
+     "t": "20260820",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 2.36,
+     "breakout": true,
+     "next_open": -10.05,
+     "next_close": 5.14,
+     "hold_board": 5.14,
+     "nx_sealed": false,
+     "nx_date": "20260821"
+    }
+   ]
+  },
+  {
+   "name": "高争民爆",
+   "code": "002827.SZ",
+   "events": [
+    {
+     "t": "20260729",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.0,
+     "next_close": 10.0,
+     "hold_board": 56.56,
+     "nx_sealed": true,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260730",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.02,
+     "next_close": 10.02,
+     "hold_board": 42.32,
+     "nx_sealed": true,
+     "nx_date": "20260731"
+    },
+    {
+     "t": "20260731",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.0,
+     "next_close": 10.0,
+     "hold_board": 29.36,
+     "nx_sealed": true,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260803",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.01,
+     "next_close": 10.01,
+     "hold_board": 17.6,
+     "nx_sealed": true,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260804",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 2.84,
+     "next_close": 6.9,
+     "hold_board": 6.9,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 90,
+     "gap": 2,
+     "shrink": 0.84,
+     "breakout": true,
+     "next_open": 8.16,
+     "next_close": 9.99,
+     "hold_board": 19.03,
+     "nx_sealed": true,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 7.09,
+     "next_close": 10.01,
+     "hold_board": 8.22,
+     "nx_sealed": true,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": -1.63,
+     "hold_board": -1.63,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    }
+   ]
+  },
+  {
+   "name": "秦安股份",
+   "code": "603758.SH",
+   "events": [
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.96,
+     "next_close": 10.02,
+     "hold_board": 31.87,
+     "nx_sealed": true,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.97,
+     "next_close": 9.97,
+     "hold_board": 19.86,
+     "nx_sealed": true,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260811",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.02,
+     "next_close": 10.02,
+     "hold_board": 8.99,
+     "nx_sealed": true,
+     "nx_date": "20260812"
+    },
+    {
+     "t": "20260812",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.04,
+     "next_close": 10.04,
+     "hold_board": -0.93,
+     "nx_sealed": true,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260813",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -2.28,
+     "next_close": -9.97,
+     "hold_board": -9.97,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -2.72,
+     "next_close": -6.29,
+     "hold_board": -6.29,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "百合花",
+   "code": "603823.SH",
+   "events": [
+    {
+     "t": "20260803",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.0,
+     "next_close": 7.25,
+     "hold_board": 7.25,
+     "nx_sealed": false,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.46,
+     "next_close": 10.0,
+     "hold_board": 8.51,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 3.49,
+     "next_close": -1.35,
+     "hold_board": -1.35,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 3,
+     "shrink": 1.62,
+     "breakout": true,
+     "next_open": 0.0,
+     "next_close": 3.3,
+     "hold_board": 3.3,
+     "nx_sealed": false,
+     "nx_date": "20260812"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 80,
+     "gap": 4,
+     "shrink": 0.96,
+     "breakout": true,
+     "next_open": 4.88,
+     "next_close": 10.0,
+     "hold_board": 6.63,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 5.94,
+     "next_close": -3.06,
+     "hold_board": -3.06,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "誉衡药业",
+   "code": "002437.SZ",
+   "events": [
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -3.37,
+     "next_close": 10.1,
+     "hold_board": 17.36,
+     "nx_sealed": true,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260813",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 4.24,
+     "next_close": 6.59,
+     "hold_board": 6.59,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    },
+    {
+     "t": "20260820",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.63,
+     "next_close": -8.03,
+     "hold_board": -8.03,
+     "nx_sealed": false,
+     "nx_date": "20260821"
+    }
+   ]
+  },
+  {
+   "name": "汇绿生态",
+   "code": "001267.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.29,
+     "next_close": -8.83,
+     "hold_board": -8.83,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.91,
+     "next_close": -2.25,
+     "hold_board": -2.25,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 85,
+     "gap": 2,
+     "shrink": 1.04,
+     "breakout": true,
+     "next_open": -3.43,
+     "next_close": 10.01,
+     "hold_board": 33.99,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 1.5,
+     "next_close": 10.01,
+     "hold_board": 21.8,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 5.67,
+     "next_close": 10.0,
+     "hold_board": 10.72,
+     "nx_sealed": true,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 5.86,
+     "next_close": 0.66,
+     "hold_board": 0.66,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    }
+   ]
+  },
+  {
+   "name": "蓝盾光电",
+   "code": "300862.SZ",
+   "events": []
+  },
+  {
+   "name": "魅视科技",
+   "code": "001229.SZ",
+   "events": [
+    {
+     "t": "20260803",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.86,
+     "next_close": 10.01,
+     "hold_board": 14.35,
+     "nx_sealed": true,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 2.81,
+     "next_close": 9.98,
+     "hold_board": 3.95,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 4.54,
+     "next_close": -5.48,
+     "hold_board": -5.48,
+     "nx_sealed": false,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 6.29,
+     "next_close": 9.99,
+     "hold_board": 1.51,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -4.36,
+     "next_close": -7.71,
+     "hold_board": -7.71,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "旭光电子",
+   "code": "600353.SH",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.26,
+     "next_close": 9.54,
+     "hold_board": 9.54,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 6.35,
+     "next_close": 9.99,
+     "hold_board": 8.89,
+     "nx_sealed": true,
+     "nx_date": "20260817"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 5.48,
+     "next_close": 9.99,
+     "hold_board": -1.0,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -2.72,
+     "next_close": -9.99,
+     "hold_board": -9.99,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 3,
+     "shrink": 1.54,
+     "breakout": true,
+     "next_open": 2.61,
+     "next_close": -3.29,
+     "hold_board": -3.29,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "通宇通讯",
+   "code": "002792.SZ",
+   "events": [
+    {
+     "t": "20260803",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.29,
+     "next_close": 9.98,
+     "hold_board": 17.6,
+     "nx_sealed": true,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 6.71,
+     "next_close": 6.92,
+     "hold_board": 6.92,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 4.44,
+     "breakout": true,
+     "next_open": 10.0,
+     "next_close": 10.0,
+     "hold_board": 0.86,
+     "nx_sealed": true,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260807",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -1.75,
+     "next_close": -8.31,
+     "hold_board": -8.31,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 65,
+     "gap": 3,
+     "shrink": 8.81,
+     "breakout": true,
+     "next_open": 2.4,
+     "next_close": 4.1,
+     "hold_board": 4.1,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    }
+   ]
+  },
+  {
+   "name": "金健米业",
+   "code": "600127.SH",
+   "events": [
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.49,
+     "next_close": 2.43,
+     "hold_board": 2.43,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 6.04,
+     "next_close": 10.06,
+     "hold_board": 26.93,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.99,
+     "next_close": 9.99,
+     "hold_board": 15.33,
+     "nx_sealed": true,
+     "nx_date": "20260819"
+    },
+    {
+     "t": "20260819",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 4.09,
+     "next_close": 9.97,
+     "hold_board": 4.86,
+     "nx_sealed": true,
+     "nx_date": "20260820"
+    },
+    {
+     "t": "20260820",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.19,
+     "next_close": -4.65,
+     "hold_board": -4.65,
+     "nx_sealed": false,
+     "nx_date": "20260821"
+    }
+   ]
+  },
+  {
+   "name": "明新旭腾",
+   "code": "605068.SH",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 2.52,
+     "next_close": 10.02,
+     "hold_board": 40.21,
+     "nx_sealed": true,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260728",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.99,
+     "next_close": 9.99,
+     "hold_board": 27.44,
+     "nx_sealed": true,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260729",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.99,
+     "next_close": 9.99,
+     "hold_board": 15.87,
+     "nx_sealed": true,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260730",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 8.06,
+     "next_close": 5.34,
+     "hold_board": 5.34,
+     "nx_sealed": false,
+     "nx_date": "20260731"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 60,
+     "gap": 3,
+     "shrink": 2.44,
+     "breakout": false,
+     "next_open": -1.44,
+     "next_close": 2.24,
+     "hold_board": 2.24,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    }
+   ]
+  },
+  {
+   "name": "江钨装备",
+   "code": "600397.SH",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.36,
+     "next_close": 10.04,
+     "hold_board": 31.97,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 7.49,
+     "next_close": 10.03,
+     "hold_board": 19.93,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 7.28,
+     "next_close": 9.0,
+     "hold_board": 9.0,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.38,
+     "next_close": -6.62,
+     "hold_board": -6.62,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 2.92,
+     "next_close": 0.5,
+     "hold_board": 0.5,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "华天酒店",
+   "code": "000428.SZ",
+   "events": [
+    {
+     "t": "20260729",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.9,
+     "next_close": -5.2,
+     "hold_board": -5.2,
+     "nx_sealed": false,
+     "nx_date": "20260730"
+    }
+   ]
+  },
+  {
+   "name": "沃格光电",
+   "code": "603773.SH",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 2.94,
+     "next_close": 10.0,
+     "hold_board": 33.88,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 3.83,
+     "next_close": 10.0,
+     "hold_board": 21.71,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 7.67,
+     "next_close": 10.0,
+     "hold_board": 10.64,
+     "nx_sealed": true,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 3.95,
+     "next_close": 0.59,
+     "hold_board": 0.59,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 75,
+     "gap": 6,
+     "shrink": 1.1,
+     "breakout": true,
+     "next_open": 10.0,
+     "next_close": 7.19,
+     "hold_board": 7.19,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    }
+   ]
+  },
+  {
+   "name": "哈森股份",
+   "code": "603958.SH",
+   "events": [
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.01,
+     "next_close": 10.01,
+     "hold_board": 1.19,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 7.69,
+     "next_close": -8.02,
+     "hold_board": -8.02,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    },
+    {
+     "t": "20260820",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 28.61,
+     "breakout": true,
+     "next_open": 7.07,
+     "next_close": 10.01,
+     "hold_board": 10.01,
+     "nx_sealed": true,
+     "nx_date": "20260821"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 4.67,
+     "next_close": 10.02,
+     "hold_board": 10.02,
+     "nx_sealed": true,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "海星股份",
+   "code": "603115.SH",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -1.77,
+     "next_close": -8.23,
+     "hold_board": -8.23,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -1.99,
+     "next_close": -7.41,
+     "hold_board": -7.41,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 2.53,
+     "breakout": true,
+     "next_open": 2.08,
+     "next_close": 10.0,
+     "hold_board": 13.33,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 3.03,
+     "hold_board": 3.03,
+     "nx_sealed": false,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -5.21,
+     "next_close": -0.22,
+     "hold_board": -0.22,
+     "nx_sealed": false,
+     "nx_date": "20260817"
+    }
+   ]
+  },
+  {
+   "name": "华正新材",
+   "code": "603186.SH",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.9,
+     "next_close": 10.0,
+     "hold_board": 19.86,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 2.25,
+     "next_close": 8.96,
+     "hold_board": 8.96,
+     "nx_sealed": false,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.9,
+     "next_close": 6.29,
+     "hold_board": 6.29,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.0,
+     "next_close": 10.0,
+     "hold_board": 9.94,
+     "nx_sealed": true,
+     "nx_date": "20260817"
+    },
+    {
+     "t": "20260817",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.98,
+     "next_close": -0.06,
+     "hold_board": -0.06,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    }
+   ]
+  },
+  {
+   "name": "恒银科技",
+   "code": "603106.SH",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.04,
+     "next_close": 10.04,
+     "hold_board": 22.22,
+     "nx_sealed": true,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260803",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.98,
+     "next_close": 9.98,
+     "hold_board": 11.07,
+     "nx_sealed": true,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260804",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 3.32,
+     "next_close": 1.0,
+     "hold_board": 1.0,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 5.08,
+     "breakout": true,
+     "next_open": -7.37,
+     "next_close": -9.96,
+     "hold_board": -9.96,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 92,
+     "gap": 3,
+     "shrink": 0.56,
+     "breakout": true,
+     "next_open": -1.82,
+     "next_close": 2.14,
+     "hold_board": 2.14,
+     "nx_sealed": false,
+     "nx_date": "20260812"
+    }
+   ]
+  },
+  {
+   "name": "哈三联",
+   "code": "002900.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 85,
+     "gap": 2,
+     "shrink": 1.2,
+     "breakout": true,
+     "next_open": 2.07,
+     "next_close": 3.51,
+     "hold_board": 3.51,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 2.5,
+     "hold_board": 2.5,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 3,
+     "shrink": 2.91,
+     "breakout": true,
+     "next_open": 6.08,
+     "next_close": 10.01,
+     "hold_board": 8.16,
+     "nx_sealed": true,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -3.57,
+     "next_close": -1.69,
+     "hold_board": -1.69,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260819",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.98,
+     "next_close": -2.11,
+     "hold_board": -2.11,
+     "nx_sealed": false,
+     "nx_date": "20260820"
+    }
+   ]
+  },
+  {
+   "name": "顺钠股份",
+   "code": "000533.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.99,
+     "next_close": 9.99,
+     "hold_board": 15.41,
+     "nx_sealed": true,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260728",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -6.75,
+     "next_close": 4.93,
+     "hold_board": 4.93,
+     "nx_sealed": false,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260803",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.63,
+     "next_close": 10.04,
+     "hold_board": 10.92,
+     "nx_sealed": true,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 0.79,
+     "hold_board": 0.79,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    }
+   ]
+  },
+  {
+   "name": "同力天启",
+   "code": "605286.SH",
+   "events": [
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.08,
+     "next_close": 10.0,
+     "hold_board": 19.8,
+     "nx_sealed": true,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.01,
+     "next_close": 10.01,
+     "hold_board": 8.91,
+     "nx_sealed": true,
+     "nx_date": "20260812"
+    },
+    {
+     "t": "20260812",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.0,
+     "next_close": 10.0,
+     "hold_board": -1.0,
+     "nx_sealed": true,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260813",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 4.99,
+     "next_close": -10.0,
+     "hold_board": -10.0,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    }
+   ]
+  },
+  {
+   "name": "兴欣新材",
+   "code": "001358.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.81,
+     "next_close": 10.0,
+     "hold_board": 8.88,
+     "nx_sealed": true,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260728",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 3.02,
+     "next_close": 9.99,
+     "hold_board": -1.02,
+     "nx_sealed": true,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260729",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -5.97,
+     "next_close": -10.01,
+     "hold_board": -10.01,
+     "nx_sealed": false,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 1.07,
+     "next_close": -2.49,
+     "hold_board": -2.49,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    }
+   ]
+  },
+  {
+   "name": "中电电机",
+   "code": "603988.SH",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 5.4,
+     "breakout": true,
+     "next_open": -2.16,
+     "next_close": -2.11,
+     "hold_board": -2.11,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 6.54,
+     "next_close": 10.02,
+     "hold_board": 8.57,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -3.12,
+     "next_close": -1.32,
+     "hold_board": -1.32,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260820",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 2.74,
+     "next_close": -1.93,
+     "hold_board": -1.93,
+     "nx_sealed": false,
+     "nx_date": "20260821"
+    }
+   ]
+  },
+  {
+   "name": "神雾节能",
+   "code": "000820.SZ",
+   "events": [
+    {
+     "t": "20260730",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.0,
+     "next_close": 10.0,
+     "hold_board": 20.94,
+     "nx_sealed": true,
+     "nx_date": "20260731"
+    },
+    {
+     "t": "20260731",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.94,
+     "next_close": 9.94,
+     "hold_board": 9.94,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -3.05,
+     "next_close": -3.29,
+     "hold_board": -3.29,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    }
+   ]
+  },
+  {
+   "name": "越剑智能",
+   "code": "603095.SH",
+   "events": [
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": -6.02,
+     "hold_board": -6.02,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 2.25,
+     "breakout": true,
+     "next_open": 3.75,
+     "next_close": 9.97,
+     "hold_board": 3.88,
+     "nx_sealed": true,
+     "nx_date": "20260817"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -3.71,
+     "next_close": -5.54,
+     "hold_board": -5.54,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -3.67,
+     "next_close": -2.29,
+     "hold_board": -2.29,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "中岩大地",
+   "code": "003001.SZ",
+   "events": [
+    {
+     "t": "20260729",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": -9.98,
+     "hold_board": -9.98,
+     "nx_sealed": false,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 80,
+     "gap": 2,
+     "shrink": 1.39,
+     "breakout": true,
+     "next_open": 6.34,
+     "next_close": 9.98,
+     "hold_board": 8.68,
+     "nx_sealed": true,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260803",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 4.87,
+     "next_close": -1.18,
+     "hold_board": -1.18,
+     "nx_sealed": false,
+     "nx_date": "20260804"
+    }
+   ]
+  },
+  {
+   "name": "圣阳股份",
+   "code": "002580.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.02,
+     "next_close": 0.3,
+     "hold_board": 0.3,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260729",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.38,
+     "next_close": 4.03,
+     "hold_board": 4.03,
+     "nx_sealed": false,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 2.43,
+     "next_close": -0.1,
+     "hold_board": -0.1,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    }
+   ]
+  },
+  {
+   "name": "北京文化",
+   "code": "000802.SZ",
+   "events": [
+    {
+     "t": "20260810",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.0,
+     "next_close": 10.0,
+     "hold_board": 25.96,
+     "nx_sealed": true,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260811",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.06,
+     "next_close": 10.06,
+     "hold_board": 14.51,
+     "nx_sealed": true,
+     "nx_date": "20260812"
+    },
+    {
+     "t": "20260812",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.02,
+     "next_close": 10.02,
+     "hold_board": 4.04,
+     "nx_sealed": true,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260813",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -0.96,
+     "next_close": -5.43,
+     "hold_board": -5.43,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    }
+   ]
+  },
+  {
+   "name": "风语筑",
+   "code": "603466.SH",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 1.96,
+     "next_close": -0.88,
+     "hold_board": -0.88,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -1.17,
+     "next_close": 2.25,
+     "hold_board": 2.25,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 87,
+     "gap": 6,
+     "shrink": 0.56,
+     "breakout": true,
+     "next_open": -1.36,
+     "next_close": 10.02,
+     "hold_board": 0.8,
+     "nx_sealed": true,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260813",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": -8.38,
+     "hold_board": -8.38,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    }
+   ]
+  },
+  {
+   "name": "云南锗业",
+   "code": "",
+   "events": []
+  },
+  {
+   "name": "景旺电子",
+   "code": "603228.SH",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -3.12,
+     "next_close": -10.0,
+     "hold_board": -10.0,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 8.5,
+     "next_close": 10.0,
+     "hold_board": 11.21,
+     "nx_sealed": true,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 4.27,
+     "next_close": 1.11,
+     "hold_board": 1.11,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 3,
+     "shrink": 2.49,
+     "breakout": true,
+     "next_open": 3.86,
+     "next_close": -1.03,
+     "hold_board": -1.03,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    }
+   ]
+  },
+  {
+   "name": "百合股份",
+   "code": "603102.SH",
+   "events": [
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -4.03,
+     "next_close": 5.97,
+     "hold_board": 5.97,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 3,
+     "shrink": 2.77,
+     "breakout": true,
+     "next_open": 4.95,
+     "next_close": -1.95,
+     "hold_board": -1.95,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 85,
+     "gap": 3,
+     "shrink": 1.41,
+     "breakout": true,
+     "next_open": 8.52,
+     "next_close": -4.17,
+     "hold_board": -4.17,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260819",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 2.57,
+     "breakout": true,
+     "next_open": 5.55,
+     "next_close": -3.56,
+     "hold_board": -3.56,
+     "nx_sealed": false,
+     "nx_date": "20260820"
+    }
+   ]
+  },
+  {
+   "name": "有研新材",
+   "code": "600206.SH",
+   "events": [
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 2.49,
+     "next_close": 10.0,
+     "hold_board": 30.69,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 5.05,
+     "next_close": 10.0,
+     "hold_board": 18.82,
+     "nx_sealed": true,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 3.8,
+     "next_close": 8.01,
+     "hold_board": 8.01,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 7.0,
+     "next_close": 3.33,
+     "hold_board": 3.33,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    }
+   ]
+  },
+  {
+   "name": "皇氏集团",
+   "code": "",
+   "events": []
+  },
+  {
+   "name": "近岸蛋白",
+   "code": "688137.SH",
+   "events": [
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.86,
+     "next_close": 17.51,
+     "hold_board": 17.51,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260813",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.88,
+     "next_close": 8.72,
+     "hold_board": 8.72,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    },
+    {
+     "t": "20260820",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -2.1,
+     "next_close": 20.0,
+     "hold_board": 11.85,
+     "nx_sealed": true,
+     "nx_date": "20260821"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -4.0,
+     "next_close": -6.79,
+     "hold_board": -6.79,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "天融信",
+   "code": "002212.SZ",
+   "events": [
+    {
+     "t": "20260728",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 5.5,
+     "next_close": 10.0,
+     "hold_board": 4.83,
+     "nx_sealed": true,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260729",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -2.88,
+     "next_close": -4.7,
+     "hold_board": -4.7,
+     "nx_sealed": false,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 75,
+     "gap": 6,
+     "shrink": 1.42,
+     "breakout": true,
+     "next_open": 8.83,
+     "next_close": -7.61,
+     "hold_board": -7.61,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 65,
+     "gap": 3,
+     "shrink": 1.55,
+     "breakout": true,
+     "next_open": -2.93,
+     "next_close": -3.77,
+     "hold_board": -3.77,
+     "nx_sealed": false,
+     "nx_date": "20260812"
+    }
+   ]
+  },
+  {
+   "name": "和远气体",
+   "code": "002971.SZ",
+   "events": [
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.51,
+     "next_close": 10.0,
+     "hold_board": 18.35,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 6.64,
+     "next_close": 10.01,
+     "hold_board": 7.59,
+     "nx_sealed": true,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -0.99,
+     "next_close": -2.2,
+     "hold_board": -2.2,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -2.36,
+     "next_close": -5.94,
+     "hold_board": -5.94,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "汉森制药",
+   "code": "002412.SZ",
+   "events": [
+    {
+     "t": "20260819",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.98,
+     "next_close": 9.98,
+     "hold_board": 9.98,
+     "nx_sealed": true,
+     "nx_date": "20260820"
+    },
+    {
+     "t": "20260820",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.04,
+     "next_close": 10.04,
+     "hold_board": 10.04,
+     "nx_sealed": true,
+     "nx_date": "20260821"
+    },
+    {
+     "t": "20260821",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 6.97,
+     "next_close": 10.01,
+     "hold_board": 10.01,
+     "nx_sealed": true,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "华之杰",
+   "code": "603400.SH",
+   "events": [
+    {
+     "t": "20260728",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.54,
+     "next_close": 10.01,
+     "hold_board": 5.72,
+     "nx_sealed": true,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260729",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -4.16,
+     "next_close": -3.9,
+     "hold_board": -3.9,
+     "nx_sealed": false,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.98,
+     "next_close": -0.13,
+     "hold_board": -0.13,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.62,
+     "next_close": -2.22,
+     "hold_board": -2.22,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "金螳螂",
+   "code": "002081.SZ",
+   "events": [
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.07,
+     "next_close": 10.07,
+     "hold_board": 43.48,
+     "nx_sealed": true,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260813",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.98,
+     "next_close": 9.98,
+     "hold_board": 30.35,
+     "nx_sealed": true,
+     "nx_date": "20260814"
+    },
+    {
+     "t": "20260814",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 3.97,
+     "next_close": 10.02,
+     "hold_board": 18.53,
+     "nx_sealed": true,
+     "nx_date": "20260817"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 1.37,
+     "next_close": 7.73,
+     "hold_board": 7.73,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    }
+   ]
+  },
+  {
+   "name": "中瓷电子",
+   "code": "003031.SZ",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -1.63,
+     "next_close": 8.31,
+     "hold_board": 8.31,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.01,
+     "next_close": 10.0,
+     "hold_board": 10.4,
+     "nx_sealed": true,
+     "nx_date": "20260817"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 2.79,
+     "next_close": 0.36,
+     "hold_board": 0.36,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.93,
+     "next_close": -5.24,
+     "hold_board": -5.24,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "新亚制程",
+   "code": "002388.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 5.0,
+     "next_close": 10.0,
+     "hold_board": 2.92,
+     "nx_sealed": true,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260728",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -4.55,
+     "next_close": -6.44,
+     "hold_board": -6.44,
+     "nx_sealed": false,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 2.26,
+     "hold_board": 2.26,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    }
+   ]
+  },
+  {
+   "name": "欧克科技",
+   "code": "001223.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 0.98,
+     "hold_board": 0.98,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.41,
+     "next_close": 10.01,
+     "hold_board": 20.01,
+     "nx_sealed": true,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260803",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 2.29,
+     "next_close": 9.1,
+     "hold_board": 9.1,
+     "nx_sealed": false,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.24,
+     "next_close": -5.39,
+     "hold_board": -5.39,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    }
+   ]
+  },
+  {
+   "name": "新能股份",
+   "code": "000595.SZ",
+   "events": [
+    {
+     "t": "20260803",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 90,
+     "gap": 6,
+     "shrink": 0.47,
+     "breakout": true,
+     "next_open": 9.9,
+     "next_close": 10.07,
+     "hold_board": 11.91,
+     "nx_sealed": true,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260804",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 8.38,
+     "next_close": 1.68,
+     "hold_board": 1.68,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    }
+   ]
+  },
+  {
+   "name": "贝瑞基因",
+   "code": "000710.SZ",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 1.19,
+     "next_close": -0.54,
+     "hold_board": -0.54,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 75,
+     "gap": 4,
+     "shrink": 1.16,
+     "breakout": true,
+     "next_open": -2.5,
+     "next_close": -4.2,
+     "hold_board": -4.2,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260820",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 8.54,
+     "next_close": 10.03,
+     "hold_board": 3.52,
+     "nx_sealed": true,
+     "nx_date": "20260821"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -7.27,
+     "next_close": -5.92,
+     "hold_board": -5.92,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "利通电子",
+   "code": "603629.SH",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 5.87,
+     "next_close": -3.03,
+     "hold_board": -3.03,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 6.97,
+     "next_close": 10.0,
+     "hold_board": 19.64,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -0.3,
+     "next_close": 8.76,
+     "hold_board": 8.76,
+     "nx_sealed": false,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.22,
+     "next_close": 3.88,
+     "hold_board": 3.88,
+     "nx_sealed": false,
+     "nx_date": "20260817"
+    }
+   ]
+  },
+  {
+   "name": "博敏电子",
+   "code": "603936.SH",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.37,
+     "next_close": 3.42,
+     "hold_board": 3.42,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.45,
+     "next_close": -3.58,
+     "hold_board": -3.58,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 75,
+     "gap": 6,
+     "shrink": 1.14,
+     "breakout": true,
+     "next_open": 6.96,
+     "next_close": 10.01,
+     "hold_board": 3.05,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -2.88,
+     "next_close": -6.33,
+     "hold_board": -6.33,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "金富科技",
+   "code": "003018.SZ",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.97,
+     "next_close": -0.44,
+     "hold_board": -0.44,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.43,
+     "next_close": 10.01,
+     "hold_board": 13.35,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 0.63,
+     "next_close": 3.03,
+     "hold_board": 3.03,
+     "nx_sealed": false,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.19,
+     "next_close": -2.84,
+     "hold_board": -2.84,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "通鼎互联",
+   "code": "002491.SZ",
+   "events": [
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -1.0,
+     "next_close": 2.86,
+     "hold_board": 2.86,
+     "nx_sealed": false,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.77,
+     "next_close": 0.53,
+     "hold_board": 0.53,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260820",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.1,
+     "next_close": 10.02,
+     "hold_board": 7.99,
+     "nx_sealed": true,
+     "nx_date": "20260821"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 3.77,
+     "next_close": -1.84,
+     "hold_board": -1.84,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "欣天科技",
+   "code": "300615.SZ",
+   "events": [
+    {
+     "t": "20260803",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 20.04,
+     "next_close": 20.04,
+     "hold_board": 64.81,
+     "nx_sealed": true,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260804",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 19.97,
+     "next_close": 19.97,
+     "hold_board": 37.3,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 19.91,
+     "next_close": 19.97,
+     "hold_board": 14.45,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 0.44,
+     "next_close": -4.61,
+     "hold_board": -4.61,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    }
+   ]
+  },
+  {
+   "name": "正裕工业",
+   "code": "603089.SH",
+   "events": [
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 5.54,
+     "next_close": 10.05,
+     "hold_board": 8.92,
+     "nx_sealed": true,
+     "nx_date": "20260817"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.97,
+     "next_close": 9.97,
+     "hold_board": -1.03,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -10.0,
+     "next_close": -10.0,
+     "hold_board": -10.0,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "香江控股",
+   "code": "600162.SH",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.63,
+     "next_close": -2.52,
+     "hold_board": -2.52,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.56,
+     "next_close": 10.02,
+     "hold_board": 6.53,
+     "nx_sealed": true,
+     "nx_date": "20260812"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 5.93,
+     "next_close": -3.18,
+     "hold_board": -3.18,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    }
+   ]
+  },
+  {
+   "name": "东晶电子",
+   "code": "002199.SZ",
+   "events": [
+    {
+     "t": "20260728",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -2.55,
+     "next_close": 10.02,
+     "hold_board": 17.01,
+     "nx_sealed": true,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260729",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -0.97,
+     "next_close": 6.35,
+     "hold_board": 6.35,
+     "nx_sealed": false,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 50,
+     "gap": 4,
+     "shrink": 1.52,
+     "breakout": false,
+     "next_open": -2.29,
+     "next_close": 1.63,
+     "hold_board": 1.63,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    }
+   ]
+  },
+  {
+   "name": "海南海药",
+   "code": "000566.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 5.66,
+     "next_close": 10.0,
+     "hold_board": 2.08,
+     "nx_sealed": true,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260728",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -2.06,
+     "next_close": -7.2,
+     "hold_board": -7.2,
+     "nx_sealed": false,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260730",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 3.02,
+     "breakout": true,
+     "next_open": -9.92,
+     "next_close": -1.51,
+     "hold_board": -1.51,
+     "nx_sealed": false,
+     "nx_date": "20260731"
+    }
+   ]
+  },
+  {
+   "name": "ST宏达",
+   "code": "002211.SZ",
+   "events": [
+    {
+     "t": "20260728",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": -4.81,
+     "hold_board": -4.81,
+     "nx_sealed": false,
+     "nx_date": "20260729"
+    }
+   ]
+  },
+  {
+   "name": "*ST元道",
+   "code": "301139.SZ",
+   "events": [
+    {
+     "t": "20260728",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.53,
+     "next_close": 19.87,
+     "hold_board": 19.87,
+     "nx_sealed": false,
+     "nx_date": "20260729"
+    }
+   ]
+  },
+  {
+   "name": "天山生物",
+   "code": "300313.SZ",
+   "events": [
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.72,
+     "next_close": 20.04,
+     "hold_board": 34.67,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 13.35,
+     "next_close": 12.19,
+     "hold_board": 12.19,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "圣达生物",
+   "code": "603079.SH",
+   "events": [
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.99,
+     "next_close": 9.99,
+     "hold_board": 9.84,
+     "nx_sealed": true,
+     "nx_date": "20260817"
+    },
+    {
+     "t": "20260817",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.97,
+     "next_close": -0.14,
+     "hold_board": -0.14,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -1.92,
+     "next_close": -9.98,
+     "hold_board": -9.98,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "厦工股份",
+   "code": "600815.SH",
+   "events": [
+    {
+     "t": "20260803",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 5.0,
+     "next_close": 9.06,
+     "hold_board": 9.06,
+     "nx_sealed": false,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -1.94,
+     "next_close": -0.28,
+     "hold_board": -0.28,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    }
+   ]
+  },
+  {
+   "name": "亿利达",
+   "code": "002686.SZ",
+   "events": [
+    {
+     "t": "20260730",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 2.93,
+     "next_close": 6.54,
+     "hold_board": 6.54,
+     "nx_sealed": false,
+     "nx_date": "20260731"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.91,
+     "next_close": -3.5,
+     "hold_board": -3.5,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -1.93,
+     "next_close": -7.74,
+     "hold_board": -7.74,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "长城军工",
+   "code": "601606.SH",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 6.35,
+     "next_close": -4.85,
+     "hold_board": -4.85,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.29,
+     "next_close": -1.55,
+     "hold_board": -1.55,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    }
+   ]
+  },
+  {
+   "name": "金时科技",
+   "code": "002951.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 2.68,
+     "next_close": 4.31,
+     "hold_board": 4.31,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.06,
+     "next_close": 2.97,
+     "hold_board": 2.97,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 60,
+     "gap": 4,
+     "shrink": 2.94,
+     "breakout": true,
+     "next_open": 4.13,
+     "next_close": 2.87,
+     "hold_board": 2.87,
+     "nx_sealed": false,
+     "nx_date": "20260817"
+    }
+   ]
+  },
+  {
+   "name": "宇顺电子",
+   "code": "002289.SZ",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 3.32,
+     "hold_board": 3.32,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.32,
+     "next_close": -1.15,
+     "hold_board": -1.15,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 80,
+     "gap": 5,
+     "shrink": 0.95,
+     "breakout": true,
+     "next_open": -0.1,
+     "next_close": 5.61,
+     "hold_board": 5.61,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    }
+   ]
+  },
+  {
+   "name": "春光科技",
+   "code": "603657.SH",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 1.11,
+     "hold_board": 1.11,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 1.11,
+     "next_close": 7.77,
+     "hold_board": 7.77,
+     "nx_sealed": false,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.79,
+     "next_close": -6.57,
+     "hold_board": -6.57,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    }
+   ]
+  },
+  {
+   "name": "长缆科技",
+   "code": "002879.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": -4.83,
+     "hold_board": -4.83,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260803",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.36,
+     "next_close": 4.92,
+     "hold_board": 4.92,
+     "nx_sealed": false,
+     "nx_date": "20260804"
+    }
+   ]
+  },
+  {
+   "name": "共达电声",
+   "code": "002655.SZ",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.58,
+     "next_close": 10.0,
+     "hold_board": 13.12,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 1.96,
+     "next_close": 2.84,
+     "hold_board": 2.84,
+     "nx_sealed": false,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.61,
+     "next_close": -6.33,
+     "hold_board": -6.33,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "京基智农",
+   "code": "000048.SZ",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 1.54,
+     "next_close": -4.2,
+     "hold_board": -4.2,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 1.16,
+     "next_close": 6.81,
+     "hold_board": 6.81,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": -1.16,
+     "hold_board": -1.16,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    }
+   ]
+  },
+  {
+   "name": "甘咨询",
+   "code": "000779.SZ",
+   "events": [
+    {
+     "t": "20260728",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -1.03,
+     "next_close": 4.54,
+     "hold_board": 4.54,
+     "nx_sealed": false,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -6.05,
+     "next_close": -6.36,
+     "hold_board": -6.36,
+     "nx_sealed": false,
+     "nx_date": "20260812"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 2.54,
+     "next_close": 3.39,
+     "hold_board": 3.39,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    }
+   ]
+  },
+  {
+   "name": "*ST未名",
+   "code": "002581.SZ",
+   "events": [
+    {
+     "t": "20260813",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.23,
+     "next_close": 2.81,
+     "hold_board": 2.81,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 85,
+     "gap": 2,
+     "shrink": 1.22,
+     "breakout": true,
+     "next_open": -0.62,
+     "next_close": 0.41,
+     "hold_board": 0.41,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260820",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -3.85,
+     "next_close": 1.22,
+     "hold_board": 1.22,
+     "nx_sealed": false,
+     "nx_date": "20260821"
+    }
+   ]
+  },
+  {
+   "name": "美利云",
+   "code": "000815.SZ",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.74,
+     "next_close": 10.01,
+     "hold_board": 24.18,
+     "nx_sealed": true,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260803",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 7.78,
+     "next_close": 10.0,
+     "hold_board": 12.87,
+     "nx_sealed": true,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 3.43,
+     "next_close": 2.61,
+     "hold_board": 2.61,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    }
+   ]
+  },
+  {
+   "name": "博杰股份",
+   "code": "002975.SZ",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.99,
+     "next_close": 10.0,
+     "hold_board": 27.33,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 3.5,
+     "next_close": 10.0,
+     "hold_board": 15.75,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 2.35,
+     "next_close": 5.23,
+     "hold_board": 5.23,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    }
+   ]
+  },
+  {
+   "name": "中材科技",
+   "code": "002080.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -3.74,
+     "next_close": -9.99,
+     "hold_board": -9.99,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 1.78,
+     "next_close": 10.01,
+     "hold_board": 16.11,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -0.1,
+     "next_close": 5.55,
+     "hold_board": 5.55,
+     "nx_sealed": false,
+     "nx_date": "20260806"
+    }
+   ]
+  },
+  {
+   "name": "ST宁科",
+   "code": "600165.SH",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 2.06,
+     "next_close": -0.82,
+     "hold_board": -0.82,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260818",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 8.84,
+     "next_close": 3.74,
+     "hold_board": 3.74,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "合锻智能",
+   "code": "603011.SH",
+   "events": [
+    {
+     "t": "20260803",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 6.72,
+     "next_close": 4.52,
+     "hold_board": 4.52,
+     "nx_sealed": false,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.44,
+     "next_close": 5.6,
+     "hold_board": 5.6,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.04,
+     "next_close": -4.65,
+     "hold_board": -4.65,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    }
+   ]
+  },
+  {
+   "name": "金一文化",
+   "code": "002721.SZ",
+   "events": [
+    {
+     "t": "20260806",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.86,
+     "next_close": 4.76,
+     "hold_board": 4.76,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 60,
+     "gap": 3,
+     "shrink": 16.71,
+     "breakout": false,
+     "next_open": -2.3,
+     "next_close": -1.31,
+     "hold_board": -1.31,
+     "nx_sealed": false,
+     "nx_date": "20260812"
+    }
+   ]
+  },
+  {
+   "name": "华西股份",
+   "code": "000936.SZ",
+   "events": [
+    {
+     "t": "20260813",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.94,
+     "next_close": 9.94,
+     "hold_board": 9.94,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    }
+   ]
+  },
+  {
+   "name": "招金黄金",
+   "code": "000506.SZ",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 2.41,
+     "next_close": 1.31,
+     "hold_board": 1.31,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.77,
+     "next_close": 9.98,
+     "hold_board": 4.19,
+     "nx_sealed": true,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 5.32,
+     "next_close": -5.27,
+     "hold_board": -5.27,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    }
+   ]
+  },
+  {
+   "name": "瑞康医药",
+   "code": "002589.SZ",
+   "events": [
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.28,
+     "next_close": 9.87,
+     "hold_board": 9.87,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    }
+   ]
+  },
+  {
+   "name": "中交发展",
+   "code": "600520.SH",
+   "events": []
+  },
+  {
+   "name": "桂发祥",
+   "code": "002820.SZ",
+   "events": [
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.96,
+     "next_close": 9.96,
+     "hold_board": 8.88,
+     "nx_sealed": true,
+     "nx_date": "20260817"
+    },
+    {
+     "t": "20260817",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.04,
+     "next_close": 10.04,
+     "hold_board": -0.99,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -2.2,
+     "next_close": -10.02,
+     "hold_board": -10.02,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "中石科技",
+   "code": "300684.SZ",
+   "events": [
+    {
+     "t": "20260814",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 20.0,
+     "next_close": 20.0,
+     "hold_board": 28.55,
+     "nx_sealed": true,
+     "nx_date": "20260817"
+    },
+    {
+     "t": "20260817",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 19.53,
+     "next_close": 20.0,
+     "hold_board": 7.13,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -7.02,
+     "next_close": -10.73,
+     "hold_board": -10.73,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "共进股份",
+   "code": "603118.SH",
+   "events": [
+    {
+     "t": "20260813",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 2.51,
+     "next_close": 10.03,
+     "hold_board": 19.11,
+     "nx_sealed": true,
+     "nx_date": "20260814"
+    },
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 9.68,
+     "next_close": 10.02,
+     "hold_board": 8.26,
+     "nx_sealed": true,
+     "nx_date": "20260817"
+    },
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 4.3,
+     "next_close": -1.6,
+     "hold_board": -1.6,
+     "nx_sealed": false,
+     "nx_date": "20260818"
+    }
+   ]
+  },
+  {
+   "name": "国风新材",
+   "code": "000859.SZ",
+   "events": [
+    {
+     "t": "20260728",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -1.66,
+     "next_close": -6.75,
+     "hold_board": -6.75,
+     "nx_sealed": false,
+     "nx_date": "20260729"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.31,
+     "next_close": 9.97,
+     "hold_board": 7.03,
+     "nx_sealed": true,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -0.95,
+     "next_close": -2.67,
+     "hold_board": -2.67,
+     "nx_sealed": false,
+     "nx_date": "20260812"
+    }
+   ]
+  },
+  {
+   "name": "立航科技",
+   "code": "603261.SH",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 5.51,
+     "next_close": 10.0,
+     "hold_board": 9.83,
+     "nx_sealed": true,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260803",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 5.71,
+     "next_close": -0.16,
+     "hold_board": -0.16,
+     "nx_sealed": false,
+     "nx_date": "20260804"
+    },
+    {
+     "t": "20260813",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 1.1,
+     "next_close": -2.21,
+     "hold_board": -2.21,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    }
+   ]
+  },
+  {
+   "name": "永安药业",
+   "code": "002365.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 2.89,
+     "next_close": 2.03,
+     "hold_board": 2.03,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -2.38,
+     "next_close": -7.85,
+     "hold_board": -7.85,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    },
+    {
+     "t": "20260820",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 2.49,
+     "breakout": true,
+     "next_open": 1.08,
+     "next_close": 5.27,
+     "hold_board": 5.27,
+     "nx_sealed": false,
+     "nx_date": "20260821"
+    }
+   ]
+  },
+  {
+   "name": "威派格",
+   "code": "603956.SH",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 6.07,
+     "next_close": 4.55,
+     "hold_board": 4.55,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260813",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -1.88,
+     "next_close": -8.26,
+     "hold_board": -8.26,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    }
+   ]
+  },
+  {
+   "name": "凯撒文化",
+   "code": "002425.SZ",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.16,
+     "next_close": 10.16,
+     "hold_board": 10.48,
+     "nx_sealed": true,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260805",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.09,
+     "next_close": 10.09,
+     "hold_board": 0.29,
+     "nx_sealed": true,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260806",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": -8.9,
+     "hold_board": -8.9,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    }
+   ]
+  },
+  {
+   "name": "五洲医疗",
+   "code": "301234.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 5.01,
+     "next_close": 10.28,
+     "hold_board": 10.28,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -1.58,
+     "next_close": 9.89,
+     "hold_board": 9.89,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    }
+   ]
+  },
+  {
+   "name": "盛达资源",
+   "code": "000603.SZ",
+   "events": [
+    {
+     "t": "20260805",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.98,
+     "next_close": 7.38,
+     "hold_board": 7.38,
+     "nx_sealed": false,
+     "nx_date": "20260806"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.26,
+     "next_close": 7.81,
+     "hold_board": 7.81,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 1.07,
+     "next_close": 8.88,
+     "hold_board": 8.88,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "先导基电",
+   "code": "600641.SH",
+   "events": [
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 6.78,
+     "next_close": 10.01,
+     "hold_board": 3.8,
+     "nx_sealed": true,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -1.98,
+     "next_close": -5.64,
+     "hold_board": -5.64,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 5.1,
+     "breakout": true,
+     "next_open": 5.77,
+     "next_close": -4.76,
+     "hold_board": -4.76,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    }
+   ]
+  },
+  {
+   "name": "*ST萃华",
+   "code": "002731.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -2.19,
+     "next_close": -2.73,
+     "hold_board": -2.73,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260730",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -3.88,
+     "next_close": -4.37,
+     "hold_board": -4.37,
+     "nx_sealed": false,
+     "nx_date": "20260731"
+    }
+   ]
+  },
+  {
+   "name": "盈新发展",
+   "code": "000620.SZ",
+   "events": [
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.95,
+     "next_close": 2.31,
+     "hold_board": 2.31,
+     "nx_sealed": false,
+     "nx_date": "20260817"
+    },
+    {
+     "t": "20260818",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -4.69,
+     "next_close": 3.81,
+     "hold_board": 3.81,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "金牛化工",
+   "code": "600722.SH",
+   "events": [
+    {
+     "t": "20260729",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.98,
+     "next_close": 6.77,
+     "hold_board": 6.77,
+     "nx_sealed": false,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.64,
+     "next_close": -3.12,
+     "hold_board": -3.12,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 80,
+     "gap": 6,
+     "shrink": 0.95,
+     "breakout": true,
+     "next_open": -3.23,
+     "next_close": -1.38,
+     "hold_board": -1.38,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    }
+   ]
+  },
+  {
+   "name": "宿迁联盛",
+   "code": "603065.SH",
+   "events": [
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -2.54,
+     "next_close": -4.17,
+     "hold_board": -4.17,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 80,
+     "gap": 6,
+     "shrink": 0.83,
+     "breakout": true,
+     "next_open": -6.29,
+     "next_close": -9.99,
+     "hold_board": -9.99,
+     "nx_sealed": false,
+     "nx_date": "20260819"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 92,
+     "gap": 3,
+     "shrink": 0.59,
+     "breakout": true,
+     "next_open": 2.02,
+     "next_close": 8.54,
+     "hold_board": 8.54,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "宇环数控",
+   "code": "002903.SZ",
+   "events": [
+    {
+     "t": "20260729",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.72,
+     "next_close": -8.51,
+     "hold_board": -8.51,
+     "nx_sealed": false,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260820",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.36,
+     "next_close": 10.01,
+     "hold_board": 6.55,
+     "nx_sealed": true,
+     "nx_date": "20260821"
+    },
+    {
+     "t": "20260821",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 1.48,
+     "next_close": -3.14,
+     "hold_board": -3.14,
+     "nx_sealed": false,
+     "nx_date": "20260824"
+    }
+   ]
+  },
+  {
+   "name": "ST龙大",
+   "code": "",
+   "events": []
+  },
+  {
+   "name": "罗曼股份",
+   "code": "605289.SH",
+   "events": [
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.29,
+     "next_close": -4.49,
+     "hold_board": -4.49,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.49,
+     "next_close": -1.33,
+     "hold_board": -1.33,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 90,
+     "gap": 3,
+     "shrink": 0.91,
+     "breakout": true,
+     "next_open": 0.65,
+     "next_close": -2.23,
+     "hold_board": -2.23,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    }
+   ]
+  },
+  {
+   "name": "惠天热电",
+   "code": "000692.SZ",
+   "events": [
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.72,
+     "next_close": 2.12,
+     "hold_board": 2.12,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    }
+   ]
+  },
+  {
+   "name": "江河集团",
+   "code": "601886.SH",
+   "events": [
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.11,
+     "next_close": 4.73,
+     "hold_board": 4.73,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.38,
+     "next_close": 10.02,
+     "hold_board": 12.12,
+     "nx_sealed": true,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260813",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 1.91,
+     "hold_board": 1.91,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    }
+   ]
+  },
+  {
+   "name": "中电鑫龙",
+   "code": "002298.SZ",
+   "events": [
+    {
+     "t": "20260729",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 3,
+     "shrink": 2.17,
+     "breakout": true,
+     "next_open": 2.62,
+     "next_close": 0.46,
+     "hold_board": 0.46,
+     "nx_sealed": false,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 1.71,
+     "next_close": -2.36,
+     "hold_board": -2.36,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    }
+   ]
+  },
+  {
+   "name": "海鸥股份",
+   "code": "603269.SH",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.49,
+     "next_close": 2.03,
+     "hold_board": 2.03,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.84,
+     "next_close": 2.77,
+     "hold_board": 2.77,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 2.39,
+     "breakout": true,
+     "next_open": 3.13,
+     "next_close": 0.28,
+     "hold_board": 0.28,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    }
+   ]
+  },
+  {
+   "name": "*ST清越",
+   "code": "688496.SH",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 14.61,
+     "next_close": 20.22,
+     "hold_board": 16.85,
+     "nx_sealed": true,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260728",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 12.15,
+     "next_close": -2.8,
+     "hold_board": -2.8,
+     "nx_sealed": false,
+     "nx_date": "20260729"
+    }
+   ]
+  },
+  {
+   "name": "武汉凡谷",
+   "code": "002194.SZ",
+   "events": [
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.96,
+     "next_close": 10.01,
+     "hold_board": -0.89,
+     "nx_sealed": true,
+     "nx_date": "20260807"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -4.95,
+     "next_close": -9.91,
+     "hold_board": -9.91,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 80,
+     "gap": 2,
+     "shrink": 1.41,
+     "breakout": true,
+     "next_open": -2.73,
+     "next_close": 0.27,
+     "hold_board": 0.27,
+     "nx_sealed": false,
+     "nx_date": "20260812"
+    }
+   ]
+  },
+  {
+   "name": "安妮股份",
+   "code": "002235.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 6.37,
+     "hold_board": 6.37,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.36,
+     "next_close": 0.25,
+     "hold_board": 0.25,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 4.61,
+     "hold_board": 4.61,
+     "nx_sealed": false,
+     "nx_date": "20260812"
+    }
+   ]
+  },
+  {
+   "name": "哈药股份",
+   "code": "600664.SH",
+   "events": [
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.94,
+     "next_close": 9.94,
+     "hold_board": 9.94,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 6.53,
+     "hold_board": 6.53,
+     "nx_sealed": false,
+     "nx_date": "20260812"
+    }
+   ]
+  },
+  {
+   "name": "安记食品",
+   "code": "603696.SH",
+   "events": [
+    {
+     "t": "20260729",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 7.23,
+     "next_close": 1.58,
+     "hold_board": 1.58,
+     "nx_sealed": false,
+     "nx_date": "20260730"
+    },
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 3.53,
+     "breakout": true,
+     "next_open": -4.02,
+     "next_close": -1.71,
+     "hold_board": -1.71,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260812",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -1.69,
+     "next_close": 6.23,
+     "hold_board": 6.23,
+     "nx_sealed": false,
+     "nx_date": "20260813"
+    }
+   ]
+  },
+  {
+   "name": "立新能源",
+   "code": "001258.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.49,
+     "next_close": -9.98,
+     "hold_board": -9.98,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -3.31,
+     "next_close": 10.01,
+     "hold_board": 6.77,
+     "nx_sealed": true,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -3.01,
+     "next_close": -2.95,
+     "hold_board": -2.95,
+     "nx_sealed": false,
+     "nx_date": "20260812"
+    }
+   ]
+  },
+  {
+   "name": "恒尚节能",
+   "code": "603137.SH",
+   "events": [
+    {
+     "t": "20260730",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 10.0,
+     "next_close": -4.62,
+     "hold_board": -4.62,
+     "nx_sealed": false,
+     "nx_date": "20260731"
+    },
+    {
+     "t": "20260807",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 3.05,
+     "next_close": 0.29,
+     "hold_board": 0.29,
+     "nx_sealed": false,
+     "nx_date": "20260810"
+    },
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 85,
+     "gap": 2,
+     "shrink": 1.49,
+     "breakout": true,
+     "next_open": -1.12,
+     "next_close": 2.83,
+     "hold_board": 2.83,
+     "nx_sealed": false,
+     "nx_date": "20260812"
+    }
+   ]
+  },
+  {
+   "name": "城地香江",
+   "code": "603887.SH",
+   "events": [
+    {
+     "t": "20260811",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 9.98,
+     "next_close": 9.98,
+     "hold_board": 15.5,
+     "nx_sealed": true,
+     "nx_date": "20260812"
+    },
+    {
+     "t": "20260812",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.04,
+     "next_close": 10.04,
+     "hold_board": 5.02,
+     "nx_sealed": true,
+     "nx_date": "20260813"
+    },
+    {
+     "t": "20260813",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 2.96,
+     "next_close": -4.56,
+     "hold_board": -4.56,
+     "nx_sealed": false,
+     "nx_date": "20260814"
+    }
+   ]
+  },
+  {
+   "name": "*ST宝馨",
+   "code": "002514.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.0,
+     "next_close": 2.91,
+     "hold_board": 2.91,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260729",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 70,
+     "gap": 2,
+     "shrink": 1.84,
+     "breakout": true,
+     "next_open": -1.54,
+     "next_close": -9.74,
+     "hold_board": -9.74,
+     "nx_sealed": false,
+     "nx_date": "20260730"
+    }
+   ]
+  },
+  {
+   "name": "泛微网络",
+   "code": "603039.SH",
+   "events": [
+    {
+     "t": "20260730",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -3.0,
+     "next_close": 9.99,
+     "hold_board": 16.67,
+     "nx_sealed": true,
+     "nx_date": "20260731"
+    },
+    {
+     "t": "20260731",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 6.89,
+     "next_close": 6.07,
+     "hold_board": 6.07,
+     "nx_sealed": false,
+     "nx_date": "20260803"
+    },
+    {
+     "t": "20260806",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -2.24,
+     "next_close": -7.17,
+     "hold_board": -7.17,
+     "nx_sealed": false,
+     "nx_date": "20260807"
+    }
+   ]
+  },
+  {
+   "name": "莲花控股",
+   "code": "600186.SH",
+   "events": [
+    {
+     "t": "20260804",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 0.54,
+     "next_close": 4.13,
+     "hold_board": 4.13,
+     "nx_sealed": false,
+     "nx_date": "20260805"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -0.09,
+     "next_close": -2.48,
+     "hold_board": -2.48,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    },
+    {
+     "t": "20260814",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": true,
+     "score": 75,
+     "gap": 4,
+     "shrink": 1.34,
+     "breakout": true,
+     "next_open": 4.99,
+     "next_close": 9.23,
+     "hold_board": 9.23,
+     "nx_sealed": false,
+     "nx_date": "20260817"
+    }
+   ]
+  },
+  {
+   "name": "贤丰控股",
+   "code": "002141.SZ",
+   "events": [
+    {
+     "t": "20260727",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 6.63,
+     "next_close": 0.0,
+     "hold_board": 0.0,
+     "nx_sealed": false,
+     "nx_date": "20260728"
+    },
+    {
+     "t": "20260810",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -3.12,
+     "next_close": 2.38,
+     "hold_board": 2.38,
+     "nx_sealed": false,
+     "nx_date": "20260811"
+    }
+   ]
+  },
+  {
+   "name": "学大教育",
+   "code": "000526.SZ",
+   "events": [
+    {
+     "t": "20260730",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": -6.14,
+     "next_close": -2.15,
+     "hold_board": -2.15,
+     "nx_sealed": false,
+     "nx_date": "20260731"
+    },
+    {
+     "t": "20260818",
+     "yizi": true,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 4.98,
+     "next_close": 9.99,
+     "hold_board": 5.66,
+     "nx_sealed": true,
+     "nx_date": "20260819"
+    },
+    {
+     "t": "20260819",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -3.25,
+     "next_close": -3.94,
+     "hold_board": -3.94,
+     "nx_sealed": false,
+     "nx_date": "20260820"
+    }
+   ]
+  },
+  {
+   "name": "红四方",
+   "code": "603395.SH",
+   "events": [
+    {
+     "t": "20260817",
+     "yizi": false,
+     "prev_sealed": false,
+     "hit": false,
+     "next_open": 8.51,
+     "next_close": 10.02,
+     "hold_board": 27.88,
+     "nx_sealed": true,
+     "nx_date": "20260818"
+    },
+    {
+     "t": "20260818",
+     "yizi": false,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": 10.02,
+     "next_close": 10.02,
+     "hold_board": 16.24,
+     "nx_sealed": true,
+     "nx_date": "20260819"
+    },
+    {
+     "t": "20260819",
+     "yizi": true,
+     "prev_sealed": true,
+     "hit": false,
+     "next_open": -6.21,
+     "next_close": 5.66,
+     "hold_board": 5.66,
+     "nx_sealed": false,
+     "nx_date": "20260820"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>趋势因子 · 沪深主板</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg-start:#f8f9ff; --bg-end:#eef2f7;
+      --surface-anchor:rgb(255 255 255 / .86); --surface-support:rgb(255 255 255 / .91); --surface-content:#fff;
+      --text:#17202b; --text-2:#526071; --text-3:#748195; --line:rgb(68 84 105 / .15);
+      --blue:#2563eb; --blue-soft:#eff4ff; --up:#d92d20; --down:#16805f;
+      --warning:#b54708; --warning-soft:#fff4e5; --danger:#b42318; --danger-soft:#fef3f2;
+      --success:#067647; --success-soft:#ecfdf3; --purple:#6941c6;
+      --r-panel:30px; --r-card:18px; --shadow-anchor:10px 20px 42px rgb(49 72 99 / .11), 0 2px 8px rgb(49 72 99 / .05);
+      --shadow-support:0 12px 28px rgb(49 72 99 / .075);
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; min-width:320px; color:var(--text); background:radial-gradient(circle at 8% 0%,rgb(212 226 255 / .7),transparent 31%),radial-gradient(circle at 96% 6%,rgb(255 225 208 / .45),transparent 25%),linear-gradient(145deg,var(--bg-start),var(--bg-end)); font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif; font-variant-numeric:tabular-nums lining-nums; }
+    button,a { font:inherit; }
+    button { color:inherit; }
+    .shell { width:min(1380px,calc(100% - 40px)); margin:0 auto; padding:24px 0 46px; }
+    .tabs { display:inline-flex; align-items:center; gap:5px; padding:4px; border:1px solid var(--line); border-radius:14px; background:rgb(255 255 255 / .76); box-shadow:0 5px 18px rgb(29 42 68 / .05); }
+    .tab { display:inline-flex; align-items:center; min-height:36px; padding:0 14px; border-radius:10px; color:var(--text-2); text-decoration:none; font-size:13px; font-weight:760; }
+    .tab:hover,.tab:focus-visible { color:var(--blue); background:var(--blue-soft); outline:none; }
+    .tab.active { color:var(--blue); background:#fff; box-shadow:0 2px 9px rgb(23 35 58 / .09); }
+    .topbar { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin:22px 0 17px; }
+    .eyebrow { margin:0 0 7px; color:var(--blue); font-size:11px; font-weight:850; letter-spacing:.14em; }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { margin-bottom:7px; font-size:clamp(27px,3vw,38px); letter-spacing:-.045em; }
+    h2 { margin-bottom:5px; font-size:20px; letter-spacing:-.025em; }
+    h3 { margin-bottom:7px; font-size:15px; }
+    .subtitle { margin:0; color:var(--text-2); font-size:13px; line-height:1.65; }
+    .data-state { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:8px; }
+    .pill { display:inline-flex; align-items:center; gap:7px; min-height:29px; padding:0 10px; border:1px solid var(--line); border-radius:999px; color:var(--text-2); background:rgb(255 255 255 / .78); font-size:11.5px; white-space:nowrap; }
+    .dot { width:7px; height:7px; border-radius:50%; background:var(--warning); }
+    .dot.success { background:var(--success); }
+    .dot.danger { background:var(--danger); }
+    .profit-na { color:var(--text-3); font-size:10.5px; }
+    .refresh { cursor:pointer; min-height:32px; padding:0 12px; border:1px solid rgb(37 99 235 / .2); border-radius:999px; color:var(--blue); background:var(--blue-soft); font-size:11.5px; font-weight:800; }
+    .refresh:hover,.refresh:focus-visible { background:#e5edff; outline:2px solid var(--blue); outline-offset:2px; }
+    .refresh:disabled { cursor:wait; color:var(--text-3); background:#f2f4f7; }
+    .anchor { position:relative; overflow:hidden; padding:27px; border:1px solid rgb(255 255 255 / .88); border-radius:var(--r-panel); background:linear-gradient(135deg,var(--surface-anchor),rgb(247 250 255 / .82)); box-shadow:var(--shadow-anchor); -webkit-backdrop-filter:blur(28px) saturate(125%); backdrop-filter:blur(28px) saturate(125%); }
+    .anchor::after { content:""; position:absolute; right:-50px; top:-70px; width:260px; height:260px; border-radius:50%; background:radial-gradient(circle,rgb(37 99 235 / .11),transparent 68%); pointer-events:none; }
+    .anchor-top { position:relative; z-index:1; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; }
+    .anchor h1 { margin-bottom:10px; }
+    .scope-line { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+    .scope-tag { display:inline-flex; align-items:center; min-height:29px; padding:0 10px; border-radius:9px; color:var(--text-2); background:#f1f5fb; font-size:11.5px; }
+    .scope-tag strong { margin-left:5px; color:var(--text); }
+    .engine-status { display:inline-flex; align-items:center; gap:7px; min-height:31px; padding:0 11px; border:1px solid var(--line); border-radius:999px; color:var(--warning); background:var(--warning-soft); font-size:11.5px; font-weight:850; white-space:nowrap; }
+    .engine-status::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--warning); }
+    .engine-status.ready { color:var(--success); background:var(--success-soft); border-color:rgb(6 118 71 / .2); }
+    .engine-status.ready::before { background:var(--success); }
+    .engine-status.error { color:var(--danger); background:var(--danger-soft); border-color:rgb(180 35 24 / .2); }
+    .engine-status.error::before { background:var(--danger); }
+    .decision-band { position:relative; z-index:1; display:grid; grid-template-columns:minmax(180px,.7fr) minmax(260px,1.3fr) auto; align-items:center; gap:18px; margin-top:22px; padding:18px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .decision-label { display:block; color:var(--text-3); font-size:10.5px; font-weight:800; letter-spacing:.08em; }
+    .decision-mode { display:block; margin-top:5px; color:var(--warning); font-size:27px; line-height:1.1; letter-spacing:-.04em; }
+    .decision-copy strong { display:block; font-size:14px; }
+    .decision-copy p { margin:5px 0 0; color:var(--text-2); font-size:11.5px; line-height:1.6; }
+    .decision-gate { justify-self:end; color:var(--text-2); font-size:11px; line-height:1.65; text-align:right; }
+    .decision-gate strong { color:var(--text); }
+    .anchor[data-tone="ready"] .decision-mode { color:var(--blue); }
+    .anchor[data-tone="danger"] .decision-mode { color:var(--danger); }
+    .stat-grid { position:relative; z-index:1; display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:18px; }
+    .stat-card { min-height:92px; padding:14px; border:1px solid var(--line); border-radius:15px; background:#fff; }
+    .stat-card span { display:block; color:var(--text-3); font-size:10.5px; }
+    .stat-card strong { display:block; margin-top:9px; font-size:22px; letter-spacing:-.035em; }
+    .stat-card small { display:block; margin-top:4px; color:var(--text-3); font-size:10px; }
+    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin:25px 0 11px; }
+    .section-head p { margin:0; color:var(--text-3); font-size:11.5px; line-height:1.55; }
+    .panel { border:1px solid rgb(255 255 255 / .9); border-radius:var(--r-card); background:var(--surface-support); box-shadow:var(--shadow-support); }
+    .factor-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+    .factor-card { min-height:165px; padding:17px; border:1px solid var(--line); border-radius:15px; background:#fff; }
+    .factor-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .factor-card h3 { margin:0; }
+    .weight { display:inline-flex; align-items:center; min-height:23px; padding:0 7px; border-radius:999px; color:var(--blue); background:var(--blue-soft); font-size:10px; font-weight:850; }
+    .factor-card p { margin:10px 0 0; color:var(--text-2); font-size:12px; line-height:1.65; }
+    .factor-formula { margin-top:11px; padding:8px 9px; border-radius:9px; color:var(--text); background:#f5f7fa; font-size:10.5px; line-height:1.55; }
+    .factor-card small { display:block; margin-top:9px; color:var(--text-3); font-size:10px; line-height:1.5; }
+    .strategy-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+    .strategy-card { padding:18px; border:1px solid var(--line); border-radius:15px; background:#fff; }
+    .strategy-card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+    .strategy-card h3 { margin:0; font-size:16px; }
+    .strategy-card-head small { color:var(--text-3); font-size:10px; }
+    .strategy-return { display:flex; align-items:flex-end; gap:8px; margin-top:15px; }
+    .strategy-return strong { color:var(--up); font-size:27px; letter-spacing:-.04em; }
+    .strategy-return span { padding-bottom:3px; color:var(--text-3); font-size:10.5px; }
+    .strategy-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-top:13px; }
+    .strategy-metric { padding:9px; border-radius:10px; background:#f5f7fa; }
+    .strategy-metric span { display:block; color:var(--text-3); font-size:9px; }
+    .strategy-metric strong { display:block; margin-top:4px; font-size:12px; }
+    .strategy-note { margin:12px 0 0; color:var(--text-2); font-size:10.5px; line-height:1.6; }
+    .table-panel { padding:18px; }
+    .table-note { margin:-2px 0 13px; color:var(--text-3); font-size:11px; line-height:1.6; }
+    .table-wrap { overflow-x:auto; }
+    table { width:100%; min-width:930px; border-collapse:collapse; font-size:12px; }
+    th { padding:0 9px 10px; color:var(--text-3); font-size:10.5px; font-weight:800; text-align:left; white-space:nowrap; }
+    td { padding:12px 9px; border-top:1px solid var(--line); vertical-align:middle; }
+    th:first-child,td:first-child { padding-left:0; }
+    th:last-child,td:last-child { padding-right:0; }
+    .stock-button { width:100%; display:block; padding:0; border:0; background:transparent; cursor:pointer; text-align:left; }
+    .stock-button:focus-visible { outline:2px solid var(--blue); outline-offset:4px; border-radius:8px; }
+    .stock-name { display:flex; align-items:center; gap:8px; min-width:175px; }
+    .rank { display:grid; width:24px; height:24px; place-items:center; border-radius:8px; color:var(--blue); background:var(--blue-soft); font-size:10px; font-weight:850; }
+    .stock-name strong { display:block; font-size:12.5px; }
+    .stock-name small { display:block; margin-top:3px; color:var(--text-3); font-size:10px; }
+    .selected-row td { background:var(--blue-soft); }
+    .selected-row td:first-child { border-radius:10px 0 0 10px; }
+    .selected-row td:last-child { border-radius:0 10px 10px 0; }
+    .score { display:flex; align-items:center; gap:8px; min-width:112px; }
+    .score i { display:block; width:72px; height:7px; overflow:hidden; border-radius:999px; background:#e8edf4; }
+    .score i::after { content:""; display:block; width:var(--score,0%); height:100%; border-radius:999px; background:var(--blue); }
+    .tag { display:inline-flex; align-items:center; min-height:25px; padding:0 8px; border-radius:999px; color:var(--text-2); background:#f1f4f8; font-size:10.5px; font-weight:800; white-space:nowrap; }
+    .tag.ready { color:var(--success); background:var(--success-soft); }
+    .tag.watch { color:var(--blue); background:var(--blue-soft); }
+    .tag.pending { color:var(--warning); background:var(--warning-soft); }
+    .tag.blocked { color:var(--danger); background:var(--danger-soft); }
+    .profit strong { display:block; font-size:12px; }
+    .profit small { display:block; margin-top:3px; color:var(--text-3); font-size:9.5px; white-space:nowrap; }
+    .up { color:var(--up); } .down { color:var(--down); }
+    .empty { padding:28px 10px; color:var(--text-2); font-size:12px; line-height:1.75; }
+    .detail-layout { display:grid; grid-template-columns:1fr 1.15fr; gap:15px; }
+    .detail-panel { padding:20px; }
+    .detail-title { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; }
+    .detail-title h3 { margin:0; font-size:19px; }
+    .detail-title p { margin:5px 0 0; color:var(--text-3); font-size:11px; }
+    .detail-score { color:var(--blue); font-size:27px; font-weight:850; letter-spacing:-.04em; }
+    .detail-factors { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:17px; }
+    .detail-factor { padding:10px; border-radius:10px; background:#f5f7fa; }
+    .detail-factor span { display:block; color:var(--text-3); font-size:9.5px; }
+    .detail-factor strong { display:block; margin-top:4px; font-size:13px; }
+    .detail-note { margin:15px 0 0; padding:11px 12px; border-radius:11px; color:var(--text-2); background:var(--blue-soft); font-size:11.5px; line-height:1.6; }
+    .detail-profit { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:14px; }
+    .profit-box { padding:12px; border:1px solid var(--line); border-radius:12px; background:#fff; }
+    .profit-box span { display:block; color:var(--text-3); font-size:10px; }
+    .profit-box strong { display:block; margin-top:6px; font-size:17px; }
+    .profit-box small { display:block; margin-top:4px; color:var(--text-3); font-size:9.5px; line-height:1.45; }
+    .footer { margin-top:20px; padding:14px 17px; border:1px solid var(--line); border-radius:14px; color:var(--text-2); background:rgb(255 255 255 / .72); font-size:11.5px; line-height:1.7; }
+    .footer strong { color:var(--text); }
+    @media (max-width:1050px) { .stat-grid { grid-template-columns:repeat(3,1fr); } .factor-grid { grid-template-columns:repeat(2,1fr); } .strategy-grid { grid-template-columns:1fr; } .detail-layout { grid-template-columns:1fr; } }
+    @media (max-width:620px) {
+      .shell { width:calc(100% - 24px); padding-top:14px; }
+      .tabs { width:100%; overflow:auto; }
+      .tab { flex:0 0 auto; padding:0 11px; }
+      .topbar { width:100%; min-width:0; align-items:flex-start; flex-direction:column; }
+      .data-state { width:100%; min-width:0; max-width:100%; justify-content:flex-start; }
+      .pill { min-width:0; max-width:100%; overflow:hidden; text-overflow:ellipsis; }
+      .anchor { padding:18px; border-radius:24px; -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px); }
+      .anchor-top { flex-direction:column; gap:14px; }
+      .decision-band { grid-template-columns:1fr; gap:10px; }
+      .decision-gate { justify-self:start; text-align:left; }
+      .stat-grid { grid-template-columns:1fr 1fr; }
+      .factor-grid { grid-template-columns:1fr; }
+      .section-head { align-items:flex-start; flex-direction:column; }
+      .table-panel,.detail-panel { padding:14px; }
+      table { min-width:0; }
+      th:nth-child(3),td:nth-child(3),th:nth-child(4),td:nth-child(4),th:nth-child(6),td:nth-child(6),th:nth-child(7),td:nth-child(7) { display:none; }
+      .detail-factors,.detail-profit { grid-template-columns:1fr 1fr; }
+    }
+    @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))) { .anchor { background:#fff; } }
+    @media (prefers-reduced-transparency:reduce) { .anchor { background:#fff; -webkit-backdrop-filter:none; backdrop-filter:none; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition-duration:.01ms!important; animation-duration:.01ms!important; } }
+  </style>
+  <link rel="stylesheet" href="./red_theme.css?v=20260826">
+</head>
+<body>
+  <main class="shell">
+    <nav class="dashboard-tabs" aria-label="看板页面">
+      <a class="dashboard-tab" href="./market_mode.html">行情模式</a>
+      <a class="dashboard-tab" href="./index.html">ETF轮动</a>
+      <a class="dashboard-tab" href="./industry_mainline_dashboard.html">行业主线</a>
+      <a class="dashboard-tab" href="./shortterm_dashboard.html">短线观察</a>
+      <a class="dashboard-tab active" href="./trend_engine.html" aria-current="page">趋势因子</a>
+      <a class="dashboard-tab" href="./growth_factor.html">成长因子</a>
+      <a class="dashboard-tab" href="./dividend_factor.html">红利因子</a>
+      <a class="dashboard-tab" href="./shortterm_factor_preview.html">短线因子</a>
+      <a class="dashboard-tab" href="./market_mode.html#daily-review">每日复盘</a>
+    </nav>
+
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">MAINBOARD TREND FACTORS</p>
+        <h1>趋势因子</h1>
+        <p class="subtitle">全沪深主板股票池的趋势结构、触发因子与个股历史赚钱效应。</p>
+      </div>
+      <div class="data-state">
+        <span class="pill"><i class="dot" id="source-dot"></i><span id="source-label">等待主板数据</span></span>
+        <span class="pill" id="data-date">数据日期 —</span>
+        <button class="refresh" id="refresh" type="button">刷新趋势数据</button>
+      </div>
+    </header>
+
+    <section class="anchor" aria-labelledby="scope-title">
+      <div class="anchor-top">
+        <div>
+          <p class="eyebrow">UNIVERSE SCOPE</p>
+          <h2 id="scope-title">沪深主板全市场</h2>
+          <p class="subtitle" id="scope-note">股票池口径：000/001/002/003、600/601/603/605 开头；排除科创板、创业板、北交所。</p>
+          <div class="scope-line"><span class="scope-tag">趋势页范围<strong id="scope-board">mainboard</strong></span><span class="scope-tag">数据状态<strong id="scope-status">未加载</strong></span></div>
+        </div>
+        <span class="engine-status" id="engine-status">未接入全主板日线</span>
+      </div>
+      <div class="decision-band" aria-live="polite">
+        <div><span class="decision-label">CURRENT MODE</span><strong class="decision-mode" id="mode-label">等待判定</strong></div>
+        <div class="decision-copy"><strong id="action-label">等待全主板数据</strong><p id="mode-reason">市场门控先于个股排名。</p></div>
+        <div class="decision-gate"><span>启用门槛</span><br><strong id="gate-rule">趋势宽度 ≥ 8% · 近20日上涨占比 ≥ 50%</strong></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><span>扫描股票</span><strong id="stocks-scanned">—</strong><small>主板文件池</small></div>
+        <div class="stat-card"><span>趋势宽度</span><strong id="trend-breadth">—</strong><small id="trend-count">达到结构门槛</small></div>
+        <div class="stat-card"><span>近20日上涨占比</span><strong id="positive-r20">—</strong><small>全主板横截面</small></div>
+        <div class="stat-card"><span>观察候选</span><strong id="candidate-count">—</strong><small>当前排名前20</small></div>
+        <div class="stat-card"><span>门控历史信号</span><strong id="signal-count">—</strong><small>36个历史截面</small></div>
+        <div class="stat-card"><span>优选10日效果</span><strong id="profit-label">—</strong><small>下一日开盘入场</small></div>
+      </div>
+    </section>
+
+    <div class="section-head"><div><h2>因子组成</h2><p>因子先在个股层面计算，再做主板横截面排名；短线、行业和ETF不参与个股趋势分。</p></div><p>数据密集区 · M2</p></div>
+    <section class="factor-grid" aria-label="趋势因子定义">
+      <article class="factor-card"><div class="factor-card-top"><h3>市场门控</h3><span class="weight">前置开关</span></div><p>先判断全市场是否存在可持续的趋势赚钱环境。</p><div class="factor-formula">趋势宽度 ≥ 8%<br>近20日上涨股票占比 ≥ 50%</div><small>不达标时，个股分数只用于观察。</small></article>
+      <article class="factor-card"><div class="factor-card-top"><h3>趋势结构</h3><span class="weight">20%</span></div><p>判断个股是否处在多周期均线一致的上升结构。</p><div class="factor-formula">收盘价 ＞ MA20 ＞ MA60 ＞ MA120</div><small>避免把单日脉冲当成趋势。</small></article>
+      <article class="factor-card"><div class="factor-card-top"><h3>相对强度</h3><span class="weight">25%</span></div><p>在全主板横截面比较个股20/60日表现。</p><div class="factor-formula">R20、R60、R120<br>优先使用相对市场超额收益</div><small>趋势分不是绝对涨幅排名。</small></article>
+      <article class="factor-card"><div class="factor-card-top"><h3>突破位置</h3><span class="weight">20%</span></div><p>比较收盘价与信号日前60日高点，当前日不倒灌进突破线。</p><div class="factor-formula">突破距离 = 收盘价 ÷ 前60日高点 − 1</div><small>回测显示直接追突破暂不作为默认触发。</small></article>
+      <article class="factor-card"><div class="factor-card-top"><h3>量价确认</h3><span class="weight">15%</span></div><p>使用当日量比识别温和放量，并对极端拥挤降权。</p><div class="factor-formula">基础范围 0.65～3.00<br>延续触发 0.75～2.20</div><small>成交额低于1亿元不进入候选。</small></article>
+      <article class="factor-card"><div class="factor-card-top"><h3>健康与回踩</h3><span class="weight">10% + 10%</span></div><p>控制乖离与连续加速，识别多头结构内的健康延续和缩量承接。</p><div class="factor-formula">健康延续：距MA20 0～8%、R20 0～25%<br>回踩：距MA20 -1%～3.5%、量比 ≤ 1.15</div><small>标准回测优先采用健康延续10日；缩量回踩为次选。</small></article>
+    </section>
+
+    <div class="section-head"><div><h2>门控后的触发效果</h2><p>仅统计趋势宽度 ≥8% 且近20日上涨占比 ≥50% 的历史截面；按下一交易日开盘入场；默认采用标准回测优胜口径。</p></div><p>36个月度截面 · 未计费用</p></div>
+    <section class="strategy-grid" id="strategy-grid" aria-label="趋势触发历史效果"><div class="empty">等待历史门控统计。</div></section>
+
+    <div class="section-head"><div><h2>主板候选观察</h2><p>每一行都是一只股票；市场门控关闭时不产生可执行触发。</p></div><p>历史收益不代表未来结果</p></div>
+    <section class="panel table-panel">
+      <p class="table-note" id="table-note">只有标记为“沪深主板”的趋势数据才会显示在这里；未加载全主板数据时不展示短线代理候选。</p>
+      <div class="table-wrap"><table><thead><tr><th>个股</th><th>当前状态</th><th>结构分</th><th>5日后</th><th>10日后</th><th>20日后</th><th>历史信号</th></tr></thead><tbody id="candidate-body"></tbody></table></div>
+    </section>
+
+    <div class="section-head"><div><h2>个股因子详情</h2><p>点击上方个股后，查看该股票自己的趋势结构与历史事件表现。</p></div></div>
+    <section class="panel detail-panel" id="detail-panel" aria-live="polite"><div class="empty">尚未选择个股。加载全主板趋势数据后，点击排名中的股票查看详情。</div></section>
+
+    <footer class="footer"><strong>研究说明：</strong>本页面是趋势因子研究与回测工具，不构成买卖建议。赚钱效应以信号收盘后下一交易日开盘入场计算；样本不足时不输出正负结论。数据日期、股票池范围和来源必须以页面状态为准。</footer>
+  </main>
+  <script src="./trend_engine_page.js"></script>
+  <script src="./dashboard_nav.js?v=20260831"></script>
+</body>
+</html>

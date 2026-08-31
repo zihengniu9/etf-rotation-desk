@@ -1,0 +1,2 @@
+name,direction,status,factor_id,run_id,rank_ic,ic_mean,ic_ir,ic_p_value,monotonicity,long_excess_pct,turnover_pct,annual_cost_pct,net_excess_pct,long_sharpe,long_max_drawdown_pct,long_monthly_win_rate_pct,raw_result,error
+F-O08,1,completed,6a9034874b2c22a9c68c574a,6a903489bda27a65e29a57d8,0.0264,0.0202,0.2366,0.3749,0.78,12.73,8.24,1.245888,11.484112,0.1976,17.11,62.5,oos_formula.results\6a903489bda27a65e29a57d8.json,

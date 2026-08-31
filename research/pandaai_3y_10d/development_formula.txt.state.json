@@ -1,0 +1,59 @@
+{
+ "F-D08": {
+  "spec": "cbb65834ec99f3de",
+  "factor_id": "6a903335aefbfcab3cb44812",
+  "run_id": "6a9033a5aefbfcab3cb44816",
+  "raw_result": "development_formula.results\\6a9033a5aefbfcab3cb44816.json",
+  "metrics": {
+   "ic_mean": "0.0008",
+   "rank_ic": "0.0103",
+   "ic_ir": "0.0071",
+   "ic_p_value": "0.9580",
+   "monotonicity": "0.31",
+   "long_excess": 1.9,
+   "short_excess": 0.35,
+   "turnover": 7.2,
+   "long_sharpe": 0.8055,
+   "long_max_drawdown": 21.13,
+   "long_monthly_win_rate": 58.62
+  }
+ },
+ "F-D11": {
+  "spec": "ea1ebb1292667535",
+  "factor_id": "6a903336aefbfcab3cb44813",
+  "run_id": "6a9033d3bda27a65e29a57d4",
+  "raw_result": "development_formula.results\\6a9033d3bda27a65e29a57d4.json",
+  "metrics": {
+   "ic_mean": "-0.0012",
+   "rank_ic": "0.0110",
+   "ic_ir": "-0.0101",
+   "ic_p_value": "0.9391",
+   "monotonicity": "0.58",
+   "long_excess": -0.22,
+   "short_excess": 0.46,
+   "turnover": 5.7,
+   "long_sharpe": 0.7758,
+   "long_max_drawdown": 19.65,
+   "long_monthly_win_rate": 58.62
+  }
+ },
+ "F-D15": {
+  "spec": "bd5c2782e5f33a5a",
+  "factor_id": "6a90333781d3bc0d682965f0",
+  "run_id": "6a90340c4e214cea5e4a516b",
+  "raw_result": "development_formula.results\\6a90340c4e214cea5e4a516b.json",
+  "metrics": {
+   "ic_mean": "-0.0023",
+   "rank_ic": "0.0107",
+   "ic_ir": "-0.0183",
+   "ic_p_value": "0.8912",
+   "monotonicity": "0.79",
+   "long_excess": -0.83,
+   "short_excess": 1.5,
+   "turnover": 5.25,
+   "long_sharpe": 0.7754,
+   "long_max_drawdown": 18.52,
+   "long_monthly_win_rate": 58.62
+  }
+ }
+}

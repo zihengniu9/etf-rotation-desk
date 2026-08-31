@@ -1,0 +1,46 @@
+name: Validate dashboard bundle
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "scripts/**"
+      - "tests/**"
+      - "web/**"
+      - "outputs/**"
+      - ".github/workflows/validate-dashboard.yml"
+
+concurrency:
+  group: dashboard-validation
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Validate generated dashboard
+        env:
+          PYTHONPATH: src
+        run: |
+          python -m unittest discover -s tests -p "test_*.py"
+          node tests/web_dashboard.test.js
+          node tests/web_style.test.js
+          node tests/dashboard_hub.test.js
+          node tests/deploy_config.test.js
+          python scripts/build_static_site.py
+
+# Market-data collection intentionally runs on the user's Windows machine.
+# The project requires an authenticated local tun tunnel before every Wencai
+# request; GitHub-hosted runners cannot satisfy that local trust boundary.

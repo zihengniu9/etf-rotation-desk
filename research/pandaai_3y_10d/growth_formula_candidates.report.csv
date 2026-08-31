@@ -1,0 +1,8 @@
+name,direction,status,factor_id,run_id,rank_ic,ic_mean,ic_ir,ic_p_value,monotonicity,long_excess_pct,turnover_pct,annual_cost_pct,net_excess_pct,long_sharpe,long_max_drawdown_pct,long_monthly_win_rate_pct,raw_result,error
+F-B08,1,completed,6a9031f3d15a0fcf52537ec7,6a90320b81d3bc0d682965ec,0.0275,0.0227,0.4574,0.3642,0.54,13.46,0.41,0.061992,13.398008,6.1702,0.48,66.67,growth_formula_candidates.results\6a90320b81d3bc0d682965ec.json,
+F-B09,1,failed,6a9031f4d15a0fcf52537ec8,,,,,,,,,,,,,,,run: 因子分析执行失败（无详细错误信息）
+F-B11,1,pending,6a9031f51b8bbc7ad18c3635,,,,,,,,,,,,,,,
+F-B12,1,pending,6a9031f6d15a0fcf52537ec9,,,,,,,,,,,,,,,
+F-B13,1,pending,6a9031f7d15a0fcf52537eca,,,,,,,,,,,,,,,
+F-B14,1,pending,6a9031f9d15a0fcf52537ecb,,,,,,,,,,,,,,,
+F-B15,1,pending,6a9031fae5f1627648558b91,,,,,,,,,,,,,,,

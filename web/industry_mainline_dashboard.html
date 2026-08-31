@@ -2078,13 +2078,20 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="./red_theme.css?v=20260826" />
 </head>
 <body>
   <main class="shell">
     <nav class="dashboard-tabs" aria-label="看板页面">
-      <a class="dashboard-tab" href="./">ETF 轮动看板</a>
+      <a class="dashboard-tab" href="./market_mode.html">行情模式</a>
+      <a class="dashboard-tab" href="./index.html">ETF轮动</a>
       <a class="dashboard-tab active" href="./industry_mainline_dashboard.html" aria-current="page">行业主线</a>
       <a class="dashboard-tab" href="./shortterm_dashboard.html">短线观察</a>
+      <a class="dashboard-tab" href="./trend_engine.html">趋势因子</a>
+      <a class="dashboard-tab" href="./growth_factor.html">成长因子</a>
+      <a class="dashboard-tab" href="./dividend_factor.html">红利因子</a>
+      <a class="dashboard-tab" href="./shortterm_factor_preview.html">短线因子</a>
+      <a class="dashboard-tab" href="./market_mode.html#daily-review">每日复盘</a>
     </nav>
     <header class="topbar">
       <div>
@@ -2945,5 +2952,6 @@
     requestIndustryRefresh({ force: true, preserveDateSelection: false });
     bindIndustryAutoRefresh();
   </script>
+  <script src="./dashboard_nav.js?v=20260831"></script>
 </body>
 </html>

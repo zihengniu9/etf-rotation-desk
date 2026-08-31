@@ -1,0 +1,890 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>行情模式 · 决策页</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg-start:#f8f9ff; --bg-end:#eef2f7;
+      --surface-anchor:rgb(255 255 255 / .86); --surface-support:rgb(255 255 255 / .91); --surface-content:#fff;
+      --text:#17202b; --text-2:#526071; --text-3:#748195; --line:rgb(68 84 105 / .15);
+      --blue:#2563eb; --blue-soft:#eff4ff; --up:#d92d20; --down:#16805f;
+      --warning:#b54708; --warning-soft:#fff4e5; --danger:#b42318; --danger-soft:#fef3f2;
+      --success:#067647; --success-soft:#ecfdf3; --purple:#6941c6; --purple-soft:#f4f0ff;
+      --r-panel:30px; --r-card:18px; --r-control:13px;
+      --shadow-anchor:10px 20px 42px rgb(49 72 99 / .11), 0 2px 8px rgb(49 72 99 / .05);
+      --shadow-support:0 12px 28px rgb(49 72 99 / .075);
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; min-width:320px; color:var(--text);
+      background:
+        radial-gradient(circle at 8% 0%, rgb(212 226 255 / .7), transparent 31%),
+        radial-gradient(circle at 96% 6%, rgb(255 225 208 / .45), transparent 25%),
+        linear-gradient(145deg,var(--bg-start),var(--bg-end));
+      font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;
+      font-variant-numeric:tabular-nums lining-nums;
+    }
+    button,a { font:inherit; }
+    button { color:inherit; }
+    .shell { width:min(1320px,calc(100% - 40px)); margin:0 auto; padding:24px 0 46px; }
+    .tabs { display:inline-flex; align-items:center; gap:5px; padding:4px; border:1px solid var(--line); border-radius:14px; background:rgb(255 255 255 / .76); box-shadow:0 5px 18px rgb(29 42 68 / .05); }
+    .tab { display:inline-flex; align-items:center; min-height:36px; padding:0 14px; border-radius:10px; color:var(--text-2); text-decoration:none; font-size:13px; font-weight:760; transition:background .18s ease,color .18s ease,box-shadow .18s ease; }
+    .tab:hover,.tab:focus-visible { color:var(--blue); background:var(--blue-soft); outline:none; }
+    .tab.active { color:var(--blue); background:#fff; box-shadow:0 2px 9px rgb(23 35 58 / .09); }
+    .topbar { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin:22px 0 17px; }
+    .eyebrow { margin:0 0 7px; color:var(--blue); font-size:11px; font-weight:850; letter-spacing:.14em; }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { margin-bottom:7px; font-size:clamp(27px,3vw,38px); letter-spacing:-.045em; }
+    h2 { margin-bottom:5px; font-size:20px; letter-spacing:-.025em; }
+    h3 { margin-bottom:7px; font-size:15px; }
+    .subtitle { margin:0; color:var(--text-2); font-size:13px; line-height:1.65; }
+    .data-state { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:8px; }
+    .pill { display:inline-flex; align-items:center; gap:7px; min-height:29px; padding:0 10px; border:1px solid var(--line); border-radius:999px; color:var(--text-2); background:rgb(255 255 255 / .78); font-size:11.5px; white-space:nowrap; }
+    .dot { width:7px; height:7px; border-radius:50%; background:var(--blue); }
+    .dot.warning { background:var(--warning); }
+    .dot.success { background:var(--success); }
+    .refresh { cursor:pointer; min-height:32px; padding:0 12px; border:1px solid rgb(37 99 235 / .2); border-radius:999px; color:var(--blue); background:var(--blue-soft); font-size:11.5px; font-weight:800; }
+    .refresh:hover { background:#e5edff; }
+    .refresh:focus-visible,.mode-row:focus-visible,summary:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+    .refresh:disabled { cursor:wait; color:var(--text-3); background:#f2f4f7; }
+
+    .anchor { position:relative; overflow:hidden; padding:27px; border:1px solid rgb(255 255 255 / .88); border-radius:var(--r-panel); background:linear-gradient(135deg,var(--surface-anchor),rgb(247 250 255 / .82)); box-shadow:var(--shadow-anchor); -webkit-backdrop-filter:blur(28px) saturate(125%); backdrop-filter:blur(28px) saturate(125%); }
+    .anchor::after { content:""; position:absolute; right:-50px; top:-70px; width:260px; height:260px; border-radius:50%; background:radial-gradient(circle,rgb(37 99 235 / .11),transparent 68%); pointer-events:none; }
+    .anchor-top { position:relative; z-index:1; display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:start; gap:24px; }
+    .mode-kicker { display:flex; flex-wrap:wrap; align-items:center; gap:9px; margin-bottom:11px; color:var(--text-2); font-size:12px; font-weight:760; }
+    .mode-kicker .live-mark { display:inline-flex; align-items:center; gap:6px; color:var(--warning); }
+    .mode-kicker .live-mark::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--warning); box-shadow:0 0 0 4px rgb(181 71 8 / .10); }
+    .mode-title { margin:0 0 8px; font-size:clamp(31px,4vw,50px); line-height:1.04; letter-spacing:-.055em; }
+    .mode-subtitle { margin:0; color:var(--text-2); font-size:15px; line-height:1.65; }
+    .score-ring { --value:78; width:116px; aspect-ratio:1; display:grid; place-items:center; border-radius:50%; background:conic-gradient(var(--blue) calc(var(--value)*1%),rgb(220 227 239 / .8) 0); box-shadow:inset 0 0 0 1px rgb(255 255 255 / .7); }
+    .score-ring::before { content:""; grid-area:1/1; width:88px; aspect-ratio:1; border-radius:50%; background:#fff; box-shadow:0 4px 16px rgb(49 72 99 / .08); }
+    .score-content { z-index:1; grid-area:1/1; text-align:center; }
+    .score-content strong { display:block; font-size:31px; line-height:1; letter-spacing:-.04em; }
+    .score-content span { display:block; margin-top:5px; color:var(--text-3); font-size:10px; font-weight:760; }
+    .meta-strip { position:relative; z-index:1; display:flex; flex-wrap:wrap; gap:8px; margin-top:21px; }
+    .meta { display:inline-flex; align-items:center; gap:7px; min-height:31px; padding:0 10px; border-radius:9px; color:var(--text-2); background:rgb(241 245 251 / .82); font-size:11.5px; }
+    .meta strong { color:var(--text); }
+    .decision-grid { position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr 1.08fr; gap:12px; margin-top:16px; }
+    .decision-card { padding:17px; border:1px solid var(--line); border-radius:var(--r-card); background:rgb(255 255 255 / .88); }
+    .decision-label { display:flex; align-items:center; gap:8px; margin-bottom:10px; color:var(--text-2); font-size:11.5px; font-weight:800; }
+    .decision-label i { width:8px; height:8px; border-radius:50%; background:var(--success); }
+    .decision-card.avoid .decision-label i { background:var(--warning); }
+    .decision-card.switch .decision-label i { background:var(--blue); }
+    .decision-card ul { display:grid; gap:7px; margin:0; padding:0; list-style:none; }
+    .decision-card li { position:relative; padding-left:14px; color:var(--text); font-size:12.5px; line-height:1.52; }
+    .decision-card li::before { content:""; position:absolute; left:0; top:.62em; width:5px; height:5px; border-radius:50%; background:#b6c0cf; }
+
+    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin:25px 0 11px; }
+    .section-head p { margin:0; color:var(--text-3); font-size:11.5px; line-height:1.55; }
+    .panel { border:1px solid rgb(255 255 255 / .9); border-radius:var(--r-card); background:var(--surface-support); box-shadow:var(--shadow-support); }
+    .mode-layout { display:grid; grid-template-columns:1.08fr .92fr; gap:15px; }
+    .mode-list { padding:9px; }
+    .mode-row { width:100%; display:grid; grid-template-columns:130px 1fr 46px; align-items:center; gap:12px; min-height:50px; padding:8px 10px; border:0; border-radius:12px; background:transparent; cursor:pointer; text-align:left; transition:background .16s ease,transform .12s ease; }
+    .mode-row:hover { background:#f4f7fb; }
+    .mode-row:active { transform:scale(.99); }
+    .mode-row.selected { background:var(--blue-soft); }
+    .mode-name { display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:800; }
+    .mode-name i { width:8px; height:8px; border-radius:50%; background:var(--bar-color,var(--blue)); }
+    .mode-track { height:9px; overflow:hidden; border-radius:999px; background:#e9eef5; }
+    .mode-fill { display:block; width:0; height:100%; border-radius:999px; background:var(--bar-color,var(--blue)); transition:width .5s cubic-bezier(.2,.8,.2,1); }
+    .mode-value { text-align:right; font-size:13px; font-weight:850; }
+    .mode-detail { padding:20px; }
+    .mode-detail-top { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .detail-badge { display:inline-flex; align-items:center; min-height:25px; padding:0 8px; border-radius:999px; color:var(--blue); background:var(--blue-soft); font-size:10.5px; font-weight:800; }
+    .mode-detail p { margin:7px 0 0; color:var(--text-2); font-size:12.5px; line-height:1.72; }
+    .detail-points { display:grid; gap:8px; margin-top:15px; }
+    .detail-point { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:9px 0; border-bottom:1px solid var(--line); font-size:11.5px; }
+    .detail-point:last-child { border-bottom:0; }
+    .detail-point span { color:var(--text-3); }
+    .detail-point strong { max-width:68%; text-align:right; line-height:1.5; }
+
+    .switch-panel { padding:20px; }
+    .switch-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:15px; }
+    .switch-card { position:relative; min-height:138px; padding:15px; border:1px solid var(--line); border-radius:15px; background:#fff; }
+    .switch-card::before { content:""; position:absolute; left:15px; top:-10px; width:18px; height:18px; border:1px solid var(--line); border-radius:50%; background:#fff; }
+    .switch-card.current { border-color:rgb(37 99 235 / .28); background:var(--blue-soft); }
+    .switch-card.current::before { border:5px solid #dce8ff; background:var(--blue); }
+    .switch-card h3 { margin:2px 0 7px; }
+    .switch-card p { margin:0; color:var(--text-2); font-size:11.5px; line-height:1.6; }
+    .switch-card .trigger { display:block; margin-top:9px; color:var(--text-3); font-size:10.5px; }
+
+    details { overflow:hidden; }
+    summary { display:flex; align-items:center; justify-content:space-between; gap:15px; min-height:58px; padding:0 20px; cursor:pointer; list-style:none; font-size:13px; font-weight:800; }
+    summary::-webkit-details-marker { display:none; }
+    summary::after { content:"＋"; color:var(--blue); font-size:19px; font-weight:500; }
+    details[open] summary::after { content:"－"; }
+    .evidence-body { padding:0 20px 20px; border-top:1px solid var(--line); }
+    .evidence-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:15px; }
+    .evidence-card { padding:14px; border:1px solid var(--line); border-radius:14px; background:#fff; }
+    .evidence-card h3 { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .evidence-card h3 span { color:var(--text-3); font-size:10px; font-weight:650; }
+    .metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+    .metric-box { padding:10px; border-radius:10px; background:#f5f7fa; }
+    .metric-box span { display:block; color:var(--text-3); font-size:9.5px; }
+    .metric-box strong { display:block; margin-top:4px; font-size:14px; }
+    .up { color:var(--up)!important; } .down { color:var(--down)!important; }
+    .footer { margin-top:20px; padding:14px 17px; border:1px solid var(--line); border-radius:14px; color:var(--text-2); background:rgb(255 255 255 / .72); font-size:11.5px; line-height:1.7; }
+    .footer strong { color:var(--text); }
+    .loading-note { display:none; margin:0 0 12px; padding:10px 12px; border-radius:11px; color:var(--warning); background:var(--warning-soft); font-size:11.5px; }
+    .loading-note.show { display:block; }
+
+    .trend-head { align-items:center; }
+    .trend-link { display:inline-flex; align-items:center; min-height:31px; padding:0 11px; border:1px solid rgb(37 99 235 / .2); border-radius:999px; color:var(--blue); background:var(--blue-soft); font-size:11.5px; font-weight:800; text-decoration:none; white-space:nowrap; }
+    .trend-link:hover,.trend-link:focus-visible { background:#e4ecff; outline:none; }
+    .engine-status { display:inline-flex; align-items:center; gap:7px; min-height:29px; padding:0 11px; border:1px solid var(--line); border-radius:999px; color:var(--text-2); background:#fff; font-size:11.5px; font-weight:850; white-space:nowrap; }
+    .engine-status::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--warning); }
+    .engine-status.ready { color:var(--success); background:var(--success-soft); border-color:rgb(6 118 71 / .2); }
+    .engine-status.ready::before { background:var(--success); }
+    .engine-status.blocked { color:var(--danger); background:var(--danger-soft); border-color:rgb(180 35 24 / .2); }
+    .engine-status.blocked::before { background:var(--danger); }
+    .trend-panel { padding:18px; }
+    .trend-overview { display:grid; grid-template-columns:minmax(240px,.78fr) minmax(0,1.22fr); gap:14px; }
+    .trend-gate { min-height:150px; padding:18px; border:1px solid rgb(37 99 235 / .18); border-radius:16px; background:linear-gradient(145deg,#f4f7ff,#fff); }
+    .trend-gate.blocked { border-color:rgb(180 35 24 / .2); background:linear-gradient(145deg,#fff5f3,#fff); }
+    .trend-gate-label { color:var(--text-3); font-size:11px; font-weight:800; }
+    .trend-gate strong { display:block; margin-top:9px; font-size:25px; letter-spacing:-.04em; }
+    .trend-gate p { margin:8px 0 0; color:var(--text-2); font-size:12px; line-height:1.6; }
+    .trend-metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; align-content:stretch; }
+    .trend-metric { display:flex; min-height:88px; flex-direction:column; justify-content:space-between; padding:13px; border:1px solid var(--line); border-radius:14px; background:#fff; }
+    .trend-metric span { color:var(--text-3); font-size:10.5px; }
+    .trend-metric strong { margin-top:9px; font-size:20px; letter-spacing:-.03em; }
+    .trend-metric small { margin-top:4px; color:var(--text-3); font-size:10px; }
+    .trend-rule-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:13px; }
+    .trend-rule { min-height:102px; padding:14px; border:1px solid var(--line); border-radius:14px; background:rgb(250 251 253 / .96); }
+    .trend-rule span { display:block; color:var(--text-3); font-size:10.5px; font-weight:800; }
+    .trend-rule strong { display:block; margin-top:7px; font-size:13px; line-height:1.5; }
+    .trend-rule p { margin:5px 0 0; color:var(--text-2); font-size:10.5px; line-height:1.55; }
+    .trend-source { margin-top:11px; color:var(--text-3); font-size:10.5px; }
+    .trend-profit-summary { margin-top:13px; padding:14px; border:1px solid rgb(37 99 235 / .14); border-radius:14px; background:#fff; }
+    .profit-summary-head { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+    .profit-summary-head strong { font-size:12.5px; }
+    .profit-summary-head span { color:var(--text-3); font-size:10.5px; }
+    .profit-summary-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; margin-top:10px; }
+    .profit-summary-item { padding:10px; border-radius:11px; background:#f5f7fa; }
+    .profit-summary-item span { display:block; color:var(--text-3); font-size:10px; }
+    .profit-summary-item strong { display:block; margin-top:5px; font-size:14px; }
+    .profit-summary-item small { display:block; margin-top:3px; color:var(--text-3); font-size:9.5px; }
+    .trend-candidates-panel { padding:18px; }
+    .trend-table-wrap { overflow-x:auto; }
+    .trend-table { width:100%; min-width:760px; border-collapse:collapse; font-size:12px; }
+    .trend-table th { padding:0 9px 10px; color:var(--text-3); font-size:10.5px; font-weight:800; text-align:left; white-space:nowrap; }
+    .trend-table td { padding:12px 9px; border-top:1px solid var(--line); vertical-align:middle; }
+    .trend-table th:first-child,.trend-table td:first-child { padding-left:0; }
+    .trend-table th:last-child,.trend-table td:last-child { padding-right:0; text-align:right; }
+    .trend-name { display:flex; align-items:center; gap:8px; min-width:156px; }
+    .trend-rank { display:grid; width:24px; height:24px; place-items:center; border-radius:8px; color:var(--blue); background:var(--blue-soft); font-size:10px; font-weight:850; }
+    .trend-name strong { display:block; font-size:12.5px; }
+    .trend-name small { display:block; margin-top:3px; color:var(--text-3); font-size:10px; }
+    .trend-score { display:flex; align-items:center; gap:8px; min-width:115px; }
+    .trend-score i { display:block; width:72px; height:7px; overflow:hidden; border-radius:999px; background:#e8edf4; }
+    .trend-score i::after { content:""; display:block; width:var(--score,0%); height:100%; border-radius:999px; background:var(--blue); }
+    .trend-status-line { display:flex; align-items:center; gap:7px; white-space:nowrap; }
+    .trend-status-line small { color:var(--text-3); font-size:10px; }
+    .profit-cell { min-width:105px; }
+    .profit-cell strong { display:block; font-size:12px; }
+    .profit-cell small { display:block; margin-top:3px; color:var(--text-3); font-size:9.5px; white-space:nowrap; }
+    .profit-na { color:var(--text-3); font-size:10.5px; }
+    .signal-tag { display:inline-flex; align-items:center; min-height:25px; padding:0 8px; border-radius:999px; color:var(--text-2); background:#f1f4f8; font-size:10.5px; font-weight:800; white-space:nowrap; }
+    .signal-tag.ready { color:var(--success); background:var(--success-soft); }
+    .signal-tag.watch { color:var(--blue); background:var(--blue-soft); }
+    .signal-tag.pending { color:var(--warning); background:var(--warning-soft); }
+    .signal-tag.blocked { color:var(--danger); background:var(--danger-soft); }
+    .trend-empty { padding:21px 5px 6px; color:var(--text-2); font-size:12px; line-height:1.7; }
+    .trend-factors { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px; }
+    .factor-item { padding:12px; border:1px solid var(--line); border-radius:13px; background:#fff; }
+    .factor-line { display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:11px; }
+    .factor-line span { color:var(--text-2); }
+    .factor-line strong { font-size:11px; }
+    .factor-track { height:6px; margin-top:9px; overflow:hidden; border-radius:999px; background:#e9eef5; }
+    .factor-track i { display:block; width:var(--factor,0%); height:100%; border-radius:999px; background:var(--blue); }
+
+    @media (max-width:980px) {
+      .mode-layout,.anchor-top,.trend-overview { grid-template-columns:1fr; }
+      .score-ring { width:105px; }
+      .decision-grid { grid-template-columns:1fr 1fr; }
+      .decision-card.switch { grid-column:1/-1; }
+      .switch-grid { grid-template-columns:1fr 1fr; }
+      .evidence-grid { grid-template-columns:1fr; }
+      .trend-metrics { grid-template-columns:repeat(2,1fr); }
+      .profit-summary-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:620px) {
+      .shell { width:calc(100% - 24px); padding-top:14px; }
+      .tabs { width:100%; overflow:auto; }
+      .tab { flex:0 0 auto; padding:0 11px; }
+      .topbar { align-items:flex-start; flex-direction:column; }
+      .data-state { justify-content:flex-start; }
+      .anchor { padding:18px; border-radius:24px; -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px); }
+      .anchor-top { gap:17px; }
+      .score-ring { width:98px; }
+      .score-ring::before { width:74px; }
+      .score-content strong { font-size:27px; }
+      .meta-strip { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+      .meta { min-width:0; min-height:40px; padding:7px 9px; align-items:flex-start; flex-direction:column; gap:2px; white-space:normal; overflow:hidden; }
+      .meta strong { max-width:100%; overflow-wrap:anywhere; }
+      .decision-grid,.switch-grid,.trend-rule-grid,.trend-factors { grid-template-columns:1fr; }
+      .decision-card.switch { grid-column:auto; }
+      .mode-row { grid-template-columns:105px 1fr 38px; gap:8px; }
+      .section-head { align-items:flex-start; flex-direction:column; }
+      .trend-panel,.trend-candidates-panel { padding:14px; }
+      .trend-metrics { gap:7px; }
+      .trend-metric { min-height:77px; padding:11px; }
+      .trend-metric strong { font-size:18px; }
+      .profit-summary-head { align-items:flex-start; flex-direction:column; gap:4px; }
+    }
+    @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))) { .anchor { background:#fff; } }
+    @media (prefers-reduced-transparency:reduce) { .anchor,.panel { background:#fff; -webkit-backdrop-filter:none; backdrop-filter:none; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition-duration:.01ms!important; animation-duration:.01ms!important; } }
+  </style>
+  <link rel="stylesheet" href="./dashboard_hub.css?v=20260830-2">
+  <link rel="stylesheet" href="./red_theme.css?v=20260826">
+</head>
+<body>
+  <main class="shell">
+    <nav class="dashboard-tabs" aria-label="看板页面">
+      <a class="dashboard-tab active" href="./market_mode.html" aria-current="page">行情模式</a>
+      <a class="dashboard-tab" href="./index.html">ETF轮动</a>
+      <a class="dashboard-tab" href="./industry_mainline_dashboard.html">行业主线</a>
+      <a class="dashboard-tab" href="./shortterm_dashboard.html">短线观察</a>
+      <a class="dashboard-tab" href="./trend_engine.html">趋势因子</a>
+      <a class="dashboard-tab" href="./growth_factor.html">成长因子</a>
+      <a class="dashboard-tab" href="./dividend_factor.html">红利因子</a>
+      <a class="dashboard-tab" href="./shortterm_factor_preview.html">短线因子</a>
+      <a class="dashboard-tab" href="./market_mode.html#daily-review">每日复盘</a>
+    </nav>
+
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">MARKET MODE ROUTER</p>
+        <h1>行情模式</h1>
+        <p class="subtitle">页面只回答一个问题：当前市场最适合采用哪种研究与执行模式。</p>
+      </div>
+      <div class="data-state">
+        <span class="pill"><i class="dot warning" id="source-dot"></i><span id="source-label">正在读取本地数据</span></span>
+        <span class="pill" id="data-date">数据日期 —</span>
+        <button class="refresh" id="refresh" type="button">刷新本地数据</button>
+      </div>
+    </header>
+
+    <p class="loading-note" id="load-note" role="status"></p>
+
+    <section class="anchor" aria-labelledby="mode-title">
+      <div class="anchor-top">
+        <div>
+          <div class="mode-kicker"><span class="live-mark">当前主模式</span><span id="valid-until">有效期：—</span></div>
+          <h2 class="mode-title" id="mode-title">正在判定</h2>
+          <p class="mode-subtitle" id="mode-subtitle">等待短线、行业与ETF数据进入模式路由器。</p>
+        </div>
+        <div class="score-ring" id="score-ring" style="--value:0" aria-label="模式置信度 0分">
+          <div class="score-content"><strong id="mode-score">—</strong><span>模式清晰度</span></div>
+        </div>
+      </div>
+      <div class="meta-strip">
+        <span class="meta">风险等级 <strong id="risk-level">—</strong></span>
+        <span class="meta">市场阶段 <strong id="market-phase">—</strong></span>
+        <span class="meta">次级模式 <strong id="secondary-mode">—</strong></span>
+        <span class="meta">数据状态 <strong id="freshness">—</strong></span>
+      </div>
+      <div class="decision-grid">
+        <article class="decision-card">
+          <div class="decision-label"><i></i>适合研究什么</div>
+          <ul id="suitable-list"><li>等待模式判定</li></ul>
+        </article>
+        <article class="decision-card avoid">
+          <div class="decision-label"><i></i>当前不适合</div>
+          <ul id="avoid-list"><li>等待模式判定</li></ul>
+        </article>
+        <article class="decision-card switch">
+          <div class="decision-label"><i></i>模式失效与切换</div>
+          <ul id="invalidate-list"><li>等待模式判定</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <div class="section-head">
+      <div><h2>今日策略入口</h2><p>行情模式只负责路由；各模块保持独立，不合成股票总分。</p></div>
+      <p>状态优先于排名</p>
+    </div>
+    <section class="panel strategy-hub" aria-labelledby="strategy-hub-title">
+      <div class="strategy-hub-head">
+        <div>
+          <h2 id="strategy-hub-title">按当前行情选择研究页面</h2>
+          <p>点击进入具体模块；“可研究”不等于已经产生交易触发。</p>
+        </div>
+        <span class="strategy-hub-note">趋势、成长、短线、行业、ETF各自验证</span>
+      </div>
+      <div class="module-grid" id="strategy-hub" aria-live="polite"></div>
+    </section>
+
+    <div class="section-head">
+      <div><h2>数据覆盖与新鲜度</h2><p>以最新完成交易日的收盘复盘为基准；过期模块不会被包装成“当前结论”。</p></div>
+      <p>点击模块查看具体数据与口径</p>
+    </div>
+    <section class="panel data-health" aria-labelledby="data-health-title">
+      <div class="data-health-summary"><strong id="data-health-title">正在检查全部模块</strong><span id="data-health-note">—</span></div>
+      <div class="data-health-grid" id="data-health-grid" aria-live="polite"></div>
+    </section>
+
+    <div class="section-head">
+      <div><h2>当前模式执行台</h2><p>只展开当前最占优的模式；其他策略保留入口，不混入本页主结论。</p></div>
+      <p>模式判断 ≠ 个股买卖建议</p>
+    </div>
+    <section class="panel current-mode-desk" id="current-mode-desk" aria-live="polite" aria-label="当前模式执行台"></section>
+
+    <div id="trend-module-section" hidden>
+    <div class="section-head trend-head">
+      <div><h2>趋势交易引擎</h2><p>先判断市场是否允许趋势策略启动，再判断个股是否满足突破或回踩触发。</p></div>
+      <div><span class="engine-status" id="trend-status">正在判定</span> <a class="trend-link" href="./trend_engine.html">查看全主板因子</a></div>
+    </div>
+    <section class="panel trend-panel" aria-labelledby="trend-engine-title">
+      <div class="trend-overview">
+        <div class="trend-gate" id="trend-gate">
+          <div class="trend-gate-label" id="trend-engine-title">趋势闸门</div>
+          <strong id="trend-gate-title">正在判定</strong>
+          <p id="trend-gate-note">等待市场环境与日线因子。</p>
+        </div>
+        <div class="trend-metrics" id="trend-metrics"></div>
+      </div>
+      <div class="trend-rule-grid">
+        <article class="trend-rule"><span>趋势触发</span><strong id="trend-trigger">—</strong><p>触发只是研究线索，仍需结合次日承接与流动性。</p></article>
+        <article class="trend-rule"><span>退出与失效</span><strong id="trend-exit">—</strong><p>退出规则先于入场规则，避免把趋势策略做成追涨。</p></article>
+        <article class="trend-rule"><span>当前否决</span><strong id="trend-blockers">—</strong><p>任一风险闸门存在时，不把候选显示为真实触发。</p></article>
+      </div>
+      <div class="trend-source" id="trend-source">趋势引擎数据状态：—</div>
+    </section>
+
+    <div class="section-head">
+      <div><h2>个股趋势与赚钱效应</h2><p>每只股票单独计算趋势状态，并回看该股历史同类触发后的5/10/20日结果。</p></div>
+      <p>趋势评分 ≠ 买卖建议</p>
+    </div>
+    <section class="panel trend-candidates-panel">
+      <div class="trend-table-wrap">
+        <table class="trend-table">
+          <thead><tr><th>个股</th><th>趋势状态</th><th>5日后</th><th>10日后</th><th>20日后</th><th>历史样本</th></tr></thead>
+          <tbody id="trend-candidate-body"></tbody>
+        </table>
+      </div>
+      <div class="trend-profit-summary" id="trend-profit-summary"></div>
+      <div class="trend-factors" id="trend-factors"></div>
+    </section>
+    </div>
+
+    <div class="section-head">
+      <div><h2>模式竞争</h2><p>直接复用各模块同口径分数，不在总页另造一套因子；风险闸门优先。</p></div>
+      <p>不是股票综合评分，也不表示收益概率</p>
+    </div>
+    <section class="mode-layout">
+      <div class="panel mode-list" id="mode-list"></div>
+      <article class="panel mode-detail" id="mode-detail" aria-live="polite"></article>
+    </section>
+
+    <div class="section-head">
+      <div><h2>下一步如何切换</h2><p>当前模式只在证据仍然成立时有效，切换条件比预测更重要。</p></div>
+    </div>
+    <section class="panel switch-panel">
+      <div class="switch-grid" id="switch-grid"></div>
+    </section>
+
+    <div class="section-head" id="review-heading">
+      <div><h2 id="daily-review-title">每日复盘</h2><p>复核当天模式、关键证据和失效条件，并生成下个交易日的检查清单。</p></div>
+      <p id="review-date">数据日期 —</p>
+    </div>
+    <section class="panel daily-review" id="daily-review" aria-labelledby="daily-review-title" aria-live="polite"></section>
+
+    <div class="section-head">
+      <div><h2>判定依据</h2><p>原始指标退到证据层，需要时再展开。</p></div>
+    </div>
+    <details class="panel">
+      <summary>查看短线、行业和ETF证据</summary>
+      <div class="evidence-body"><div class="evidence-grid" id="evidence-grid"></div></div>
+    </details>
+
+    <div class="footer"><strong>研究说明：</strong>“行情模式”用于把已有数据路由到不同研究框架，不构成买卖建议。短线、行业与ETF体系保持独立；数据过期、缺失或风险闸门触发时，系统应优先降级。双击本文件时读取 `outputs` 生成快照，通过本地HTTP服务打开时可主动刷新 JSON/CSV。</div>
+  </main>
+
+  <script src="../outputs/shortterm_signal.js?v=20260831"></script>
+  <script src="../outputs/industry_flow_latest.js?v=20260831"></script>
+  <script src="../outputs/etf_local_data.js?v=20260831"></script>
+  <script src="../outputs/trend_engine_snapshot.js?v=20260831"></script>
+  <script src="../outputs/dividend_factor_snapshot.js?v=20260831"></script>
+  <script src="../outputs/dashboard_status.js?v=20260831"></script>
+  <script src="../outputs/latest_market_review.js?v=20260831"></script>
+  <script src="./dashboard_contract.js?v=20260831"></script>
+  <script src="./trend_engine.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      var FALLBACK = {
+        asOf: "2026-08-26",
+        generatedAt: "2026-08-26 15:16",
+        short: {
+          score: 78, verdict: "可做", ecoPoints: 24, auctionPoints: 34, leaderPoints: 20,
+          limitUp: 70, limitDown: 4, failedRate: 0.222, meanPremium: 0.70, redRatio: 0.59,
+          maxBoards: 5, leaderPremium: 9.08, leaderName: "汉森制药", leaderTheme: "医药生物"
+        },
+        industry: {
+          name: "半导体", share: 11.7055, breadth: 36.46, ratio: 0.6049,
+          return1d: -0.07, benchmark1d: 0.3596
+        },
+        etf: {
+          mode: "attack", pickName: "华安黄金ETF", pickTheme: "黄金", pickScore: 0.6957,
+          hotName: "科创半导体ETF华夏", hotTheme: "半导体", hotHeat: 11486531.2
+        },
+        trend: {
+          historyAvailable: false,
+          source: "内置快照 · 等待全市场日线OHLCV",
+          candidates: []
+        },
+        dividend: { currentAvailable: false, backtestAvailable: false, candidates: 0, valid: 0 },
+        dashboardStatus: null,
+        latestReview: null
+      };
+
+      var MODE_META = {
+        short: {
+          name: "短线核心", color: "#d92d20", badge: "高波动模式",
+          desc: "市场生态、竞价和高位核心同时转强时，只研究最有辨识度的竞争者。",
+          suitable: ["高辨识度核心", "竞价确认后的首次分歧承接", "同梯队唯一性明显的标的"],
+          avoid: ["中后排补涨", "一字或末端加速", "缺少唯一性的题材扩散"],
+          invalid: ["龙头竞价转弱或高位负反馈", "竞价生态分跌破30分", "跌停与炸板率重新扩张"]
+        },
+        etf: {
+          name: "ETF趋势", color: "#6941c6", badge: "工具趋势模式",
+          desc: "ETF策略强度、实时热度与趋势方向一致时，用流动性工具表达持续行情。",
+          suitable: ["策略首选与热榜同向", "成交持续放大的ETF", "波动和回撤可控的趋势持有"],
+          avoid: ["只追单日热榜", "策略首选与热点完全背离时重仓", "低流动性工具"],
+          invalid: ["策略强度跌破防守阈值", "热度快速迁移", "趋势破位且成交萎缩"]
+        },
+        trend: {
+          name: "趋势交易", color: "#2563eb", badge: "全主板模式",
+          desc: "全主板趋势闸门与个股日线结构同时成立时，研究健康延续或回踩触发。",
+          suitable: ["通过趋势闸门的主板个股", "健康延续与缩量回踩", "有流动性和历史样本的趋势候选"],
+          avoid: ["趋势宽度不足时新增开仓", "只看单日涨幅的突破", "把行业主线直接当个股趋势"],
+          invalid: ["趋势宽度低于8%", "近20日上涨占比低于50%", "个股跌破MA20或量价结构恶化"]
+        },
+        resonance: {
+          name: "共振进攻", color: "#067647", badge: "稀缺模式",
+          desc: "行业、ETF与短线同时指向同一方向时，才允许视为跨体系共振。",
+          suitable: ["行业与ETF同向", "短线核心来自同一方向", "多层证据同时持续"],
+          avoid: ["为了共振强行归类题材", "只凭名称相似建立映射", "忽略任一体系的独立风险"],
+          invalid: ["任一主证据断裂", "短线核心与行业资金背离", "ETF热度迁移到其他方向"]
+        },
+        defense: {
+          name: "防守等待", color: "#b54708", badge: "风险优先",
+          desc: "风险指标高于任何进攻模式时，先降低暴露并等待新的结构。",
+          suitable: ["降低交易频率", "现金管理或低波工具", "等待风险指标回落"],
+          avoid: ["强行每日出手", "低确定性题材轮动", "逆着风险闸门扩大仓位"],
+          invalid: ["跌停与炸板明显收缩", "核心竞价恢复", "至少一个进攻模式重新超过阈值"]
+        }
+      };
+
+      var state = { snapshot: FALLBACK, source: "snapshot", analysis: null, selectedMode: "short" };
+      var $ = function (id) { return document.getElementById(id); };
+      var num = function (v, d) { var n = Number(v); return Number.isFinite(n) ? n : (d || 0); };
+      var clamp = function (v, lo, hi) { return Math.max(lo, Math.min(hi, v)); };
+      var escapeHtml = function (v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) { return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[c]; }); };
+      var pct = function (v, digits) { return (v >= 0 ? "+" : "") + num(v).toFixed(digits == null ? 2 : digits) + "%"; };
+
+      function nextWeekday(iso) {
+        var d = new Date(iso + "T12:00:00");
+        do { d.setDate(d.getDate() + 1); } while (d.getDay() === 0 || d.getDay() === 6);
+        return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+      }
+
+      function parseCsv(text) {
+        var rows = [], row = [], cell = "", quoted = false;
+        for (var i=0;i<text.length;i++) {
+          var c=text[i], n=text[i+1];
+          if (c==='"' && quoted && n==='"') { cell+='"'; i++; }
+          else if (c==='"') quoted=!quoted;
+          else if (c===',' && !quoted) { row.push(cell); cell=""; }
+          else if ((c==='\n' || c==='\r') && !quoted) {
+            if (c==='\r' && n==='\n') i++;
+            row.push(cell); cell="";
+            if (row.some(function(x){return x!=="";})) rows.push(row);
+            row=[];
+          } else cell+=c;
+        }
+        if (cell || row.length) { row.push(cell); rows.push(row); }
+        if (!rows.length) return [];
+        var head=rows.shift().map(function(x){return x.trim();});
+        return rows.map(function(values){ var out={}; head.forEach(function(h,j){out[h]=(values[j]||"").trim();}); return out; });
+      }
+
+      function themeKey(v) {
+        var s=String(v||"").toLowerCase();
+        if (/半导体|芯片|集成电路/.test(s)) return "半导体";
+        if (/创新药|医药|中药|制药|生物/.test(s)) return "医药";
+        if (/黄金|贵金属/.test(s)) return "黄金";
+        if (/通信|5g|光模块|光电/.test(s)) return "通信";
+        if (/有色|工业金属|铜|铝|锂/.test(s)) return "有色";
+        if (/机器人|自动化/.test(s)) return "机器人";
+        return s.replace(/etf|概念|行业|设备|产业/g,"").trim();
+      }
+
+      function analyze(snapshot) {
+        var s=snapshot.short, ind=snapshot.industry, etf=snapshot.etf;
+        var breadth=clamp(num(ind.breadth),0,100), share=clamp(num(ind.share),0,100), ratio=Math.max(0,num(ind.ratio));
+        var excess=num(ind.return1d)-num(ind.benchmark1d);
+        var legacyTrendScore=clamp(
+          Math.min(25,share/12*25) + Math.min(30,breadth/60*30) +
+          Math.min(25,ratio/1.5*25) + Math.min(20,Math.max(0,(excess+1)/3*20)),0,100);
+        var trendView=window.TrendEngine && typeof window.TrendEngine.analyze==="function" ? window.TrendEngine.analyze(snapshot) : null;
+        var trendScore=trendView ? clamp(num(trendView.score),0,100) : legacyTrendScore;
+        var etfScore=clamp(num(etf.pickScore)*100,0,100);
+        var sameEtf=themeKey(etf.pickTheme) && themeKey(etf.pickTheme)===themeKey(etf.hotTheme);
+        var shortScore=clamp(num(s.score),0,100);
+        var indEtf=themeKey(ind.name)===themeKey(etf.hotTheme);
+        var indShort=themeKey(ind.name)===themeKey(s.leaderTheme);
+        var etfShort=themeKey(etf.hotTheme)===themeKey(s.leaderTheme);
+        var links=(indEtf?1:0)+(indShort?1:0)+(etfShort?1:0);
+        var resonance=clamp(18 + links*24 + (links===3?10:0),0,100);
+        var risk=clamp(100-shortScore + (num(s.limitDown)>30?25:0) + (num(s.auctionPoints)<30?18:0),0,100);
+        var scores={short:shortScore,etf:etfScore,trend:trendScore,resonance:resonance,defense:risk};
+        var mode="defense";
+        if (risk<65) mode=["short","etf","trend","resonance"].sort(function(a,b){return scores[b]-scores[a];})[0];
+        var secondary=["short","etf","trend","resonance","defense"].filter(function(k){return k!==mode;}).sort(function(a,b){return scores[b]-scores[a];})[0];
+        var phase=mode==="short"?(shortScore>=75?"情绪修复后的进攻窗口":"核心试错"):mode==="etf"?"工具趋势占优":mode==="trend"?"趋势环境占优":mode==="resonance"?"跨体系共振":"风险收缩";
+        var riskLabel=mode==="short"?"中高":risk>=65?"高":risk>=40?"中":"中低";
+        return { scores:scores,mode:mode,secondary:secondary,phase:phase,risk:risk,riskLabel:riskLabel,
+          diagnostics:{breadth:breadth,share:share,ratio:ratio,excess:excess,sameEtf:sameEtf,indEtf:indEtf,indShort:indShort,etfShort:etfShort,trendScore:trendScore,trendView:trendView} };
+      }
+
+      function renderList(id, items) { $(id).innerHTML=items.map(function(x){return "<li>"+escapeHtml(x)+"</li>";}).join(""); }
+
+      function render(snapshot, source) {
+        var a=analyze(snapshot); state.snapshot=snapshot; state.source=source; state.analysis=a; state.selectedMode=a.mode;
+        var meta=MODE_META[a.mode], scores=a.scores;
+        var health=snapshot.dashboardStatus||window.DASHBOARD_STATUS||null;
+        var criticalStale=!!(health&&Array.isArray(health.modules)&&health.modules.some(function(item){return ["short","industry","etf"].indexOf(item.key)>=0&&item.state!=="current";}));
+        $("mode-title").textContent=criticalStale?"模式判定待更新":meta.name;
+        $("mode-subtitle").textContent=criticalStale?"短线、行业或ETF核心输入未更新到最新复盘日；下方保留历史快照，但不作为当前模式结论。":a.phase+"。"+meta.desc;
+        $("mode-score").textContent=Math.round(scores[a.mode]);
+        $("score-ring").style.setProperty("--value",Math.round(scores[a.mode]));
+        $("score-ring").setAttribute("aria-label","模式清晰度 "+Math.round(scores[a.mode])+"分");
+        $("risk-level").textContent=a.riskLabel;
+        $("market-phase").textContent=a.phase;
+        $("secondary-mode").textContent=MODE_META[a.secondary].name;
+        var healthCurrent=health&&health.summary?num(health.summary.current):0;
+        var healthTotal=health&&Array.isArray(health.modules)?health.modules.length:0;
+        $("freshness").textContent=healthTotal?healthCurrent+" / "+healthTotal+" 项最新":(source==="live"?"本地引擎文件":"内置快照");
+        $("valid-until").textContent=criticalStale?"有效期：核心数据过期，暂停确认":"有效期："+nextWeekday(snapshot.asOf)+" 09:35 前复核";
+        $("data-date").textContent="引擎数据日期 "+snapshot.asOf;
+        $("source-label").textContent=source==="live"?"本地引擎已加载":source==="file"?"outputs 快照 · 收盘数据":"内置演示快照";
+        $("source-dot").className="dot "+((source==="live"||source==="file")&&!criticalStale?"success":"warning");
+        renderList("suitable-list",meta.suitable); renderList("avoid-list",meta.avoid); renderList("invalidate-list",meta.invalid);
+        renderHub(); renderDataHealth(); renderCurrentDesk(); renderTrend(); renderModeList(); renderModeDetail(a.mode); renderSwitchGrid(); renderDailyReview(); renderEvidence();
+      }
+
+      function renderHub() {
+        var container = $("strategy-hub");
+        var contract = window.DASHBOARD_CONTRACT;
+        if (!container || !contract) return;
+        container.innerHTML = contract.modules.map(function (module) {
+          var status = contract.statusFor(module, state.snapshot, state.analysis);
+          var current = module.key === state.analysis.mode;
+          return '<a class="module-card '+(current?'is-current':'')+'" href="'+escapeHtml(module.href)+'" aria-label="进入'+escapeHtml(module.title)+'页面">'+
+            '<span class="module-card-eyebrow">'+escapeHtml(module.eyebrow)+'</span>'+ 
+            '<span class="module-card-title"><strong>'+escapeHtml(module.title)+'</strong><span class="module-card-arrow" aria-hidden="true">→</span></span>'+ 
+            '<span class="module-card-description">'+escapeHtml(module.description)+'</span>'+ 
+            '<span class="module-card-foot"><span class="module-status '+escapeHtml(status.tone)+'">'+escapeHtml(status.label)+'</span><span class="module-card-detail">'+escapeHtml(status.detail)+'</span></span>'+ 
+            '</a>';
+        }).join("");
+      }
+
+      function renderDataHealth() {
+        var health=state.snapshot.dashboardStatus||window.DASHBOARD_STATUS||null;
+        var grid=$("data-health-grid");
+        if(!health||!Array.isArray(health.modules)) {
+          $("data-health-title").textContent="未生成数据状态清单";
+          $("data-health-note").textContent="运行 build_dashboard_status.py 后显示";
+          grid.innerHTML='<div class="data-health-card"><span class="data-health-date">当前仅能确认已加载页面内数据。</span></div>';
+          return;
+        }
+        var labels={current:"最新",stale:"过期",missing:"缺失",error:"更新失败"};
+        var summary=health.summary||{};
+        $("data-health-title").textContent="基准日 "+(health.reference_date||"—")+" · 最新 "+num(summary.current)+" 项";
+        $("data-health-note").textContent="过期 "+num(summary.stale)+" · 缺失 "+num(summary.missing)+" · 失败 "+num(summary.error);
+        grid.innerHTML=health.modules.map(function(item){
+          var stateLabel=labels[item.state]||item.state||"未知";
+          return '<a class="data-health-card" href="'+escapeHtml(item.href||"#")+'"><div class="data-health-top"><strong>'+escapeHtml(item.title)+'</strong><span class="fresh-state '+escapeHtml(item.state)+'">'+escapeHtml(stateLabel)+'</span></div><span class="data-health-date">'+escapeHtml(item.data_as_of||"无日期")+' · '+escapeHtml(item.coverage||"覆盖未知")+'</span><small>'+escapeHtml(item.note||item.source||"")+'</small></a>';
+        }).join("");
+      }
+
+      function modeHref(key) {
+        return ({short:"./shortterm_dashboard.html",etf:"./etf_rotation.html",trend:"./trend_engine.html",resonance:"#evidence-grid",defense:"#evidence-grid"})[key] || "#evidence-grid";
+      }
+
+      function renderCurrentDesk() {
+        var a=state.analysis, s=state.snapshot, d=a.diagnostics, key=a.mode, meta=MODE_META[key];
+        var models={
+          short:{
+            title:"短线核心执行台", note:"短线占优时，先看生态、竞价和核心地位；个股趋势不再占据主模式详情。", action:"进入短线观察",
+            stats:[["短线可做度",Math.round(s.short.score)+"分"],["涨停 / 跌停",s.short.limitUp+" / "+s.short.limitDown],["竞价环境",s.short.auctionPoints+" / 50"],["最高板核心",s.short.maxBoards+"板 · "+(s.short.leaderName||"待确认")]],
+            checks:["只研究高辨识度核心和晋级确认，不按趋势池泛选个股","竞价环境不恶化，核心溢价与同梯队地位继续成立","跌停或炸板扩散、核心低于预期时取消交易剧本"],
+            risk:"炸板率 "+(s.short.failedRate*100).toFixed(1)+"% · 核心竞价 "+pct(s.short.leaderPremium,2)
+          },
+          etf:{
+            title:"ETF趋势执行台", note:"ETF模式独立验证策略首选与实时热榜，不把热门题材直接当作轮动信号。", action:"进入ETF轮动",
+            stats:[["策略首选",s.etf.pickName],["首选主题",s.etf.pickTheme],["模型分",Math.round(s.etf.pickScore*100)+"分"],["实时热榜",s.etf.hotTheme]],
+            checks:["策略首选与热榜同向时再提高研究优先级","观察成交与趋势是否连续，不按单日热度追涨","首选与热榜分化或运行模式转防守时降低暴露"],
+            risk:d.sameEtf?"策略与热榜同向，仍需次日量价确认":"策略与热榜分化，当前只观察"
+          },
+          trend:{
+            title:"趋势交易执行台", note:"趋势模式成立后，才展开下方全主板个股趋势、触发条件与历史赚钱效应。", action:"进入趋势因子",
+            stats:[["趋势闸门",Math.round(d.trendScore)+"分"],["趋势宽度",d.trendView?d.trendView.gate.breadth.toFixed(1)+"%":"待接入"],["近20日上涨",d.trendView&&d.trendView.directDecision?d.trendView.gate.positiveR20.toFixed(1)+"%":"待接入"],["历史样本",d.trendView&&d.trendView.historyAvailable?"已接入":"待接入"]],
+            checks:["先通过市场趋势闸门，再筛全主板个股","突破与回踩触发必须使用同一套日线口径","行业扩散、放量或相对收益转弱时停止新增"],
+            risk:"趋势详情已在本页下方展开；触发只代表研究线索"
+          },
+          resonance:{
+            title:"共振进攻执行台", note:"只有行业、ETF和短线证据同时指向同一方向，才视为跨体系共振。", action:"查看共振证据",
+            stats:[["行业 × ETF",d.indEtf?"同向":"分化"],["行业 × 短线",d.indShort?"同向":"分化"],["ETF × 短线",d.etfShort?"同向":"分化"],["共振分",Math.round(a.scores.resonance)+"分"]],
+            checks:["三套体系保持独立评分，不为形成共振强行归类","至少两个映射关系持续成立后再提高优先级","任一主证据断裂时退回对应单一模式"],
+            risk:"当前共振关系需逐项复核，不代表收益概率"
+          },
+          defense:{
+            title:"防守等待执行台", note:"风险闸门压过进攻模式时，当前任务是控制暴露并等待结构重新形成。", action:"查看风险证据",
+            stats:[["风险闸门",Math.round(a.risk)+"分"],["跌停家数",String(s.short.limitDown)],["炸板率",(s.short.failedRate*100).toFixed(1)+"%"],["竞价环境",s.short.auctionPoints+" / 50"]],
+            checks:["降低交易频率，不为了每日出手强行选股","等待跌停、炸板和竞价风险同步改善","至少一个进攻模式重新超过门槛后再切换"],
+            risk:"防守是模式结论，不是对指数涨跌的预测"
+          }
+        };
+        var model=models[key];
+        $("trend-module-section").hidden=key!=="trend";
+        $("current-mode-desk").style.setProperty("--desk-color",meta.color);
+        $("current-mode-desk").innerHTML='<div class="current-desk-summary"><div><span class="current-desk-kicker">当前主模式 · '+escapeHtml(a.phase)+'</span><h3>'+escapeHtml(model.title)+'</h3><p>'+escapeHtml(model.note)+'</p></div><a class="current-desk-action" href="'+modeHref(key)+'">'+escapeHtml(model.action)+' →</a></div>'+ 
+          '<div class="current-desk-stats">'+model.stats.map(function(item){return '<div class="current-desk-stat"><span>'+escapeHtml(item[0])+'</span><strong>'+escapeHtml(item[1])+'</strong></div>';}).join("")+'</div>'+ 
+          '<div class="current-desk-bottom"><ol class="current-desk-checks">'+model.checks.map(function(item,index){return '<li><span>'+String(index+1).padStart(2,"0")+'</span>'+escapeHtml(item)+'</li>';}).join("")+'</ol><div class="current-desk-risk"><span>风险提示</span><strong>'+escapeHtml(model.risk)+'</strong><small>'+escapeHtml(meta.invalid[0])+'</small></div></div>';
+      }
+
+      function renderTrend() {
+        var t=TrendEngine.analyze(state.snapshot), status=$("trend-status");
+        status.textContent=t.statusLabel;
+        status.className="engine-status "+t.status;
+        $("trend-gate").className="trend-gate "+(t.status==="blocked"?"blocked":"");
+        $("trend-gate-title").textContent=(t.modeLabel||t.statusLabel)+" · 门控完成度 "+t.score;
+        $("trend-gate-note").textContent=t.blockers.length ? t.blockers.slice(0,2).join("；") : "市场环境与趋势闸门暂未发现明显阻断条件。";
+        $("trend-trigger").textContent=t.trigger;
+        $("trend-exit").textContent=t.exit;
+        $("trend-blockers").textContent=t.blockers.length ? t.blockers.slice(0,2).join("；") : "暂无主要否决条件";
+        $("trend-source").textContent="趋势引擎数据状态："+t.source+(t.historyAvailable?" · 已具备日线因子":" · 当前仅作结构观察");
+        var trendMetrics=t.directDecision?[
+          ["趋势宽度",t.gate.breadth.toFixed(1)+"%",t.gate.breadth>=8?"通过":"低于8%"],
+          ["近20日上涨占比",t.gate.positiveR20.toFixed(1)+"%",t.gate.positiveR20>=50?"通过":"不足"],
+          ["完整多头排列",t.gate.fullAlignment.toFixed(1)+"%","中期结构"],
+          ["20日中位收益",pct(t.gate.medianR20,1),"全主板横截面"]
+        ]:[
+          ["行业扩散",t.gate.breadth.toFixed(1)+"%",t.gate.breadth>=50?"通过":"偏弱"],
+          ["成交放量",t.gate.ratio.toFixed(2)+"×",t.gate.ratio>=1?"通过":"不足"],
+          ["行业超额",pct(t.gate.excess,2),t.gate.excess>0?"相对占优":"相对偏弱"],
+          ["日线因子",t.historyAvailable?"已接入":"待接入",t.historyAvailable?"可计算":"不做真实触发"]
+        ];
+        $("trend-metrics").innerHTML=trendMetrics.map(function(m){return '<div class="trend-metric"><span>'+escapeHtml(m[0])+'</span><strong>'+escapeHtml(m[1])+'</strong><small>'+escapeHtml(m[2])+'</small></div>';}).join("");
+
+        var candidates=t.candidates||[];
+        $("trend-candidate-body").innerHTML=candidates.length?candidates.map(function(c){
+          var setupLabel={breakout:"突破",pullback:"回踩",continuation:"延续",watch:"观察"}[c.setup]||"观察";
+          return '<tr><td><div class="trend-name"><span class="trend-rank">'+c.rank+'</span><div><strong>'+escapeHtml(c.name)+'</strong><small>'+escapeHtml(c.theme)+((c.code&&c.code!=="—")?" · "+escapeHtml(c.code):"")+'</small></div></div></td>'+
+            '<td><div class="trend-status-line"><span class="signal-tag '+escapeHtml(c.tone)+'">'+escapeHtml(c.state)+'</span><small>'+setupLabel+' · '+c.score+'分</small></div></td>'+
+            '<td>'+profitCell(c.profitEffect,"5")+'</td>'+
+            '<td>'+profitCell(c.profitEffect,"10")+'</td>'+ 
+            '<td>'+profitCell(c.profitEffect,"20")+'</td>'+ 
+            '<td>'+escapeHtml(c.profitEffect&&c.profitEffect.signals?"信号 "+c.profitEffect.signals+" · 已评估 "+(c.profitEffect.evaluated||0):"待接入历史样本")+'</td></tr>';
+        }).join(""): '<tr><td colspan="6"><div class="trend-empty">当前没有可展示的个股趋势候选。接入全市场日线数据后，系统将在这里计算每只股票的趋势触发与历史赚钱效应。</div></td></tr>';
+
+        var pe=t.profitEffect||{}, ph=pe.horizons||{};
+        $("trend-profit-summary").innerHTML='<div class="profit-summary-head"><strong>趋势赚钱效应汇总</strong><span>'+escapeHtml(t.profitEffectAvailable?pe.label:"待接入个股历史触发数据")+' · 只做历史统计</span></div><div class="profit-summary-grid">'+
+          profitSummaryItem("历史信号",pe.signals||0,"个股趋势事件")+
+          profitSummaryItem("5日后",ph["5"],"短线延续")+
+          profitSummaryItem("10日后",ph["10"],"主观察窗口")+
+          profitSummaryItem("20日后",ph["20"],"中期延续")+
+          '</div>';
+
+        $("trend-factors").innerHTML=t.factorRows.map(function(row){return '<div class="factor-item"><div class="factor-line"><span>'+escapeHtml(row[0])+'</span><strong>'+escapeHtml(row[2])+' · '+row[1]+'</strong></div><div class="factor-track"><i style="--factor:'+row[1]+'%"></i></div></div>';}).join("");
+      }
+
+      function profitCell(effect, horizon) {
+        var item=effect&&effect.horizons&&effect.horizons[horizon];
+        if(!item||!item.count||item.avg_return==null) return '<span class="profit-na">待样本</span>';
+        var value=num(item.avg_return)*100, cls=value>0?"up":value<0?"down":"";
+        var mae=item.max_adverse==null?"":" · MAE "+pct(num(item.max_adverse)*100,1);
+        return '<div class="profit-cell '+cls+'"><strong>'+escapeHtml(pct(value,1))+'</strong><small>胜率 '+escapeHtml((num(item.win_rate)*100).toFixed(0))+'% · n='+item.count+escapeHtml(mae)+'</small></div>';
+      }
+
+      function profitSummaryItem(label, item, note) {
+        if(typeof item!=="object") return '<div class="profit-summary-item"><span>'+escapeHtml(label)+'</span><strong>'+escapeHtml(String(item))+'</strong><small>'+escapeHtml(note)+'</small></div>';
+        if(!item||!item.count||item.avg_return==null) return '<div class="profit-summary-item"><span>'+escapeHtml(label)+'</span><strong class="profit-na">待样本</strong><small>'+escapeHtml(note)+'</small></div>';
+        var value=num(item.avg_return)*100, cls=value>0?"up":value<0?"down":"";
+        var pf=item.profit_factor==null?"":" · PF "+num(item.profit_factor).toFixed(2);
+        return '<div class="profit-summary-item"><span>'+escapeHtml(label)+'</span><strong class="'+cls+'">'+escapeHtml(pct(value,1))+'</strong><small>胜率 '+escapeHtml((num(item.win_rate)*100).toFixed(0))+'% · n='+item.count+escapeHtml(pf)+'</small></div>';
+      }
+
+      function renderModeList() {
+        var a=state.analysis, order=["short","etf","trend","resonance","defense"];
+        $("mode-list").innerHTML=order.map(function(key){
+          var m=MODE_META[key], score=Math.round(a.scores[key]), selected=key===state.selectedMode;
+          return '<button class="mode-row '+(selected?'selected':'')+'" type="button" data-mode="'+key+'" style="--bar-color:'+m.color+'" aria-pressed="'+selected+'">'+
+            '<span class="mode-name"><i></i>'+escapeHtml(m.name)+'</span><span class="mode-track"><i class="mode-fill" style="width:'+score+'%"></i></span><strong class="mode-value">'+score+'</strong></button>';
+        }).join("");
+        Array.prototype.forEach.call($("mode-list").querySelectorAll(".mode-row"),function(btn){btn.addEventListener("click",function(){state.selectedMode=btn.dataset.mode;renderModeList();renderModeDetail(state.selectedMode);});});
+      }
+
+      function renderModeDetail(key) {
+        var m=MODE_META[key], s=state.snapshot, a=state.analysis, d=a.diagnostics, status=key===a.mode?"当前模式":"备选模式";
+        var points={
+          short:[["市场生态",s.short.limitUp+"涨停 / "+s.short.limitDown+"跌停"],["核心反馈",s.short.maxBoards+"板 · "+pct(s.short.leaderPremium,2)],["竞价环境",s.short.auctionPoints+"/50 · 均值"+pct(s.short.meanPremium,2)]],
+          etf:[["策略首选",s.etf.pickName+" · "+s.etf.pickTheme],["实时热榜",s.etf.hotName+" · "+s.etf.hotTheme],["一致性",d.sameEtf?"策略与热榜同向":"策略与热榜分化"]],
+          trend:(function(){var t=window.TrendEngine&&window.TrendEngine.analyze?window.TrendEngine.analyze(s):null;return t&&t.directDecision?[["趋势闸门",Math.round(t.score)+"分"],["趋势宽度",t.gate.breadth.toFixed(1)+"%"],["近20日上涨",t.gate.positiveR20.toFixed(1)+"%"]]:[["趋势闸门",Math.round(a.scores.trend)+"分"],["趋势宽度",s.industry.breadth.toFixed(1)+"%"],["行业成交放量",s.industry.ratio.toFixed(2)+"×"]];})(),
+          resonance:[["行业×ETF",d.indEtf?"同向":"分化"],["行业×短线",d.indShort?"同向":"分化"],["ETF×短线",d.etfShort?"同向":"分化"]],
+          defense:[["风险闸门",Math.round(a.risk)+"分"],["跌停家数",String(s.short.limitDown)],["炸板率",(s.short.failedRate*100).toFixed(1)+"%"]]
+        }[key];
+        $("mode-detail").innerHTML='<div class="mode-detail-top"><h3>'+escapeHtml(m.name)+'</h3><span class="detail-badge" style="color:'+m.color+'">'+status+'</span></div><p>'+escapeHtml(m.desc)+'</p><div class="detail-points">'+points.map(function(p){return '<div class="detail-point"><span>'+escapeHtml(p[0])+'</span><strong>'+escapeHtml(p[1])+'</strong></div>';}).join("")+'</div>';
+      }
+
+      function renderSwitchGrid() {
+        var current=state.analysis.mode;
+        var rows=[
+          ["defense","防守等待","风险闸门升高，跌停和炸板重新扩张"],
+          ["short","短线核心","生态、竞价和核心辨识度继续成立"],
+          ["etf","ETF趋势","策略首选与热榜同向并持续放量"],
+          ["resonance","共振进攻","行业、ETF和短线同时指向同一方向"]
+        ];
+        $("switch-grid").innerHTML=rows.map(function(r){var active=r[0]===current;return '<article class="switch-card '+(active?'current':'')+'"><h3>'+escapeHtml(r[1])+'</h3><p>'+escapeHtml(MODE_META[r[0]].desc)+'</p><span class="trigger">切换条件：'+escapeHtml(r[2])+'</span></article>';}).join("");
+      }
+
+      function renderDailyReview() {
+        var s=state.snapshot, a=state.analysis, d=a.diagnostics, meta=MODE_META[a.mode];
+        var relation=(d.indEtf&&d.indShort&&d.etfShort)?"三套体系同向":((d.indEtf||d.indShort||d.etfShort)?"局部同向，尚非完整共振":"三套体系分化");
+        var sourceLabel=state.source==="live"?"本地最新文件":state.source==="file"?"outputs 生成快照":"内置演示快照";
+        var latest=s.latestReview||{}, latestMarket=latest.market||{}, latestFeedback=latest.previous_limit_up_feedback||{}, latestReviewText=latest.review||{};
+        var latestDate=latest.data_as_of||s.asOf;
+        var latestLimitUp=num(latestMarket.limit_up,s.short.limitUp), latestLimitDown=num(latestMarket.limit_down,s.short.limitDown);
+        var latestFailed=num(latestMarket.failed_rate,s.short.failedRate), latestMaxBoards=num(latestMarket.max_boards,s.short.maxBoards);
+        var latestSource=latest.source||sourceLabel;
+        $("review-date").textContent="复盘日期 "+latestDate+" · "+latestSource;
+        $("daily-review").innerHTML='<div class="review-grid">'+
+          reviewCard("最新复盘",latestReviewText.label||meta.name,[latestReviewText.conclusion||("模式清晰度 "+Math.round(a.scores[a.mode])+"分"),"完整引擎模式："+meta.name,"风险等级 "+a.riskLabel],"primary")+
+          reviewCard("短线反馈",latestLimitUp+"涨停 / "+latestLimitDown+"跌停",["最高板 "+latestMaxBoards+"板","炸板率 "+(latestFailed*100).toFixed(1)+"%",latestFeedback.avg_return==null?"昨日涨停反馈：待取得":"昨日涨停次日均值 "+pct(latestFeedback.avg_return,2)],"")+ 
+          reviewCard("结构关系",relation,["行业 "+(s.industry.name||"待确认"),"ETF热榜 "+(s.etf.hotTheme||"待确认"),"短线方向 "+(s.short.leaderTheme||"待确认")],"")+ 
+          reviewCard("次日复核",nextWeekday(latestDate)+" 09:35前",latestReviewText.next_day_checks||meta.invalid.slice(0,3),"warning")+
+          '</div><div class="review-footer"><span>复盘来源：'+escapeHtml(latestSource)+'；完整模式引擎日期：'+escapeHtml(s.asOf)+'。不把盘后判断当作次日自动交易指令。</span><div><a href="'+modeHref(a.mode)+'">复核当前模式</a><a href="#evidence-grid">展开原始证据</a></div></div>';
+      }
+
+      function reviewCard(label,value,items,tone) {
+        return '<article class="review-card '+(tone||"")+'"><span class="review-label">'+escapeHtml(label)+'</span><strong>'+escapeHtml(value)+'</strong><ul>'+items.map(function(item){return '<li>'+escapeHtml(item)+'</li>';}).join("")+'</ul></article>';
+      }
+
+      function renderEvidence() {
+        var s=state.snapshot.short,i=state.snapshot.industry,e=state.snapshot.etf;
+        $("evidence-grid").innerHTML=
+          '<article class="evidence-card"><h3>短线证据<span>'+escapeHtml(state.snapshot.asOf)+'</span></h3><div class="metric-grid">'+
+          metric("可做度",s.score)+metric("涨/跌停",s.limitUp+" / "+s.limitDown)+metric("最高板",s.maxBoards+"板")+metric("龙头竞价",pct(s.leaderPremium,2),"up")+'</div></article>'+
+          '<article class="evidence-card"><h3>行业证据<span>'+escapeHtml(i.name)+'</span></h3><div class="metric-grid">'+
+          metric("成交占比",i.share.toFixed(1)+"%")+metric("扩散度",i.breadth.toFixed(1)+"%")+metric("放量",i.ratio.toFixed(2)+"×")+metric("当日涨幅",pct(i.return1d,2),i.return1d>=0?"up":"down")+'</div></article>'+
+          '<article class="evidence-card"><h3>ETF证据<span>策略≠热榜</span></h3><div class="metric-grid">'+
+          metric("策略首选",e.pickTheme)+metric("模型分",Math.round(e.pickScore*100))+metric("热榜主题",e.hotTheme)+metric("运行模式",e.mode==="attack"?"进攻":"防守")+'</div></article>';
+      }
+
+      function metric(label,value,cls) { return '<div class="metric-box"><span>'+escapeHtml(label)+'</span><strong class="'+(cls||'')+'">'+escapeHtml(value)+'</strong></div>'; }
+
+      function fetchJson(path) { return fetch(path+"?ts="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error(path+" "+r.status);return r.json();}); }
+      function fetchCsv(path) { return fetch(path+"?ts="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error(path+" "+r.status);return r.text();}).then(parseCsv); }
+
+      function loadLocal() {
+        $("refresh").disabled=true; $("load-note").classList.remove("show");
+        return Promise.all([
+          fetchJson("../outputs/shortterm_signal.json"), fetchJson("../outputs/industry_flow_latest.json"),
+          fetchCsv("../outputs/etf_rotation_pick.csv"), fetchCsv("../outputs/etf_rotation_rank.csv"), fetchCsv("../outputs/etf_hot_rank.csv"),
+          fetchJson("../outputs/trend_engine.json").catch(function(){return null;}),
+          fetchJson("../outputs/latest_market_review.json").catch(function(){return null;}),
+          fetchJson("../outputs/dividend_factor_snapshot.json").catch(function(){return window.DIVIDEND_FACTOR_SNAPSHOT||null;}),
+          fetchJson("../outputs/dashboard_status.json").catch(function(){return window.DASHBOARD_STATUS||null;})
+        ]).then(function(all){
+          var sig=all[0],indData=all[1],picks=all[2],ranks=all[3],hots=all[4],trendData=all[5],latestReview=all[6],dividendData=all[7],dashboardStatus=all[8];
+          var asOf=indData.data_as_of||sig.date||FALLBACK.asOf;
+          var latest=(indData.rows||[]).filter(function(r){return String(r.date).slice(0,10)===asOf;}).sort(function(a,b){return num(b.turnover_share)-num(a.turnover_share);});
+          var top=latest[0]||{}; var pick=picks[0]||{}; var hot=hots[0]||{};
+          var rankMap={}; ranks.forEach(function(r){rankMap[String(r.code||"")]=r;}); var hotRank=rankMap[String(hot.code||"")]||{};
+          var ladder=sig.ladder||[], leader=ladder.slice().sort(function(a,b){return num(b.boards)-num(a.boards);})[0]||{};
+          var leaderInfo=sig.leader||{};
+          var trend=trendData&&trendData.universe&&trendData.universe.board==="mainboard"&&Array.isArray(trendData.candidates)&&String(trendData.data_as_of||trendData.date||asOf).slice(0,10)===String(asOf).slice(0,10)?{
+            historyAvailable:trendData.history_available===true||trendData.historyAvailable===true,
+            source:(trendData.source||"本地趋势因子文件")+" · "+(trendData.universe.name||"沪深主板"), candidates:trendData.candidates,
+            profit_effect_available:trendData.profit_effect_available===true,
+            profit_effect:trendData.profit_effect||null,
+            decision:trendData.decision||null,
+            gated_strategies:trendData.gated_strategies||null
+          }:{
+            historyAvailable:false,
+            source:"未接入沪深主板全市场日线",
+            candidates:[]
+          };
+          var snapshot={asOf:String(sig.date||asOf).slice(0,10),generatedAt:sig.generated_at||asOf,
+            short:{score:num(sig.score),verdict:sig.verdict||"—",ecoPoints:num((sig.eco||{}).points),auctionPoints:num((sig.auction||{}).points),leaderPoints:num(leaderInfo.points),
+              limitUp:num((sig.eco||{}).limit_up),limitDown:num((sig.eco||{}).limit_down),failedRate:num((sig.eco||{}).failed_rate),meanPremium:num((sig.auction||{}).mean_premium),redRatio:num((sig.auction||{}).red_ratio),
+              maxBoards:num(leader.boards||leaderInfo["最高板"]),leaderPremium:num(leader.gap||leaderInfo["龙头溢价"]),leaderName:leader.name||"—",leaderTheme:leader.theme||""},
+            industry:{name:top.industry||"—",share:num(top.turnover_share),breadth:num(top.total_count)?num(top.up_count)/num(top.total_count)*100:0,ratio:num(top.turnover_ratio),return1d:num(top.return_1d),benchmark1d:num(top.benchmark_1d)},
+            etf:{mode:pick.mode||"—",pickName:pick.name||"—",pickTheme:pick.theme||"—",pickScore:num(pick.score),hotName:hot.name||"—",hotTheme:hotRank.theme||hot.name||"—",hotHeat:num(hot.heat)},
+            trend:trend,
+            dividend:{currentAvailable:!!(dividendData&&Array.isArray(dividendData.candidates)),backtestAvailable:!!(dividendData&&dividendData.validation&&dividendData.validation.backtest_claim_allowed),candidates:dividendData&&dividendData.candidates?dividendData.candidates.length:0,valid:dividendData&&dividendData.universe?num(dividendData.universe.valid):0,dataAsOf:dividendData&&dividendData.data_as_of},
+            dashboardStatus:dashboardStatus,latestReview:latestReview};
+          render(snapshot,"live");
+        }).catch(function(err){
+          var hasFileSnapshot=!!(window.SHORT_SIGNAL&&window.INDUSTRY_FLOW&&window.ETF_LOCAL_DATA);
+          render(FALLBACK,hasFileSnapshot?"file":"snapshot");
+          $("load-note").textContent=hasFileSnapshot?"当前已读取 outputs 生成快照；浏览器禁止 file:// 主动请求，点击刷新需通过本地 HTTP 服务打开。":"浏览器禁止读取相邻文件，且未找到 outputs 生成快照；当前仅显示内置演示数据。";
+          $("load-note").classList.add("show");
+        }).finally(function(){ $("refresh").disabled=false; });
+      }
+
+      function hydrateFileFallback() {
+        var sig=window.SHORT_SIGNAL;
+        if(sig) {
+          var ladder=sig.ladder||[], leader=ladder.slice().sort(function(a,b){return num(b.boards)-num(a.boards);})[0]||{};
+          var leaderInfo=sig.leader||{};
+          FALLBACK.asOf=String(sig.date||FALLBACK.asOf).slice(0,10);
+          FALLBACK.generatedAt=sig.generated_at||FALLBACK.asOf;
+          FALLBACK.short={score:num(sig.score),verdict:sig.verdict||"—",ecoPoints:num((sig.eco||{}).points),auctionPoints:num((sig.auction||{}).points),leaderPoints:num(leaderInfo.points),
+            limitUp:num((sig.eco||{}).limit_up),limitDown:num((sig.eco||{}).limit_down),failedRate:num((sig.eco||{}).failed_rate),meanPremium:num((sig.auction||{}).mean_premium),redRatio:num((sig.auction||{}).red_ratio),
+            maxBoards:num(leader.boards||leaderInfo["最高板"]),leaderPremium:num(leader.gap||leaderInfo["龙头溢价"]),leaderName:leader.name||"—",leaderTheme:leader.theme||""};
+        }
+        var indData=window.INDUSTRY_FLOW;
+        if(indData&&Array.isArray(indData.rows)) {
+          var indDate=indData.data_as_of||FALLBACK.asOf;
+          var latest=indData.rows.filter(function(r){return String(r.date).slice(0,10)===String(indDate).slice(0,10);}).sort(function(a,b){return num(b.turnover_share)-num(a.turnover_share);});
+          var top=latest[0]||{};
+          FALLBACK.industry={name:top.industry||"—",share:num(top.turnover_share),breadth:num(top.total_count)?num(top.up_count)/num(top.total_count)*100:0,ratio:num(top.turnover_ratio),return1d:num(top.return_1d),benchmark1d:num(top.benchmark_1d)};
+        }
+        var local=window.ETF_LOCAL_DATA||{};
+        var picks=local.etf_rotation_pick||[], ranks=local.etf_rotation_rank||[], hots=local.etf_hot_rank||[];
+        if(picks.length||ranks.length||hots.length) {
+          var pick=picks[0]||{}, hot=hots[0]||{}, rankMap={};
+          ranks.forEach(function(r){rankMap[String(r.code||"")]=r;});
+          var hotRank=rankMap[String(hot.code||"")]||{};
+          FALLBACK.etf={mode:pick.mode||"—",pickName:pick.name||"—",pickTheme:pick.theme||"—",pickScore:num(pick.score),hotName:hot.name||"—",hotTheme:hotRank.theme||hot.name||"—",hotHeat:num(hot.heat)};
+        }
+        var trendData=window.TREND_ENGINE_SNAPSHOT;
+        if(trendData&&trendData.universe&&trendData.universe.board==="mainboard"&&Array.isArray(trendData.candidates)&&String(trendData.data_as_of||trendData.date||FALLBACK.asOf).slice(0,10)===String(FALLBACK.asOf).slice(0,10)) {
+          FALLBACK.trend={historyAvailable:trendData.history_available===true||trendData.historyAvailable===true,source:(trendData.source||"本地趋势因子文件")+" · "+(trendData.universe.name||"沪深主板"),candidates:trendData.candidates,profit_effect_available:trendData.profit_effect_available===true,profit_effect:trendData.profit_effect||null,decision:trendData.decision||null,gated_strategies:trendData.gated_strategies||null};
+        }
+        if(window.DIVIDEND_FACTOR_SNAPSHOT) {
+          FALLBACK.dividend={currentAvailable:true,backtestAvailable:!!(window.DIVIDEND_FACTOR_SNAPSHOT.validation&&window.DIVIDEND_FACTOR_SNAPSHOT.validation.backtest_claim_allowed),candidates:(window.DIVIDEND_FACTOR_SNAPSHOT.candidates||[]).length,valid:num((window.DIVIDEND_FACTOR_SNAPSHOT.universe||{}).valid),dataAsOf:window.DIVIDEND_FACTOR_SNAPSHOT.data_as_of};
+        }
+        FALLBACK.dashboardStatus=window.DASHBOARD_STATUS||null;
+        FALLBACK.latestReview=window.LATEST_MARKET_REVIEW||null;
+      }
+
+      $("refresh").addEventListener("click",loadLocal);
+      hydrateFileFallback();
+      render(FALLBACK,window.SHORT_SIGNAL&&window.INDUSTRY_FLOW&&window.ETF_LOCAL_DATA?"file":"snapshot");
+      loadLocal();
+    })();
+  </script>
+  <script src="./dashboard_nav.js?v=20260831"></script>
+</body>
+</html>
