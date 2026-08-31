@@ -6,6 +6,7 @@ const root = path.join(__dirname, "../web");
 const market = fs.readFileSync(path.join(root, "market_mode.html"), "utf8");
 const contract = fs.readFileSync(path.join(root, "dashboard_contract.js"), "utf8");
 const hubCss = fs.readFileSync(path.join(root, "dashboard_hub.css"), "utf8");
+const redCss = fs.readFileSync(path.join(root, "red_theme.css"), "utf8");
 const etfAlias = fs.readFileSync(path.join(root, "etf_rotation.html"), "utf8");
 
 assert.ok(market.includes('id="strategy-hub"'));
@@ -37,6 +38,14 @@ for (const key of ["trend", "growth", "dividend", "short", "industry", "etf"]) {
 assert.ok(hubCss.includes(".module-grid"));
 assert.ok(hubCss.includes(".data-health-grid"));
 assert.ok(hubCss.includes("@media (max-width: 620px)"));
+assert.ok(/@media \(max-width: 1180px\)[\s\S]*?grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/.test(redCss));
+assert.ok(/@media \(max-width: 700px\)[\s\S]*?grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/.test(redCss));
+assert.ok(/@media \(max-width: 1180px\)[\s\S]*?overflow: visible !important/.test(redCss));
+assert.ok(redCss.includes("scrollbar-width: none !important"));
+for (const page of ["index.html", "market_mode.html", "industry_mainline_dashboard.html", "shortterm_dashboard.html", "trend_engine.html", "growth_factor.html", "dividend_factor.html", "shortterm_factor_preview.html", "market_overview.html"]) {
+  const html = fs.readFileSync(path.join(root, page), "utf8");
+  assert.ok(html.includes("red_theme.css?v=20260831-nav-grid"), `stale shared theme cache key: ${page}`);
+}
 assert.ok(etfAlias.includes('window.location.replace("./index.html")'));
 
 console.log("dashboard hub tests passed");

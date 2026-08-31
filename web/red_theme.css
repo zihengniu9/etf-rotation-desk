@@ -236,6 +236,52 @@ tbody tr.selected,
   }
 }
 
+/*
+ * 一级导航在中窄视口重排，禁止要求用户反复横向拖动。
+ * 9 个固定入口：Pad/窄桌面为 5+4，手机为 3x3。
+ */
+@media (max-width: 1180px) {
+  .dashboard-tabs,
+  .tabs {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    scrollbar-width: none !important;
+  }
+
+  .dashboard-tabs::-webkit-scrollbar,
+  .tabs::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .dashboard-tab,
+  .tab {
+    justify-content: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 40px !important;
+    padding: 0 8px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard-tabs,
+  .tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .dashboard-tab,
+  .tab {
+    min-height: 42px !important;
+    padding: 0 6px !important;
+    font-size: 12px !important;
+  }
+}
+
 @media (prefers-reduced-transparency: reduce) {
   body {
     background: #f7f8fb !important;
