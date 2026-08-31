@@ -7,6 +7,10 @@ from pathlib import Path
 
 
 WORKBUDDY = Path(r"C:\Users\69449\WorkBuddy\2026-08-22-20-19-58")
+MSEQ_PATH = WORKBUDDY / "dashboard" / "research" / "build_mseq.py"
+SIGNAL_PATH = WORKBUDDY / "dashboard" / "signal_0925.py"
+FACTORS_PATH = WORKBUDDY / "dashboard" / "research" / "build_factors.py"
+LOCAL_SHORTTERM_RUNTIME_AVAILABLE = all(path.exists() for path in (MSEQ_PATH, SIGNAL_PATH, FACTORS_PATH))
 
 
 def load_module(name, path):
@@ -16,11 +20,15 @@ def load_module(name, path):
     return module
 
 
-MSEQ = load_module("build_mseq", WORKBUDDY / "dashboard" / "research" / "build_mseq.py")
-SIGNAL = load_module("signal_0925", WORKBUDDY / "dashboard" / "signal_0925.py")
-FACTORS = load_module("build_factors", WORKBUDDY / "dashboard" / "research" / "build_factors.py")
+if LOCAL_SHORTTERM_RUNTIME_AVAILABLE:
+    MSEQ = load_module("build_mseq", MSEQ_PATH)
+    SIGNAL = load_module("signal_0925", SIGNAL_PATH)
+    FACTORS = load_module("build_factors", FACTORS_PATH)
+else:
+    MSEQ = SIGNAL = FACTORS = None
 
 
+@unittest.skipUnless(LOCAL_SHORTTERM_RUNTIME_AVAILABLE, "requires the local WorkBuddy short-term runtime")
 class MseqTests(unittest.TestCase):
     def test_market_gate_is_not_in_stock_rank(self):
         self.assertNotIn("M", MSEQ.W_TOTAL)
