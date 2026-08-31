@@ -1,2 +1,2 @@
-﻿code,name,theme,fund_size,score,total_return,annual_vol,latest_close,mode,reason,market_strength,defense_threshold
-515220,国泰中证煤炭ETF,煤炭能源,14109453078.890001,0.630586,0.162415,0.265999,1.367,attack,top ETF score is above defense threshold,0.630586,0.6
+﻿code,name,theme,score,total_return,annual_vol,fund_size,latest_close,mode,market_strength,defense_threshold,reason
+511880,货币ETF,防守,0.56186,,,,,defense,0.56186,0.6,top ETF score is weak; switch to defense

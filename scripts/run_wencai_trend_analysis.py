@@ -237,7 +237,7 @@ def main() -> int:
     for path_text, frame in ((args.history_output, history), (args.current_output, current)):
         path = Path(path_text)
         path.parent.mkdir(parents=True, exist_ok=True)
-        frame.to_csv(path, index=False, compression="gzip")
+        frame.to_csv(path, index=False, compression={"method": "gzip", "mtime": 0})
         print(f"wrote={path}", flush=True)
 
     for path_text, payload in ((args.output, snapshot), (args.backtest_output, backtest)):

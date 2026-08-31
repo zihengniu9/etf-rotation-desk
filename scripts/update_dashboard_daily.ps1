@@ -77,13 +77,37 @@ function Invoke-Intraday([string]$TargetDate) {
 }
 
 function Invoke-Close([string]$TargetDate) {
+  $signal = Join-Path $ShorttermRoot "signal_0925.py"
   $reviewClose = Join-Path $ShorttermRoot "review_close.py"
   $buildFactors = Join-Path $ShorttermRoot "research\build_factors.py"
+  if (-not (Test-Path -LiteralPath $signal)) { throw "short-term signal generator not found: $signal" }
   if (-not (Test-Path -LiteralPath $reviewClose)) { throw "short-term close reviewer not found: $reviewClose" }
   if (-not (Test-Path -LiteralPath $buildFactors)) { throw "short-term factor builder not found: $buildFactors" }
 
+  # The factor builder requires the same-day 09:25 signal. A task installed
+  # after the morning trigger, a sleeping PC, or a missed run used to abort the
+  # entire close pipeline here. Try one same-day catch-up; if the provider no
+  # longer exposes auction fields after close, continue with close-only data.
+  $signalDate = $TargetDate.Replace("-", "")
+  $signalPath = Join-Path $ShorttermRoot "signals\signal_$signalDate.json"
+  if (-not (Test-Path -LiteralPath $signalPath)) {
+    Invoke-Step "short-term signal catch-up" $Python @($signal, "--date", $TargetDate)
+  }
+  $hasShorttermSignal = Test-Path -LiteralPath $signalPath
+  if ($hasShorttermSignal) {
+    $signalSnapshot = Get-Content -LiteralPath $signalPath -Raw | ConvertFrom-Json
+    $hasShorttermSignal = $signalSnapshot.status -eq "ok"
+  }
+  if (-not $hasShorttermSignal) {
+    Write-RunLog "WARN  same-day 09:25 signal unavailable; close-only modules will continue and auction-dependent factors will stay stale"
+  }
+
   Invoke-Step "short-term close review" $Python @($reviewClose, "--date", $TargetDate, "--force")
-  Invoke-Step "short-term close factors" $Python @($buildFactors, "--date", $TargetDate)
+  if ($hasShorttermSignal) {
+    Invoke-Step "short-term close factors" $Python @($buildFactors, "--date", $TargetDate)
+  } else {
+    Write-RunLog "SKIP  short-term close factors (missing same-day 09:25 signal)"
+  }
   Invoke-Step "latest market review" $Python @("scripts/update_latest_review.py", "--as-of", $TargetDate)
   Invoke-Step "trend current cross-section" $Python @(
     "scripts/run_wencai_trend_analysis.py", "--as-of", $TargetDate,
@@ -96,8 +120,12 @@ function Invoke-Close([string]$TargetDate) {
     "-ProjectRoot", $ProjectRoot, "-Python", $Python, "-MaxAttempts", "1"
   )
   Invoke-Step "dividend quality" $Python @("scripts/update_dividend_factor.py", "--as-of", $TargetDate)
-  Invoke-Step "short-term live snapshot" $Python @("scripts/build_shortterm_live.py")
-  Invoke-Step "short-term rule plan" $Python @("scripts/build_shortterm_plan.py")
+  if ($hasShorttermSignal) {
+    Invoke-Step "short-term live snapshot" $Python @("scripts/build_shortterm_live.py")
+    Invoke-Step "short-term rule plan" $Python @("scripts/build_shortterm_plan.py")
+  } else {
+    Write-RunLog "SKIP  short-term live snapshot and rule plan (inputs are intentionally kept on their last aligned date)"
+  }
   Invoke-Step "dashboard status" $Python @("scripts/build_dashboard_status.py")
   Invoke-Step "static site build" $Python @("scripts/build_static_site.py")
 }
