@@ -34,7 +34,7 @@ def main() -> int:
     mseq = load("outputs/shortterm_factor_preview.json", {})
     samples = load("outputs/shortterm_samples.json", [])
     as_of = str(review.get("data_as_of") or signal.get("date") or "")
-    if not as_of or str(signal.get("date") or "") != as_of or str(mseq.get("data_as_of") or "") != as_of:
+    if not as_of or str(mseq.get("data_as_of") or "") != as_of:
         raise RuntimeError(
             f"short-term plan inputs are not aligned: review={review.get('data_as_of')} "
             f"signal={signal.get('date')} mseq={mseq.get('data_as_of')}"
@@ -52,8 +52,9 @@ def main() -> int:
     close_effect = (latest_sample.get("act") or {}).get("oc_avg_pct")
     close_text = "开盘至收盘效果待取得" if close_effect is None else f"开盘至收盘均值{close_effect:+.2f}%"
     primary_name = str(primary.get("name") or "最高辨识度核心")
+    gate_score = (mseq.get("market") or {}).get("score", signal.get("score", "—"))
     headline = (
-        f"{as_of} 收盘：竞价可做度 {signal.get('score', '—')} 分，{close_text}；"
+        f"{as_of} 收盘：盘后市场门控 {gate_score} 分，{close_text}；"
         f"{for_date} 先确认 {primary_name} 的核心反馈，再观察 {discovery_names} 的新晋龙头竞争。"
     )
     market_review = (
@@ -107,7 +108,7 @@ def main() -> int:
             "一字难成交、烂板、同题材更高板压制或价值不明的候选直接降级。",
             "次日实际触发必须使用当时可见数据，盘后计划不是自动交易指令。",
         ],
-        "note": "规则版每日预案：来源为当日收盘复盘、09:25 信号、M/S/E/Q 与盘后对账；不包含未经核验的新闻叙事。",
+        "note": "规则版每日预案：来源为当日收盘复盘与盘后 M/S/E/Q；09:25 信号若缺失则留待次日竞价重新确认，不包含未经核验的新闻叙事。",
     }
     serialized = json.dumps(payload, ensure_ascii=False, indent=2)
     Path("outputs/shortterm_plan.json").write_text(serialized + "\n", encoding="utf-8")

@@ -46,6 +46,12 @@ def main() -> int:
     annual_2024 = load_wencai_rows(Path(args.annual_2024_input))
     news = load_news_directory(Path(args.news_dir))
     snapshot = build_growth_snapshot(current, annual_2025, annual_2024, news, as_of=args.as_of, top=args.top)
+    mainboard_count = int(snapshot["universe"]["stocks_mainboard"])
+    valid_count = int(snapshot["universe"]["stocks_financial_valid"])
+    if valid_count < max(100, int(mainboard_count * 0.5)):
+        raise RuntimeError(
+            f"growth factor field coverage collapsed: valid={valid_count} mainboard={mainboard_count}"
+        )
 
     finance = build_finance_factors(current, annual_2025, annual_2024)
     ranked = attach_news_evidence(finance, news, as_of=args.as_of)
@@ -73,7 +79,7 @@ def main() -> int:
     js_path = Path(args.js_output)
     js_path.parent.mkdir(parents=True, exist_ok=True)
     js_path.write_text("window.GROWTH_FACTOR_SNAPSHOT = " + serialized + ";\n", encoding="utf-8")
-    print(f"growth_rows={snapshot['universe']['stocks_mainboard']} valid={snapshot['universe']['stocks_financial_valid']}")
+    print(f"growth_rows={mainboard_count} valid={valid_count}")
     print(f"news_queried={snapshot['universe']['news_queried_stocks']} candidates={len(snapshot['candidates'])}")
     print(f"wrote={output_path}")
     print(f"wrote={candidates_path}")

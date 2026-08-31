@@ -87,26 +87,33 @@ def normalize_finance_snapshot(frame: pd.DataFrame, *, period: str | None, prefi
     result["code6"] = frame[code_column].map(code6)
     result["name"] = frame[name_column].astype(str) if name_column else ""
     result[f"{prefix}_revenue_growth"] = _series(
-        frame, ("营业收入同比增长率", "revenue_growth"), period
+        frame, ("营业收入同比增长率", "营业收入(同比增长率)", "revenue_growth"), period
     )
     result[f"{prefix}_profit_growth"] = _series(
-        frame, ("归母净利润同比增长率", "归属母公司股东的净利润同比增长率", "profit_growth"), period
+        frame, (
+            "归母净利润同比增长率", "归属母公司股东的净利润同比增长率",
+            "归属于母公司所有者的净利润同比增长率", "profit_growth",
+        ), period
     )
     result[f"{prefix}_cash_flow"] = _series(
         frame, ("经营活动产生的现金流量净额", "经营活动现金流量净额", "cash_flow"), period
     )
-    result[f"{prefix}_roe"] = _series(frame, ("净资产收益率", "加权净资产收益率", "roe"), period)
+    result[f"{prefix}_roe"] = _series(
+        frame, ("净资产收益率", "净资产收益率roe(加权,公布值)", "加权净资产收益率", "roe"), period
+    )
     result[f"{prefix}_net_margin"] = _series(frame, ("销售净利率", "净利率", "net_margin"), period)
     result[f"{prefix}_debt_ratio"] = _series(frame, ("资产负债率", "debt_ratio"), period)
     result[f"{prefix}_revenue"] = _series(frame, ("营业收入", "revenue"), period)
-    result[f"{prefix}_net_profit"] = _series(frame, ("归母净利润", "归属母公司股东的净利润", "net_profit"), period)
+    result[f"{prefix}_net_profit"] = _series(
+        frame, ("归母净利润", "归属母公司股东的净利润", "归属于母公司所有者的净利润", "net_profit"), period
+    )
 
     if prefix == "current":
         result["vendor_code"] = frame[code_column].astype(str)
-        result["latest_price"] = _series(frame, ("最新价", "latest_price"))
-        result["latest_change"] = _series(frame, ("最新涨跌幅", "latest_change"))
+        result["latest_price"] = _series(frame, ("最新价", "收盘价:不复权", "latest_price"))
+        result["latest_change"] = _series(frame, ("最新涨跌幅", "涨跌幅:前复权", "latest_change"))
         result["market_cap"] = _series(frame, ("总市值", "a股流通市值", "market_cap"))
-        result["pe"] = _series(frame, ("动态市盈率", "市盈率", "pe"))
+        result["pe"] = _series(frame, ("动态市盈率", "市盈率(pe)", "市盈率", "pe"))
         result["market_type"] = _series(frame, ("股票市场类型", "market_type"))
 
     numeric_columns = [column for column in result.columns if column not in {"code6", "name", "vendor_code", "market_type"}]

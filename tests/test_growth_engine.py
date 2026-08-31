@@ -71,6 +71,22 @@ class GrowthEngineTests(unittest.TestCase):
         result = build_finance_factors(current, annual_2025, annual_2024)
         self.assertTrue(result.empty)
 
+    def test_finance_factors_accept_current_wencai_field_aliases(self):
+        current, annual_2025, annual_2024 = finance_rows()
+        current = current.rename(
+            columns={
+                "营业收入同比增长率[20260630]": "营业收入(同比增长率)[20260630]",
+                "归母净利润同比增长率[20260630]": "归属于母公司所有者的净利润同比增长率[20260630]",
+                "净资产收益率[20260630]": "净资产收益率roe(加权,公布值)[20260630]",
+                "归母净利润[20260630]": "归属于母公司所有者的净利润[20260630]",
+                "动态市盈率[20260827]": "市盈率(pe)[20260827]",
+            }
+        )
+        result = build_finance_factors(current, annual_2025, annual_2024)
+        self.assertEqual(int(result["financial_valid"].sum()), 1)
+        self.assertEqual(result.loc[0, "current_profit_growth"], 48)
+        self.assertEqual(result.loc[0, "current_net_profit"], 10)
+
     def test_news_excludes_future_and_keeps_negative_evidence(self):
         score = score_news_records(
             [

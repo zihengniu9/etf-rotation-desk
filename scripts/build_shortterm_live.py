@@ -18,17 +18,17 @@ def main() -> int:
     signal = load("outputs/shortterm_signal.json")
     factors = load("outputs/shortterm_factor_preview.json")
     review_date = str(review.get("data_as_of") or "")
-    signal_date = str(signal.get("date") or "")
-    if not review_date or review_date != signal_date:
-        raise RuntimeError(f"short-term live inputs are not aligned: review={review_date} signal={signal_date}")
+    factor_date = str(factors.get("data_as_of") or "")
+    if not review_date or review_date != factor_date:
+        raise RuntimeError(f"short-term live inputs are not aligned: review={review_date} factor={factor_date}")
 
     change_by_name = {
         str(row.get("name") or ""): row.get("change")
-        for row in review.get("leader_board") or []
+        for row in review.get("leader_pool") or review.get("leader_board") or []
     }
     code_by_name = {
         str(row.get("name") or ""): str(row.get("code") or "")
-        for row in review.get("leader_board") or []
+        for row in review.get("leader_pool") or review.get("leader_board") or []
     }
     stocks = []
     for candidate in (factors.get("candidates") or [])[:16]:
@@ -51,7 +51,7 @@ def main() -> int:
         "version": "shortterm-live-v2",
         "updated_at": datetime.now(RUN_TZ).isoformat(timespec="seconds"),
         "date": review_date,
-        "source": "最新收盘复盘 + 当日 M/S/E/Q 候选",
+        "source": "最新收盘复盘 + 当日盘后 M/S/E/Q 候选",
         "stocks": stocks,
         "sentiment": {
             "date": review_date,

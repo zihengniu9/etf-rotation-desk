@@ -193,6 +193,7 @@ def main() -> int:
         },
         "previous_limit_up_feedback": feedback,
         "leader_board": leaders[:12],
+        "leader_pool": leaders,
         "theme_rank": theme_rank,
         "review": {
             "label": label,

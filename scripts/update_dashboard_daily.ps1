@@ -109,6 +109,7 @@ function Invoke-Close([string]$TargetDate) {
     Write-RunLog "SKIP  short-term close factors (missing same-day 09:25 signal)"
   }
   Invoke-Step "latest market review" $Python @("scripts/update_latest_review.py", "--as-of", $TargetDate)
+  Invoke-Step "short-term close factor" $Python @("scripts/build_shortterm_close_factor.py", "--as-of", $TargetDate)
   Invoke-Step "trend current cross-section" $Python @(
     "scripts/run_wencai_trend_analysis.py", "--as-of", $TargetDate,
     "--history-input", "outputs/trend_history.csv.gz"
@@ -120,12 +121,10 @@ function Invoke-Close([string]$TargetDate) {
     "-ProjectRoot", $ProjectRoot, "-Python", $Python, "-MaxAttempts", "1"
   )
   Invoke-Step "dividend quality" $Python @("scripts/update_dividend_factor.py", "--as-of", $TargetDate)
-  if ($hasShorttermSignal) {
-    Invoke-Step "short-term live snapshot" $Python @("scripts/build_shortterm_live.py")
-    Invoke-Step "short-term rule plan" $Python @("scripts/build_shortterm_plan.py")
-  } else {
-    Write-RunLog "SKIP  short-term live snapshot and rule plan (inputs are intentionally kept on their last aligned date)"
-  }
+  Invoke-Step "growth current finance" $Python @("scripts/update_growth_factor.py", "--as-of", $TargetDate)
+  Invoke-Step "growth factor snapshot" $Python @("scripts/run_growth_factor_analysis.py", "--as-of", $TargetDate)
+  Invoke-Step "short-term live snapshot" $Python @("scripts/build_shortterm_live.py")
+  Invoke-Step "short-term rule plan" $Python @("scripts/build_shortterm_plan.py")
   Invoke-Step "dashboard status" $Python @("scripts/build_dashboard_status.py")
   Invoke-Step "static site build" $Python @("scripts/build_static_site.py")
 }

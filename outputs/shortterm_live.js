@@ -1,174 +1,174 @@
 window.SHORT_TERM_LIVE = {
   "version": "shortterm-live-v2",
-  "updated_at": "2026-08-31T07:40:06+08:00",
-  "date": "2026-08-28",
-  "source": "最新收盘复盘 + 当日 M/S/E/Q 候选",
+  "updated_at": "2026-08-31T20:10:11+08:00",
+  "date": "2026-08-31",
+  "source": "最新收盘复盘 + 当日盘后 M/S/E/Q 候选",
   "stocks": [
     {
-      "code": "000017.SZ",
-      "name": "深中华A",
+      "code": "002084.SZ",
+      "name": "海鸥住工",
       "price": null,
-      "pct": 9.99,
+      "pct": 10.0,
       "high": null,
       "low": null,
       "open": null,
-      "research_status": "重点关注"
+      "research_status": "重点观察"
     },
     {
-      "code": "003040.SZ",
-      "name": "楚天龙",
+      "code": "600371.SH",
+      "name": "万向德农",
       "price": null,
-      "pct": null,
+      "pct": 9.97,
       "high": null,
       "low": null,
       "open": null,
-      "research_status": "放弃 · 烂板回避"
+      "research_status": "重点观察"
     },
     {
-      "code": "002418.SZ",
-      "name": "康盛股份",
+      "code": "600551.SH",
+      "name": "时代出版",
       "price": null,
-      "pct": null,
+      "pct": 10.0,
       "high": null,
       "low": null,
       "open": null,
       "research_status": "观察"
     },
     {
-      "code": "000890.SZ",
-      "name": "法尔胜",
+      "code": "600540.SH",
+      "name": "新赛股份",
       "price": null,
-      "pct": null,
+      "pct": 10.1,
       "high": null,
       "low": null,
       "open": null,
-      "research_status": "观察 · 新晋龙头"
+      "research_status": "观察"
     },
     {
-      "code": "600613.SH",
-      "name": "神奇制药",
+      "code": "000560.SZ",
+      "name": "我爱我家",
       "price": null,
-      "pct": null,
+      "pct": 9.85,
       "high": null,
       "low": null,
       "open": null,
-      "research_status": "观察 · 新晋龙头"
+      "research_status": "观察"
     },
     {
-      "code": "002742.SZ",
-      "name": "冀衡医药",
+      "code": "003005.SZ",
+      "name": "竞业达",
       "price": null,
-      "pct": 10.05,
+      "pct": 9.98,
       "high": null,
       "low": null,
       "open": null,
-      "research_status": "放弃 · 一字买不进"
-    },
-    {
-      "code": "600103.SH",
-      "name": "青山纸业",
-      "price": null,
-      "pct": null,
-      "high": null,
-      "low": null,
-      "open": null,
-      "research_status": "放弃 · 一字买不进"
-    },
-    {
-      "code": "002084.SZ",
-      "name": "海鸥住工",
-      "price": null,
-      "pct": 10.06,
-      "high": null,
-      "low": null,
-      "open": null,
-      "research_status": "放弃 · 一字买不进"
-    },
-    {
-      "code": "600371.SH",
-      "name": "万向德农",
-      "price": null,
-      "pct": 10.01,
-      "high": null,
-      "low": null,
-      "open": null,
-      "research_status": "放弃 · 一字买不进"
+      "research_status": "观察"
     },
     {
       "code": "002855.SZ",
       "name": "捷荣技术",
       "price": null,
-      "pct": 9.99,
+      "pct": 9.97,
       "high": null,
       "low": null,
       "open": null,
-      "research_status": "放弃 · 一字买不进"
+      "research_status": "放弃：封板质量"
     },
     {
-      "code": "603618.SH",
-      "name": "杭电股份",
+      "code": "000011.SZ",
+      "name": "深物业A",
       "price": null,
-      "pct": null,
+      "pct": 10.05,
       "high": null,
       "low": null,
       "open": null,
-      "research_status": "放弃 · 一字买不进"
+      "research_status": "观察"
     },
     {
-      "code": "000712.SZ",
-      "name": "锦龙股份",
+      "code": "000892.SZ",
+      "name": "欢瑞世纪",
       "price": null,
       "pct": 9.97,
       "high": null,
       "low": null,
       "open": null,
-      "research_status": "放弃 · 一字买不进"
+      "research_status": "观察"
     },
     {
-      "code": "002942.SZ",
-      "name": "新农股份",
+      "code": "002396.SZ",
+      "name": "星网锐捷",
       "price": null,
-      "pct": 9.99,
+      "pct": 10.0,
       "high": null,
       "low": null,
       "open": null,
-      "research_status": "放弃 · 一字买不进"
+      "research_status": "观察"
     },
     {
-      "code": "300456.SZ",
-      "name": "赛微电子",
+      "code": "301151.SZ",
+      "name": "冠龙节能",
       "price": null,
-      "pct": null,
+      "pct": 20.02,
       "high": null,
       "low": null,
       "open": null,
-      "research_status": "观察 · 新晋龙头"
+      "research_status": "观察"
     },
     {
-      "code": "600127.SH",
-      "name": "金健米业",
+      "code": "002081.SZ",
+      "name": "金螳螂",
       "price": null,
-      "pct": null,
+      "pct": 10.0,
       "high": null,
       "low": null,
       "open": null,
-      "research_status": "观察 · 新晋龙头"
+      "research_status": "观察"
     },
     {
-      "code": "600095.SH",
-      "name": "湘财股份",
+      "code": "002328.SZ",
+      "name": "新朋股份",
       "price": null,
-      "pct": null,
+      "pct": 9.96,
       "high": null,
       "low": null,
       "open": null,
-      "research_status": "放弃 · 烂板回避"
+      "research_status": "观察"
+    },
+    {
+      "code": "300413.SZ",
+      "name": "芒果超媒",
+      "price": null,
+      "pct": 20.0,
+      "high": null,
+      "low": null,
+      "open": null,
+      "research_status": "观察"
+    },
+    {
+      "code": "600691.SH",
+      "name": "潞化科技",
+      "price": null,
+      "pct": 9.86,
+      "high": null,
+      "low": null,
+      "open": null,
+      "research_status": "观察"
+    },
+    {
+      "code": "002679.SZ",
+      "name": "福建金森",
+      "price": null,
+      "pct": 10.03,
+      "high": null,
+      "low": null,
+      "open": null,
+      "research_status": "观察"
     }
   ],
   "sentiment": {
-    "date": "2026-08-28",
-    "limit_up_count": 82,
-    "limit_down_count": 2
+    "date": "2026-08-31",
+    "limit_up_count": 89,
+    "limit_down_count": 13
   },
   "coverage": {
     "stock_price": "未在复盘快照返回时明确留空",

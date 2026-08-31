@@ -1,11 +1,11 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-08-31T19:49:54+08:00",
+  "updated_at": "2026-08-31T20:15:07+08:00",
   "reference_date": "2026-08-31",
   "reference_rule": "以最新完成交易日的行情复盘日期为新鲜度基准",
   "summary": {
-    "current": 6,
-    "stale": 1,
+    "current": 7,
+    "stale": 0,
     "missing": 0,
     "error": 0
   },
@@ -25,11 +25,11 @@ window.DASHBOARD_STATUS = {
       "key": "short",
       "title": "短线观察",
       "href": "./shortterm_dashboard.html",
-      "state": "stale",
-      "data_as_of": "2026-08-28",
-      "coverage": "梯队 8 只 · 因子候选 16 只",
+      "state": "current",
+      "data_as_of": "2026-08-31",
+      "coverage": "梯队 8 只 · 因子候选 20 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "信号日期早于复盘日期时仅作历史快照",
+      "note": "盘后因子已更新；09:25竞价信号独立保留",
       "cadence": "每个交易日09:25与收盘"
     },
     {
@@ -70,11 +70,11 @@ window.DASHBOARD_STATUS = {
       "title": "成长因子",
       "href": "./growth_factor.html",
       "state": "current",
-      "data_as_of": "2026-08-27",
-      "coverage": "主板 2033 只 · 有效 1213 只",
+      "data_as_of": "2026-08-31",
+      "coverage": "主板 2043 只 · 有效 1726 只",
       "source": "同花顺问财财务查询 + 同花顺问财 news-search 历史资讯",
-      "note": "当前财报截面，逐股披露日回溯仍待完善",
-      "cadence": "每周/财报披露后"
+      "note": "财务截面每日更新；历史资讯证据按已采集覆盖",
+      "cadence": "每个交易日收盘/财报披露后"
     },
     {
       "key": "dividend",

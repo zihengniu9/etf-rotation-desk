@@ -92,6 +92,10 @@ def main() -> int:
     dividend = load_json("dividend_factor_snapshot.json")
     reference = iso_date(review.get("data_as_of"))
     industry_latest = build_latest_industry_snapshot(industry_flow)
+    short_signal_date = iso_date(short.get("date"))
+    short_factor_date = iso_date(short_factor.get("data_as_of"))
+    short_date = max((value for value in (short_signal_date, short_factor_date) if value), default=None)
+    short_basis = short_factor.get("basis") or short_factor.get("phase") or ""
 
     definitions = [
         {
@@ -104,10 +108,10 @@ def main() -> int:
         },
         {
             "key": "short", "title": "短线观察", "href": "./shortterm_dashboard.html",
-            "date": iso_date(short.get("date")), "exists": bool(short), "source_status": short.get("status") or "",
+            "date": short_date, "exists": bool(short) or bool(short_factor), "source_status": short_factor.get("status") or short.get("status") or "",
             "coverage": f"梯队 {len(short.get('ladder') or [])} 只 · 因子候选 {len(short_factor.get('candidates') or [])} 只",
             "source": "短线 M/S/E/Q 本地生成器",
-            "note": "信号日期早于复盘日期时仅作历史快照",
+            "note": "盘后因子已更新；09:25竞价信号独立保留" if short_basis in {"close_review", "close"} else "信号日期早于复盘日期时仅作历史快照",
             "cadence": "每个交易日09:25与收盘", "max_lag_days": 0,
         },
         {
@@ -139,8 +143,8 @@ def main() -> int:
             "date": iso_date(growth.get("data_as_of")), "exists": bool(growth), "source_status": "ok",
             "coverage": f"主板 {(growth.get('universe') or {}).get('stocks_mainboard', '—')} 只 · 有效 {(growth.get('universe') or {}).get('stocks_financial_valid', '—')} 只",
             "source": growth.get("source") or "问财财务与历史资讯",
-            "note": "当前财报截面，逐股披露日回溯仍待完善",
-            "cadence": "每周/财报披露后", "max_lag_days": 5,
+            "note": "财务截面每日更新；历史资讯证据按已采集覆盖",
+            "cadence": "每个交易日收盘/财报披露后", "max_lag_days": 0,
         },
         {
             "key": "dividend", "title": "红利因子", "href": "./dividend_factor.html",
