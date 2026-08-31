@@ -47,9 +47,11 @@ assert.ok(redCss.includes("transition: color 160ms ease, background-color 160ms 
 assert.ok(redCss.includes("justify-items: stretch !important"));
 assert.ok(redCss.includes("max-width: calc(100vw - 32px) !important"));
 assert.ok(/\.dashboard-tabs > \.dashboard-tab[\s\S]*?justify-self: stretch !important/.test(redCss));
+assert.ok(redCss.includes("#bt-period-tabs"));
+assert.ok(!/\.btn\.primary,[\s\S]*?\.period-tabs button\.active,[\s\S]*?\.refresh\.primary/.test(redCss));
 for (const page of ["index.html", "market_mode.html", "industry_mainline_dashboard.html", "shortterm_dashboard.html", "trend_engine.html", "growth_factor.html", "dividend_factor.html", "shortterm_factor_preview.html", "market_overview.html"]) {
   const html = fs.readFileSync(path.join(root, page), "utf8");
-  assert.ok(html.includes("red_theme.css?v=20260831-nav-stable2"), `stale shared theme cache key: ${page}`);
+  assert.ok(html.includes("red_theme.css?v=20260831-nav-stable3"), `stale shared theme cache key: ${page}`);
 }
 assert.ok(etfAlias.includes('window.location.replace("./index.html")'));
 

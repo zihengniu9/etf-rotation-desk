@@ -137,7 +137,6 @@ body {
 
 .btn.primary,
 .tool.active,
-.period-tabs button.active,
 .refresh.primary {
   border-color: var(--brand-red) !important;
   background: var(--brand-red) !important;
@@ -256,6 +255,68 @@ tbody tr.selected,
   .dashboard-tabs,
   .tabs {
     width: 100% !important;
+  }
+}
+
+/* ETF 收益区间是分段 Tab，不使用主操作按钮的整块高亮。 */
+#bt-period-tabs {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  align-items: center !important;
+  gap: 3px !important;
+  width: min(100%, 300px) !important;
+  min-width: 0 !important;
+  height: 40px !important;
+  padding: 3px !important;
+  border: 1px solid var(--line, rgb(68 84 105 / .15)) !important;
+  border-radius: 12px !important;
+  background: rgb(244 246 250 / .92) !important;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .72) !important;
+  overflow: hidden !important;
+}
+
+#bt-period-tabs button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  margin: 0 !important;
+  padding: 0 8px !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  background: transparent !important;
+  color: var(--muted, #748195) !important;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+  transform: none !important;
+  transition: color 160ms ease, background-color 160ms ease, box-shadow 160ms ease !important;
+}
+
+#bt-period-tabs button:hover {
+  color: var(--brand-red-dark) !important;
+  background: rgb(215 25 32 / .04) !important;
+  box-shadow: inset 0 0 0 1px rgb(215 25 32 / .10) !important;
+}
+
+#bt-period-tabs button.active,
+#bt-period-tabs button[aria-pressed="true"] {
+  color: var(--brand-red-dark) !important;
+  background: var(--brand-red-soft) !important;
+  box-shadow: inset 0 0 0 1px var(--brand-red-line), 0 2px 7px rgb(215 25 32 / .10) !important;
+}
+
+#bt-period-tabs button:focus-visible {
+  outline: 2px solid rgb(215 25 32 / .42) !important;
+  outline-offset: 1px !important;
+}
+
+@media (max-width: 640px) {
+  #bt-period-tabs {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 }
 
