@@ -38,13 +38,15 @@ for (const key of ["trend", "growth", "dividend", "short", "industry", "etf"]) {
 assert.ok(hubCss.includes(".module-grid"));
 assert.ok(hubCss.includes(".data-health-grid"));
 assert.ok(hubCss.includes("@media (max-width: 620px)"));
-assert.ok(/@media \(max-width: 1180px\)[\s\S]*?grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/.test(redCss));
+assert.ok(/@media \(max-width: 1180px\)[\s\S]*?grid-template-columns: repeat\(9, minmax\(0, 1fr\)\)/.test(redCss));
 assert.ok(/@media \(max-width: 700px\)[\s\S]*?grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/.test(redCss));
-assert.ok(/@media \(max-width: 1180px\)[\s\S]*?overflow: visible !important/.test(redCss));
+assert.ok(/@media \(max-width: 1180px\)[\s\S]*?overflow: hidden !important/.test(redCss));
 assert.ok(redCss.includes("scrollbar-width: none !important"));
+assert.ok(redCss.includes("transform: none !important"));
+assert.ok(redCss.includes("transition: color 160ms ease, background-color 160ms ease, box-shadow 160ms ease !important"));
 for (const page of ["index.html", "market_mode.html", "industry_mainline_dashboard.html", "shortterm_dashboard.html", "trend_engine.html", "growth_factor.html", "dividend_factor.html", "shortterm_factor_preview.html", "market_overview.html"]) {
   const html = fs.readFileSync(path.join(root, page), "utf8");
-  assert.ok(html.includes("red_theme.css?v=20260831-nav-grid"), `stale shared theme cache key: ${page}`);
+  assert.ok(html.includes("red_theme.css?v=20260831-nav-stable"), `stale shared theme cache key: ${page}`);
 }
 assert.ok(etfAlias.includes('window.location.replace("./index.html")'));
 
