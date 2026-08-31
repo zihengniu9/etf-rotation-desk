@@ -108,6 +108,9 @@ def main(argv: list[str] | None = None) -> int:
     curve_path = output_dir / "etf_backtest_curve.csv"
     trades_path = output_dir / "etf_backtest_trades.csv"
     positions_path = output_dir / "etf_backtest_positions.csv"
+    preserved_curve_through = ""
+    if args.preserve_backtest_history and not args.no_preserve_backtest_history and curve_path.exists():
+        preserved_curve_through = latest_curve_date(pd.read_csv(curve_path))
     previous_positions = pd.DataFrame(columns=POSITION_COLUMNS)
     if args.preserve_backtest_history and not args.no_preserve_backtest_history and positions_path.exists():
         previous_positions = pd.read_csv(positions_path)
@@ -131,7 +134,16 @@ def main(argv: list[str] | None = None) -> int:
         curve = filter_rows_from_date(curve, args.backtest_history_start_date)
         trades = filter_trade_ledger_from_date(trades, args.backtest_history_start_date)
     positions = align_positions_to_trade_ledger(trades, combine_position_metadata(previous_positions, positions))
+    curve = rebuild_curve_tail_from_trade_ledger(
+        curve,
+        trades,
+        histories,
+        preserve_through_date=preserved_curve_through,
+    )
     curve = align_latest_curve_to_positions(curve, trades, positions)
+    curve_errors = audit_curve_against_trade_ledger(curve, trades)
+    if curve_errors:
+        raise ValueError("Invalid ETF backtest curve: " + "; ".join(curve_errors[:5]))
     ledger_errors = audit_trade_ledger(trades, positions, max_positions=max_positions)
     if ledger_errors:
         raise ValueError("Invalid merged backtest trade ledger: " + "; ".join(ledger_errors[:5]))
@@ -276,6 +288,14 @@ def merge_historical_rows(existing: pd.DataFrame, fresh: pd.DataFrame, *, key_co
 
     columns = list(dict.fromkeys([*fresh.columns.tolist(), *existing.columns.tolist()]))
     key_columns = [column for column in key_columns if column in columns]
+    existing = filter_rows_from_date(existing, min_date)
+    fresh = filter_rows_from_date(fresh, min_date)
+    if "date" in key_columns and not existing.empty and "date" in existing.columns and "date" in fresh.columns:
+        existing_dates = pd.to_datetime(existing["date"], errors="coerce")
+        latest_existing_date = existing_dates.max()
+        if pd.notna(latest_existing_date):
+            fresh_dates = pd.to_datetime(fresh["date"], errors="coerce")
+            fresh = fresh.loc[fresh_dates > latest_existing_date].copy()
     combined = pd.concat(
         [fresh.reindex(columns=columns), existing.reindex(columns=columns)],
         ignore_index=True,
@@ -286,7 +306,6 @@ def merge_historical_rows(existing: pd.DataFrame, fresh: pd.DataFrame, *, key_co
             dedupe[column] = dedupe[column].astype(str)
         combined = combined.loc[~dedupe.duplicated(subset=key_columns, keep="last")]
         combined = combined.sort_values(key_columns)
-    combined = filter_rows_from_date(combined, min_date)
     return combined.reset_index(drop=True).reindex(columns=columns)
 
 
@@ -622,6 +641,183 @@ def align_positions_to_trade_ledger(trades: pd.DataFrame, positions: pd.DataFram
     if equity > 0 and not frame.empty:
         frame["weight"] = (pd.to_numeric(frame["market_value"], errors="coerce").fillna(0.0) / equity).round(6)
     return frame.reset_index(drop=True)
+
+
+def rebuild_curve_tail_from_trade_ledger(
+    curve: pd.DataFrame,
+    trades: pd.DataFrame,
+    histories: dict[str, pd.DataFrame],
+    *,
+    preserve_through_date: str | None = None,
+) -> pd.DataFrame:
+    """Rebuild only newly appended curve rows from the preserved trade ledger.
+
+    A fresh backtest starts with a clean account, while the persisted trade ledger
+    may contain a different historical path.  Reusing fresh tail rows therefore
+    mixes two portfolios.  Rebuilding the tail from trades and daily closes keeps
+    cash, holdings and equity on one accounting basis without rewriting locked
+    historical rows.
+    """
+    if curve.empty or trades.empty or not histories:
+        return curve.copy().reset_index(drop=True)
+
+    aligned = curve.copy().reset_index(drop=True)
+    curve_dates = pd.to_datetime(aligned.get("date", pd.Series(dtype=str)), errors="coerce")
+    cutoff = pd.to_datetime(preserve_through_date, errors="coerce") if preserve_through_date else pd.NaT
+    if pd.notna(cutoff):
+        tail_indexes = [index for index, value in curve_dates.items() if pd.notna(value) and value > cutoff]
+    else:
+        tail_indexes = [index for index, value in curve_dates.items() if pd.notna(value)]
+    if not tail_indexes:
+        return aligned
+
+    trade_frame = trades.copy().reset_index(drop=True)
+    trade_frame["_trade_date"] = pd.to_datetime(trade_frame.get("date"), errors="coerce")
+    trade_frame = trade_frame.sort_values(["_trade_date"], na_position="last", kind="stable").reset_index(drop=True)
+    initial_cash = _infer_initial_cash(trade_frame)
+    cash = float(initial_cash)
+    holdings: dict[str, float] = {}
+    trade_index = 0
+    tail_set = set(tail_indexes)
+    previous_equities = pd.to_numeric(aligned.loc[~aligned.index.isin(tail_indexes), "equity"], errors="coerce").dropna()
+    running_peak = max(float(previous_equities.max()) if not previous_equities.empty else initial_cash, initial_cash)
+    history_cache = _prepare_history_cache(histories)
+
+    for index, current_date in curve_dates.items():
+        if pd.isna(current_date):
+            continue
+        while trade_index < len(trade_frame):
+            trade_date = trade_frame.iloc[trade_index]["_trade_date"]
+            if pd.isna(trade_date) or trade_date > current_date:
+                break
+            trade = trade_frame.iloc[trade_index]
+            action = str(trade.get("action", "")).upper()
+            code = str(trade.get("code", "")).strip().zfill(6)
+            shares = _to_float(trade.get("shares", 0.0))
+            value = _to_float(trade.get("value", 0.0))
+            fee = _to_float(trade.get("fee", 0.0))
+            stamp_tax = _to_float(trade.get("stamp_tax", 0.0))
+            if action == "BUY":
+                cash -= value + fee + stamp_tax
+                if code and shares > 0:
+                    holdings[code] = holdings.get(code, 0.0) + shares
+            elif action == "SELL":
+                cash += value - fee - stamp_tax
+                if code and shares > 0:
+                    remaining = holdings.get(code, 0.0) - shares
+                    if remaining > 0.000001:
+                        holdings[code] = remaining
+                    else:
+                        holdings.pop(code, None)
+            trade_index += 1
+
+        if index not in tail_set:
+            continue
+
+        position_value = 0.0
+        missing_price = False
+        for code, shares in holdings.items():
+            price = _history_close_at_or_before(history_cache.get(code), current_date)
+            if price is None:
+                missing_price = True
+                break
+            position_value += shares * price
+        if missing_price:
+            return aligned
+
+        equity = cash + position_value
+        running_peak = max(running_peak, equity)
+        aligned.at[index, "cash"] = round(cash, 8)
+        aligned.at[index, "position_value"] = round(position_value, 8)
+        aligned.at[index, "equity"] = round(equity, 8)
+        aligned.at[index, "exposure"] = round(position_value / equity if equity else 0.0, 6)
+        aligned.at[index, "total_return"] = round(equity / initial_cash - 1.0 if initial_cash else 0.0, 6)
+        aligned.at[index, "drawdown"] = round(equity / running_peak - 1.0 if running_peak else 0.0, 6)
+        if "positions" in aligned.columns:
+            aligned.at[index, "positions"] = "|".join(sorted(holdings))
+
+    return aligned
+
+
+def audit_curve_against_trade_ledger(
+    curve: pd.DataFrame,
+    trades: pd.DataFrame,
+    *,
+    tolerance: float = 0.00001,
+) -> list[str]:
+    """Return accounting errors that would make the displayed curve misleading."""
+    required_curve = {"date", "cash", "position_value", "equity"}
+    required_trades = {"date", "action", "value", "cash_after"}
+    if curve.empty or trades.empty or required_curve.difference(curve.columns) or required_trades.difference(trades.columns):
+        return []
+
+    frame = trades.copy().reset_index(drop=True)
+    frame["_trade_date"] = pd.to_datetime(frame["date"], errors="coerce")
+    frame = frame.sort_values(["_trade_date"], na_position="last", kind="stable").reset_index(drop=True)
+    initial_cash = _infer_initial_cash(frame)
+    cash = float(initial_cash)
+    trade_index = 0
+    errors: list[str] = []
+    ordered_curve = curve.copy().reset_index(drop=True)
+    ordered_curve["_curve_date"] = pd.to_datetime(ordered_curve["date"], errors="coerce")
+    ordered_curve = ordered_curve.sort_values(["_curve_date"], na_position="last", kind="stable")
+
+    for _, row in ordered_curve.iterrows():
+        current_date = row["_curve_date"]
+        if pd.isna(current_date):
+            continue
+        while trade_index < len(frame):
+            trade_date = frame.iloc[trade_index]["_trade_date"]
+            if pd.isna(trade_date) or trade_date > current_date:
+                break
+            trade = frame.iloc[trade_index]
+            action = str(trade.get("action", "")).upper()
+            value = _to_float(trade.get("value", 0.0))
+            fee = _to_float(trade.get("fee", 0.0))
+            stamp_tax = _to_float(trade.get("stamp_tax", 0.0))
+            if action == "BUY":
+                cash -= value + fee + stamp_tax
+            elif action == "SELL":
+                cash += value - fee - stamp_tax
+            trade_index += 1
+
+        actual_cash = _to_float(row.get("cash"))
+        actual_position_value = _to_float(row.get("position_value"))
+        actual_equity = _to_float(row.get("equity"))
+        if abs(actual_cash - cash) > tolerance:
+            errors.append(
+                f"{row['date']} cash {actual_cash:.8f} != ledger {cash:.8f}"
+            )
+        if abs(actual_equity - (actual_cash + actual_position_value)) > tolerance:
+            errors.append(
+                f"{row['date']} equity {actual_equity:.8f} != cash+positions {(actual_cash + actual_position_value):.8f}"
+            )
+    return errors
+
+
+def _prepare_history_cache(histories: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]:
+    cache: dict[str, pd.DataFrame] = {}
+    for code, history in histories.items():
+        if history is None or history.empty or "date" not in history.columns or "close" not in history.columns:
+            continue
+        frame = history[["date", "close"]].copy()
+        frame["date"] = pd.to_datetime(frame["date"], errors="coerce")
+        frame["close"] = pd.to_numeric(frame["close"], errors="coerce")
+        frame = frame.dropna(subset=["date", "close"]).sort_values("date").reset_index(drop=True)
+        if not frame.empty:
+            cache[str(code).zfill(6)] = frame
+    return cache
+
+
+def _history_close_at_or_before(history: pd.DataFrame | None, target: pd.Timestamp) -> float | None:
+    if history is None or history.empty:
+        return None
+    date_index = pd.DatetimeIndex(history["date"])
+    position = date_index.searchsorted(target, side="right") - 1
+    if position < 0:
+        return None
+    value = _to_float(history.iloc[int(position)]["close"])
+    return value if value > 0 else None
 
 
 def align_latest_curve_to_positions(curve: pd.DataFrame, trades: pd.DataFrame, positions: pd.DataFrame) -> pd.DataFrame:

@@ -4,6 +4,7 @@ import pandas as pd
 
 from low_buy_selector.etf_cli import (
     apply_realtime_quotes_to_histories,
+    audit_curve_against_trade_ledger,
     align_latest_curve_to_positions,
     filter_backtest_pool,
     filter_trade_ledger_from_date,
@@ -11,6 +12,7 @@ from low_buy_selector.etf_cli import (
     align_positions_to_trade_ledger,
     merge_historical_rows,
     merge_trade_ledger_rows,
+    rebuild_curve_tail_from_trade_ledger,
     recalculate_trade_cash_after,
 )
 
@@ -84,6 +86,75 @@ class ETFCLITests(unittest.TestCase):
 
         self.assertEqual(merged["date"].tolist(), ["2025-06-30", "2026-07-04"])
         self.assertAlmostEqual(float(merged.loc[merged["date"] == "2025-06-30", "value"].iloc[0]), 0.49)
+
+    def test_merge_historical_rows_does_not_backfill_closed_history(self):
+        existing = pd.DataFrame(
+            [
+                {"date": "2026-06-01", "equity": 1.00},
+                {"date": "2026-06-03", "equity": 1.02},
+            ]
+        )
+        fresh = pd.DataFrame(
+            [
+                {"date": "2026-06-02", "equity": 0.40},
+                {"date": "2026-06-04", "equity": 1.04},
+            ]
+        )
+
+        merged = merge_historical_rows(existing, fresh, key_columns=["date"])
+
+        self.assertEqual(merged["date"].tolist(), ["2026-06-01", "2026-06-03", "2026-06-04"])
+
+    def test_rebuild_curve_tail_uses_trade_ledger_cash_and_history_prices(self):
+        curve = pd.DataFrame(
+            [
+                {"date": "2026-06-02", "equity": 1.00, "cash": 0.50, "position_value": 0.50, "exposure": 0.50, "total_return": 0.0, "drawdown": 0.0, "positions": "AAA"},
+                {"date": "2026-06-03", "equity": 1.20, "cash": 0.00, "position_value": 1.20, "exposure": 1.0, "total_return": 0.2, "drawdown": 0.0, "positions": "AAA"},
+            ]
+        )
+        trades = pd.DataFrame(
+            [
+                {"date": "2026-06-01", "action": "BUY", "code": "AAA", "shares": 1.0, "value": 0.50, "fee": 0.0, "stamp_tax": 0.0, "cash_after": 0.50},
+            ]
+        )
+        histories = {
+            "AAA": pd.DataFrame(
+                [
+                    {"date": "2026-06-02", "close": 0.50},
+                    {"date": "2026-06-03", "close": 0.60},
+                ]
+            )
+        }
+
+        rebuilt = rebuild_curve_tail_from_trade_ledger(
+            curve,
+            trades,
+            histories,
+            preserve_through_date="2026-06-02",
+        )
+        row = rebuilt.iloc[-1]
+
+        self.assertAlmostEqual(float(row["cash"]), 0.50)
+        self.assertAlmostEqual(float(row["position_value"]), 0.60)
+        self.assertAlmostEqual(float(row["equity"]), 1.10)
+        self.assertAlmostEqual(float(row["exposure"]), 0.545455, places=5)
+
+    def test_audit_curve_against_trade_ledger_rejects_cash_jump_without_trade(self):
+        curve = pd.DataFrame(
+            [
+                {"date": "2026-06-02", "equity": 1.00, "cash": 0.50, "position_value": 0.50},
+                {"date": "2026-06-03", "equity": 1.00, "cash": 0.00, "position_value": 1.00},
+            ]
+        )
+        trades = pd.DataFrame(
+            [
+                {"date": "2026-06-01", "action": "BUY", "code": "AAA", "shares": 1.0, "value": 0.50, "cash_after": 0.50},
+            ]
+        )
+
+        errors = audit_curve_against_trade_ledger(curve, trades)
+
+        self.assertTrue(any("2026-06-03 cash" in error for error in errors))
 
     def test_merge_trade_ledger_rows_keeps_existing_dates_atomic(self):
         existing = pd.DataFrame(

@@ -36,7 +36,7 @@ assert.ok(html.indexOf('class="backtest-stats"') < html.indexOf('class="chart-sh
 assert.ok(html.includes('./styles.css?v=20260810-hot-card-stable'));
 assert.strictEqual(html.includes('<h2>ETF 模拟交易</h2>'), false);
 assert.strictEqual(html.includes('增强自适应 · 近一年'), false);
-assert.ok(html.includes('../outputs/etf_local_data.js?v=20260826-local-fallback'));
+assert.ok(html.includes('../outputs/etf_local_data.js?v=20260831-etf-curve-fix'));
 assert.ok(html.includes('./app.js?v=20260826-local-fallback'));
 assert.ok(html.includes('class="trade-header"'));
 assert.ok(html.indexOf('class="trade-header"') < html.indexOf('id="bt-trades"'));
