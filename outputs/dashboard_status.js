@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-09-01T09:38:47+08:00",
+  "updated_at": "2026-09-01T11:35:22+08:00",
   "reference_date": "2026-08-31",
   "reference_rule": "以最新完成交易日的行情复盘日期为新鲜度基准",
   "summary": {
@@ -37,7 +37,7 @@ window.DASHBOARD_STATUS = {
       "title": "行业主线",
       "href": "./industry_mainline_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-08-31",
+      "data_as_of": "2026-09-01",
       "coverage": "252 个历史日 · 22680 行",
       "source": "行业成分股行情与资金承载",
       "note": "行业主线数据已成功刷新",
@@ -48,8 +48,8 @@ window.DASHBOARD_STATUS = {
       "title": "ETF轮动",
       "href": "./index.html",
       "state": "current",
-      "data_as_of": "2026-08-31",
-      "coverage": "排名 86 只 · 实时报价 216 只",
+      "data_as_of": "2026-09-01",
+      "coverage": "排名 87 只 · 实时报价 215 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
