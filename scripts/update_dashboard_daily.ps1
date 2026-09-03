@@ -109,11 +109,11 @@ function Invoke-Close([string]$TargetDate) {
     Write-RunLog "SKIP  short-term close factors (missing same-day 09:25 signal)"
   }
   Invoke-Step "latest market review" $Python @("scripts/update_latest_review.py", "--as-of", $TargetDate)
-  Invoke-Step "short-term close factor" $Python @("scripts/build_shortterm_close_factor.py", "--as-of", $TargetDate)
   Invoke-Step "trend current cross-section" $Python @(
     "scripts/run_wencai_trend_analysis.py", "--as-of", $TargetDate,
     "--history-input", "outputs/trend_history.csv.gz"
   )
+  Invoke-Step "short-term close factor" $Python @("scripts/build_shortterm_close_factor.py", "--as-of", $TargetDate)
   Invoke-Step "industry mainline" $Python @("scripts/update_industry_data.py", "--refresh", "--as-of", $TargetDate)
   Invoke-Step "industry stock roles" $Python @("scripts/update_industry_stock_roles.py")
   Invoke-Step "ETF rotation" "powershell.exe" @(
@@ -142,10 +142,16 @@ function Push-Outputs([string]$TargetDate, [string]$RunMode) {
   & git config user.email "dashboard-bot@users.noreply.github.com"
   & git commit -m "Update dashboard data $TargetDate ($($RunMode.ToLowerInvariant()))"
   if ($LASTEXITCODE -ne 0) { throw "git commit failed" }
-  & git pull --rebase origin main
-  if ($LASTEXITCODE -ne 0) { throw "git pull --rebase failed; automatic push stopped" }
-  & git push origin HEAD:main
-  if ($LASTEXITCODE -ne 0) { throw "git push failed" }
+  $pullOutput = @(& git pull --rebase --autostash origin main 2>&1)
+  if ($LASTEXITCODE -ne 0) {
+    Write-RunLog ("git pull --rebase failed: " + (($pullOutput -join " ").Trim()))
+    throw "git pull --rebase failed; automatic push stopped"
+  }
+  $pushOutput = @(& git push origin HEAD:main 2>&1)
+  if ($LASTEXITCODE -ne 0) {
+    Write-RunLog ("git push failed: " + (($pushOutput -join " ").Trim()))
+    throw "git push failed"
+  }
   Write-RunLog "DONE  git publish"
 }
 
