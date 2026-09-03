@@ -1,5 +1,5 @@
 {
-  "data_as_of": "2026-09-02",
+  "data_as_of": "2026-09-03",
   "source": "同花顺问财 · hithink-astock-selector · 36个历史时点",
   "engine_selection": {
     "selected_adapter": "wencai_cross_section",
@@ -661,9 +661,9 @@
     }
   },
   "market_decision": {
-    "mode": "趋势模式观察",
-    "action": "等待趋势宽度升至8%",
-    "reason": "趋势仍是少数个股行情，固定持有的稳定性不足",
+    "mode": "趋势模式关闭",
+    "action": "不新开趋势仓，候选仅观察",
+    "reason": "中期多头结构尚未扩散到足够多的主板股票",
     "allow_new_entries": false,
     "tone": "warning",
     "preferred_setups": [],
@@ -672,10 +672,10 @@
       "eligible_ratio_min": 0.08,
       "positive_r20_ratio_min": 0.5,
       "rows": 3035,
-      "eligible_count": 92,
-      "eligible_ratio": 0.030313014827018123,
-      "positive_r20_ratio": 0.6935749588138386,
-      "median_r20": 0.041766109785202815,
+      "eligible_count": 79,
+      "eligible_ratio": 0.026029654036243823,
+      "positive_r20_ratio": 0.6052718286655684,
+      "median_r20": 0.022304832713754667,
       "full_alignment_ratio": 0.04975288303130148
     }
   },

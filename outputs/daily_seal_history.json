@@ -40048,5 +40048,511 @@
         "热力"
       ]
     }
+  ],
+  "20260903": [
+    {
+      "name": "国芳集团",
+      "code": "601086.SH",
+      "boards": 5,
+      "amount": null,
+      "concepts": [
+        "商贸零售",
+        "零售",
+        "百货零售"
+      ]
+    },
+    {
+      "name": "集泰股份",
+      "code": "002909.SZ",
+      "boards": 4,
+      "amount": null,
+      "concepts": [
+        "基础化工",
+        "化学制品",
+        "有机硅"
+      ]
+    },
+    {
+      "name": "龙版传媒",
+      "code": "605577.SH",
+      "boards": 4,
+      "amount": null,
+      "concepts": [
+        "传媒",
+        "文化传媒",
+        "出版"
+      ]
+    },
+    {
+      "name": "云南旅游",
+      "code": "002059.SZ",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "社会服务",
+        "旅游及酒店",
+        "人工景点"
+      ]
+    },
+    {
+      "name": "太阳电缆",
+      "code": "002300.SZ",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "电网设备",
+        "线缆部件及其他"
+      ]
+    },
+    {
+      "name": "金帝股份",
+      "code": "603270.SH",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "通用设备",
+        "金属制品"
+      ]
+    },
+    {
+      "name": "信达地产",
+      "code": "600657.SH",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "房地产",
+        "住宅开发"
+      ]
+    },
+    {
+      "name": "博云新材",
+      "code": "002297.SZ",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "国防军工",
+        "军工装备",
+        "航空装备"
+      ]
+    },
+    {
+      "name": "光洋股份",
+      "code": "002708.SZ",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "底盘与发动机系统"
+      ]
+    },
+    {
+      "name": "新炬网络",
+      "code": "605398.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "计算机",
+        "IT服务",
+        "IT服务Ⅲ"
+      ]
+    },
+    {
+      "name": "金现代",
+      "code": "300830.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "计算机",
+        "软件开发",
+        "垂直应用软件"
+      ]
+    },
+    {
+      "name": "珠免集团",
+      "code": "600185.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "商贸零售",
+        "零售",
+        "旅游零售"
+      ]
+    },
+    {
+      "name": "郴电国际",
+      "code": "600969.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "公用事业",
+        "电力",
+        "电能综合服务"
+      ]
+    },
+    {
+      "name": "中毅达",
+      "code": "600610.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "基础化工",
+        "化学原料",
+        "其他化学原料"
+      ]
+    },
+    {
+      "name": "美能能源",
+      "code": "001299.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "公用事业",
+        "燃气",
+        "燃气Ⅲ"
+      ]
+    },
+    {
+      "name": "金富科技",
+      "code": "003018.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "轻工制造",
+        "包装印刷",
+        "包装"
+      ]
+    },
+    {
+      "name": "爱仕达",
+      "code": "002403.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "家用电器",
+        "小家电",
+        "小家电Ⅲ"
+      ]
+    },
+    {
+      "name": "东百集团",
+      "code": "600693.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "商贸零售",
+        "零售",
+        "百货零售"
+      ]
+    },
+    {
+      "name": "凯迪股份",
+      "code": "605288.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "自动化设备",
+        "工控设备"
+      ]
+    },
+    {
+      "name": "宏盛股份",
+      "code": "603090.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "通用设备",
+        "其他通用设备"
+      ]
+    },
+    {
+      "name": "万朗磁塑",
+      "code": "603150.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "家用电器",
+        "白色家电",
+        "家电零部件"
+      ]
+    },
+    {
+      "name": "艾华集团",
+      "code": "603989.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "元件",
+        "被动元件"
+      ]
+    },
+    {
+      "name": "德展健康",
+      "code": "000813.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "医药生物",
+        "化学制药",
+        "化学制剂"
+      ]
+    },
+    {
+      "name": "未名",
+      "code": "002581.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "医药生物",
+        "生物制品",
+        "其他生物制品"
+      ]
+    },
+    {
+      "name": "千金药业",
+      "code": "600479.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "医药生物",
+        "中药",
+        "中药Ⅲ"
+      ]
+    },
+    {
+      "name": "海量数据",
+      "code": "603138.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "计算机",
+        "软件开发",
+        "横向通用软件"
+      ]
+    },
+    {
+      "name": "鸣志电器",
+      "code": "603728.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "电机",
+        "电机Ⅲ"
+      ]
+    },
+    {
+      "name": "恒盛能源",
+      "code": "605580.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "公用事业",
+        "电力",
+        "热力"
+      ]
+    },
+    {
+      "name": "冠盛股份",
+      "code": "605088.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "底盘与发动机系统"
+      ]
+    },
+    {
+      "name": "亚盛集团",
+      "code": "600108.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "种植业与林业",
+        "其他种植业"
+      ]
+    },
+    {
+      "name": "嘉美包装",
+      "code": "002969.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "轻工制造",
+        "包装印刷",
+        "包装"
+      ]
+    },
+    {
+      "name": "德尔未来",
+      "code": "002631.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "轻工制造",
+        "家居用品",
+        "瓷砖地板"
+      ]
+    },
+    {
+      "name": "新朋股份",
+      "code": "002328.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "其他汽车零部件"
+      ]
+    },
+    {
+      "name": "思泉新材",
+      "code": "301489.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "电子化学品",
+        "电子化学品Ⅲ"
+      ]
+    },
+    {
+      "name": "大元泵业",
+      "code": "603757.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "通用设备",
+        "其他通用设备"
+      ]
+    },
+    {
+      "name": "三安光电",
+      "code": "600703.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "光学光电子",
+        "LED"
+      ]
+    },
+    {
+      "name": "百大集团",
+      "code": "600865.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "商贸零售",
+        "零售",
+        "百货零售"
+      ]
+    },
+    {
+      "name": "华源控股",
+      "code": "002787.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "轻工制造",
+        "包装印刷",
+        "包装"
+      ]
+    },
+    {
+      "name": "白银有色",
+      "code": "601212.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "有色金属",
+        "工业金属",
+        "铜"
+      ]
+    },
+    {
+      "name": "华盛昌",
+      "code": "002980.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "电网设备",
+        "电气自控设备"
+      ]
+    },
+    {
+      "name": "美诺华",
+      "code": "603538.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "医药生物",
+        "化学制药",
+        "原料药"
+      ]
+    },
+    {
+      "name": "明新旭腾",
+      "code": "605068.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "车身附件及饰件"
+      ]
+    },
+    {
+      "name": "大众交通",
+      "code": "600611.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "交通运输",
+        "公路铁路运输",
+        "公交"
+      ]
+    },
+    {
+      "name": "禾信",
+      "code": "688622.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "通用设备",
+        "仪器仪表"
+      ]
+    },
+    {
+      "name": "科新发展",
+      "code": "600234.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "建筑装饰",
+        "装饰园林"
+      ]
+    },
+    {
+      "name": "海通发展",
+      "code": "603162.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "交通运输",
+        "港口航运",
+        "航运"
+      ]
+    }
   ]
 }
