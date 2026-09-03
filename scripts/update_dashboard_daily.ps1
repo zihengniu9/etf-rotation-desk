@@ -142,7 +142,7 @@ function Push-Outputs([string]$TargetDate, [string]$RunMode) {
   & git config user.email "dashboard-bot@users.noreply.github.com"
   & git commit -m "Update dashboard data $TargetDate ($($RunMode.ToLowerInvariant()))"
   if ($LASTEXITCODE -ne 0) { throw "git commit failed" }
-  $pullOutput = @(& git pull --rebase --autostash origin main 2>&1)
+  $pullOutput = @(& git pull --rebase origin main --autostash 2>&1)
   if ($LASTEXITCODE -ne 0) {
     Write-RunLog ("git pull --rebase failed: " + (($pullOutput -join " ").Trim()))
     throw "git pull --rebase failed; automatic push stopped"
