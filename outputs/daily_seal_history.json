@@ -40554,5 +40554,444 @@
         "航运"
       ]
     }
+  ],
+  "20260904": [
+    {
+      "name": "龙版传媒",
+      "code": "605577.SH",
+      "boards": 5,
+      "amount": null,
+      "concepts": [
+        "传媒",
+        "文化传媒",
+        "出版"
+      ]
+    },
+    {
+      "name": "恒盛能源",
+      "code": "605580.SH",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "公用事业",
+        "电力",
+        "热力"
+      ]
+    },
+    {
+      "name": "新炬网络",
+      "code": "605398.SH",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "计算机",
+        "IT服务",
+        "IT服务Ⅲ"
+      ]
+    },
+    {
+      "name": "爱仕达",
+      "code": "002403.SZ",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "家用电器",
+        "小家电",
+        "小家电Ⅲ"
+      ]
+    },
+    {
+      "name": "亚盛集团",
+      "code": "600108.SH",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "种植业与林业",
+        "其他种植业"
+      ]
+    },
+    {
+      "name": "百大集团",
+      "code": "600865.SH",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "商贸零售",
+        "零售",
+        "百货零售"
+      ]
+    },
+    {
+      "name": "海通发展",
+      "code": "603162.SH",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "交通运输",
+        "港口航运",
+        "航运"
+      ]
+    },
+    {
+      "name": "楚天龙",
+      "code": "003040.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "通信",
+        "通信设备",
+        "通信终端及配件"
+      ]
+    },
+    {
+      "name": "翠微股份",
+      "code": "603123.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "非银金融",
+        "多元金融",
+        "多元金融Ⅲ"
+      ]
+    },
+    {
+      "name": "美芝",
+      "code": "002856.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "建筑装饰",
+        "装饰园林"
+      ]
+    },
+    {
+      "name": "播恩集团",
+      "code": "001366.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "农产品加工",
+        "畜禽饲料"
+      ]
+    },
+    {
+      "name": "中水渔业",
+      "code": "000798.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "养殖业",
+        "海洋捕捞"
+      ]
+    },
+    {
+      "name": "中国出版",
+      "code": "601949.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "传媒",
+        "文化传媒",
+        "出版"
+      ]
+    },
+    {
+      "name": "天沃科技",
+      "code": "002564.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "专用设备",
+        "能源及重型设备"
+      ]
+    },
+    {
+      "name": "柏星龙",
+      "code": "920075.BJ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "轻工制造",
+        "包装印刷",
+        "包装"
+      ]
+    },
+    {
+      "name": "华天酒店",
+      "code": "000428.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "社会服务",
+        "旅游及酒店",
+        "酒店"
+      ]
+    },
+    {
+      "name": "邦基科技",
+      "code": "603151.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "农产品加工",
+        "畜禽饲料"
+      ]
+    },
+    {
+      "name": "福建水泥",
+      "code": "600802.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "建筑材料",
+        "水泥"
+      ]
+    },
+    {
+      "name": "海欣食品",
+      "code": "002702.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "食品饮料",
+        "食品加工制造",
+        "预加工食品"
+      ]
+    },
+    {
+      "name": "罗牛山",
+      "code": "000735.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "养殖业",
+        "生猪养殖"
+      ]
+    },
+    {
+      "name": "正虹科技",
+      "code": "000702.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "农产品加工",
+        "畜禽饲料"
+      ]
+    },
+    {
+      "name": "实丰文化",
+      "code": "002862.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "轻工制造",
+        "家居用品",
+        "文娱用品"
+      ]
+    },
+    {
+      "name": "源飞宠物",
+      "code": "001222.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "轻工制造",
+        "家居用品",
+        "文娱用品"
+      ]
+    },
+    {
+      "name": "通达电气",
+      "code": "603390.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "汽车电子电气系统"
+      ]
+    },
+    {
+      "name": "会稽山",
+      "code": "601579.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "食品饮料",
+        "饮料制造",
+        "其他酒类"
+      ]
+    },
+    {
+      "name": "天邦食品",
+      "code": "002124.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "养殖业",
+        "生猪养殖"
+      ]
+    },
+    {
+      "name": "平潭发展",
+      "code": "000592.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "种植业与林业",
+        "林业"
+      ]
+    },
+    {
+      "name": "绿康生化",
+      "code": "002868.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "养殖业",
+        "动物保健"
+      ]
+    },
+    {
+      "name": "统一股份",
+      "code": "600506.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "石油石化",
+        "石油加工贸易",
+        "石油加工"
+      ]
+    },
+    {
+      "name": "合富中国",
+      "code": "603122.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "医药生物",
+        "医药商业",
+        "医药流通"
+      ]
+    },
+    {
+      "name": "润贝航科",
+      "code": "001316.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "石油石化",
+        "石油加工贸易",
+        "油品石化贸易"
+      ]
+    },
+    {
+      "name": "高争民爆",
+      "code": "002827.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "基础化工",
+        "化学制品",
+        "民爆用品"
+      ]
+    },
+    {
+      "name": "湖南天雁",
+      "code": "600698.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "底盘与发动机系统"
+      ]
+    },
+    {
+      "name": "华阳国际",
+      "code": "002949.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "建筑装饰",
+        "工程咨询服务"
+      ]
+    },
+    {
+      "name": "新希望",
+      "code": "000876.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "农产品加工",
+        "畜禽饲料"
+      ]
+    },
+    {
+      "name": "欢瑞世纪",
+      "code": "000892.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "传媒",
+        "影视院线",
+        "影视院线Ⅲ"
+      ]
+    },
+    {
+      "name": "安记食品",
+      "code": "603696.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "食品饮料",
+        "食品加工制造",
+        "调味发酵品"
+      ]
+    },
+    {
+      "name": "敦煌种业",
+      "code": "600354.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "种植业与林业",
+        "种子生产"
+      ]
+    },
+    {
+      "name": "新五丰",
+      "code": "600975.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "养殖业",
+        "生猪养殖"
+      ]
+    },
+    {
+      "name": "古越龙山",
+      "code": "600059.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "食品饮料",
+        "饮料制造",
+        "其他酒类"
+      ]
+    }
   ]
 }
