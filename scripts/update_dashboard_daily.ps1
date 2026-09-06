@@ -142,14 +142,18 @@ function Push-Outputs([string]$TargetDate, [string]$RunMode) {
   & git config user.email "dashboard-bot@users.noreply.github.com"
   & git commit -m "Update dashboard data $TargetDate ($($RunMode.ToLowerInvariant()))"
   if ($LASTEXITCODE -ne 0) { throw "git commit failed" }
-  $pullOutput = @(& git pull --rebase origin main --autostash 2>&1)
+  # Git writes normal fetch progress to stderr. Do not merge that stream into
+  # PowerShell's error pipeline while ErrorActionPreference is Stop.
+  Write-RunLog "git pull --rebase origin main --autostash"
+  & git pull --rebase origin main --autostash
   if ($LASTEXITCODE -ne 0) {
-    Write-RunLog ("git pull --rebase failed: " + (($pullOutput -join " ").Trim()))
+    Write-RunLog "git pull --rebase failed with exit=$LASTEXITCODE"
     throw "git pull --rebase failed; automatic push stopped"
   }
-  $pushOutput = @(& git push origin HEAD:main 2>&1)
+  Write-RunLog "git push origin HEAD:main"
+  & git push origin HEAD:main
   if ($LASTEXITCODE -ne 0) {
-    Write-RunLog ("git push failed: " + (($pushOutput -join " ").Trim()))
+    Write-RunLog "git push failed with exit=$LASTEXITCODE"
     throw "git push failed"
   }
   Write-RunLog "DONE  git publish"
