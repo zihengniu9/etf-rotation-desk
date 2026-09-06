@@ -32,7 +32,7 @@ class ETFPoolTests(unittest.TestCase):
 
     def test_extract_theme_recognizes_silver_lof(self):
         self.assertEqual(extract_theme("国投瑞银白银期货证券投资基金(LOF)"), "白银")
-        self.assertEqual(extract_theme("南方原油证券投资基金(LOF)"), "原油")
+        self.assertEqual(extract_theme("南方原油证券投资基金(LOF)"), "油气能源")
 
     def test_build_theme_pool_keeps_largest_fund_size_per_theme(self):
         etfs = pd.DataFrame(

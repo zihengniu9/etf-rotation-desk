@@ -52,8 +52,8 @@ assert.strictEqual(dailyRunner.includes("wss://"), false, "Daily runner must not
 assert.ok(dailyRunner.includes('Get-RequiredEnvironment "IWENCAI_API_KEY"'), "Daily runner should require the API key from environment storage");
 assert.ok(dailyRunner.includes('"-MaxAttempts", "1"'), "Daily runner should enforce a single ETF collection attempt");
 assert.ok(dailyRunner.includes("git add -- outputs"), "Daily runner should stage generated outputs only");
-assert.ok(dailyRunner.includes("git pull --rebase origin main"), "Daily runner should integrate remote changes before publishing");
-assert.ok(dailyRunner.includes("git push origin HEAD:main"), "Daily runner should publish generated outputs to main");
+assert.ok(dailyRunner.includes('"pull", "--rebase", "origin", "main", "--autostash"'), "Daily runner should integrate remote changes before publishing");
+assert.ok(dailyRunner.includes('"push", "origin", "HEAD:main"'), "Daily runner should publish generated outputs to main");
 
 const taskInstaller = read("scripts/install_dashboard_tasks.ps1");
 for (const time of ["09:28", "10:00", "11:30", "14:00", "16:20"]) {
