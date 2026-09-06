@@ -2,27 +2,18 @@
 
 This project is a static dashboard backed by CSV files in `outputs/`.
 
-## Cloud schedule
+## GitHub Pages deployment
 
-The GitHub Actions workflow at `.github/workflows/update-etf-data.yml` runs at
-every 30 minutes during A-share trading hours, using these Asia/Hong_Kong slots:
-`09:30`, `10:00`, `10:30`, `11:00`, `11:30`, `13:00`, `13:30`, `14:00`, `14:30`, and `15:00`.
-
-Each run:
-
-1. Installs Python dependencies from `requirements.txt`.
-2. Runs `python run_etf_selector.py`.
-3. Runs the Python and web checks.
-4. Commits refreshed `outputs/` so historical curve records are preserved.
-5. Builds `dist/` with `index.html`, `web/`, and `outputs/`.
-6. Uploads `dist/` as a GitHub Pages artifact.
-7. Publishes the artifact to the public `github-pages` environment.
+GitHub Actions only validates and publishes the static bundle. It does not
+collect market data because the data source requires the authenticated local
+tun tunnel on the Windows machine. The workflow in
+`.github/workflows/deploy-pages.yml` runs after changes reach `main` and
+publishes `index.html`, `web/`, and generated `outputs/` files.
 
 One-time setup:
 
 1. Open repository `Settings > Pages`.
 2. Under `Build and deployment`, set `Source` to `GitHub Actions`.
-3. Run `Update ETF data` manually once from the Actions tab.
 
 Public URL: `https://zihengniu9.github.io/etf-rotation-desk/web/`
 
@@ -38,11 +29,15 @@ Install the local task:
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\install_windows_task.ps1
 ```
 
-Run once manually:
+Run the complete dashboard update manually:
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\update_etf_data.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\update_dashboard_daily.ps1 -Mode Full -Push
 ```
 
-Logs are appended to `outputs/scheduled_update.log`. The script retries transient
-data-source failures up to three times.
+For an ETF-only refresh, use `scripts\update_etf_data.ps1`.
+
+Logs are appended to `outputs/scheduled_update.log` and
+`outputs/dashboard_daily_update.log`. The unified runner retries Git pull/push
+transient failures up to three times and records Git stderr without treating
+normal fetch progress as a failure.

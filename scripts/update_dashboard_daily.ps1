@@ -41,6 +41,48 @@ function Invoke-Step([string]$Label, [string]$File, [string[]]$Arguments) {
   Write-RunLog "DONE  $Label"
 }
 
+function Invoke-GitCommand([string]$Label, [string[]]$Arguments) {
+  $token = [guid]::NewGuid().ToString("N")
+  $stdoutPath = Join-Path $env:TEMP "ai-dashboard-git-$token.out"
+  $stderrPath = Join-Path $env:TEMP "ai-dashboard-git-$token.err"
+  try {
+    $process = Start-Process `
+      -FilePath "git.exe" `
+      -ArgumentList $Arguments `
+      -WorkingDirectory $ProjectRoot `
+      -RedirectStandardOutput $stdoutPath `
+      -RedirectStandardError $stderrPath `
+      -NoNewWindow `
+      -Wait `
+      -PassThru
+
+    $stdout = if (Test-Path -LiteralPath $stdoutPath) { Get-Content -LiteralPath $stdoutPath } else { @() }
+    $stderr = if (Test-Path -LiteralPath $stderrPath) { Get-Content -LiteralPath $stderrPath } else { @() }
+    foreach ($line in @($stdout)) { Write-RunLog "git $line" }
+    foreach ($line in @($stderr)) { Write-RunLog "git stderr: $line" }
+    if ($process.ExitCode -ne 0) {
+      throw "git $Label failed with exit=$($process.ExitCode)"
+    }
+  } finally {
+    Remove-Item -LiteralPath $stdoutPath, $stderrPath -Force -ErrorAction SilentlyContinue
+  }
+}
+
+function Invoke-GitPublish {
+  for ($attempt = 1; $attempt -le 3; $attempt++) {
+    try {
+      Write-RunLog "git publish attempt $attempt/3"
+      Invoke-GitCommand "pull --rebase origin main --autostash" @("pull", "--rebase", "origin", "main", "--autostash")
+      Invoke-GitCommand "push origin HEAD:main" @("push", "origin", "HEAD:main")
+      return
+    } catch {
+      Write-RunLog ("git publish attempt {0}/3 failed: {1}" -f $attempt, $_.Exception.Message)
+      if ($attempt -eq 3) { throw }
+      Start-Sleep -Seconds (10 * $attempt)
+    }
+  }
+}
+
 function Test-Tunnel {
   $uri = [uri]$TunnelProxy
   $probe = Test-NetConnection $uri.Host -Port $uri.Port -WarningAction SilentlyContinue
@@ -142,20 +184,7 @@ function Push-Outputs([string]$TargetDate, [string]$RunMode) {
   & git config user.email "dashboard-bot@users.noreply.github.com"
   & git commit -m "Update dashboard data $TargetDate ($($RunMode.ToLowerInvariant()))"
   if ($LASTEXITCODE -ne 0) { throw "git commit failed" }
-  # Git writes normal fetch progress to stderr. Do not merge that stream into
-  # PowerShell's error pipeline while ErrorActionPreference is Stop.
-  Write-RunLog "git pull --rebase origin main --autostash"
-  & git pull --rebase origin main --autostash
-  if ($LASTEXITCODE -ne 0) {
-    Write-RunLog "git pull --rebase failed with exit=$LASTEXITCODE"
-    throw "git pull --rebase failed; automatic push stopped"
-  }
-  Write-RunLog "git push origin HEAD:main"
-  & git push origin HEAD:main
-  if ($LASTEXITCODE -ne 0) {
-    Write-RunLog "git push failed with exit=$LASTEXITCODE"
-    throw "git push failed"
-  }
+  Invoke-GitPublish
   Write-RunLog "DONE  git publish"
 }
 
