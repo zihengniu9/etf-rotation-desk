@@ -24,7 +24,7 @@ def next_business_day(value: date) -> date:
 
 
 def candidate_role(item: dict) -> str:
-    lane = item.get("lane_label") or ("新晋龙头" if item.get("lane") == "discovery" else "连板接力")
+    lane = item.get("pool_label") or item.get("lane_label") or ("新晋龙头" if item.get("lane") == "discovery" else "连板接力")
     return f"{lane} · M/S/E/Q {item.get('total', '—')}分 · {item.get('action', '观察')}"
 
 
@@ -42,10 +42,13 @@ def main() -> int:
     for_date = next_business_day(date.fromisoformat(as_of)).isoformat()
     candidates = list(mseq.get("candidates") or [])
     actionable = [item for item in candidates if not str(item.get("action") or "").startswith("放弃")]
-    relay = [item for item in actionable if item.get("lane") != "discovery"]
-    discovery = [item for item in actionable if item.get("lane") == "discovery"]
-    primary = (relay or actionable or candidates or [{}])[0]
+    core_actionable = [item for item in actionable if item.get("pool", "core") == "core"]
+    relay = [item for item in core_actionable if item.get("lane") != "discovery"]
+    discovery = [item for item in core_actionable if item.get("lane") == "discovery"]
+    leader = [item for item in actionable if item.get("pool") == "leader"]
+    primary = (relay or discovery or leader or candidates or [{}])[0]
     discovery_names = "、".join(str(item.get("name")) for item in discovery[:3]) or "新晋龙头候选"
+    leader_names = "、".join(str(item.get("name")) for item in leader[:3]) or "龙头观察候选"
     market = review.get("market") or {}
     feedback = review.get("previous_limit_up_feedback") or {}
     latest_sample = next((item for item in reversed(samples) if str(item.get("date")) == as_of), {})
@@ -55,7 +58,8 @@ def main() -> int:
     gate_score = (mseq.get("market") or {}).get("score", signal.get("score", "—"))
     headline = (
         f"{as_of} 收盘：盘后市场门控 {gate_score} 分，{close_text}；"
-        f"{for_date} 先确认 {primary_name} 的核心反馈，再观察 {discovery_names} 的新晋龙头竞争。"
+        f"{for_date} 先确认 {primary_name} 的核心反馈，再观察 {discovery_names} 的新晋龙头竞争；"
+        f"龙头观察另看 {leader_names}，不与连板池混排。"
     )
     market_review = (
         f"收盘涨停 {market.get('limit_up', '—')} 家、跌停 {market.get('limit_down', '—')} 家、"
@@ -84,7 +88,7 @@ def main() -> int:
         },
     ]
     watchlist = []
-    for item in (actionable or candidates)[:6]:
+    for item in (core_actionable[:4] + leader[:2] or candidates)[:6]:
         watchlist.append(
             {
                 "name": f"{item.get('name', '')}({str(item.get('code') or '').split('.')[0]})",

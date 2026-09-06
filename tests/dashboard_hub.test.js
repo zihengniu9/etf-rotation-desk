@@ -4,6 +4,7 @@ const path = require("path");
 
 const root = path.join(__dirname, "../web");
 const market = fs.readFileSync(path.join(root, "market_mode.html"), "utf8");
+const shortterm = fs.readFileSync(path.join(root, "shortterm_dashboard.html"), "utf8");
 const contract = fs.readFileSync(path.join(root, "dashboard_contract.js"), "utf8");
 const hubCss = fs.readFileSync(path.join(root, "dashboard_hub.css"), "utf8");
 const redCss = fs.readFileSync(path.join(root, "red_theme.css"), "utf8");
@@ -25,13 +26,24 @@ for (const fallback of ["shortterm_signal.js", "industry_flow_latest.js", "etf_l
 assert.ok(market.includes('fetchJson("../outputs/industry_flow_latest.json")'));
 assert.ok(market.includes("hydrateFileFallback();"));
 assert.ok(market.includes("outputs 快照 · 收盘数据"));
-assert.ok(market.includes('var sig=all[0],indData=all[1],picks=all[2],ranks=all[3],hots=all[4],trendData=all[5],latestReview=all[6],dividendData=all[7],dashboardStatus=all[8]'));
+assert.ok(market.includes('var sig=all[0],indData=all[1],picks=all[2],ranks=all[3],hots=all[4],trendData=all[5],latestReview=all[6],dividendData=all[7],dashboardStatus=all[8],shortFactor=all[9],growthData=all[10]'));
 assert.ok(market.includes('id="data-health-grid"'));
 assert.ok(market.includes('数据覆盖与新鲜度'));
 assert.ok(market.includes('复盘日期'));
 assert.ok(market.includes("renderHub();"));
 assert.ok(market.includes("renderCurrentDesk();"));
 assert.ok(market.includes("renderDailyReview();"));
+assert.ok(market.includes("renderTrendFactorBreakdown"));
+assert.ok(market.includes("trendLatest:trendData||null"));
+for (const label of ["趋势结构", "相对强度", "突破位置", "量能确认", "趋势质量", "回踩质量"]) {
+  assert.ok(market.includes(label), `missing trend factor label: ${label}`);
+}
+assert.ok(shortterm.includes('id="fx-unified-body"'));
+assert.ok(shortterm.includes("mergeMseqCandidates"));
+assert.ok(shortterm.includes("mergeFactorStocks"));
+for (const label of ["人气榜", "阶段新高", "热点风口", "命中条件"]) {
+  assert.ok(shortterm.includes(label), `missing unified short-term condition: ${label}`);
+}
 for (const key of ["trend", "growth", "dividend", "short", "industry", "etf"]) {
   assert.ok(contract.includes(`key: "${key}"`), `missing module contract: ${key}`);
 }

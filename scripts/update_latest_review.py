@@ -85,6 +85,19 @@ def industry_list(value) -> list[str]:
     return list(dict.fromkeys(str(item).strip() for item in values if str(item).strip()))
 
 
+def recent_activity(row: dict) -> tuple[int | None, int | None]:
+    """Extract an N-day/M-board activity label without treating it as current boards."""
+
+    text = str(first_value(row, ("几天几板", "近期连板描述"), "") or "")
+    match = re.search(r"(\d+)\s*天\s*(\d+)\s*板", text)
+    if match:
+        return int(match.group(1)), int(match.group(2))
+    count = first_value(row, ("近10日涨停次数", "近10日涨停天数", "近期涨停次数"), None)
+    if count not in (None, ""):
+        return 10, int(number(count, 0))
+    return None, None
+
+
 def normalize_leader(row: dict, as_of: str) -> dict:
     name = str(first_value(row, ("股票简称", "股票名称", "名称"), "")).strip()
     code = str(first_value(row, ("股票代码", "证券代码", "代码"), "")).strip()
@@ -93,6 +106,7 @@ def normalize_leader(row: dict, as_of: str) -> dict:
         board_text = str(first_value(row, ("几天几板",), ""))
         match = re.search(r"(\d+)天", board_text)
         boards = number(match.group(1), 0) if match else 0
+    recent_days, recent_board_count = recent_activity(row)
     return {
         "code": code,
         "name": name.replace("*ST", "").strip(),
@@ -102,6 +116,8 @@ def normalize_leader(row: dict, as_of: str) -> dict:
         "final_time": str(first_value(row, ("最终涨停时间",), "")),
         "theme": industry_list(first_value(row, ("所属同花顺行业", "所属行业", "行业"), []))[:3],
         "reason": str(first_value(row, ("涨停原因",), "")).strip(),
+        "recent_days": recent_days,
+        "recent_board_count": recent_board_count,
     }
 
 
@@ -126,7 +142,7 @@ def main() -> int:
     # 统计类问句不拼接日期，问财会在返回字段名中带上最近完整交易日；
     # 指定日期只用于清单和隔日反馈，避免盘中/周末把统计列解析成空值。
     stats_query = "涨停家数 跌停家数 炸板率 最高连板数"
-    leaders_query = f"{as_of_query}涨停股票 股票简称 股票代码 所属同花顺行业 连续涨停天数 涨停开板次数 涨停原因"
+    leaders_query = f"{as_of_query}涨停股票 股票简称 股票代码 所属同花顺行业 连续涨停天数 涨停开板次数 涨停原因 近10日涨停次数 几天几板"
     feedback_query = f"{prior_query}涨停股票 {as_of_query}涨跌幅"
     stats_rows = query_rows(query_function, stats_query, limit=10)
     leader_rows = query_rows(query_function, leaders_query, limit=100)
@@ -208,6 +224,26 @@ def main() -> int:
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    # Keep the close review as an auditable daily evidence point for the
+    # 30-calendar-day leader activity score. This is a replace-by-date write,
+    # so rerunning the updater remains idempotent and never double-counts a day.
+    history_path = output.parent / "daily_seal_history.json"
+    try:
+        history = json.loads(history_path.read_text(encoding="utf-8")) if history_path.exists() else {}
+    except (OSError, json.JSONDecodeError):
+        history = {}
+    history[as_of.replace("-", "")] = [
+        {
+            "name": row["name"],
+            "code": row["code"],
+            "boards": max(1, int(row.get("boards") or 1)),
+            "amount": None,
+            "concepts": row.get("theme") or [],
+        }
+        for row in leaders
+        if row.get("code")
+    ]
+    history_path.write_text(json.dumps(history, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"wrote={output} data_as_of={as_of} limit_up={int(limit_up)} limit_down={int(limit_down)} max_boards={max_boards}")
     return 0
 

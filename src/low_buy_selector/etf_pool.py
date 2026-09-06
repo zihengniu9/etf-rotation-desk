@@ -4,6 +4,10 @@ import pandas as pd
 
 
 THEME_PATTERNS: list[tuple[str, str]] = [
+    # Specific index and sector labels must win over broad name matches.
+    (r"自由现金流", "自由现金流"),
+    (r"A500", "A500"),
+    (r"标普.*石油|石油.*标普|油气|原油", "油气能源"),
     (r"沪深300|300ETF|HS300", "沪深300"),
     (r"中证500|500ETF", "中证500"),
     (r"中证1000|1000ETF", "中证1000"),
@@ -25,7 +29,7 @@ THEME_PATTERNS: list[tuple[str, str]] = [
     (r"软件|信创|计算机", "计算机"),
     (r"传媒|游戏|动漫|影视", "传媒游戏"),
     (r"白银", "白银"),
-    (r"原油|油气", "原油"),
+    (r"原油|油气", "油气能源"),
     (r"证券|券商|金融科技", "证券"),
     (r"银行", "银行"),
     (r"保险", "保险"),
@@ -52,8 +56,10 @@ THEME_PATTERNS: list[tuple[str, str]] = [
     (r"德国|法国|海外|全球", "海外宽基"),
     (r"恒生科技|港股通科技|港股科技", "港股科技"),
     (r"恒生|港股通|H股|香港", "港股宽基"),
-    (r"货币|现金|添利|银华日利", "货币"),
+    (r"货币|添利|银华日利", "货币"),
 ]
+
+EXCLUDED_THEME_MARKERS = ("杭州湾区", "湖北新旧动能转换", "之江凤凰")
 
 PROVIDER_WORDS = [
     "华夏",
@@ -98,6 +104,8 @@ def normalize_etf_code(value: object) -> str:
 
 def extract_theme(name: object) -> str:
     text = str(name).upper().strip()
+    if any(marker.upper() in text for marker in EXCLUDED_THEME_MARKERS):
+        return ""
     for pattern, theme in THEME_PATTERNS:
         if re.search(pattern, text, flags=re.IGNORECASE):
             return theme
@@ -114,6 +122,7 @@ def build_theme_pool(etfs: pd.DataFrame, scales: pd.DataFrame) -> pd.DataFrame:
     merged["capacity_source"] = merged["fund_size"].map(lambda value: "fund_size" if pd.notna(value) else "missing")
     merged["theme"] = merged["name"].map(extract_theme)
     merged = merged[merged["code"].str.startswith(("1", "5"))]
+    merged = merged[merged["theme"].astype(str).str.strip().ne("")]
     merged = merged.dropna(subset=["theme"])
     merged = merged.sort_values(["theme", "fund_size"], ascending=[True, False], na_position="last")
     pool = merged.drop_duplicates(subset=["theme"], keep="first").reset_index(drop=True)

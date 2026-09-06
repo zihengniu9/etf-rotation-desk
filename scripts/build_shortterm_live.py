@@ -31,7 +31,7 @@ def main() -> int:
         for row in review.get("leader_pool") or review.get("leader_board") or []
     }
     stocks = []
-    for candidate in (factors.get("candidates") or [])[:16]:
+    for candidate in (factors.get("candidates") or []):
         name = str(candidate.get("name") or "")
         stocks.append(
             {
@@ -43,6 +43,17 @@ def main() -> int:
                 "low": None,
                 "open": None,
                 "research_status": candidate.get("action") or "观察",
+                "pool": candidate.get("pool") or "core",
+                "pool_label": candidate.get("pool_label") or "短线核心",
+                "rank": candidate.get("rank_label") or candidate.get("rank"),
+                "factor_score": candidate.get("total"),
+                "trend_score": candidate.get("trend_score"),
+                "r60_pct": candidate.get("r60_pct"),
+                "recent_limitup_days": candidate.get("recent_limitup_days"),
+                "heat": candidate.get("heat"),
+                "strength": candidate.get("strength"),
+                "position": candidate.get("position"),
+                "quality": candidate.get("quality"),
             }
         )
 
@@ -60,7 +71,7 @@ def main() -> int:
         },
         "coverage": {
             "stock_price": "未在复盘快照返回时明确留空",
-            "stock_change": "仅涨停复盘清单可取得收盘涨跌幅",
+            "stock_change": "核心池使用涨停复盘涨跌幅；龙头观察池使用同日趋势横截面涨幅与热度证据",
             "candidate_count": len(stocks),
         },
     }

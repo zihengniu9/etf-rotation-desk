@@ -9,6 +9,9 @@
       href: "./trend_engine.html",
       description: "主板个股趋势与历史赚钱效应",
       resolve: function (snapshot, analysis) {
+        if (analysis.currentAllowed === false) {
+          return { label: "暂停确认", tone: "pending", detail: "核心行情日期未统一，先补齐最新数据" };
+        }
         var trend = snapshot.trend || {};
         if (trend.historyAvailable && analysis.mode === "trend") {
           return { label: "优先研究", tone: "ready", detail: "行情模式匹配，先看健康延续与回踩" };
@@ -54,6 +57,9 @@
       description: "情绪生态、梯队地位与竞价触发",
       resolve: function (snapshot, analysis) {
         var score = Number((snapshot.short || {}).score);
+        if (analysis.currentAllowed === false) {
+          return { label: "暂停确认", tone: "pending", detail: "短线核心输入过期，历史信号仅供复核" };
+        }
         if (analysis.mode === "short") {
           return { label: "优先研究", tone: "ready", detail: "M门控通过后再看S/E/Q个股信号" };
         }
@@ -79,7 +85,10 @@
       title: "ETF轮动",
       href: "./etf_rotation.html",
       description: "工具趋势、波动、回撤与轮动",
-      resolve: function (snapshot) {
+      resolve: function (snapshot, analysis) {
+        if (analysis.currentAllowed === false) {
+          return { label: "暂停确认", tone: "pending", detail: "核心行情日期未统一，先补齐最新数据" };
+        }
         var etf = snapshot.etf || {};
         if (etf.mode === "attack") {
           return { label: "可研究", tone: "ready", detail: "策略强度偏进攻，仍需检查回撤与基准" };
