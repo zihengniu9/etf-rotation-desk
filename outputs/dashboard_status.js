@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-09-08T11:32:52+08:00",
+  "updated_at": "2026-09-08T14:05:42+08:00",
   "reference_date": "2026-09-07",
   "reference_rule": "以最新完成交易日的行情复盘日期为新鲜度基准",
   "summary": {
@@ -49,7 +49,7 @@ window.DASHBOARD_STATUS = {
       "href": "./index.html",
       "state": "current",
       "data_as_of": "2026-09-08",
-      "coverage": "排名 37 只 · 实时报价 214 只",
+      "coverage": "排名 36 只 · 实时报价 214 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
