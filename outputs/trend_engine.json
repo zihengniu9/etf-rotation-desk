@@ -1,5 +1,5 @@
 {
-  "data_as_of": "2026-09-09",
+  "data_as_of": "2026-09-10",
   "source": "同花顺问财 · hithink-astock-selector · 36个历史时点",
   "history_available": true,
   "stocks_with_history": 3032,
@@ -164,12 +164,12 @@
     "gate": {
       "eligible_ratio_min": 0.08,
       "positive_r20_ratio_min": 0.5,
-      "rows": 3031,
-      "eligible_count": 89,
-      "eligible_ratio": 0.029363246453315738,
-      "positive_r20_ratio": 0.607060376113494,
-      "median_r20": 0.020050125313283224,
-      "full_alignment_ratio": 0.05377763114483669
+      "rows": 3030,
+      "eligible_count": 77,
+      "eligible_ratio": 0.025412541254125412,
+      "positive_r20_ratio": 0.5405940594059406,
+      "median_r20": 0.009159504066935904,
+      "full_alignment_ratio": 0.046534653465346534
     }
   },
   "gated_strategies": {
@@ -335,20 +335,20 @@
   },
   "trend_breadth": {
     "state": "趋势收缩",
-    "eligible_count": 89,
-    "eligible_ratio": 0.029363246453315738,
-    "historical_percentile": 0.16666666666666666,
+    "eligible_count": 77,
+    "eligible_ratio": 0.025412541254125412,
+    "historical_percentile": 0.1388888888888889,
     "setup_counts": {
-      "pullback": 30,
-      "continuation": 28,
-      "watch": 27,
+      "pullback": 33,
+      "continuation": 21,
+      "watch": 19,
       "breakout": 4
     }
   },
   "universe": {
     "name": "沪深主板非ST",
     "board": "mainboard",
-    "stocks_scanned": 3031,
+    "stocks_scanned": 3030,
     "stocks_with_history": 3032
   },
   "config": {
@@ -400,186 +400,129 @@
   },
   "candidates": [
     {
-      "code": "600333.SH",
-      "name": "长春燃气",
-      "theme": "公用事业-燃气-燃气Ⅲ",
-      "trend_score": 85.2,
-      "r20": 0.1248,
-      "r60": 0.2805,
-      "r120": 0.2465,
-      "volume_ratio": 1.307,
-      "breakout_distance": 0.017,
+      "code": "600919.SH",
+      "name": "江苏银行",
+      "theme": "银行-银行-城商行",
+      "trend_score": 87.3,
+      "r20": 0.0566,
+      "r60": 0.0892,
+      "r120": 0.1545,
+      "volume_ratio": 1.325,
+      "breakout_distance": 0.0161,
       "setup": "breakout",
       "first_break": true,
       "pullback": false,
       "note": "放量接近或突破前60日高点",
       "profit_effect": {
-        "signals": 2,
-        "evaluated": 2,
+        "signals": 11,
+        "evaluated": 11,
         "horizons": {
           "5": {
-            "count": 2,
-            "win_rate": 0.5,
-            "avg_return": -0.029068579455961946,
-            "median_return": -0.029068579455961946,
-            "profit_factor": 0.21398561151078868,
-            "max_adverse": -0.0813609467455621,
-            "avg_adverse": -0.0442775956749393
+            "count": 11,
+            "win_rate": 0.5454545454545454,
+            "avg_return": 0.011478359701757935,
+            "median_return": 0.0111727790474118,
+            "profit_factor": 2.5478274384692794,
+            "max_adverse": -0.0539054498409788,
+            "avg_adverse": -0.0248715927317692
           },
           "10": {
-            "count": 2,
-            "win_rate": 0.5,
-            "avg_return": 0.00518070750500195,
-            "median_return": 0.00518070750500195,
-            "profit_factor": 1.1094424460431664,
-            "max_adverse": -0.1035502958579882,
-            "avg_adverse": -0.0726384572815121
+            "count": 11,
+            "win_rate": 0.8181818181818182,
+            "avg_return": 0.0218849857209204,
+            "median_return": 0.0251054117829097,
+            "profit_factor": 4.281713354802766,
+            "max_adverse": -0.0973289830227284,
+            "avg_adverse": -0.03281303237548913
           },
           "20": {
-            "count": 2,
-            "win_rate": 0.0,
-            "avg_return": -0.1594110510408241,
-            "median_return": -0.1594110510408241,
-            "profit_factor": 0.0,
-            "max_adverse": -0.2573964497041421,
-            "avg_adverse": -0.1984823975139415
+            "count": 11,
+            "win_rate": 0.6363636363636364,
+            "avg_return": 0.018899414233311,
+            "median_return": 0.0135004448570654,
+            "profit_factor": 2.3674502514248967,
+            "max_adverse": -0.0539054498409788,
+            "avg_adverse": -0.023890489140089375
           }
         },
         "label": "样本不足"
       },
       "factors": {
         "structure": 100.0,
-        "relative_strength": 91.4,
+        "relative_strength": 77.9,
         "breakout": 100.0,
-        "volume": 93.4,
-        "quality": 67.3,
-        "pullback": 16.2
+        "volume": 94.6,
+        "quality": 92.3,
+        "pullback": 43.8
       }
     },
     {
-      "code": "600368.SH",
-      "name": "五洲交通",
-      "theme": "交通运输-公路铁路运输-高速公路",
-      "trend_score": 84.7,
-      "r20": 0.0952,
-      "r60": 0.2072,
-      "r120": 0.1148,
-      "volume_ratio": 1.071,
-      "breakout_distance": -0.0023,
-      "setup": "continuation",
-      "first_break": false,
-      "pullback": false,
-      "note": "多头结构内健康延续",
-      "profit_effect": {
-        "signals": 0,
-        "evaluated": 0,
-        "horizons": {
-          "5": {
-            "count": 0,
-            "win_rate": null,
-            "avg_return": null,
-            "median_return": null,
-            "profit_factor": null,
-            "max_adverse": null,
-            "avg_adverse": null
-          },
-          "10": {
-            "count": 0,
-            "win_rate": null,
-            "avg_return": null,
-            "median_return": null,
-            "profit_factor": null,
-            "max_adverse": null,
-            "avg_adverse": null
-          },
-          "20": {
-            "count": 0,
-            "win_rate": null,
-            "avg_return": null,
-            "median_return": null,
-            "profit_factor": null,
-            "max_adverse": null,
-            "avg_adverse": null
-          }
-        },
-        "label": "样本不足"
-      },
-      "factors": {
-        "structure": 100.0,
-        "relative_strength": 86.7,
-        "breakout": 88.9,
-        "volume": 76.5,
-        "quality": 93.0,
-        "pullback": 44.6
-      }
-    },
-    {
-      "code": "603268.SH",
-      "name": "松发股份",
-      "theme": "国防军工-军工装备-航海装备",
-      "trend_score": 84.6,
-      "r20": 0.1105,
-      "r60": 0.2146,
-      "r120": 0.6229,
-      "volume_ratio": 1.143,
-      "breakout_distance": -0.0015,
+      "code": "601009.SH",
+      "name": "南京银行",
+      "theme": "银行-银行-城商行",
+      "trend_score": 85.5,
+      "r20": 0.0703,
+      "r60": 0.0751,
+      "r120": 0.0637,
+      "volume_ratio": 1.267,
+      "breakout_distance": 0.0206,
       "setup": "breakout",
       "first_break": true,
       "pullback": false,
       "note": "放量接近或突破前60日高点",
       "profit_effect": {
-        "signals": 4,
-        "evaluated": 4,
+        "signals": 3,
+        "evaluated": 3,
         "horizons": {
           "5": {
-            "count": 4,
-            "win_rate": 0.75,
-            "avg_return": -0.00890502779504787,
-            "median_return": 0.0583616027571034,
-            "profit_factor": 0.8373585046967134,
-            "max_adverse": -0.2248336106489183,
-            "avg_adverse": -0.0771524993600853
+            "count": 3,
+            "win_rate": 0.0,
+            "avg_return": -0.047365753106498765,
+            "median_return": -0.0122131850949701,
+            "profit_factor": 0.0,
+            "max_adverse": -0.1566058176297617,
+            "avg_adverse": -0.07234916005462226
           },
           "10": {
-            "count": 4,
-            "win_rate": 0.5,
-            "avg_return": -0.013276764517692073,
-            "median_return": 0.0093999039846376,
-            "profit_factor": 0.6501109224646198,
-            "max_adverse": -0.2292013311148085,
-            "avg_adverse": -0.07824442947655785
+            "count": 3,
+            "win_rate": 0.0,
+            "avg_return": -0.053023544898030905,
+            "median_return": -0.0112877142631613,
+            "profit_factor": 0.0,
+            "max_adverse": -0.1566058176297617,
+            "avg_adverse": -0.07234916005462226
           },
           "20": {
-            "count": 4,
-            "win_rate": 0.5,
-            "avg_return": -0.0402440216737418,
-            "median_return": -0.0650065610497679,
-            "profit_factor": 0.47257305311156217,
-            "max_adverse": -0.2533277870216306,
-            "avg_adverse": -0.12188710026871148
+            "count": 3,
+            "win_rate": 0.3333333333333333,
+            "avg_return": -0.04875218153365254,
+            "median_return": -0.0112083154968979,
+            "profit_factor": 0.005819633078887322,
+            "max_adverse": -0.1685815566249787,
+            "avg_adverse": -0.07634107305302794
           }
         },
         "label": "样本不足"
       },
       "factors": {
         "structure": 100.0,
-        "relative_strength": 90.5,
-        "breakout": 89.5,
-        "volume": 81.6,
-        "quality": 87.4,
-        "pullback": 31.1
+        "relative_strength": 77.6,
+        "breakout": 100.0,
+        "volume": 90.5,
+        "quality": 89.2,
+        "pullback": 35.5
       }
     },
     {
       "code": "600177.SH",
       "name": "雅戈尔",
       "theme": "纺织服饰-服装家纺-服装",
-      "trend_score": 83.5,
-      "r20": 0.0671,
-      "r60": 0.1116,
-      "r120": 0.1101,
-      "volume_ratio": 0.933,
-      "breakout_distance": -0.0036,
+      "trend_score": 84.9,
+      "r20": 0.0694,
+      "r60": 0.1228,
+      "r120": 0.1138,
+      "volume_ratio": 0.981,
+      "breakout_distance": -0.0012,
       "setup": "continuation",
       "first_break": false,
       "pullback": false,
@@ -620,136 +563,136 @@
       },
       "factors": {
         "structure": 100.0,
-        "relative_strength": 79.3,
-        "breakout": 87.6,
-        "volume": 66.6,
+        "relative_strength": 81.5,
+        "breakout": 89.8,
+        "volume": 70.1,
         "quality": 94.1,
-        "pullback": 67.3
+        "pullback": 66.0
       }
     },
     {
-      "code": "002493.SZ",
-      "name": "荣盛石化",
-      "theme": "石油石化-石油加工贸易-石油加工",
-      "trend_score": 82.2,
-      "r20": 0.1112,
-      "r60": 0.2126,
-      "r120": 0.1374,
-      "volume_ratio": 1.333,
-      "breakout_distance": -0.0072,
-      "setup": "watch",
+      "code": "603268.SH",
+      "name": "松发股份",
+      "theme": "国防军工-军工装备-航海装备",
+      "trend_score": 84.3,
+      "r20": 0.1564,
+      "r60": 0.3114,
+      "r120": 0.5882,
+      "volume_ratio": 1.017,
+      "breakout_distance": 0.0008,
+      "setup": "continuation",
       "first_break": false,
       "pullback": false,
-      "note": "趋势结构成立，等待触发",
+      "note": "多头结构内健康延续",
       "profit_effect": {
-        "signals": 3,
-        "evaluated": 3,
+        "signals": 4,
+        "evaluated": 4,
         "horizons": {
           "5": {
-            "count": 3,
-            "win_rate": 0.3333333333333333,
-            "avg_return": -0.017369481675250098,
-            "median_return": -0.0086132644272178,
-            "profit_factor": 0.22980473456574688,
-            "max_adverse": -0.1162212554381603,
-            "avg_adverse": -0.07040294083684427
+            "count": 4,
+            "win_rate": 0.75,
+            "avg_return": -0.00890502779504787,
+            "median_return": 0.0583616027571034,
+            "profit_factor": 0.8373585046967134,
+            "max_adverse": -0.2248336106489183,
+            "avg_adverse": -0.0771524993600853
           },
           "10": {
-            "count": 3,
-            "win_rate": 0.3333333333333333,
-            "avg_return": -0.04724251825677143,
-            "median_return": -0.0060292850990525,
-            "profit_factor": 0.14496183645158625,
-            "max_adverse": -0.1535114978247359,
-            "avg_adverse": -0.08283302163236946
+            "count": 4,
+            "win_rate": 0.5,
+            "avg_return": -0.013276764517692073,
+            "median_return": 0.0093999039846376,
+            "profit_factor": 0.6501109224646198,
+            "max_adverse": -0.2292013311148085,
+            "avg_adverse": -0.07824442947655785
           },
           "20": {
-            "count": 3,
-            "win_rate": 0.3333333333333333,
-            "avg_return": -0.007580202086856734,
-            "median_return": -0.0303886925795052,
-            "profit_factor": 0.9200917175297962,
-            "max_adverse": -0.3256681168427595,
-            "avg_adverse": -0.14021856130504398
+            "count": 4,
+            "win_rate": 0.5,
+            "avg_return": -0.0402440216737418,
+            "median_return": -0.0650065610497679,
+            "profit_factor": 0.47257305311156217,
+            "max_adverse": -0.2533277870216306,
+            "avg_adverse": -0.12188710026871148
           }
         },
         "label": "样本不足"
       },
       "factors": {
         "structure": 100.0,
-        "relative_strength": 88.7,
-        "breakout": 84.4,
-        "volume": 95.2,
-        "quality": 73.2,
-        "pullback": 15.1
+        "relative_strength": 94.9,
+        "breakout": 91.6,
+        "volume": 72.6,
+        "quality": 79.9,
+        "pullback": 33.4
       }
     },
     {
-      "code": "002746.SZ",
-      "name": "仙坛股份",
-      "theme": "农林牧渔-养殖业-肉鸡养殖",
-      "trend_score": 82.1,
-      "r20": 0.0554,
-      "r60": 0.2428,
-      "r120": 0.1154,
-      "volume_ratio": 1.352,
-      "breakout_distance": -0.0029,
-      "setup": "breakout",
-      "first_break": true,
+      "code": "002948.SZ",
+      "name": "青岛银行",
+      "theme": "银行-银行-城商行",
+      "trend_score": 83.3,
+      "r20": 0.0823,
+      "r60": 0.1095,
+      "r120": 0.2286,
+      "volume_ratio": 1.121,
+      "breakout_distance": -0.0109,
+      "setup": "continuation",
+      "first_break": false,
       "pullback": false,
-      "note": "放量接近或突破前60日高点",
+      "note": "多头结构内健康延续",
       "profit_effect": {
-        "signals": 1,
-        "evaluated": 1,
+        "signals": 12,
+        "evaluated": 12,
         "horizons": {
           "5": {
-            "count": 1,
-            "win_rate": 0.0,
-            "avg_return": -0.1029668411867366,
-            "median_return": -0.1029668411867366,
-            "profit_factor": 0.0,
-            "max_adverse": -0.1326352530541013,
-            "avg_adverse": -0.1326352530541013
+            "count": 12,
+            "win_rate": 0.5,
+            "avg_return": 0.0065810394613427395,
+            "median_return": 0.0058479532163743,
+            "profit_factor": 1.511904295836327,
+            "max_adverse": -0.1010362694300517,
+            "avg_adverse": -0.0320133559461051
           },
           "10": {
-            "count": 1,
-            "win_rate": 0.0,
-            "avg_return": -0.0907504363001745,
-            "median_return": -0.0907504363001745,
-            "profit_factor": 0.0,
-            "max_adverse": -0.1326352530541013,
-            "avg_adverse": -0.1326352530541013
+            "count": 12,
+            "win_rate": 0.75,
+            "avg_return": 0.013323091239207946,
+            "median_return": 0.0099975436010808,
+            "profit_factor": 2.072677288581429,
+            "max_adverse": -0.1010362694300517,
+            "avg_adverse": -0.03611279324512733
           },
           "20": {
-            "count": 1,
-            "win_rate": 0.0,
-            "avg_return": -0.0732984293193719,
-            "median_return": -0.0732984293193719,
-            "profit_factor": 0.0,
-            "max_adverse": -0.1326352530541013,
-            "avg_adverse": -0.1326352530541013
+            "count": 12,
+            "win_rate": 0.8333333333333334,
+            "avg_return": 0.03789073591355466,
+            "median_return": 0.028356146777199352,
+            "profit_factor": 7.070618582145842,
+            "max_adverse": -0.1010362694300517,
+            "avg_adverse": -0.03731679330628392
           }
         },
         "label": "样本不足"
       },
       "factors": {
         "structure": 100.0,
-        "relative_strength": 81.1,
-        "breakout": 88.3,
-        "volume": 96.6,
-        "quality": 80.1,
-        "pullback": 16.7
+        "relative_strength": 83.5,
+        "breakout": 81.0,
+        "volume": 80.1,
+        "quality": 93.7,
+        "pullback": 47.8
       }
     },
     {
-      "code": "002292.SZ",
-      "name": "奥飞娱乐",
-      "theme": "传媒-影视院线-影视院线Ⅲ",
-      "trend_score": 79.0,
-      "r20": 0.0527,
-      "r60": 0.2926,
-      "r120": 0.054,
-      "volume_ratio": 1.072,
+      "code": "600368.SH",
+      "name": "五洲交通",
+      "theme": "交通运输-公路铁路运输-高速公路",
+      "trend_score": 83.1,
+      "r20": 0.097,
+      "r60": 0.225,
+      "r120": 0.1366,
+      "volume_ratio": 0.919,
       "breakout_distance": -0.0202,
       "setup": "continuation",
       "first_break": false,
@@ -791,84 +734,312 @@
       },
       "factors": {
         "structure": 100.0,
-        "relative_strength": 80.2,
+        "relative_strength": 88.6,
         "breakout": 72.6,
-        "volume": 76.6,
-        "quality": 86.5,
-        "pullback": 42.7
+        "volume": 65.6,
+        "quality": 98.6,
+        "pullback": 66.8
       }
     },
     {
-      "code": "603369.SH",
-      "name": "今世缘",
-      "theme": "食品饮料-白酒-白酒Ⅲ",
-      "trend_score": 78.9,
-      "r20": 0.0974,
-      "r60": 0.1963,
-      "r120": 0.08,
-      "volume_ratio": 0.813,
-      "breakout_distance": -0.0349,
+      "code": "601665.SH",
+      "name": "齐鲁银行",
+      "theme": "银行-银行-城商行",
+      "trend_score": 82.4,
+      "r20": 0.1481,
+      "r60": 0.1445,
+      "r120": 0.2642,
+      "volume_ratio": 1.212,
+      "breakout_distance": -0.0055,
       "setup": "continuation",
       "first_break": false,
       "pullback": false,
       "note": "多头结构内健康延续",
       "profit_effect": {
-        "signals": 2,
-        "evaluated": 2,
+        "signals": 6,
+        "evaluated": 6,
         "horizons": {
           "5": {
-            "count": 2,
+            "count": 6,
             "win_rate": 0.5,
-            "avg_return": -0.0016811658565147498,
-            "median_return": -0.0016811658565147498,
-            "profit_factor": 0.7773480341249976,
-            "max_adverse": -0.0662554715479506,
-            "avg_adverse": -0.04970232140933435
+            "avg_return": 0.009170913748156333,
+            "median_return": 0.0017257521469321501,
+            "profit_factor": 2.6860962455811324,
+            "max_adverse": -0.0528913963328631,
+            "avg_adverse": -0.021135813343729836
           },
           "10": {
-            "count": 2,
-            "win_rate": 0.5,
-            "avg_return": 0.03598726768135355,
-            "median_return": 0.03598726768135355,
-            "profit_factor": 40.08217270195448,
-            "max_adverse": -0.089134438305709,
-            "avg_adverse": -0.07769495492682979
+            "count": 6,
+            "win_rate": 0.6666666666666666,
+            "avg_return": 0.016392926916690483,
+            "median_return": 0.0030714052183149,
+            "profit_factor": 2.7539674035602975,
+            "max_adverse": -0.0861933866165178,
+            "avg_adverse": -0.027883807221129184
           },
           "20": {
-            "count": 2,
-            "win_rate": 0.5,
-            "avg_return": -0.03793562608872165,
-            "median_return": -0.03793562608872165,
-            "profit_factor": 0.11592081690232274,
-            "max_adverse": -0.0662554715479506,
-            "avg_adverse": -0.04362497334303605
+            "count": 6,
+            "win_rate": 0.6666666666666666,
+            "avg_return": 0.020389188810727623,
+            "median_return": 0.02473903025960075,
+            "profit_factor": 2.615186901089552,
+            "max_adverse": -0.0861933866165178,
+            "avg_adverse": -0.038622133270314066
           }
         },
         "label": "样本不足"
       },
       "factors": {
         "structure": 100.0,
-        "relative_strength": 86.4,
-        "breakout": 59.2,
-        "volume": 58.1,
-        "quality": 98.2,
-        "pullback": 69.0
+        "relative_strength": 90.2,
+        "breakout": 85.9,
+        "volume": 86.6,
+        "quality": 77.0,
+        "pullback": 20.1
+      }
+    },
+    {
+      "code": "002142.SZ",
+      "name": "宁波银行",
+      "theme": "银行-银行-城商行",
+      "trend_score": 81.9,
+      "r20": 0.0818,
+      "r60": 0.1297,
+      "r120": 0.1769,
+      "volume_ratio": 1.8,
+      "breakout_distance": 0.0249,
+      "setup": "breakout",
+      "first_break": true,
+      "pullback": false,
+      "note": "放量接近或突破前60日高点",
+      "profit_effect": {
+        "signals": 3,
+        "evaluated": 3,
+        "horizons": {
+          "5": {
+            "count": 3,
+            "win_rate": 1.0,
+            "avg_return": 0.039550875776096034,
+            "median_return": 0.0362345909600299,
+            "profit_factor": null,
+            "max_adverse": -0.0153846153846153,
+            "avg_adverse": -0.0062786363599926995
+          },
+          "10": {
+            "count": 3,
+            "win_rate": 1.0,
+            "avg_return": 0.016077293865626997,
+            "median_return": 0.0133779264214046,
+            "profit_factor": null,
+            "max_adverse": -0.0153846153846153,
+            "avg_adverse": -0.0062786363599926995
+          },
+          "20": {
+            "count": 3,
+            "win_rate": 1.0,
+            "avg_return": 0.04903320001510133,
+            "median_return": 0.0207357859531773,
+            "profit_factor": null,
+            "max_adverse": -0.0153846153846153,
+            "avg_adverse": -0.010138678695940867
+          }
+        },
+        "label": "样本不足"
+      },
+      "factors": {
+        "structure": 100.0,
+        "relative_strength": 84.2,
+        "breakout": 100.0,
+        "volume": 71.4,
+        "quality": 88.6,
+        "pullback": 13.1
+      }
+    },
+    {
+      "code": "601328.SH",
+      "name": "交通银行",
+      "theme": "银行-银行-国有大型银行",
+      "trend_score": 81.8,
+      "r20": 0.055,
+      "r60": 0.0752,
+      "r120": 0.0832,
+      "volume_ratio": 0.949,
+      "breakout_distance": -0.0093,
+      "setup": "pullback",
+      "first_break": false,
+      "pullback": true,
+      "note": "多头结构内缩量回踩MA20",
+      "profit_effect": {
+        "signals": 0,
+        "evaluated": 0,
+        "horizons": {
+          "5": {
+            "count": 0,
+            "win_rate": null,
+            "avg_return": null,
+            "median_return": null,
+            "profit_factor": null,
+            "max_adverse": null,
+            "avg_adverse": null
+          },
+          "10": {
+            "count": 0,
+            "win_rate": null,
+            "avg_return": null,
+            "median_return": null,
+            "profit_factor": null,
+            "max_adverse": null,
+            "avg_adverse": null
+          },
+          "20": {
+            "count": 0,
+            "win_rate": null,
+            "avg_return": null,
+            "median_return": null,
+            "profit_factor": null,
+            "max_adverse": null,
+            "avg_adverse": null
+          }
+        },
+        "label": "样本不足"
+      },
+      "factors": {
+        "structure": 100.0,
+        "relative_strength": 75.9,
+        "breakout": 82.4,
+        "volume": 67.8,
+        "quality": 90.7,
+        "pullback": 70.5
+      }
+    },
+    {
+      "code": "002746.SZ",
+      "name": "仙坛股份",
+      "theme": "农林牧渔-养殖业-肉鸡养殖",
+      "trend_score": 81.4,
+      "r20": 0.0938,
+      "r60": 0.2601,
+      "r120": 0.1223,
+      "volume_ratio": 1.219,
+      "breakout_distance": -0.0401,
+      "setup": "continuation",
+      "first_break": false,
+      "pullback": false,
+      "note": "多头结构内健康延续",
+      "profit_effect": {
+        "signals": 1,
+        "evaluated": 1,
+        "horizons": {
+          "5": {
+            "count": 1,
+            "win_rate": 0.0,
+            "avg_return": -0.1029668411867366,
+            "median_return": -0.1029668411867366,
+            "profit_factor": 0.0,
+            "max_adverse": -0.1326352530541013,
+            "avg_adverse": -0.1326352530541013
+          },
+          "10": {
+            "count": 1,
+            "win_rate": 0.0,
+            "avg_return": -0.0907504363001745,
+            "median_return": -0.0907504363001745,
+            "profit_factor": 0.0,
+            "max_adverse": -0.1326352530541013,
+            "avg_adverse": -0.1326352530541013
+          },
+          "20": {
+            "count": 1,
+            "win_rate": 0.0,
+            "avg_return": -0.0732984293193719,
+            "median_return": -0.0732984293193719,
+            "profit_factor": 0.0,
+            "max_adverse": -0.1326352530541013,
+            "avg_adverse": -0.1326352530541013
+          }
+        },
+        "label": "样本不足"
+      },
+      "factors": {
+        "structure": 100.0,
+        "relative_strength": 88.6,
+        "breakout": 54.5,
+        "volume": 87.1,
+        "quality": 98.0,
+        "pullback": 54.9
+      }
+    },
+    {
+      "code": "601939.SH",
+      "name": "建设银行",
+      "theme": "银行-银行-国有大型银行",
+      "trend_score": 81.1,
+      "r20": 0.0566,
+      "r60": 0.0853,
+      "r120": 0.1982,
+      "volume_ratio": 1.107,
+      "breakout_distance": -0.0249,
+      "setup": "pullback",
+      "first_break": false,
+      "pullback": true,
+      "note": "多头结构内缩量回踩MA20",
+      "profit_effect": {
+        "signals": 13,
+        "evaluated": 13,
+        "horizons": {
+          "5": {
+            "count": 13,
+            "win_rate": 0.7692307692307693,
+            "avg_return": 0.015633824470970233,
+            "median_return": 0.0185928779823321,
+            "profit_factor": 4.090088796329313,
+            "max_adverse": -0.0663470325350824,
+            "avg_adverse": -0.02013839026290582
+          },
+          "10": {
+            "count": 13,
+            "win_rate": 0.6923076923076923,
+            "avg_return": 0.02199941653362155,
+            "median_return": 0.0328917665972934,
+            "profit_factor": 4.444769180503292,
+            "max_adverse": -0.0663470325350824,
+            "avg_adverse": -0.02669787494673709
+          },
+          "20": {
+            "count": 13,
+            "win_rate": 0.6923076923076923,
+            "avg_return": 0.01574722979272999,
+            "median_return": 0.0176403824327184,
+            "profit_factor": 3.291404081266408,
+            "max_adverse": -0.0663470325350824,
+            "avg_adverse": -0.0317463550548257
+          }
+        },
+        "label": "样本不足"
+      },
+      "factors": {
+        "structure": 100.0,
+        "relative_strength": 78.0,
+        "breakout": 68.2,
+        "volume": 79.1,
+        "quality": 85.5,
+        "pullback": 75.9
       }
     },
     {
       "code": "603979.SH",
       "name": "金诚信",
       "theme": "有色金属-工业金属-铜",
-      "trend_score": 78.0,
-      "r20": 0.0578,
-      "r60": 0.0417,
-      "r120": 0.3848,
-      "volume_ratio": 1.138,
-      "breakout_distance": -0.0148,
-      "setup": "continuation",
+      "trend_score": 80.9,
+      "r20": 0.1069,
+      "r60": 0.1454,
+      "r120": 0.4447,
+      "volume_ratio": 1.098,
+      "breakout_distance": -0.0436,
+      "setup": "pullback",
       "first_break": false,
-      "pullback": false,
-      "note": "多头结构内健康延续",
+      "pullback": true,
+      "note": "多头结构内缩量回踩MA20",
       "profit_effect": {
         "signals": 10,
         "evaluated": 10,
@@ -905,365 +1076,80 @@
       },
       "factors": {
         "structure": 100.0,
-        "relative_strength": 72.9,
-        "breakout": 77.5,
-        "volume": 81.3,
-        "quality": 85.3,
-        "pullback": 35.9
+        "relative_strength": 88.6,
+        "breakout": 51.3,
+        "volume": 78.4,
+        "quality": 90.2,
+        "pullback": 76.6
       }
     },
     {
-      "code": "601038.SH",
-      "name": "一拖股份",
-      "theme": "机械设备-专用设备-农用机械",
-      "trend_score": 77.9,
-      "r20": 0.1363,
-      "r60": 0.2633,
-      "r120": 0.0619,
-      "volume_ratio": 0.887,
-      "breakout_distance": -0.0185,
+      "code": "601169.SH",
+      "name": "北京银行",
+      "theme": "银行-银行-城商行",
+      "trend_score": 80.7,
+      "r20": 0.1038,
+      "r60": 0.1286,
+      "r120": 0.0594,
+      "volume_ratio": 1.023,
+      "breakout_distance": -0.0053,
       "setup": "continuation",
       "first_break": false,
       "pullback": false,
       "note": "多头结构内健康延续",
       "profit_effect": {
-        "signals": 8,
-        "evaluated": 8,
+        "signals": 2,
+        "evaluated": 2,
         "horizons": {
           "5": {
-            "count": 8,
-            "win_rate": 0.5,
-            "avg_return": 0.0025771500377611365,
-            "median_return": -0.01404898910091645,
-            "profit_factor": 1.0986403324154754,
-            "max_adverse": -0.092125067908368,
-            "avg_adverse": -0.042256754542325414
-          },
-          "10": {
-            "count": 8,
-            "win_rate": 0.5,
-            "avg_return": 0.008992610554735448,
-            "median_return": -0.0059397262962421,
-            "profit_factor": 1.5967099864708518,
-            "max_adverse": -0.092125067908368,
-            "avg_adverse": -0.055426211495251836
-          },
-          "20": {
-            "count": 8,
-            "win_rate": 0.5,
-            "avg_return": -0.007717974245941341,
-            "median_return": -0.001997724903824903,
-            "profit_factor": 0.771291853853526,
-            "max_adverse": -0.1588119211132854,
-            "avg_adverse": -0.07229441175738384
-          }
-        },
-        "label": "样本不足"
-      },
-      "factors": {
-        "structure": 100.0,
-        "relative_strength": 90.3,
-        "breakout": 74.1,
-        "volume": 63.4,
-        "quality": 76.8,
-        "pullback": 33.5
-      }
-    },
-    {
-      "code": "600351.SH",
-      "name": "亚宝药业",
-      "theme": "医药生物-中药-中药Ⅲ",
-      "trend_score": 77.8,
-      "r20": 0.0447,
-      "r60": 0.1625,
-      "r120": 0.1127,
-      "volume_ratio": 1.186,
-      "breakout_distance": -0.0469,
-      "setup": "continuation",
-      "first_break": false,
-      "pullback": false,
-      "note": "多头结构内健康延续",
-      "profit_effect": {
-        "signals": 6,
-        "evaluated": 6,
-        "horizons": {
-          "5": {
-            "count": 6,
-            "win_rate": 0.3333333333333333,
-            "avg_return": -0.030254732651581167,
-            "median_return": -0.02215514520202005,
-            "profit_factor": 0.0952025897695428,
-            "max_adverse": -0.183063511830635,
-            "avg_adverse": -0.055560426249606214
-          },
-          "10": {
-            "count": 6,
-            "win_rate": 0.3333333333333333,
-            "avg_return": -0.0452035021213321,
-            "median_return": -0.040290065677935895,
-            "profit_factor": 0.17244053162823775,
-            "max_adverse": -0.183063511830635,
-            "avg_adverse": -0.08824642991424168
-          },
-          "20": {
-            "count": 6,
-            "win_rate": 0.16666666666666666,
-            "avg_return": -0.06368060478067018,
-            "median_return": -0.07941901383368224,
-            "profit_factor": 0.15713006404810537,
-            "max_adverse": -0.183063511830635,
-            "avg_adverse": -0.08428238451564857
-          }
-        },
-        "label": "样本不足"
-      },
-      "factors": {
-        "structure": 100.0,
-        "relative_strength": 77.1,
-        "breakout": 48.3,
-        "volume": 84.7,
-        "quality": 77.1,
-        "pullback": 85.0
-      }
-    },
-    {
-      "code": "002687.SZ",
-      "name": "乔治白",
-      "theme": "纺织服饰-服装家纺-服装",
-      "trend_score": 77.8,
-      "r20": 0.0819,
-      "r60": 0.4507,
-      "r120": 0.2761,
-      "volume_ratio": 1.829,
-      "breakout_distance": -0.0404,
-      "setup": "continuation",
-      "first_break": false,
-      "pullback": false,
-      "note": "多头结构内健康延续",
-      "profit_effect": {
-        "signals": 1,
-        "evaluated": 1,
-        "horizons": {
-          "5": {
-            "count": 1,
+            "count": 2,
             "win_rate": 0.0,
-            "avg_return": -0.0241261892156493,
-            "median_return": -0.0241261892156493,
+            "avg_return": -0.01779831847597535,
+            "median_return": -0.01779831847597535,
             "profit_factor": 0.0,
-            "max_adverse": -0.0368634979909471,
-            "avg_adverse": -0.0368634979909471
+            "max_adverse": -0.0665228335131248,
+            "avg_adverse": -0.05123840621006184
           },
           "10": {
-            "count": 1,
-            "win_rate": 0.0,
-            "avg_return": -0.0104090874576364,
-            "median_return": -0.0104090874576364,
-            "profit_factor": 0.0,
-            "max_adverse": -0.0388036820957339,
-            "avg_adverse": -0.0388036820957339
+            "count": 2,
+            "win_rate": 0.5,
+            "avg_return": 0.006470078601439699,
+            "median_return": 0.006470078601439699,
+            "profit_factor": 1.4735075944895732,
+            "max_adverse": -0.0665228335131248,
+            "avg_adverse": -0.06082613391859495
           },
           "20": {
-            "count": 1,
-            "win_rate": 1.0,
-            "avg_return": 0.0150655300929589,
-            "median_return": 0.0150655300929589,
-            "profit_factor": null,
-            "max_adverse": -0.0388036820957339,
-            "avg_adverse": -0.0388036820957339
+            "count": 2,
+            "win_rate": 0.5,
+            "avg_return": 0.0202526526563798,
+            "median_return": 0.0202526526563798,
+            "profit_factor": 2.706746273860369,
+            "max_adverse": -0.0665228335131248,
+            "avg_adverse": -0.06082613391859495
           }
         },
         "label": "样本不足"
       },
       "factors": {
         "structure": 100.0,
-        "relative_strength": 88.1,
-        "breakout": 54.2,
-        "volume": 69.4,
-        "quality": 84.2,
-        "pullback": 61.4
-      }
-    },
-    {
-      "code": "000921.SZ",
-      "name": "海信家电",
-      "theme": "家用电器-白色家电-空调",
-      "trend_score": 77.5,
-      "r20": 0.0646,
-      "r60": 0.0169,
-      "r120": 0.2704,
-      "volume_ratio": 0.995,
-      "breakout_distance": -0.0112,
-      "setup": "continuation",
-      "first_break": false,
-      "pullback": false,
-      "note": "多头结构内健康延续",
-      "profit_effect": {
-        "signals": 4,
-        "evaluated": 4,
-        "horizons": {
-          "5": {
-            "count": 4,
-            "win_rate": 0.75,
-            "avg_return": 0.027551957115022077,
-            "median_return": 0.03813898325342755,
-            "profit_factor": 3.0583978283352016,
-            "max_adverse": -0.0698522356553444,
-            "avg_adverse": -0.03218200661764215
-          },
-          "10": {
-            "count": 4,
-            "win_rate": 0.5,
-            "avg_return": 0.02910585209766365,
-            "median_return": 0.015522415480081498,
-            "profit_factor": 2.239190763695171,
-            "max_adverse": -0.1151410477835348,
-            "avg_adverse": -0.04611968534928193
-          },
-          "20": {
-            "count": 4,
-            "win_rate": 0.5,
-            "avg_return": 0.05833531490275703,
-            "median_return": -0.00114571548077445,
-            "profit_factor": 3.2040000824154347,
-            "max_adverse": -0.1485319516407599,
-            "avg_adverse": -0.06491865507548877
-          }
-        },
-        "label": "样本不足"
-      },
-      "factors": {
-        "structure": 100.0,
-        "relative_strength": 70.7,
-        "breakout": 80.7,
-        "volume": 71.1,
-        "quality": 87.0,
-        "pullback": 43.6
-      }
-    },
-    {
-      "code": "603338.SH",
-      "name": "浙江鼎力",
-      "theme": "机械设备-工程机械-工程机械Ⅲ",
-      "trend_score": 77.4,
-      "r20": 0.0507,
-      "r60": 0.209,
-      "r120": 0.1431,
-      "volume_ratio": 0.893,
-      "breakout_distance": -0.0306,
-      "setup": "continuation",
-      "first_break": false,
-      "pullback": false,
-      "note": "多头结构内健康延续",
-      "profit_effect": {
-        "signals": 8,
-        "evaluated": 8,
-        "horizons": {
-          "5": {
-            "count": 8,
-            "win_rate": 0.5,
-            "avg_return": 0.007237583646793659,
-            "median_return": 0.00406005821970275,
-            "profit_factor": 1.3212278725354867,
-            "max_adverse": -0.08755846585594,
-            "avg_adverse": -0.05210586231271068
-          },
-          "10": {
-            "count": 8,
-            "win_rate": 0.5,
-            "avg_return": -0.018246450857324212,
-            "median_return": -0.029477762247366854,
-            "profit_factor": 0.5846898241461709,
-            "max_adverse": -0.1866094683621877,
-            "avg_adverse": -0.08444602376623378
-          },
-          "20": {
-            "count": 8,
-            "win_rate": 0.125,
-            "avg_return": -0.05043493833790621,
-            "median_return": -0.02896089803554725,
-            "profit_factor": 0.0594281068825198,
-            "max_adverse": -0.202615518744551,
-            "avg_adverse": -0.06933227822526383
-          }
-        },
-        "label": "样本不足"
-      },
-      "factors": {
-        "structure": 100.0,
-        "relative_strength": 80.1,
-        "breakout": 63.1,
-        "volume": 63.8,
-        "quality": 91.3,
-        "pullback": 61.0
-      }
-    },
-    {
-      "code": "002388.SZ",
-      "name": "新亚制程",
-      "theme": "电子-其他电子-其他电子Ⅲ",
-      "trend_score": 77.0,
-      "r20": 0.0698,
-      "r60": 0.2147,
-      "r120": 0.2171,
-      "volume_ratio": 1.046,
-      "breakout_distance": -0.051,
-      "setup": "continuation",
-      "first_break": false,
-      "pullback": false,
-      "note": "多头结构内健康延续",
-      "profit_effect": {
-        "signals": 1,
-        "evaluated": 1,
-        "horizons": {
-          "5": {
-            "count": 1,
-            "win_rate": 1.0,
-            "avg_return": 0.0480274442538593,
-            "median_return": 0.0480274442538593,
-            "profit_factor": null,
-            "max_adverse": -0.0051457975986278,
-            "avg_adverse": -0.0051457975986278
-          },
-          "10": {
-            "count": 1,
-            "win_rate": 1.0,
-            "avg_return": 0.1046312178387651,
-            "median_return": 0.1046312178387651,
-            "profit_factor": null,
-            "max_adverse": -0.0051457975986278,
-            "avg_adverse": -0.0051457975986278
-          },
-          "20": {
-            "count": 1,
-            "win_rate": 1.0,
-            "avg_return": 0.0771869639794169,
-            "median_return": 0.0771869639794169,
-            "profit_factor": null,
-            "max_adverse": -0.006861063464837,
-            "avg_adverse": -0.006861063464837
-          }
-        },
-        "label": "样本不足"
-      },
-      "factors": {
-        "structure": 100.0,
-        "relative_strength": 84.3,
-        "breakout": 44.5,
-        "volume": 74.7,
-        "quality": 94.0,
-        "pullback": 63.8
+        "relative_strength": 84.9,
+        "breakout": 86.1,
+        "volume": 73.1,
+        "quality": 84.5,
+        "pullback": 27.9
       }
     },
     {
       "code": "601156.SH",
       "name": "东航物流",
       "theme": "交通运输-物流-物流Ⅲ",
-      "trend_score": 76.8,
-      "r20": 0.0408,
-      "r60": 0.1387,
-      "r120": 0.0894,
-      "volume_ratio": 0.65,
-      "breakout_distance": -0.0185,
+      "trend_score": 80.4,
+      "r20": 0.0431,
+      "r60": 0.1945,
+      "r120": 0.0933,
+      "volume_ratio": 0.82,
+      "breakout_distance": -0.0221,
       "setup": "pullback",
       "first_break": false,
       "pullback": true,
@@ -1304,241 +1190,355 @@
       },
       "factors": {
         "structure": 100.0,
-        "relative_strength": 74.6,
-        "breakout": 74.1,
-        "volume": 46.4,
-        "quality": 81.4,
-        "pullback": 82.4
+        "relative_strength": 79.6,
+        "breakout": 70.8,
+        "volume": 58.6,
+        "quality": 78.4,
+        "pullback": 96.7
       }
     },
     {
-      "code": "002948.SZ",
-      "name": "青岛银行",
-      "theme": "银行-银行-城商行",
-      "trend_score": 76.7,
-      "r20": 0.0765,
-      "r60": 0.0879,
-      "r120": 0.2233,
-      "volume_ratio": 0.778,
-      "breakout_distance": -0.0374,
-      "setup": "pullback",
-      "first_break": false,
-      "pullback": true,
-      "note": "多头结构内缩量回踩MA20",
-      "profit_effect": {
-        "signals": 12,
-        "evaluated": 12,
-        "horizons": {
-          "5": {
-            "count": 12,
-            "win_rate": 0.5,
-            "avg_return": 0.0065810394613427395,
-            "median_return": 0.0058479532163743,
-            "profit_factor": 1.511904295836327,
-            "max_adverse": -0.1010362694300517,
-            "avg_adverse": -0.0320133559461051
-          },
-          "10": {
-            "count": 12,
-            "win_rate": 0.75,
-            "avg_return": 0.013323091239207946,
-            "median_return": 0.0099975436010808,
-            "profit_factor": 2.072677288581429,
-            "max_adverse": -0.1010362694300517,
-            "avg_adverse": -0.03611279324512733
-          },
-          "20": {
-            "count": 12,
-            "win_rate": 0.8333333333333334,
-            "avg_return": 0.03789073591355466,
-            "median_return": 0.028356146777199352,
-            "profit_factor": 7.070618582145842,
-            "max_adverse": -0.1010362694300517,
-            "avg_adverse": -0.03731679330628392
-          }
-        },
-        "label": "样本不足"
-      },
-      "factors": {
-        "structure": 100.0,
-        "relative_strength": 79.9,
-        "breakout": 56.9,
-        "volume": 55.6,
-        "quality": 89.4,
-        "pullback": 80.7
-      }
-    },
-    {
-      "code": "000728.SZ",
-      "name": "国元证券",
-      "theme": "非银金融-证券-证券Ⅲ",
-      "trend_score": 75.4,
-      "r20": 0.0808,
-      "r60": 0.0992,
-      "r120": -0.0152,
-      "volume_ratio": 0.742,
-      "breakout_distance": -0.0349,
-      "setup": "watch",
-      "first_break": false,
-      "pullback": false,
-      "note": "趋势结构成立，等待触发",
-      "profit_effect": {
-        "signals": 5,
-        "evaluated": 5,
-        "horizons": {
-          "5": {
-            "count": 5,
-            "win_rate": 0.6,
-            "avg_return": -0.0052166057420339005,
-            "median_return": 0.0144404332129963,
-            "profit_factor": 0.8652564839173197,
-            "max_adverse": -0.1963906581740976,
-            "avg_adverse": -0.05782913997901904
-          },
-          "10": {
-            "count": 5,
-            "win_rate": 0.4,
-            "avg_return": -0.025749647463202564,
-            "median_return": -0.0067415730337079,
-            "profit_factor": 0.33748768584001826,
-            "max_adverse": -0.1995753715498938,
-            "avg_adverse": -0.05914023995754904
-          },
-          "20": {
-            "count": 5,
-            "win_rate": 0.2,
-            "avg_return": -0.029410133303512036,
-            "median_return": -0.0462555066079295,
-            "profit_factor": 0.39564962685998806,
-            "max_adverse": -0.1995753715498938,
-            "avg_adverse": -0.08019400249871447
-          }
-        },
-        "label": "样本不足"
-      },
-      "factors": {
-        "structure": 100.0,
-        "relative_strength": 77.8,
-        "breakout": 59.2,
-        "volume": 53.0,
-        "quality": 96.3,
-        "pullback": 65.6
-      }
-    },
-    {
-      "code": "000526.SZ",
-      "name": "学大教育",
-      "theme": "社会服务-教育-教育Ⅲ",
-      "trend_score": 75.3,
-      "r20": 0.0593,
-      "r60": 0.4144,
-      "r120": 0.0925,
-      "volume_ratio": 0.759,
-      "breakout_distance": -0.0427,
+      "code": "002493.SZ",
+      "name": "荣盛石化",
+      "theme": "石油石化-石油加工贸易-石油加工",
+      "trend_score": 80.2,
+      "r20": 0.1593,
+      "r60": 0.2996,
+      "r120": 0.1959,
+      "volume_ratio": 1.37,
+      "breakout_distance": -0.0577,
       "setup": "continuation",
       "first_break": false,
       "pullback": false,
       "note": "多头结构内健康延续",
       "profit_effect": {
-        "signals": 5,
-        "evaluated": 5,
+        "signals": 3,
+        "evaluated": 3,
         "horizons": {
           "5": {
-            "count": 5,
-            "win_rate": 0.4,
-            "avg_return": 0.0019116986486617394,
-            "median_return": -0.012101210121012,
-            "profit_factor": 1.1346089605363507,
-            "max_adverse": -0.0558111622324464,
-            "avg_adverse": -0.03627508036474162
+            "count": 3,
+            "win_rate": 0.3333333333333333,
+            "avg_return": -0.017369481675250098,
+            "median_return": -0.0086132644272178,
+            "profit_factor": 0.22980473456574688,
+            "max_adverse": -0.1162212554381603,
+            "avg_adverse": -0.07040294083684427
           },
           "10": {
-            "count": 5,
-            "win_rate": 0.2,
-            "avg_return": 0.03659443473635192,
-            "median_return": -0.0230046009201839,
-            "profit_factor": 2.8859566375679386,
-            "max_adverse": -0.1052631578947368,
-            "avg_adverse": -0.059185703433349314
+            "count": 3,
+            "win_rate": 0.3333333333333333,
+            "avg_return": -0.04724251825677143,
+            "median_return": -0.0060292850990525,
+            "profit_factor": 0.14496183645158625,
+            "max_adverse": -0.1535114978247359,
+            "avg_adverse": -0.08283302163236946
           },
           "20": {
-            "count": 5,
-            "win_rate": 0.2,
-            "avg_return": -0.028909533506558484,
-            "median_return": -0.0572074983839689,
-            "profit_factor": 0.5119586583033596,
-            "max_adverse": -0.208641728345669,
-            "avg_adverse": -0.0905721499624893
+            "count": 3,
+            "win_rate": 0.3333333333333333,
+            "avg_return": -0.007580202086856734,
+            "median_return": -0.0303886925795052,
+            "profit_factor": 0.9200917175297962,
+            "max_adverse": -0.3256681168427595,
+            "avg_adverse": -0.14021856130504398
           }
         },
         "label": "样本不足"
       },
       "factors": {
         "structure": 100.0,
-        "relative_strength": 82.8,
-        "breakout": 52.1,
-        "volume": 54.2,
-        "quality": 92.4,
-        "pullback": 68.6
+        "relative_strength": 93.5,
+        "breakout": 38.5,
+        "volume": 97.9,
+        "quality": 86.5,
+        "pullback": 58.2
       }
     },
     {
-      "code": "601665.SH",
-      "name": "齐鲁银行",
-      "theme": "银行-银行-城商行",
-      "trend_score": 75.2,
-      "r20": 0.1364,
-      "r60": 0.1238,
-      "r120": 0.2509,
-      "volume_ratio": 0.662,
-      "breakout_distance": -0.0246,
+      "code": "600333.SH",
+      "name": "长春燃气",
+      "theme": "公用事业-燃气-燃气Ⅲ",
+      "trend_score": 79.5,
+      "r20": 0.1546,
+      "r60": 0.3036,
+      "r120": 0.2781,
+      "volume_ratio": 1.529,
+      "breakout_distance": -0.0193,
       "setup": "watch",
       "first_break": false,
       "pullback": false,
       "note": "趋势结构成立，等待触发",
       "profit_effect": {
-        "signals": 6,
-        "evaluated": 6,
+        "signals": 2,
+        "evaluated": 2,
         "horizons": {
           "5": {
-            "count": 6,
+            "count": 2,
             "win_rate": 0.5,
-            "avg_return": 0.009170913748156333,
-            "median_return": 0.0017257521469321501,
-            "profit_factor": 2.6860962455811324,
-            "max_adverse": -0.0528913963328631,
-            "avg_adverse": -0.021135813343729836
+            "avg_return": -0.029068579455961946,
+            "median_return": -0.029068579455961946,
+            "profit_factor": 0.21398561151078868,
+            "max_adverse": -0.0813609467455621,
+            "avg_adverse": -0.0442775956749393
           },
           "10": {
-            "count": 6,
-            "win_rate": 0.6666666666666666,
-            "avg_return": 0.016392926916690483,
-            "median_return": 0.0030714052183149,
-            "profit_factor": 2.7539674035602975,
-            "max_adverse": -0.0861933866165178,
-            "avg_adverse": -0.027883807221129184
+            "count": 2,
+            "win_rate": 0.5,
+            "avg_return": 0.00518070750500195,
+            "median_return": 0.00518070750500195,
+            "profit_factor": 1.1094424460431664,
+            "max_adverse": -0.1035502958579882,
+            "avg_adverse": -0.0726384572815121
           },
           "20": {
-            "count": 6,
-            "win_rate": 0.6666666666666666,
-            "avg_return": 0.020389188810727623,
-            "median_return": 0.02473903025960075,
-            "profit_factor": 2.615186901089552,
-            "max_adverse": -0.0861933866165178,
-            "avg_adverse": -0.038622133270314066
+            "count": 2,
+            "win_rate": 0.0,
+            "avg_return": -0.1594110510408241,
+            "median_return": -0.1594110510408241,
+            "profit_factor": 0.0,
+            "max_adverse": -0.2573964497041421,
+            "avg_adverse": -0.1984823975139415
           }
         },
         "label": "样本不足"
       },
       "factors": {
         "structure": 100.0,
-        "relative_strength": 88.4,
-        "breakout": 68.5,
-        "volume": 47.3,
-        "quality": 85.0,
-        "pullback": 37.7
+        "relative_strength": 93.8,
+        "breakout": 73.4,
+        "volume": 90.8,
+        "quality": 70.2,
+        "pullback": 7.0
+      }
+    },
+    {
+      "code": "000921.SZ",
+      "name": "海信家电",
+      "theme": "家用电器-白色家电-空调",
+      "trend_score": 79.0,
+      "r20": 0.0522,
+      "r60": 0.0281,
+      "r120": 0.2816,
+      "volume_ratio": 1.031,
+      "breakout_distance": 0.0028,
+      "setup": "continuation",
+      "first_break": false,
+      "pullback": false,
+      "note": "多头结构内健康延续",
+      "profit_effect": {
+        "signals": 4,
+        "evaluated": 4,
+        "horizons": {
+          "5": {
+            "count": 4,
+            "win_rate": 0.75,
+            "avg_return": 0.027551957115022077,
+            "median_return": 0.03813898325342755,
+            "profit_factor": 3.0583978283352016,
+            "max_adverse": -0.0698522356553444,
+            "avg_adverse": -0.03218200661764215
+          },
+          "10": {
+            "count": 4,
+            "win_rate": 0.5,
+            "avg_return": 0.02910585209766365,
+            "median_return": 0.015522415480081498,
+            "profit_factor": 2.239190763695171,
+            "max_adverse": -0.1151410477835348,
+            "avg_adverse": -0.04611968534928193
+          },
+          "20": {
+            "count": 4,
+            "win_rate": 0.5,
+            "avg_return": 0.05833531490275703,
+            "median_return": -0.00114571548077445,
+            "profit_factor": 3.2040000824154347,
+            "max_adverse": -0.1485319516407599,
+            "avg_adverse": -0.06491865507548877
+          }
+        },
+        "label": "样本不足"
+      },
+      "factors": {
+        "structure": 100.0,
+        "relative_strength": 71.9,
+        "breakout": 93.5,
+        "volume": 73.6,
+        "quality": 80.8,
+        "pullback": 32.2
+      }
+    },
+    {
+      "code": "601555.SH",
+      "name": "东吴证券",
+      "theme": "非银金融-证券-证券Ⅲ",
+      "trend_score": 78.4,
+      "r20": 0.0525,
+      "r60": 0.0949,
+      "r120": 0.0268,
+      "volume_ratio": 0.929,
+      "breakout_distance": -0.024,
+      "setup": "continuation",
+      "first_break": false,
+      "pullback": false,
+      "note": "多头结构内健康延续",
+      "profit_effect": {
+        "signals": 2,
+        "evaluated": 2,
+        "horizons": {
+          "5": {
+            "count": 2,
+            "win_rate": 0.5,
+            "avg_return": 0.0262660940989352,
+            "median_return": 0.0262660940989352,
+            "profit_factor": 1.842231749342328,
+            "max_adverse": -0.0784753363228699,
+            "avg_adverse": -0.049743249251388955
+          },
+          "10": {
+            "count": 2,
+            "win_rate": 0.5,
+            "avg_return": -0.01722641738217555,
+            "median_return": -0.01722641738217555,
+            "profit_factor": 0.3397437212738003,
+            "max_adverse": -0.0784753363228699,
+            "avg_adverse": -0.049743249251388955
+          },
+          "20": {
+            "count": 2,
+            "win_rate": 0.0,
+            "avg_return": -0.0538090493932015,
+            "median_return": -0.0538090493932015,
+            "profit_factor": 0.0,
+            "max_adverse": -0.1090501426824295,
+            "avg_adverse": -0.08604181461107685
+          }
+        },
+        "label": "样本不足"
+      },
+      "factors": {
+        "structure": 100.0,
+        "relative_strength": 75.6,
+        "breakout": 69.1,
+        "volume": 66.4,
+        "quality": 93.5,
+        "pullback": 63.8
+      }
+    },
+    {
+      "code": "601038.SH",
+      "name": "一拖股份",
+      "theme": "机械设备-专用设备-农用机械",
+      "trend_score": 78.1,
+      "r20": 0.1401,
+      "r60": 0.2825,
+      "r120": 0.0806,
+      "volume_ratio": 0.837,
+      "breakout_distance": -0.0257,
+      "setup": "continuation",
+      "first_break": false,
+      "pullback": false,
+      "note": "多头结构内健康延续",
+      "profit_effect": {
+        "signals": 8,
+        "evaluated": 8,
+        "horizons": {
+          "5": {
+            "count": 8,
+            "win_rate": 0.5,
+            "avg_return": 0.0025771500377611365,
+            "median_return": -0.01404898910091645,
+            "profit_factor": 1.0986403324154754,
+            "max_adverse": -0.092125067908368,
+            "avg_adverse": -0.042256754542325414
+          },
+          "10": {
+            "count": 8,
+            "win_rate": 0.5,
+            "avg_return": 0.008992610554735448,
+            "median_return": -0.0059397262962421,
+            "profit_factor": 1.5967099864708518,
+            "max_adverse": -0.092125067908368,
+            "avg_adverse": -0.055426211495251836
+          },
+          "20": {
+            "count": 8,
+            "win_rate": 0.5,
+            "avg_return": -0.007717974245941341,
+            "median_return": -0.001997724903824903,
+            "profit_factor": 0.771291853853526,
+            "max_adverse": -0.1588119211132854,
+            "avg_adverse": -0.07229441175738384
+          }
+        },
+        "label": "样本不足"
+      },
+      "factors": {
+        "structure": 100.0,
+        "relative_strength": 91.5,
+        "breakout": 67.5,
+        "volume": 59.8,
+        "quality": 84.0,
+        "pullback": 43.8
+      }
+    },
+    {
+      "code": "002003.SZ",
+      "name": "伟星股份",
+      "theme": "纺织服饰-纺织制造-辅料",
+      "trend_score": 77.4,
+      "r20": 0.1333,
+      "r60": 0.3227,
+      "r120": 0.1881,
+      "volume_ratio": 0.92,
+      "breakout_distance": -0.0562,
+      "setup": "pullback",
+      "first_break": false,
+      "pullback": true,
+      "note": "多头结构内缩量回踩MA20",
+      "profit_effect": {
+        "signals": 5,
+        "evaluated": 5,
+        "horizons": {
+          "5": {
+            "count": 5,
+            "win_rate": 0.0,
+            "avg_return": -0.05171524927586044,
+            "median_return": -0.03240058910162,
+            "profit_factor": 0.0,
+            "max_adverse": -0.1498959056210964,
+            "avg_adverse": -0.08003223773684462
+          },
+          "10": {
+            "count": 5,
+            "win_rate": 0.2,
+            "avg_return": -0.05640717771638981,
+            "median_return": -0.0667701863354037,
+            "profit_factor": 0.08744830150124282,
+            "max_adverse": -0.1721027064538515,
+            "avg_adverse": -0.10409810049223829
+          },
+          "20": {
+            "count": 5,
+            "win_rate": 0.4,
+            "avg_return": -0.03939332523808266,
+            "median_return": -0.0253353204172875,
+            "profit_factor": 0.3070836562021345,
+            "max_adverse": -0.1721027064538515,
+            "avg_adverse": -0.075420847748153
+          }
+        },
+        "label": "样本不足"
+      },
+      "factors": {
+        "structure": 100.0,
+        "relative_strength": 92.6,
+        "breakout": 39.8,
+        "volume": 65.7,
+        "quality": 91.6,
+        "pullback": 73.1
       }
     }
   ],
-  "updated_at": "2026-09-09T16:21:00+08:00"
+  "updated_at": "2026-09-10T16:20:44+08:00"
 }
