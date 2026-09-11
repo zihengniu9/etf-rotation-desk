@@ -1,8 +1,8 @@
 {
-  "attempted_at": "2026-09-10T16:20:59+08:00",
+  "attempted_at": "2026-09-11T11:35:23+08:00",
   "status": "success",
-  "data_as_of": "2026-09-10",
-  "rows": 22680,
+  "data_as_of": "2026-09-11",
+  "rows": 22679,
   "history_days": 252,
   "message": "行业主线数据已成功刷新"
 }
