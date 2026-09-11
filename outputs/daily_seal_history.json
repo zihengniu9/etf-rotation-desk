@@ -42982,5 +42982,446 @@
         "燃气Ⅲ"
       ]
     }
+  ],
+  "20260911": [
+    {
+      "name": "瑞尔特",
+      "code": "002790.SZ",
+      "boards": 4,
+      "amount": null,
+      "concepts": [
+        "轻工制造",
+        "家居用品",
+        "其他家居用品"
+      ]
+    },
+    {
+      "name": "闽东电力",
+      "code": "000993.SZ",
+      "boards": 3,
+      "amount": null,
+      "concepts": [
+        "公用事业",
+        "电力",
+        "水电"
+      ]
+    },
+    {
+      "name": "鼎信通讯",
+      "code": "603421.SH",
+      "boards": 3,
+      "amount": null,
+      "concepts": [
+        "通信",
+        "通信设备",
+        "通信网络设备及器件"
+      ]
+    },
+    {
+      "name": "中新赛克",
+      "code": "002912.SZ",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "计算机",
+        "计算机设备",
+        "其他计算机设备"
+      ]
+    },
+    {
+      "name": "九鼎新材",
+      "code": "002201.SZ",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "建筑材料",
+        "玻璃玻纤"
+      ]
+    },
+    {
+      "name": "超声电子",
+      "code": "000823.SZ",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ]
+    },
+    {
+      "name": "凯盛新能",
+      "code": "600876.SH",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "光伏设备",
+        "光伏辅材"
+      ]
+    },
+    {
+      "name": "远望谷",
+      "code": "002161.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "其他电子",
+        "其他电子Ⅲ"
+      ]
+    },
+    {
+      "name": "正和生态",
+      "code": "605069.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "环保",
+        "环境治理",
+        "综合环境治理"
+      ]
+    },
+    {
+      "name": "安彩高科",
+      "code": "600207.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "光伏设备",
+        "光伏辅材"
+      ]
+    },
+    {
+      "name": "冠盛股份",
+      "code": "605088.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "底盘与发动机系统"
+      ]
+    },
+    {
+      "name": "杭州热电",
+      "code": "605011.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "公用事业",
+        "电力",
+        "热力"
+      ]
+    },
+    {
+      "name": "澳弘电子",
+      "code": "605058.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ]
+    },
+    {
+      "name": "拓日新能",
+      "code": "002218.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "公用事业",
+        "电力",
+        "新能源发电"
+      ]
+    },
+    {
+      "name": "博敏电子",
+      "code": "603936.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ]
+    },
+    {
+      "name": "风华高科",
+      "code": "000636.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "元件",
+        "被动元件"
+      ]
+    },
+    {
+      "name": "崇达技术",
+      "code": "002815.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ]
+    },
+    {
+      "name": "嘉立创",
+      "code": "001232.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ]
+    },
+    {
+      "name": "宏辉果蔬",
+      "code": "603336.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "种植业与林业",
+        "其他种植业"
+      ]
+    },
+    {
+      "name": "骏亚科技",
+      "code": "603386.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ]
+    },
+    {
+      "name": "天目湖",
+      "code": "603136.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "社会服务",
+        "旅游及酒店",
+        "自然景点"
+      ]
+    },
+    {
+      "name": "铜峰电子",
+      "code": "600237.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "元件",
+        "被动元件"
+      ]
+    },
+    {
+      "name": "三力制药",
+      "code": "603439.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "医药生物",
+        "中药",
+        "中药Ⅲ"
+      ]
+    },
+    {
+      "name": "三孚股份",
+      "code": "603938.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "基础化工",
+        "化学原料",
+        "其他化学原料"
+      ]
+    },
+    {
+      "name": "华胜天成",
+      "code": "600410.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "计算机",
+        "IT服务",
+        "IT服务Ⅲ"
+      ]
+    },
+    {
+      "name": "中视传媒",
+      "code": "600088.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "传媒",
+        "影视院线",
+        "影视院线Ⅲ"
+      ]
+    },
+    {
+      "name": "九阳股份",
+      "code": "002242.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "家用电器",
+        "小家电",
+        "小家电Ⅲ"
+      ]
+    },
+    {
+      "name": "众泰汽车",
+      "code": "000980.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车整车",
+        "乘用车"
+      ]
+    },
+    {
+      "name": "铭普光磁",
+      "code": "002902.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "通信",
+        "通信设备",
+        "通信网络设备及器件"
+      ]
+    },
+    {
+      "name": "双星新材",
+      "code": "002585.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "基础化工",
+        "塑料制品",
+        "膜材料"
+      ]
+    },
+    {
+      "name": "风语筑",
+      "code": "603466.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "传媒",
+        "文化传媒",
+        "数字媒体"
+      ]
+    },
+    {
+      "name": "江南水务",
+      "code": "601199.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "环保",
+        "环境治理",
+        "水务及水治理"
+      ]
+    },
+    {
+      "name": "银河电子",
+      "code": "002519.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "国防军工",
+        "军工电子",
+        "军工电子Ⅲ"
+      ]
+    },
+    {
+      "name": "神宇股份",
+      "code": "300563.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "通信",
+        "通信设备",
+        "通信线缆及配套"
+      ]
+    },
+    {
+      "name": "高斯贝尔",
+      "code": "002848.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "家用电器",
+        "黑色家电",
+        "其他黑色家电"
+      ]
+    },
+    {
+      "name": "通达股份",
+      "code": "002560.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "电网设备",
+        "线缆部件及其他"
+      ]
+    },
+    {
+      "name": "江苏新能",
+      "code": "603693.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "公用事业",
+        "电力",
+        "新能源发电"
+      ]
+    },
+    {
+      "name": "协和电子",
+      "code": "605258.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ]
+    },
+    {
+      "name": "内蒙一机",
+      "code": "600967.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "国防军工",
+        "军工装备",
+        "地面兵装"
+      ]
+    },
+    {
+      "name": "光电股份",
+      "code": "600184.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "国防军工",
+        "军工装备",
+        "地面兵装"
+      ]
+    }
   ]
 }

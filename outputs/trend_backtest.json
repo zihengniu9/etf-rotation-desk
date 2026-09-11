@@ -1,5 +1,5 @@
 {
-  "data_as_of": "2026-09-10",
+  "data_as_of": "2026-09-11",
   "source": "同花顺问财 · hithink-astock-selector · 36个历史时点",
   "engine_selection": {
     "selected_adapter": "wencai_cross_section",
@@ -671,12 +671,12 @@
     "gate": {
       "eligible_ratio_min": 0.08,
       "positive_r20_ratio_min": 0.5,
-      "rows": 3030,
-      "eligible_count": 77,
-      "eligible_ratio": 0.025412541254125412,
-      "positive_r20_ratio": 0.5405940594059406,
-      "median_r20": 0.009159504066935904,
-      "full_alignment_ratio": 0.046534653465346534
+      "rows": 3031,
+      "eligible_count": 56,
+      "eligible_ratio": 0.018475750577367205,
+      "positive_r20_ratio": 0.5404157043879908,
+      "median_r20": 0.009259259259259198,
+      "full_alignment_ratio": 0.03530188056746948
     }
   },
   "market_gate_validation": {
