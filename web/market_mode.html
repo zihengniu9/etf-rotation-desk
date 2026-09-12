@@ -617,13 +617,13 @@
           var factorMarket=String(factor.data_as_of||"").slice(0,10)===reviewDate?(factor.market||{}):{};
           var score=Number.isFinite(Number(factorMarket.score))?Number(factorMarket.score):calculatedScore;
           var pool=review.leader_pool||review.leader_board||[], leader=pool[0]||{};
-          return {basis:"close",score:Math.round(score*10)/10,verdict:score>=75?"可做":score>=60?"轻仓试错":score>=45?"观望":"空仓",
+          return {basis:"close",data_as_of:reviewDate,score:Math.round(score*10)/10,verdict:score>=75?"可做":score>=60?"轻仓试错":score>=45?"观望":"空仓",
             ecoPoints:Math.round(score),auctionPoints:null,leaderPoints:Math.round(clamp(maxBoards/7*20,0,20)),
             limitUp:limitUp,limitDown:limitDown,failedRate:failedRate,meanPremium:null,redRatio:null,maxBoards:maxBoards,
             leaderPremium:null,leaderName:leader.name||"待确认",leaderTheme:(leader.theme||[])[0]||""};
         }
         var ladder=sig.ladder||[], leader=ladder.slice().sort(function(a,b){return num(b.boards)-num(a.boards);})[0]||{}, leaderInfo=sig.leader||{};
-        return {basis:"auction",score:num(sig.score),verdict:sig.verdict||"—",ecoPoints:num((sig.eco||{}).points),auctionPoints:num((sig.auction||{}).points),leaderPoints:num(leaderInfo.points),
+        return {basis:"auction",data_as_of:signalDate,score:num(sig.score),verdict:sig.verdict||"—",ecoPoints:num((sig.eco||{}).points),auctionPoints:num((sig.auction||{}).points),leaderPoints:num(leaderInfo.points),
           limitUp:num((sig.eco||{}).limit_up),limitDown:num((sig.eco||{}).limit_down),failedRate:num((sig.eco||{}).failed_rate),meanPremium:num((sig.auction||{}).mean_premium),redRatio:num((sig.auction||{}).red_ratio),
           maxBoards:num(leader.boards||leaderInfo["最高板"]),leaderPremium:num(leader.gap||leaderInfo["龙头溢价"]),leaderName:leader.name||"—",leaderTheme:leader.theme||""};
       }
@@ -1036,9 +1036,10 @@
             candidates:[]
           };
           var statusEtf=((dashboardStatus&&dashboardStatus.modules)||[]).filter(function(item){return item.key==="etf";})[0]||{};
+          var shortView=buildShortView(sig,latestReview,shortFactor);
           var snapshot={asOf:String(asOf).slice(0,10),generatedAt:(latestReview&&latestReview.updated_at)||sig.generated_at||asOf,
-            dataDates:{short:String(sig.date||"").slice(0,10),industry:String(indData.data_as_of||asOf).slice(0,10),etf:String(statusEtf.data_as_of||asOf).slice(0,10)},
-            short:buildShortView(sig,latestReview,shortFactor),
+            dataDates:{short:shortView.data_as_of,industry:String(indData.data_as_of||"").slice(0,10),etf:String(statusEtf.data_as_of||"").slice(0,10)},
+            short:shortView,
             shortFactor:shortFactor||window.SHORT_FACTOR_PREVIEW||null,
             industry:{name:top.industry||"—",share:num(top.turnover_share),breadth:num(top.total_count)?num(top.up_count)/num(top.total_count)*100:0,ratio:num(top.turnover_ratio),return1d:num(top.return_1d),benchmark1d:num(top.benchmark_1d)},
             etf:{mode:pick.mode||"—",pickName:pick.name||"—",pickTheme:pick.theme||"—",pickScore:num(pick.score),hotName:hot.name||"—",hotTheme:hotRank.theme||hot.name||"—",hotHeat:num(hot.heat)},
@@ -1062,7 +1063,6 @@
           var ladder=sig.ladder||[], leader=ladder.slice().sort(function(a,b){return num(b.boards)-num(a.boards);})[0]||{};
           var leaderInfo=sig.leader||{};
           FALLBACK.asOf=String(sig.date||FALLBACK.asOf).slice(0,10);
-          FALLBACK.dataDates=FALLBACK.dataDates||{short:FALLBACK.asOf,industry:FALLBACK.asOf,etf:FALLBACK.asOf};
           FALLBACK.generatedAt=sig.generated_at||FALLBACK.asOf;
           FALLBACK.short={score:num(sig.score),verdict:sig.verdict||"—",ecoPoints:num((sig.eco||{}).points),auctionPoints:num((sig.auction||{}).points),leaderPoints:num(leaderInfo.points),
             limitUp:num((sig.eco||{}).limit_up),limitDown:num((sig.eco||{}).limit_down),failedRate:num((sig.eco||{}).failed_rate),meanPremium:num((sig.auction||{}).mean_premium),redRatio:num((sig.auction||{}).red_ratio),
@@ -1097,10 +1097,16 @@
         FALLBACK.dashboardStatus=window.DASHBOARD_STATUS||null;
         FALLBACK.latestReview=window.LATEST_MARKET_REVIEW||null;
         if(FALLBACK.latestReview) {
-          FALLBACK.short=buildShortView(window.SHORT_SIGNAL||{},FALLBACK.latestReview,window.SHORT_FACTOR_PREVIEW||{});
           FALLBACK.asOf=String(FALLBACK.latestReview.data_as_of||FALLBACK.asOf).slice(0,10);
           FALLBACK.generatedAt=FALLBACK.latestReview.updated_at||FALLBACK.generatedAt;
         }
+        FALLBACK.short=buildShortView(sig,FALLBACK.latestReview,FALLBACK.shortFactor);
+        var statusEtf=((FALLBACK.dashboardStatus&&FALLBACK.dashboardStatus.modules)||[]).filter(function(item){return item.key==="etf";})[0]||{};
+        FALLBACK.dataDates={
+          short:FALLBACK.short.data_as_of,
+          industry:String((indData||{}).data_as_of||"").slice(0,10),
+          etf:String(statusEtf.data_as_of||"").slice(0,10)
+        };
       }
 
       $("refresh").addEventListener("click",loadLocal);
