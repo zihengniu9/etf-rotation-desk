@@ -56,6 +56,7 @@ def main() -> int:
     close_text = "开盘至收盘效果待取得" if close_effect is None else f"开盘至收盘均值{close_effect:+.2f}%"
     primary_name = str(primary.get("name") or "最高辨识度核心")
     gate_score = (mseq.get("market") or {}).get("score", signal.get("score", "—"))
+    blocked = (mseq.get("market") or {}).get("position_cap") == 0
     headline = (
         f"{as_of} 收盘：盘后市场门控 {gate_score} 分，{close_text}；"
         f"{for_date} 先确认 {primary_name} 的核心反馈，再观察 {discovery_names} 的新晋龙头竞争；"
@@ -114,10 +115,15 @@ def main() -> int:
         ],
         "note": "规则版每日预案：来源为当日收盘复盘与盘后 M/S/E/Q；09:25 信号若缺失则留待次日竞价重新确认，不包含未经核验的新闻叙事。",
     }
+    if blocked:
+        reasons = "、".join((mseq.get("market") or {}).get("risk_reasons") or ["市场门控未通过"])
+        payload["headline"] = f"{as_of} 收盘：防守等待；{reasons}。{for_date} 不预设个股买入，等待生态与竞价重新确认。"
+        payload["watchlist"] = []
+        payload["branches"] = [branches[2]]
     serialized = json.dumps(payload, ensure_ascii=False, indent=2)
     Path("outputs/shortterm_plan.json").write_text(serialized + "\n", encoding="utf-8")
     Path("outputs/shortterm_plan.js").write_text("window.SHORT_PLAN = " + serialized + ";\n", encoding="utf-8")
-    print(f"wrote=outputs/shortterm_plan.json data_as_of={as_of} for_date={for_date} watchlist={len(watchlist)}")
+    print(f"wrote=outputs/shortterm_plan.json data_as_of={as_of} for_date={for_date} watchlist={len(payload['watchlist'])}")
     return 0
 
 

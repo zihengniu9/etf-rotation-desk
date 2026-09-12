@@ -15,7 +15,7 @@ assert.ok(market.includes('id="current-mode-desk"'));
 assert.ok(market.includes('id="daily-review"'));
 assert.ok(market.includes('id="trend-module-section" hidden'));
 assert.ok(market.includes('.mode-fill { display:block;'));
-assert.ok(market.includes('src="./dashboard_contract.js?v=20260831"'));
+assert.ok(market.includes('src="./dashboard_contract.js?v=20260912-risk-gate"'));
 assert.ok(market.includes('href="./index.html"'));
 assert.ok(market.includes('latest_market_review.json'));
 assert.ok(market.includes('dividend_factor_snapshot.json'));

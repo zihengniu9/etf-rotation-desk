@@ -486,7 +486,7 @@
   <script src="../outputs/dividend_factor_snapshot.js?v=20260831"></script>
   <script src="../outputs/dashboard_status.js?v=20260831-close"></script>
   <script src="../outputs/latest_market_review.js?v=20260831-close"></script>
-  <script src="./dashboard_contract.js?v=20260831"></script>
+  <script src="./dashboard_contract.js?v=20260912-risk-gate"></script>
   <script src="./trend_engine.js"></script>
   <script>
     (function () {
@@ -606,7 +606,7 @@
       function buildShortView(sig, review, factor) {
         sig=sig||{}; review=review||{}; factor=factor||{};
         var signalDate=String(sig.date||"").slice(0,10), reviewDate=String(review.data_as_of||"").slice(0,10);
-        if (reviewDate && (!signalDate || reviewDate>signalDate)) {
+        if (reviewDate && (!signalDate || reviewDate>=signalDate)) {
           var market=review.market||{}, feedback=review.previous_limit_up_feedback||{};
           var limitUp=num(market.limit_up), limitDown=num(market.limit_down), failedRate=num(market.failed_rate), maxBoards=num(market.max_boards);
           var avgReturn=num(feedback.avg_return), positiveRatio=num(feedback.positive_ratio);
@@ -616,8 +616,15 @@
             clamp((avgReturn+2)/5*12,0,12)+clamp(positiveRatio/0.65*8,0,8),0,100);
           var factorMarket=String(factor.data_as_of||"").slice(0,10)===reviewDate?(factor.market||{}):{};
           var score=Number.isFinite(Number(factorMarket.score))?Number(factorMarket.score):calculatedScore;
+          var complete=[market.limit_up,market.limit_down,market.failed_rate,market.max_boards,feedback.avg_return,feedback.positive_ratio].every(function(value){return value!==null&&value!==undefined&&value!==""&&Number.isFinite(Number(value));});
+          if(!complete) score=null;
+          var risks=[];
+          if(!complete) risks.push("短线生态字段不完整");
+          if(limitDown>=20) risks.push("跌停不少于20家");
+          if(failedRate>=0.35) risks.push("炸板率不低于35%");
+          if(avgReturn<0) risks.push("昨日涨停反馈为负");
           var pool=review.leader_pool||review.leader_board||[], leader=pool[0]||{};
-          return {basis:"close",data_as_of:reviewDate,score:Math.round(score*10)/10,verdict:score>=75?"可做":score>=60?"轻仓试错":score>=45?"观望":"空仓",
+          return {basis:"close",data_as_of:reviewDate,available:complete,riskReasons:risks,allowResearch:complete&&!risks.length&&score>=60,score:score===null?null:Math.round(score*10)/10,verdict:!complete?"数据不足":risks.length?"防守等待":score>=75?"可做":score>=60?"轻仓试错":score>=45?"观望":"空仓",
             ecoPoints:Math.round(score),auctionPoints:null,leaderPoints:Math.round(clamp(maxBoards/7*20,0,20)),
             limitUp:limitUp,limitDown:limitDown,failedRate:failedRate,meanPremium:null,redRatio:null,maxBoards:maxBoards,
             leaderPremium:null,leaderName:leader.name||"待确认",leaderTheme:(leader.theme||[])[0]||""};
@@ -666,12 +673,16 @@
         var resonance=clamp(18 + links*24 + (links===3?10:0),0,100);
         var risk=clamp(100-shortScore + (num(s.limitDown)>30?25:0) + (s.basis==="auction"&&num(s.auctionPoints)<30?18:0),0,100);
         var scores={short:shortScore,etf:etfScore,trend:trendScore,resonance:resonance,defense:risk};
+        var eligible={short:s.available!==false&&s.allowResearch!==false&&shortScore>=75,
+          etf:etf.mode==="attack",trend:!!(trendView&&trendView.historyAvailable&&trendView.status==="ready"&&!trendView.blockers.length)};
+        eligible.resonance=!!(eligible.short&&eligible.etf&&eligible.trend&&links===3);
         var mode="defense";
-        if (risk<65) mode=["short","etf","trend","resonance"].sort(function(a,b){return scores[b]-scores[a];})[0];
-        var secondary=["short","etf","trend","resonance","defense"].filter(function(k){return k!==mode;}).sort(function(a,b){return scores[b]-scores[a];})[0];
+        var candidates=["short","etf","trend","resonance"].filter(function(key){return eligible[key];}).sort(function(a,b){return scores[b]-scores[a];});
+        if (candidates.length) mode=candidates[0];
+        var secondary=candidates.filter(function(key){return key!==mode;})[0]||"defense";
         var phase=mode==="short"?(shortScore>=75?"情绪修复后的进攻窗口":"核心试错"):mode==="etf"?"工具趋势占优":mode==="trend"?"趋势环境占优":mode==="resonance"?"跨体系共振":"风险收缩";
-        var riskLabel=mode==="short"?"中高":risk>=65?"高":risk>=40?"中":"中低";
-        return { scores:scores,mode:mode,secondary:secondary,phase:phase,risk:risk,riskLabel:riskLabel,
+        var riskLabel=(s.riskReasons||[]).length?"高":mode==="short"?"中高":risk>=65?"高":risk>=40?"中":"中低";
+        return { scores:scores,eligible:eligible,mode:mode,secondary:secondary,phase:phase,risk:risk,riskLabel:riskLabel,
           diagnostics:{breadth:breadth,share:share,ratio:ratio,excess:excess,sameEtf:sameEtf,indEtf:indEtf,indShort:indShort,etfShort:etfShort,trendScore:trendScore,trendView:trendView} };
       }
 
@@ -685,13 +696,13 @@
         var criticalStale=!!(health&&Array.isArray(health.modules)&&health.modules.some(function(item){return ["short","industry","etf"].indexOf(item.key)>=0&&item.state!=="current";}));
         var freshnessReason=a.freshness.stale.concat(a.freshness.missing.map(function(key){return key+" 缺失";})).join("、");
         $("mode-title").textContent=!a.currentAllowed?"当前结论暂停":meta.name;
-        $("mode-subtitle").textContent=!a.currentAllowed?"核心数据没有统一到同一个行情日（"+freshnessReason+"）；下方保留历史快照，仅用于复核，不作为当前执行依据。":a.phase+"。"+meta.desc;
+        $("mode-subtitle").textContent=!a.currentAllowed?"核心数据没有统一到同一个行情日（"+freshnessReason+"）；下方保留历史快照，仅用于复核，不作为当前执行依据。":a.phase+"。"+((snapshot.short.riskReasons||[]).length?"短线："+snapshot.short.riskReasons.join("、")+"。":"")+meta.desc;
         $("mode-score").textContent=a.currentAllowed?Math.round(scores[a.mode]):"—";
         $("score-ring").style.setProperty("--value",a.currentAllowed?Math.round(scores[a.mode]):0);
         $("score-ring").setAttribute("aria-label",a.currentAllowed?("模式清晰度 "+Math.round(scores[a.mode])+"分"):"当前结论暂停");
         $("risk-level").textContent=a.currentAllowed?a.riskLabel:"数据待复核";
         $("market-phase").textContent=a.currentAllowed?a.phase:"历史快照";
-        $("secondary-mode").textContent=a.currentAllowed?MODE_META[a.secondary].name:"—";
+        $("secondary-mode").textContent=a.currentAllowed&&a.secondary!==a.mode?MODE_META[a.secondary].name:"—";
         var healthCurrent=health&&health.summary?num(health.summary.current):0;
         var healthTotal=health&&Array.isArray(health.modules)?health.modules.length:0;
         $("freshness").textContent=healthTotal?healthCurrent+" / "+healthTotal+" 项最新":(source==="live"?"本地引擎文件":"内置快照");
@@ -879,7 +890,7 @@
       }
 
       function renderModeDetail(key) {
-        var m=MODE_META[key], s=state.snapshot, a=state.analysis, d=a.diagnostics, status=key===a.mode?"当前模式":"备选模式";
+        var m=MODE_META[key], s=state.snapshot, a=state.analysis, d=a.diagnostics, status=key===a.mode?"当前模式":a.eligible[key]?"备选模式":"条件未通过";
         var points={
           short:[["市场生态",s.short.limitUp+"涨停 / "+s.short.limitDown+"跌停"],["核心反馈",s.short.maxBoards+"板 · "+(s.short.basis==="close"?s.short.leaderName:pct(s.short.leaderPremium,2))],[s.short.basis==="close"?"数据口径":"竞价环境",s.short.basis==="close"?"当日收盘复盘":s.short.auctionPoints+"/50 · 均值"+pct(s.short.meanPremium,2)]],
           etf:[["策略首选",s.etf.pickName+" · "+s.etf.pickTheme],["实时热榜",s.etf.hotName+" · "+s.etf.hotTheme],["一致性",d.sameEtf?"策略与热榜同向":"策略与热榜分化"]],
@@ -918,7 +929,7 @@
         factors.push({key:"dividend",name:"红利",color:"#b54708",soft:"#fff4e5",score:dividendScore,lead:dividendTop.name||"暂无候选",status:dividendScore===null?"待更新":factorDate(dividend)===asOf?"因子可用":"日期待核对",restricted:dividendScore===null||factorDate(dividend)!==asOf,link:"./dividend_factor.html",evidence:["Top5截面均分 "+(dividendScore===null?"—":dividendScore.toFixed(1)),"有效池 "+(dividendUniverse.valid||"—")+" 只","估值、分红与现金流质量"]});
 
         var shortItems=shortFactor.candidates||[], shortTop=shortItems[0]||{}, shortScore=meanTop(shortItems,"total",5), shortMarket=valueOrNull((shortFactor.market||{}).score);
-        var shortRestricted=shortScore===null||factorDate(shortFactor)!==asOf||shortMarket!==null&&shortMarket<45;
+        var shortRestricted=shortScore===null||factorDate(shortFactor)!==asOf||(snapshot.short||{}).allowResearch===false||shortMarket!==null&&shortMarket<45;
         factors.push({key:"short",name:"短线",color:"#d92d20",soft:"#fff1f0",score:shortScore,lead:shortTop.name||"暂无候选",status:shortScore===null?"待更新":shortRestricted?"生态受约束":"因子可用",restricted:shortRestricted,link:"./shortterm_factor_preview.html",evidence:["Top5截面均分 "+(shortScore===null?"—":shortScore.toFixed(1)),"市场生态 "+(shortMarket===null?"—":shortMarket.toFixed(1))+" 分","重点观察："+(shortTop.action||"待确认")]});
 
         var trendItems=trend.candidates||[], trendTop=trendItems[0]||{}, trendScore=meanTop(trendItems,"trend_score",5), trendGate=(trend.decision&&trend.decision.gate)||{};
@@ -973,7 +984,7 @@
         var latestDate=latest.data_as_of||s.asOf;
         var latestLimitUp=num(latestMarket.limit_up,s.short.limitUp), latestLimitDown=num(latestMarket.limit_down,s.short.limitDown);
         var latestFailed=num(latestMarket.failed_rate,s.short.failedRate), latestMaxBoards=num(latestMarket.max_boards,s.short.maxBoards);
-        var latestSource=latest.source||sourceLabel;
+        var latestSource=(latest.source||sourceLabel)+((latest.market_evidence||{}).universe?" · "+latest.market_evidence.universe:"");
         $("review-date").textContent="复盘日期 "+latestDate+" · "+latestSource;
         $("daily-review").innerHTML='<div class="review-grid">'+
           reviewCard("最新复盘",latestReviewText.label||meta.name,[latestReviewText.conclusion||("模式清晰度 "+Math.round(a.scores[a.mode])+"分"),"完整引擎模式："+meta.name,"风险等级 "+a.riskLabel],"primary")+

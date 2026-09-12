@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T16:21:17+08:00",
+  "generated_at": "2026-09-12T14:04:46+08:00",
   "for_date": "2026-09-11",
   "basis": "close_review",
   "rules": "双池盘后口径：核心池 40%S + 35%E + 25%Q；龙头池 40%60日涨幅 + 35%近30日涨停 + 25%股票热度；M仅作市场门控",
@@ -16,7 +16,7 @@
     "leader_scanned": 3031,
     "leader_history_covered_days": 16,
     "leader_history_max_date": "2026-09-11",
-    "leader_heat_covered": 174
+    "leader_heat_covered": 169
   },
   "high_candidates": [],
   "hot_board": [
@@ -215,13 +215,13 @@
           "boards": 3
         },
         {
-          "name": "铭普光磁",
-          "code": "002902.SZ",
+          "name": "神宇股份",
+          "code": "300563.SZ",
           "boards": 1
         },
         {
-          "name": "神宇股份",
-          "code": "300563.SZ",
+          "name": "铭普光磁",
+          "code": "002902.SZ",
           "boards": 1
         }
       ]
@@ -236,13 +236,13 @@
           "boards": 3
         },
         {
-          "name": "铭普光磁",
-          "code": "002902.SZ",
+          "name": "神宇股份",
+          "code": "300563.SZ",
           "boards": 1
         },
         {
-          "name": "神宇股份",
-          "code": "300563.SZ",
+          "name": "铭普光磁",
+          "code": "002902.SZ",
           "boards": 1
         }
       ]
@@ -325,7 +325,7 @@
       "hot": true,
       "best_concept": "公用事业",
       "concept_count": 4,
-      "pop": 80.8
+      "pop": 83.0
     },
     {
       "name": "中新赛克",
@@ -394,6 +394,16 @@
       "lane": "discovery",
       "hot": false,
       "best_concept": "环保",
+      "concept_count": 2,
+      "pop": 54.3
+    },
+    {
+      "name": "三孚股份",
+      "code": "603938.SH",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": false,
+      "best_concept": "基础化工",
       "concept_count": 2,
       "pop": 54.3
     },
@@ -478,34 +488,24 @@
       "pop": 50.4
     },
     {
-      "name": "宏辉果蔬",
-      "code": "603336.SH",
+      "name": "银河电子",
+      "code": "002519.SZ",
       "boards": 1,
       "lane": "discovery",
-      "hot": false,
-      "best_concept": "农林牧渔",
-      "concept_count": 1,
-      "pop": 47.9
+      "hot": true,
+      "best_concept": "国防军工",
+      "concept_count": 3,
+      "pop": 50.2
     },
     {
-      "name": "三孚股份",
-      "code": "603938.SH",
+      "name": "华胜天成",
+      "code": "600410.SH",
       "boards": 1,
       "lane": "discovery",
       "hot": false,
-      "best_concept": "基础化工",
+      "best_concept": "计算机",
       "concept_count": 2,
       "pop": 49.8
-    },
-    {
-      "name": "中视传媒",
-      "code": "600088.SH",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": false,
-      "best_concept": "传媒",
-      "concept_count": 2,
-      "pop": 46.8
     },
     {
       "name": "金健米业",
@@ -515,17 +515,7 @@
       "hot": false,
       "best_concept": "农林牧渔",
       "concept_count": null,
-      "pop": 96.6
-    },
-    {
-      "name": "百大集团",
-      "code": "600865.SH",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "商贸零售",
-      "concept_count": null,
-      "pop": 93.7
+      "pop": 98.8
     },
     {
       "name": "神奇制药",
@@ -555,7 +545,17 @@
       "hot": false,
       "best_concept": "农林牧渔",
       "concept_count": null,
-      "pop": 92.5
+      "pop": 87.6
+    },
+    {
+      "name": "百大集团",
+      "code": "600865.SH",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "商贸零售",
+      "concept_count": null,
+      "pop": 85.8
     },
     {
       "name": "天洋新材",
@@ -585,17 +585,17 @@
       "hot": false,
       "best_concept": "社会服务",
       "concept_count": null,
-      "pop": 97.7
+      "pop": 98.2
     },
     {
-      "name": "敦煌种业",
-      "code": "600354.SH",
+      "name": "万向德农",
+      "code": "600371.SH",
       "boards": 0,
       "lane": "leader",
       "hot": false,
       "best_concept": "农林牧渔",
       "concept_count": null,
-      "pop": 89.7
+      "pop": 92.3
     },
     {
       "name": "新农开发",
@@ -605,17 +605,17 @@
       "hot": false,
       "best_concept": "农林牧渔",
       "concept_count": null,
-      "pop": 90.2
+      "pop": 89.9
     },
     {
-      "name": "楚天龙",
-      "code": "003040.SZ",
+      "name": "敦煌种业",
+      "code": "600354.SH",
       "boards": 0,
       "lane": "leader",
       "hot": false,
-      "best_concept": "通信",
+      "best_concept": "农林牧渔",
       "concept_count": null,
-      "pop": 82.8
+      "pop": 88.2
     },
     {
       "name": "中百集团",
@@ -638,16 +638,6 @@
       "pop": 50.0
     },
     {
-      "name": "云煤能源",
-      "code": "600792.SH",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "煤炭",
-      "concept_count": null,
-      "pop": 95.4
-    },
-    {
       "name": "汉森制药",
       "code": "002412.SZ",
       "boards": 0,
@@ -656,26 +646,6 @@
       "best_concept": "医药生物",
       "concept_count": null,
       "pop": 50.0
-    },
-    {
-      "name": "大有能源",
-      "code": "600403.SH",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "煤炭",
-      "concept_count": null,
-      "pop": 77.0
-    },
-    {
-      "name": "红棉股份",
-      "code": "000523.SZ",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "食品饮料",
-      "concept_count": null,
-      "pop": 90.8
     },
     {
       "name": "誉衡药业",
@@ -688,6 +658,16 @@
       "pop": 50.0
     },
     {
+      "name": "楚天龙",
+      "code": "003040.SZ",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "通信",
+      "concept_count": null,
+      "pop": 68.0
+    },
+    {
       "name": "罗牛山",
       "code": "000735.SZ",
       "boards": 0,
@@ -698,12 +678,32 @@
       "pop": 50.0
     },
     {
+      "name": "云煤能源",
+      "code": "600792.SH",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "煤炭",
+      "concept_count": null,
+      "pop": 89.3
+    },
+    {
       "name": "共进股份",
       "code": "603118.SH",
       "boards": 0,
       "lane": "leader",
       "hot": false,
       "best_concept": "通信",
+      "concept_count": null,
+      "pop": 50.0
+    },
+    {
+      "name": "红四方",
+      "code": "603395.SH",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "基础化工",
       "concept_count": null,
       "pop": 50.0
     }
@@ -725,7 +725,7 @@
       "amount_yi": null,
       "theme": "公用事业",
       "theme_n": 4,
-      "pop": 80.8
+      "pop": 83.0
     },
     {
       "name": "中新赛克",
@@ -791,11 +791,11 @@
       "pop": 54.3
     },
     {
-      "name": "冠盛股份",
-      "code": "605088.SH",
+      "name": "三孚股份",
+      "code": "603938.SH",
       "boards": 1,
       "amount_yi": null,
-      "theme": "汽车",
+      "theme": "基础化工",
       "theme_n": 2,
       "pop": 54.3
     }

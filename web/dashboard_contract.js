@@ -13,6 +13,9 @@
           return { label: "暂停确认", tone: "pending", detail: "核心行情日期未统一，先补齐最新数据" };
         }
         var trend = snapshot.trend || {};
+        if (analysis.eligible && !analysis.eligible.trend) {
+          return { label: "仅观察", tone: "pending", detail: "趋势市场门控未通过，不新增个股" };
+        }
         if (trend.historyAvailable && analysis.mode === "trend") {
           return { label: "优先研究", tone: "ready", detail: "行情模式匹配，先看健康延续与回踩" };
         }
@@ -59,6 +62,9 @@
         var score = Number((snapshot.short || {}).score);
         if (analysis.currentAllowed === false) {
           return { label: "暂停确认", tone: "pending", detail: "短线核心输入过期，历史信号仅供复核" };
+        }
+        if ((snapshot.short || {}).allowResearch === false) {
+          return { label: "防守等待", tone: "pending", detail: ((snapshot.short || {}).riskReasons || []).join("、") || "短线门控未通过，停止新增" };
         }
         if (analysis.mode === "short") {
           return { label: "优先研究", tone: "ready", detail: "M门控通过后再看S/E/Q个股信号" };

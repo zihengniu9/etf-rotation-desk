@@ -10,7 +10,7 @@ function source(name, next) {
 }
 const data = name => JSON.parse(fs.readFileSync(path.join(root, `outputs/${name}.json`), "utf8").replace(/^\uFEFF/, ""));
 const signal = {date: "2026-09-08", score: 81};
-const review = {data_as_of: "2026-09-11", market: {limit_up: 40, limit_down: 0, max_boards: 4}};
+const review = {data_as_of: "2026-09-11", market: {limit_up: 40, limit_down: 0, failed_rate: 0.2, max_boards: 4}, previous_limit_up_feedback: {avg_return: 1, positive_ratio: 0.5}};
 const factor = {data_as_of: "2026-09-11", market: {score: 69.1}};
 const industry = {data_as_of: "2026-09-11", rows: []};
 const health = {modules: ["short", "industry", "etf"].map(key => ({key, state: "current", data_as_of: "2026-09-11"}))};
@@ -22,6 +22,8 @@ const context = vm.createContext({
   render: snapshot => { context.rendered = snapshot; },
 });
 vm.runInContext(source("buildShortView", "formatGeneratedAt"), context);
+vm.runInContext(source("themeKey", "buildShortView"), context);
+vm.runInContext(source("analyze", "renderList"), context);
 vm.runInContext(source("loadLocal", "hydrateFileFallback"), context);
 vm.runInContext(html.slice(html.indexOf("      function hydrateFileFallback("), html.indexOf('      $("refresh").addEventListener')), context);
 
@@ -38,11 +40,25 @@ const oldAuction = context.buildShortView(signal, null, factor);
 assert.equal(oldAuction.basis, "auction");
 assert.equal(freshness(oldAuction).blocked, true, "Stale auction remains blocked without newer review");
 const currentAuction = context.buildShortView({...signal, date: review.data_as_of}, review, factor);
-assert.equal(currentAuction.basis, "auction", "Do not change existing same-day source selection");
+assert.equal(currentAuction.basis, "close", "A same-day close must supersede the morning auction");
 assert.equal(freshness(currentAuction).blocked, false);
+assert.equal(context.buildShortView({...signal, date: "2026-09-14"}, review, factor).basis, "auction");
 assert.equal(freshness(close, {industry: "2026-09-10"}).blocked, true);
 assert.equal(freshness(close, {etf: ""}).missing[0], "etf");
 assert.equal(freshness(context.buildShortView(null, null, null)).blocked, true);
+const base = {short: close, industry: {name: "a", share: 1, breadth: 1, ratio: 0.5}, etf: {mode: "defense", pickTheme: "a", hotTheme: "a", pickScore: 0.99}};
+assert.equal(context.analyze(base).mode, "defense", "Highest relative score cannot bypass a module's entry conditions");
+const risky = context.buildShortView(signal, {...review, market: {...review.market, limit_down: 21}}, {...factor, market: {score: 90}});
+assert.equal(risky.allowResearch, false);
+assert.equal(context.analyze({...base, short: risky}).mode, "defense");
+assert.equal(context.analyze({...base, short: risky, etf: {...base.etf, mode: "attack"}}).mode, "etf", "Short-term weakness must not override independent ETF rules");
+const incomplete = context.buildShortView(signal, {...review, market: {...review.market, failed_rate: null}}, factor);
+assert.equal(incomplete.score, null);
+assert.equal(incomplete.available, false);
+assert.equal(incomplete.allowResearch, false);
+context.window.TrendEngine = {analyze: () => ({score: 100, historyAvailable: true, status: "blocked", blockers: ["breadth"]})};
+assert.equal(context.analyze(base).mode, "defense", "A high trend score cannot bypass its breadth gate");
+delete context.window.TrendEngine;
 
 async function load(values) {
   context.fetchJson = file => Promise.resolve(values[path.basename(file, ".json")]);

@@ -77,6 +77,52 @@ def query_rows(query_function, query: str, *, limit: int = 100) -> list[dict]:
     return list(response.get("datas") or [])
 
 
+def query_stock_rows(query_function, query: str, flag: str) -> list[dict]:
+    """Require dated stock predicates and complete pagination, never index statistics."""
+    if not os.environ.get("IWENCAI_API_KEY") or not os.environ.get("HTTPS_PROXY"):
+        raise RuntimeError("Wencai credentials and authenticated tunnel are required")
+    rows, seen, total = [], set(), None
+    for page in range(1, 101):
+        response = query_function(query=query, page=str(page), limit="100",
+                                  api_key=os.environ["IWENCAI_API_KEY"], call_type="normal", timeout=60)
+        count = number(response.get("code_count"), None)
+        if count is None or count < 0 or count != int(count) or not isinstance(response.get("datas"), list):
+            raise RuntimeError("Stock query lacks a valid total or rows")
+        if total is not None and total != int(count):
+            raise RuntimeError("Stock query total changed during pagination")
+        total = int(count)
+        batch = response["datas"]
+        for row in batch:
+            code = str(row.get("股票代码") or "")
+            if not re.fullmatch(r"(?:0|3|6)\d{5}\.(?:SH|SZ)", code) or "ST" in str(row.get("股票简称") or "").upper():
+                raise RuntimeError("Expected non-ST Shanghai/Shenzhen stocks, not index/component statistics")
+            if row.get(flag) not in (True, 1, "true") or code in seen:
+                raise RuntimeError(f"Missing dated predicate or duplicate stock: {code} {flag}")
+            seen.add(code)
+            rows.append(row)
+        if len(rows) == total:
+            return rows
+        if not batch or len(rows) > total:
+            break
+    raise RuntimeError(f"Incomplete stock query: received {len(rows)} of {total}")
+
+
+def summarize_market(leaders: list[dict], down: list[dict], opened: list[dict]) -> dict:
+    closed_codes = {row["code"] for row in leaders}
+    opened_codes = {row["股票代码"] for row in opened}
+    failed = opened_codes - closed_codes
+    touched = opened_codes | closed_codes
+    return {
+        "index_change": None,
+        "limit_up": len(closed_codes), "limit_down": len(down),
+        "failed_rate": round(len(failed) / len(touched), 4) if touched else None,
+        "failed_count": len(failed), "touched_limit_up": len(touched),
+        "max_boards": max((row["boards"] for row in leaders), default=0),
+        "board_rows": len(leaders),
+        "board_break_rate": round(sum(row["break_count"] > 0 for row in leaders) / len(leaders), 4) if leaders else None,
+    }
+
+
 def industry_list(value) -> list[str]:
     if isinstance(value, list):
         values = value
@@ -139,31 +185,28 @@ def main() -> int:
     prior_query = date_text(date.fromisoformat(prior))
     query_function = load_query_function()
 
-    # 统计类问句不拼接日期，问财会在返回字段名中带上最近完整交易日；
-    # 指定日期只用于清单和隔日反馈，避免盘中/周末把统计列解析成空值。
-    stats_query = "涨停家数 跌停家数 炸板率 最高连板数"
-    leaders_query = f"{as_of_query}涨停股票 股票简称 股票代码 所属同花顺行业 连续涨停天数 涨停开板次数 涨停原因 近10日涨停次数 几天几板"
-    feedback_query = f"{prior_query}涨停股票 {as_of_query}涨跌幅"
-    stats_rows = query_rows(query_function, stats_query, limit=10)
-    leader_rows = query_rows(query_function, leaders_query, limit=100)
-    feedback_rows = query_rows(query_function, feedback_query, limit=100)
-    if not stats_rows or not leader_rows:
-        raise RuntimeError(f"No completed close review returned for {as_of}")
-
-    stats = stats_rows[0] if stats_rows else {}
-    limit_up = number(first_value(stats, ("涨停家数",), len(leader_rows)))
-    limit_down = number(first_value(stats, ("跌停家数",), 0))
-    failed_rate = number(first_value(stats, ("炸板率",), 0))
-    index_change = number(first_value(stats, ("最新涨跌幅:前复权", "最新涨跌幅"), 0))
+    universe = "沪深A股 非ST"
+    leaders_query = f"{as_of_query}{universe} 涨停股票 股票简称 股票代码 所属同花顺行业 连续涨停天数 涨停开板次数 涨停原因 近10日涨停次数 几天几板"
+    down_query = f"{as_of_query}{universe} 跌停 股票代码 股票简称"
+    opened_query = f"{as_of_query}{universe} 曾涨停 股票代码 股票简称"
+    feedback_query = f"{prior_query}{universe} 涨停股票 {as_of_query}涨跌幅"
+    date_key = as_of.replace("-", "")
+    leader_rows = query_stock_rows(query_function, leaders_query, f"涨停[{date_key}]")
+    down_rows = query_stock_rows(query_function, down_query, f"跌停[{date_key}]")
+    opened_rows = query_stock_rows(query_function, opened_query, f"涨停开板[{date_key}]")
+    feedback_rows = query_stock_rows(query_function, feedback_query, f"涨停[{prior.replace('-', '')}]")
     leaders = [normalize_leader(row, as_of) for row in leader_rows]
-    leaders = [row for row in leaders if row["name"] and not row["name"].upper().startswith("ST")]
     leaders.sort(key=lambda row: (-row["boards"], row["break_count"], row["final_time"]))
+    market = summarize_market(leaders, down_rows, opened_rows)
+    limit_up, limit_down = market["limit_up"], market["limit_down"]
+    failed_rate = market["failed_rate"]
 
     feedback_values = []
     for row in feedback_rows:
-        value = first_value(row, (f"涨跌幅[{as_of.replace('-', '')}]", "最新涨跌幅"), None)
-        if value not in (None, ""):
-            feedback_values.append(number(value))
+        value = number(row.get(f"涨跌幅[{date_key}]"), None)
+        if value is None:
+            raise RuntimeError(f"Missing dated feedback for {row.get('股票代码')} on {as_of}")
+        feedback_values.append(value)
     positive_ratio = sum(value > 0 for value in feedback_values) / len(feedback_values) if feedback_values else None
     feedback = {
         "count": len(feedback_values),
@@ -179,14 +222,15 @@ def main() -> int:
         for theme in row["theme"]:
             themes[theme] = themes.get(theme, 0) + 1
     theme_rank = [{"theme": theme, "count": count} for theme, count in sorted(themes.items(), key=lambda item: (-item[1], item[0]))[:8]]
-    max_boards = leaders[0]["boards"] if leaders else int(number(first_value(stats, ("最高连板数",), 0)))
-    closed_count = sum(row["break_count"] == 0 for row in leaders)
-    break_rate = 1 - closed_count / len(leaders) if leaders else None
+    max_boards = market["max_boards"]
 
-    if limit_up >= 60 and limit_down <= 8 and failed_rate < 25 and (feedback["avg_return"] or 0) > 0:
+    if failed_rate is None or feedback["avg_return"] is None:
+        label = "数据不足"
+        conclusion = "缺少完整炸板或隔日反馈样本，暂不判断短线强弱。"
+    elif limit_up >= 60 and limit_down <= 8 and failed_rate < 0.25 and feedback["avg_return"] > 0:
         label = "短线核心观察"
         conclusion = "涨停扩散、连板高度和隔日反馈同时偏强，优先研究高辨识度核心；仍需等次日竞价确认。"
-    elif limit_down >= 20 or failed_rate >= 35 or (feedback["avg_return"] or 0) < 0:
+    elif limit_down >= 20 or failed_rate >= 0.35 or feedback["avg_return"] < 0:
         label = "防守等待"
         conclusion = "涨停结构的延续性不足或风险释放明显，先降低暴露，等待核心反馈重新修复。"
     else:
@@ -198,14 +242,16 @@ def main() -> int:
         "updated_at": datetime.now(RUN_TZ).isoformat(timespec="seconds"),
         "data_as_of": as_of,
         "source": "同花顺问财 · hithink-astock-selector",
-        "market": {
-            "index_change": round(index_change, 3),
-            "limit_up": int(limit_up),
-            "limit_down": int(limit_down),
-            "failed_rate": round(failed_rate / 100, 4),
-            "max_boards": max_boards,
-            "board_rows": len(leaders),
-            "board_break_rate": round(break_rate, 4) if break_rate is not None else None,
+        "market": market,
+        "market_evidence": {
+            "complete": failed_rate is not None and bool(feedback_values),
+            "universe": "沪深A股（非ST，含创业板与科创板）",
+            "data_as_of": as_of,
+            "limit_up_codes": sorted(row["code"] for row in leaders),
+            "limit_down_codes": sorted(row["股票代码"] for row in down_rows),
+            "opened_codes": sorted(row["股票代码"] for row in opened_rows),
+            "feedback_codes": sorted(row["股票代码"] for row in feedback_rows),
+            "failed_rate_definition": "收盘未封住的曾涨停股票数 / 当日触及涨停股票总数；不等于封板股票的盘中开板比例",
         },
         "previous_limit_up_feedback": feedback,
         "leader_board": leaders[:12],
@@ -219,7 +265,7 @@ def main() -> int:
             "next_day_checks": ["最高板是否继续晋级或出现负反馈", "昨日涨停股溢价是否继续为正", "炸板率、跌停家数和板块扩散是否同步改善"],
             "note": "这是收盘复盘快照，不等于次日自动交易指令。",
         },
-        "queries": [stats_query, leaders_query, feedback_query],
+        "queries": [leaders_query, down_query, opened_query, feedback_query],
     }
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)

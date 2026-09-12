@@ -4,6 +4,7 @@ import argparse
 import csv
 import gzip
 import json
+import math
 from collections import Counter, defaultdict
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -287,6 +288,14 @@ def build_leader_candidates(
         item["rank_label"] = f"龙头{index}"
     return selected, {"scanned": len(rows), "history_covered_days": covered_days, "history_max_date": history_max_date, "heat_covered": len(heat_rows)}
 def market_score(market: dict, feedback: dict) -> float:
+    required = [(market, key) for key in ("limit_up", "limit_down", "failed_rate", "max_boards")]
+    required += [(feedback, key) for key in ("avg_return", "positive_ratio")]
+    for source, key in required:
+        value = number(source.get(key), None)
+        if value is None or not math.isfinite(value):
+            raise ValueError(f"Incomplete short-term market evidence: {key}")
+    if not 0 <= float(market["failed_rate"]) <= 1 or not 0 <= float(feedback["positive_ratio"]) <= 1:
+        raise ValueError("Market ratios must be fractions in [0, 1]")
     limit_up = number(market.get("limit_up"))
     limit_down = number(market.get("limit_down"))
     failed_rate = number(market.get("failed_rate"))
@@ -304,7 +313,21 @@ def market_score(market: dict, feedback: dict) -> float:
     return round(clamp(score), 1)
 
 
-def market_gate(score: float) -> tuple[str, int, str]:
+def market_risks(market: dict, feedback: dict) -> list[str]:
+    # Same risk vetoes as the close review, before candidate ranking.
+    reasons = []
+    if number(market.get("limit_down")) >= 20:
+        reasons.append("跌停不少于20家")
+    if number(market.get("failed_rate")) >= 0.35:
+        reasons.append("炸板率不低于35%")
+    if number(feedback.get("avg_return")) < 0:
+        reasons.append("昨日涨停反馈为负")
+    return reasons
+
+
+def market_gate(score: float, risks: list[str] | None = None) -> tuple[str, int, str]:
+    if risks:
+        return "空仓", 0, "防守等待 · " + "、".join(risks)
     if score >= 75:
         return "可做", 70, "修复/主升 · 允许研究核心"
     if score >= 60:
@@ -340,6 +363,7 @@ def main() -> int:
     if not leaders:
         raise RuntimeError("close review has no leader pool")
     score_m = market_score(market, feedback)
+    risks = market_risks(market, feedback)
 
     theme_counter: Counter[str] = Counter()
     theme_rows: dict[str, list[dict]] = defaultdict(list)
@@ -425,7 +449,7 @@ def main() -> int:
             }
         )
 
-    verdict, position_cap, state = market_gate(score_m)
+    verdict, position_cap, state = market_gate(score_m, risks)
     for item in raw_candidates:
         if position_cap == 0:
             item["action"] = "放弃：市场门控"
@@ -454,6 +478,9 @@ def main() -> int:
         args.leader_top,
     )
     candidates = core_candidates + leader_candidates
+    if position_cap == 0:
+        for item in candidates:
+            item["action"] = "放弃：市场门控"
 
     now = datetime.now(RUN_TZ).isoformat(timespec="seconds")
     preview = {
@@ -481,13 +508,15 @@ def main() -> int:
         },
         "market": {
             "score": score_m,
+            "risk_reasons": risks,
+            "allow_research": position_cap > 0,
             "state": state,
             "verdict": verdict,
             "position_cap": position_cap,
             "eco_score": score_m,
             "auction_score": None,
             "leader_score": round(clamp(number(market.get("max_boards")) / 7 * 100), 1),
-            "notes": ["盘后口径：使用当日涨跌停、炸板、连板高度与隔日反馈；09:25竞价留待次日重新确认。"],
+            "notes": ["盘后口径：使用当日涨跌停、炸板、连板高度与隔日反馈；09:25竞价留待次日重新确认。"] + risks,
         },
         "candidates": candidates,
         "coverage": {
