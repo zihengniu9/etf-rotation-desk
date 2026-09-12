@@ -91,7 +91,9 @@ The installer creates three tasks:
 
 Every run verifies the tun endpoint through HTTPS first, makes one initial
 network attempt, rebuilds dashboard status and the static bundle, commits only
-generated `outputs/` changes, rebases on `origin/main`, and pushes to GitHub.
+generated `outputs/` changes, merges remote changes in an isolated temporary
+clone, and pushes to GitHub. Failed publication leaves the collector checkout
+intact. Use `-Mode PublishOnly -Push` to retry saved data without collecting again.
 Run a complete update manually with:
 
 ```powershell

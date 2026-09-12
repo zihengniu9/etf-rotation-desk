@@ -1,5 +1,5 @@
 param(
-  [ValidateSet("Morning", "Intraday", "Close", "Full")]
+  [ValidateSet("Morning", "Intraday", "Close", "Full", "PublishOnly")]
   [string]$Mode = "Full",
   [string]$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
   [string]$Python = "",
@@ -41,46 +41,9 @@ function Invoke-Step([string]$Label, [string]$File, [string[]]$Arguments) {
   Write-RunLog "DONE  $Label"
 }
 
-function Invoke-GitCommand([string]$Label, [string[]]$Arguments) {
-  $token = [guid]::NewGuid().ToString("N")
-  $stdoutPath = Join-Path $env:TEMP "ai-dashboard-git-$token.out"
-  $stderrPath = Join-Path $env:TEMP "ai-dashboard-git-$token.err"
-  try {
-    $process = Start-Process `
-      -FilePath "git.exe" `
-      -ArgumentList $Arguments `
-      -WorkingDirectory $ProjectRoot `
-      -RedirectStandardOutput $stdoutPath `
-      -RedirectStandardError $stderrPath `
-      -NoNewWindow `
-      -Wait `
-      -PassThru
-
-    $stdout = if (Test-Path -LiteralPath $stdoutPath) { Get-Content -LiteralPath $stdoutPath } else { @() }
-    $stderr = if (Test-Path -LiteralPath $stderrPath) { Get-Content -LiteralPath $stderrPath } else { @() }
-    foreach ($line in @($stdout)) { Write-RunLog "git $line" }
-    foreach ($line in @($stderr)) { Write-RunLog "git stderr: $line" }
-    if ($process.ExitCode -ne 0) {
-      throw "git $Label failed with exit=$($process.ExitCode)"
-    }
-  } finally {
-    Remove-Item -LiteralPath $stdoutPath, $stderrPath -Force -ErrorAction SilentlyContinue
-  }
-}
-
 function Invoke-GitPublish {
-  for ($attempt = 1; $attempt -le 3; $attempt++) {
-    try {
-      Write-RunLog "git publish attempt $attempt/3"
-      Invoke-GitCommand "pull --rebase origin main --autostash" @("pull", "--rebase", "origin", "main", "--autostash")
-      Invoke-GitCommand "push origin HEAD:main" @("push", "origin", "HEAD:main")
-      return
-    } catch {
-      Write-RunLog ("git publish attempt {0}/3 failed: {1}" -f $attempt, $_.Exception.Message)
-      if ($attempt -eq 3) { throw }
-      Start-Sleep -Seconds (10 * $attempt)
-    }
-  }
+  & $Python "scripts/publish_dashboard.py" --root $ProjectRoot | ForEach-Object { Write-RunLog "$_" }
+  if ($LASTEXITCODE -ne 0) { throw "Isolated git publish failed with exit=$LASTEXITCODE" }
 }
 
 function Test-Tunnel {
@@ -175,21 +138,45 @@ function Push-Outputs([string]$TargetDate, [string]$RunMode) {
   Write-RunLog "START git publish"
   & git add -- outputs
   if ($LASTEXITCODE -ne 0) { throw "git add outputs failed" }
-  & git diff --cached --quiet
+  & git diff --cached --quiet -- outputs
   if ($LASTEXITCODE -eq 0) {
-    Write-RunLog "No generated output changes to publish"
-    return
+    Write-RunLog "No new output changes; retrying any previously unpublished commits"
+  } elseif ($LASTEXITCODE -eq 1) {
+    & git -c user.name="AI Stock Dashboard Bot" -c user.email="dashboard-bot@users.noreply.github.com" commit --only -m "Update dashboard data $TargetDate ($($RunMode.ToLowerInvariant()))" -- outputs
+    if ($LASTEXITCODE -ne 0) { throw "git commit outputs failed" }
+  } else {
+    throw "git diff failed"
   }
-  & git config user.name "AI Stock Dashboard Bot"
-  & git config user.email "dashboard-bot@users.noreply.github.com"
-  & git commit -m "Update dashboard data $TargetDate ($($RunMode.ToLowerInvariant()))"
-  if ($LASTEXITCODE -ne 0) { throw "git commit failed" }
   Invoke-GitPublish
   Write-RunLog "DONE  git publish"
 }
 
+$lockBytes = [System.Text.Encoding]::UTF8.GetBytes($ProjectRoot.ToLowerInvariant())
+$lockHash = [System.Security.Cryptography.SHA256]::Create().ComputeHash($lockBytes)
+$lockName = "Local\AIStockDashboard-" + [BitConverter]::ToString($lockHash).Replace("-", "")
+$runMutex = [System.Threading.Mutex]::new($false, $lockName)
+$ownsMutex = $false
 try {
+  try { $ownsMutex = $runMutex.WaitOne(0) } catch [System.Threading.AbandonedMutexException] { $ownsMutex = $true }
+  if (-not $ownsMutex) {
+    Write-RunLog "SKIP another dashboard update is running"
+    exit 0
+  }
   Write-RunLog "dashboard update mode=$Mode"
+  if ($Push) {
+    & $Python -c "import sys; sys.path.insert(0, 'scripts'); from pathlib import Path; from publish_dashboard import assert_ready; assert_ready(Path.cwd())"
+    if ($LASTEXITCODE -ne 0) { throw "Git is not ready; outputs left intact" }
+  }
+  if ($Mode -eq "PublishOnly") {
+    if (-not $Push) { throw "PublishOnly requires -Push" }
+    Push-Outputs "saved-snapshot" $Mode
+    exit 0
+  }
+  $target = Get-HongKongDate
+  if ($target.DayOfWeek -in @([DayOfWeek]::Saturday, [DayOfWeek]::Sunday)) {
+    Write-RunLog "Weekend detected; no market-data mutation"
+    exit 0
+  }
   Get-RequiredEnvironment "IWENCAI_API_KEY"
   $baseUrl = [Environment]::GetEnvironmentVariable("IWENCAI_BASE_URL", "Process")
   if (-not $baseUrl) { $baseUrl = [Environment]::GetEnvironmentVariable("IWENCAI_BASE_URL", "User") }
@@ -201,11 +188,6 @@ try {
   $env:PYTHONIOENCODING = "utf-8"
   Test-Tunnel
 
-  $target = Get-HongKongDate
-  if ($target.DayOfWeek -in @([DayOfWeek]::Saturday, [DayOfWeek]::Sunday)) {
-    Write-RunLog "Weekend detected; no market-data mutation"
-    exit 0
-  }
   $targetDate = $target.ToString("yyyy-MM-dd")
   if ($Mode -in @("Morning", "Full")) { Invoke-Morning $targetDate }
   if ($Mode -eq "Intraday") { Invoke-Intraday $targetDate }
@@ -215,4 +197,7 @@ try {
 } catch {
   Write-RunLog ("FAILED " + $_.Exception.Message)
   throw
+} finally {
+  if ($ownsMutex) { $runMutex.ReleaseMutex() }
+  $runMutex.Dispose()
 }

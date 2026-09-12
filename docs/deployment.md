@@ -26,7 +26,7 @@ are not copied into the static artifact. The public page root redirects to
 Install the local task:
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\install_windows_task.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\install_dashboard_tasks.ps1
 ```
 
 Run the complete dashboard update manually:
@@ -39,5 +39,18 @@ For an ETF-only refresh, use `scripts\update_etf_data.ps1`.
 
 Logs are appended to `outputs/scheduled_update.log` and
 `outputs/dashboard_daily_update.log`. The unified runner retries Git pull/push
-transient failures up to three times and records Git stderr without treating
-normal fetch progress as a failure.
+transient failures up to three times. Publication merges committed data and
+remote changes in a temporary clone, so a merge failure cannot leave the live
+collector in a detached HEAD or unfinished rebase. JSON-only JS fallbacks are
+regenerated from their unconflicted JSON source; actual source-data conflicts
+stop publication and preserve both sides. All three tasks share a process lock.
+
+Retry an already collected snapshot (including weekends, without API access):
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\update_dashboard_daily.ps1 -Mode PublishOnly -Push
+```
+
+An unchanged output directory still retries unpublished commits. The machine
+must be awake with the configured user session and tunnel available for data
+collection; GitHub Pages does not run the collector.
