@@ -35,7 +35,7 @@ for ($attempt = 1; $attempt -le $MaxAttempts; $attempt++) {
     -WorkingDirectory $ProjectRoot `
     -RedirectStandardOutput $stdoutPath `
     -RedirectStandardError $stderrPath `
-    -NoNewWindow `
+    -WindowStyle Hidden `
     -Wait `
     -PassThru
 

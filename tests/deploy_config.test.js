@@ -58,6 +58,16 @@ const taskInstaller = read("scripts/install_dashboard_tasks.ps1");
 for (const time of ["09:28", "10:00", "11:30", "14:00", "16:20"]) {
   assert.ok(taskInstaller.includes(time), `Windows task installer should include ${time}`);
 }
+for (const time of ["09:30", "10:30", "11:00", "13:00", "13:30", "14:30", "15:00"]) {
+  assert.ok(taskInstaller.includes(time), `Missing half-hour trading update: ${time}`);
+}
+for (const setting of ["-NonInteractive", "-WindowStyle", "Hidden", "-AllowStartIfOnBatteries", "-DontStopIfGoingOnBatteries", "-RestartCount 3", "-RestartInterval"]) {
+  assert.ok(taskInstaller.includes(setting), `Missing resilient scheduler setting: ${setting}`);
+}
+assert.ok(dailyRunner.includes("scripts/run_dashboard_step.py"));
+assert.ok(dailyRunner.includes("dashboard_step_"));
+assert.ok(dailyRunner.includes("exit 75"), "A busy collector should request a delayed scheduler retry");
+assert.ok(etfUpdateScript.includes("-WindowStyle Hidden"));
 for (const task of ["AI Stock Dashboard Morning", "AI Stock Dashboard Intraday", "AI Stock Dashboard Close"]) {
   assert.ok(taskInstaller.includes(task), `Windows task installer should register ${task}`);
 }
@@ -65,6 +75,11 @@ assert.ok(taskInstaller.includes("Register-ScheduledTask"), "Windows installer s
 assert.ok(taskInstaller.includes("update_dashboard_daily.ps1"), "Windows tasks should invoke the unified runner");
 
 const index = read("index.html");
+const marketMode = read("web/market_mode.html");
+assert.ok(marketMode.includes("window.setInterval(refreshVisible,120000)"));
+assert.ok(marketMode.includes('window.addEventListener("focus",refreshVisible)'));
+assert.ok(marketMode.includes('document.addEventListener("visibilitychange",refreshVisible)'));
+assert.ok(marketMode.includes("state.refreshInFlight"));
 assert.ok(index.includes("./web/market_mode.html"), "Root index should open the market-mode decision page first");
 
 const industryHtml = read("web/industry_mainline_dashboard.html");

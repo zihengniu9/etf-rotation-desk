@@ -36,7 +36,8 @@ function Get-RequiredEnvironment([string]$Name) {
 
 function Invoke-Step([string]$Label, [string]$File, [string[]]$Arguments) {
   Write-RunLog "START $Label"
-  & $File @Arguments
+  $stepLog = Join-Path $LogDir ("dashboard_step_" + ($Label -replace '[^a-zA-Z0-9]+', '_') + ".log")
+  & $Python "scripts/run_dashboard_step.py" --log $stepLog --timeout 1200 -- $File @Arguments
   if ($LASTEXITCODE -ne 0) { throw "$Label failed with exit=$LASTEXITCODE" }
   Write-RunLog "DONE  $Label"
 }
@@ -160,7 +161,7 @@ try {
   try { $ownsMutex = $runMutex.WaitOne(0) } catch [System.Threading.AbandonedMutexException] { $ownsMutex = $true }
   if (-not $ownsMutex) {
     Write-RunLog "SKIP another dashboard update is running"
-    exit 0
+    exit 75
   }
   Write-RunLog "dashboard update mode=$Mode"
   if ($Push) {
@@ -186,6 +187,7 @@ try {
   $env:HTTP_PROXY = $TunnelProxy
   $env:PYTHONPATH = Join-Path $ProjectRoot "src"
   $env:PYTHONIOENCODING = "utf-8"
+  $env:PYTHONUTF8 = "1"
   Test-Tunnel
 
   $targetDate = $target.ToString("yyyy-MM-dd")

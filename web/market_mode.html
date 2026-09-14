@@ -1015,8 +1015,10 @@
       function fetchCsv(path) { return fetch(path+"?ts="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error(path+" "+r.status);return r.text();}).then(parseCsv); }
 
       function loadLocal() {
+        if(state.refreshInFlight) return state.refreshInFlight;
+        state.lastRefreshAttempt=Date.now();
         $("refresh").disabled=true; $("load-note").classList.remove("show");
-        return Promise.all([
+        return state.refreshInFlight=Promise.all([
           fetchJson("../outputs/shortterm_signal.json"), fetchJson("../outputs/industry_flow_latest.json"),
           fetchCsv("../outputs/etf_rotation_pick.csv"), fetchCsv("../outputs/etf_rotation_rank.csv"), fetchCsv("../outputs/etf_hot_rank.csv"),
           fetchJson("../outputs/trend_engine.json").catch(function(){return null;}),
@@ -1061,11 +1063,16 @@
             dashboardStatus:dashboardStatus,latestReview:latestReview};
           render(snapshot,"live");
         }).catch(function(err){
+          if(state.source==="live") {
+            $("load-note").textContent="本次更新未成功，保留上次读取的数据，稍后自动重试。";
+            $("load-note").classList.add("show");
+            return;
+          }
           var hasFileSnapshot=!!(window.SHORT_SIGNAL&&window.INDUSTRY_FLOW&&window.ETF_LOCAL_DATA);
           render(FALLBACK,hasFileSnapshot?"file":"snapshot");
           $("load-note").textContent=hasFileSnapshot?"当前已读取 outputs 生成快照；浏览器禁止 file:// 主动请求，点击刷新需通过本地 HTTP 服务打开。":"浏览器禁止读取相邻文件，且未找到 outputs 生成快照；当前仅显示内置演示数据。";
           $("load-note").classList.add("show");
-        }).finally(function(){ $("refresh").disabled=false; });
+        }).finally(function(){ state.refreshInFlight=null; $("refresh").disabled=false; });
       }
 
       function hydrateFileFallback() {
@@ -1124,6 +1131,12 @@
       hydrateFileFallback();
       render(FALLBACK,window.SHORT_SIGNAL&&window.INDUSTRY_FLOW&&window.ETF_LOCAL_DATA?"file":"snapshot");
       loadLocal();
+      function refreshVisible() {
+        if(document.visibilityState!=="hidden"&&Date.now()-(state.lastRefreshAttempt||0)>15000) loadLocal();
+      }
+      window.setInterval(refreshVisible,120000);
+      window.addEventListener("focus",refreshVisible);
+      document.addEventListener("visibilitychange",refreshVisible);
     })();
   </script>
   <script src="./dashboard_nav.js?v=20260831"></script>

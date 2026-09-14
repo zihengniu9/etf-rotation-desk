@@ -15,7 +15,7 @@ const factor = {data_as_of: "2026-09-11", market: {score: 69.1}};
 const industry = {data_as_of: "2026-09-11", rows: []};
 const health = {modules: ["short", "industry", "etf"].map(key => ({key, state: "current", data_as_of: "2026-09-11"}))};
 const context = vm.createContext({
-  window: {}, FALLBACK: {},
+  window: {}, FALLBACK: {}, state: {},
   num: (value, fallback = 0) => Number.isFinite(Number(value)) ? Number(value) : fallback,
   clamp: (value, min, max) => Math.min(max, Math.max(min, value)),
   $: () => ({classList: {add() {}, remove() {}}}),
@@ -72,6 +72,16 @@ async function load(values) {
   const live = await load(files);
   assert.equal(live.dataDates.short, "2026-09-11");
   assert.equal(context.dataFreshness(live).blocked, false);
+  const one=context.loadLocal(), two=context.loadLocal();
+  assert.equal(one,two,"Concurrent refreshes should share one request batch");
+  await one;
+  context.state.source="live";
+  const beforeFailure=context.rendered;
+  context.fetchJson=()=>Promise.reject(new Error("offline"));
+  await context.loadLocal();
+  assert.equal(context.rendered,beforeFailure,"Network errors must preserve the last successful snapshot");
+  assert.equal(context.state.refreshInFlight,null);
+  context.state.source=undefined;
   Object.assign(context.window, {SHORT_SIGNAL: signal, LATEST_MARKET_REVIEW: review, SHORT_FACTOR_PREVIEW: factor, INDUSTRY_FLOW: industry, DASHBOARD_STATUS: health});
   context.hydrateFileFallback();
   assert.equal(context.FALLBACK.dataDates.short, live.dataDates.short);

@@ -37,6 +37,21 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\update_dashboard
 
 For an ETF-only refresh, use `scripts\update_etf_data.ps1`.
 
+The unified tasks run hidden and non-interactively. Morning runs at 09:28,
+intraday runs every half hour in the trading sessions (09:30-11:30 and
+13:00-15:00), and the full close bundle runs at 16:20, weekdays only.
+Battery power does not cancel updates. Failed or busy runs retry after five
+minutes, up to three times; a per-project lock prevents overlapping writes.
+Changes to the installer take effect only after rerunning it on the collector.
+
+Each collection step captures stdout and stderr in a local
+`outputs/dashboard_step_*.log` file, has a 20-minute deadline, and terminates
+its process tree on timeout. These logs are excluded from the public bundle.
+Python UTF-8 mode is set for collectors and their nested subprocesses; setting
+only PYTHONIOENCODING does not fix Windows' default GBK subprocess decoding.
+If a scheduler run ends without DONE or FAILED in the main log, inspect its
+LastTaskResult as well: external termination may prevent exception logging.
+
 Logs are appended to `outputs/scheduled_update.log` and
 `outputs/dashboard_daily_update.log`. The unified runner retries Git pull/push
 transient failures up to three times. Publication merges committed data and

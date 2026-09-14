@@ -2,7 +2,7 @@ param(
   [string]$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
   [string]$Python = "",
   [string]$MorningTime = "09:28",
-  [string[]]$IntradayTimes = @("10:00", "11:30", "14:00"),
+  [string[]]$IntradayTimes = @("09:30", "10:00", "10:30", "11:00", "11:30", "13:00", "13:30", "14:00", "14:30", "15:00"),
   [string]$CloseTime = "16:20"
 )
 
@@ -15,6 +15,9 @@ if (-not (Test-Path -LiteralPath $Runner)) { throw "Daily runner not found: $Run
 function Register-DashboardTask([string]$Name, [string]$Mode, [string[]]$Times) {
   $argumentParts = @(
     '-NoProfile'
+    '-NonInteractive'
+    '-WindowStyle'
+    'Hidden'
     '-ExecutionPolicy'
     'Bypass'
     '-File'
@@ -31,7 +34,10 @@ function Register-DashboardTask([string]$Name, [string]$Mode, [string[]]$Times) 
     $at = [datetime]::ParseExact($time, "HH:mm", [System.Globalization.CultureInfo]::InvariantCulture)
     New-ScheduledTaskTrigger -Weekly -WeeksInterval 1 -DaysOfWeek Monday,Tuesday,Wednesday,Thursday,Friday -At $at
   }
-  $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -MultipleInstances IgnoreNew -ExecutionTimeLimit (New-TimeSpan -Hours 2)
+  $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -MultipleInstances IgnoreNew `
+    -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries `
+    -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 5) `
+    -ExecutionTimeLimit (New-TimeSpan -Hours 2)
   Register-ScheduledTask -TaskName $Name -Action $action -Trigger $triggers -Settings $settings `
     -Description "AI stock dashboard $Mode update; verifies tun, refreshes data, and pushes GitHub." -Force | Out-Null
 }
