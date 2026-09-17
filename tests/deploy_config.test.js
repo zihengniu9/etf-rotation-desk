@@ -37,7 +37,7 @@ const etfUpdateScript = read("scripts/update_etf_data.ps1");
 assert.ok(etfUpdateScript.includes("run_etf_selector.py"), "Local ETF update should call the selector");
 assert.ok(etfUpdateScript.includes("scheduled_update.log"), "Local ETF update should append a log file");
 assert.ok(etfUpdateScript.includes("$env:PYTHONPATH"), "Local ETF update should set PYTHONPATH");
-assert.ok(etfUpdateScript.includes("$MaxAttempts = 1"), "Network collection should make one initial attempt by default");
+assert.ok(etfUpdateScript.includes("$MaxAttempts = 3"), "Network collection should retry transient failures by default");
 assert.ok(etfUpdateScript.includes("RedirectStandardError"), "Local ETF update should capture Python stderr");
 
 const dailyRunner = read("scripts/update_dashboard_daily.ps1");
@@ -50,7 +50,7 @@ assert.ok(dailyRunner.includes("https://openapi.iwencai.com"), "Tunnel probe sho
 assert.strictEqual(dailyRunner.includes("ws://"), false, "Daily runner must not use WebSocket");
 assert.strictEqual(dailyRunner.includes("wss://"), false, "Daily runner must not use WebSocket");
 assert.ok(dailyRunner.includes('Get-RequiredEnvironment "IWENCAI_API_KEY"'), "Daily runner should require the API key from environment storage");
-assert.ok(dailyRunner.includes('"-MaxAttempts", "1"'), "Daily runner should enforce a single ETF collection attempt");
+assert.ok(dailyRunner.includes('"-MaxAttempts", "3"'), "Daily runner should retry ETF collection attempts");
 assert.ok(dailyRunner.includes("git add -- outputs"), "Daily runner should stage generated outputs only");
 assert.ok(dailyRunner.includes('scripts/publish_dashboard.py'), "Daily runner should use the isolated publisher");
 
@@ -67,6 +67,8 @@ for (const setting of ["-NonInteractive", "-WindowStyle", "Hidden", "-AllowStart
 assert.ok(dailyRunner.includes("scripts/run_dashboard_step.py"));
 assert.ok(dailyRunner.includes("dashboard_step_"));
 assert.ok(dailyRunner.includes("exit 75"), "A busy collector should request a delayed scheduler retry");
+assert.ok(dailyRunner.includes("continuing other modules"), "A failed module should not block publication of successful modules");
+assert.ok(dailyRunner.includes("published with step failures"), "A partial run should be visible and retried by the scheduler");
 assert.ok(etfUpdateScript.includes("-WindowStyle Hidden"));
 for (const task of ["AI Stock Dashboard Morning", "AI Stock Dashboard Intraday", "AI Stock Dashboard Close"]) {
   assert.ok(taskInstaller.includes(task), `Windows task installer should register ${task}`);

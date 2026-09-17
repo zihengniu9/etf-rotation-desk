@@ -49,6 +49,11 @@ Each collection step captures stdout and stderr in a local
 its process tree on timeout. These logs are excluded from the public bundle.
 Python UTF-8 mode is set for collectors and their nested subprocesses; setting
 only PYTHONIOENCODING does not fix Windows' default GBK subprocess decoding.
+The close runner reads the 09:25 signal JSON through UTF-8 aware Python code,
+so Chinese signal payloads cannot stop the close bundle. If an independent
+module still fails, the other modules continue and publish their fresh
+outputs; the run records the failure and returns a non-zero result so the
+scheduled task retries it.
 If a scheduler run ends without DONE or FAILED in the main log, inspect its
 LastTaskResult as well: external termination may prevent exception logging.
 

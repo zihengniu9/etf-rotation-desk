@@ -1,7 +1,7 @@
 param(
   [string]$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
   [string]$Python = "python",
-  [int]$MaxAttempts = 1,
+  [int]$MaxAttempts = 3,
   [int]$RetryDelaySeconds = 90
 )
 
@@ -40,10 +40,10 @@ for ($attempt = 1; $attempt -le $MaxAttempts; $attempt++) {
     -PassThru
 
   if (Test-Path -LiteralPath $stdoutPath) {
-    Get-Content -LiteralPath $stdoutPath | Tee-Object -FilePath $LogPath -Append
+    Get-Content -LiteralPath $stdoutPath -Encoding UTF8 | Tee-Object -FilePath $LogPath -Append
   }
   if (Test-Path -LiteralPath $stderrPath) {
-    Get-Content -LiteralPath $stderrPath | Tee-Object -FilePath $LogPath -Append
+    Get-Content -LiteralPath $stderrPath -Encoding UTF8 | Tee-Object -FilePath $LogPath -Append
   }
 
   $exitCode = $process.ExitCode

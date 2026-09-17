@@ -21,6 +21,7 @@ $LogDir = Join-Path $ProjectRoot "outputs"
 $LogPath = Join-Path $LogDir "dashboard_daily_update.log"
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
 Set-Location -LiteralPath $ProjectRoot
+$script:StepFailures = [System.Collections.Generic.List[string]]::new()
 
 function Write-RunLog([string]$Message) {
   $line = "[{0}] {1}" -f (Get-Date -Format "yyyy-MM-dd HH:mm:ss"), $Message
@@ -38,8 +39,17 @@ function Invoke-Step([string]$Label, [string]$File, [string[]]$Arguments) {
   Write-RunLog "START $Label"
   $stepLog = Join-Path $LogDir ("dashboard_step_" + ($Label -replace '[^a-zA-Z0-9]+', '_') + ".log")
   & $Python "scripts/run_dashboard_step.py" --log $stepLog --timeout 1200 -- $File @Arguments
-  if ($LASTEXITCODE -ne 0) { throw "$Label failed with exit=$LASTEXITCODE" }
+  $exitCode = $LASTEXITCODE
+  if ($exitCode -ne 0) {
+    # Keep independent modules moving so a transient failure cannot prevent
+    # fresh outputs from being published. The task still returns failure after
+    # publication, allowing Task Scheduler to retry the run.
+    $script:StepFailures.Add("$Label (exit=$exitCode)")
+    Write-RunLog "FAILED $Label failed with exit=$exitCode; continuing other modules"
+    return
+  }
   Write-RunLog "DONE  $Label"
+  return
 }
 
 function Invoke-GitPublish {
@@ -74,7 +84,7 @@ function Invoke-Morning([string]$TargetDate) {
 function Invoke-Intraday([string]$TargetDate) {
   Invoke-Step "ETF rotation" "powershell.exe" @(
     "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "scripts/update_etf_data.ps1",
-    "-ProjectRoot", $ProjectRoot, "-Python", $Python, "-MaxAttempts", "1"
+    "-ProjectRoot", $ProjectRoot, "-Python", $Python, "-MaxAttempts", "3"
   )
   Invoke-Step "industry mainline" $Python @("scripts/update_industry_data.py", "--refresh", "--as-of", $TargetDate)
   Invoke-Step "industry stock roles" $Python @("scripts/update_industry_stock_roles.py")
@@ -101,8 +111,15 @@ function Invoke-Close([string]$TargetDate) {
   }
   $hasShorttermSignal = Test-Path -LiteralPath $signalPath
   if ($hasShorttermSignal) {
-    $signalSnapshot = Get-Content -LiteralPath $signalPath -Raw | ConvertFrom-Json
-    $hasShorttermSignal = $signalSnapshot.status -eq "ok"
+    # Windows PowerShell may decode UTF-8 JSON with the local code page. Read
+    # the status through Python so Chinese payloads cannot abort the close run.
+    $signalStatus = ((& $Python -c "import json,sys; print(json.load(open(sys.argv[1], encoding='utf-8')).get('status', ''))" $signalPath) -join "").Trim()
+    if ($LASTEXITCODE -eq 0) {
+      $hasShorttermSignal = $signalStatus -eq "ok"
+    } else {
+      $hasShorttermSignal = $false
+      Write-RunLog "WARN  same-day signal JSON could not be decoded; close-only modules will continue"
+    }
   }
   if (-not $hasShorttermSignal) {
     Write-RunLog "WARN  same-day 09:25 signal unavailable; close-only modules will continue and auction-dependent factors will stay stale"
@@ -124,7 +141,7 @@ function Invoke-Close([string]$TargetDate) {
   Invoke-Step "industry stock roles" $Python @("scripts/update_industry_stock_roles.py")
   Invoke-Step "ETF rotation" "powershell.exe" @(
     "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "scripts/update_etf_data.ps1",
-    "-ProjectRoot", $ProjectRoot, "-Python", $Python, "-MaxAttempts", "1"
+    "-ProjectRoot", $ProjectRoot, "-Python", $Python, "-MaxAttempts", "3"
   )
   Invoke-Step "dividend quality" $Python @("scripts/update_dividend_factor.py", "--as-of", $TargetDate)
   Invoke-Step "growth current finance" $Python @("scripts/update_growth_factor.py", "--as-of", $TargetDate)
@@ -195,6 +212,11 @@ try {
   if ($Mode -eq "Intraday") { Invoke-Intraday $targetDate }
   if ($Mode -in @("Close", "Full")) { Invoke-Close $targetDate }
   if ($Push) { Push-Outputs $targetDate $Mode }
+  if ($StepFailures.Count -gt 0) {
+    $failureSummary = $StepFailures -join "; "
+    Write-RunLog "dashboard update published with step failures: $failureSummary"
+    throw "dashboard update had step failures: $failureSummary"
+  }
   Write-RunLog "dashboard update completed"
 } catch {
   Write-RunLog ("FAILED " + $_.Exception.Message)
