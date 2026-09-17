@@ -1,5 +1,5 @@
 window.SHORT_FACTORS = {
-  "generated_at": "2026-09-17T17:51:04+08:00",
+  "generated_at": "2026-09-17T19:35:46+08:00",
   "for_date": "2026-09-17",
   "basis": "close_review",
   "rules": "双池盘后口径：核心池 40%S + 35%E + 25%Q；龙头池 40%60日涨幅 + 35%近30日涨停 + 25%股票热度；M仅作市场门控",
@@ -16,7 +16,7 @@ window.SHORT_FACTORS = {
     "leader_scanned": 3028,
     "leader_history_covered_days": 14,
     "leader_history_max_date": "2026-09-17",
-    "leader_heat_covered": 169
+    "leader_heat_covered": 170
   },
   "high_candidates": [],
   "hot_board": [
@@ -505,7 +505,7 @@ window.SHORT_FACTORS = {
       "hot": false,
       "best_concept": "公用事业",
       "concept_count": null,
-      "pop": 99.4
+      "pop": 98.8
     },
     {
       "name": "桂林旅游",
@@ -515,7 +515,7 @@ window.SHORT_FACTORS = {
       "hot": false,
       "best_concept": "社会服务",
       "concept_count": null,
-      "pop": 94.7
+      "pop": 96.5
     },
     {
       "name": "国芳集团",
@@ -535,7 +535,7 @@ window.SHORT_FACTORS = {
       "hot": false,
       "best_concept": "医药生物",
       "concept_count": null,
-      "pop": 50.0
+      "pop": 57.6
     },
     {
       "name": "汉森制药",
@@ -555,7 +555,7 @@ window.SHORT_FACTORS = {
       "hot": false,
       "best_concept": "电子",
       "concept_count": null,
-      "pop": 86.4
+      "pop": 82.9
     },
     {
       "name": "百大集团",
@@ -568,16 +568,6 @@ window.SHORT_FACTORS = {
       "pop": 50.0
     },
     {
-      "name": "崇达技术",
-      "code": "002815.SZ",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "电子",
-      "concept_count": null,
-      "pop": 75.7
-    },
-    {
       "name": "神奇制药",
       "code": "600613.SH",
       "boards": 0,
@@ -586,6 +576,16 @@ window.SHORT_FACTORS = {
       "best_concept": "医药生物",
       "concept_count": null,
       "pop": 50.0
+    },
+    {
+      "name": "崇达技术",
+      "code": "002815.SZ",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "电子",
+      "concept_count": null,
+      "pop": 75.3
     },
     {
       "name": "深中华A",
@@ -628,16 +628,6 @@ window.SHORT_FACTORS = {
       "pop": 50.0
     },
     {
-      "name": "平潭发展",
-      "code": "000592.SZ",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "农林牧渔",
-      "concept_count": null,
-      "pop": 95.3
-    },
-    {
       "name": "中新赛克",
       "code": "002912.SZ",
       "boards": 0,
@@ -656,6 +646,16 @@ window.SHORT_FACTORS = {
       "best_concept": "轻工制造",
       "concept_count": null,
       "pop": 50.0
+    },
+    {
+      "name": "平潭发展",
+      "code": "000592.SZ",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "农林牧渔",
+      "concept_count": null,
+      "pop": 92.4
     },
     {
       "name": "集泰股份",
@@ -678,14 +678,14 @@ window.SHORT_FACTORS = {
       "pop": 50.0
     },
     {
-      "name": "星网锐捷",
-      "code": "002396.SZ",
+      "name": "亚盛集团",
+      "code": "600108.SH",
       "boards": 0,
       "lane": "leader",
       "hot": false,
-      "best_concept": "通信",
+      "best_concept": "农林牧渔",
       "concept_count": null,
-      "pop": 82.8
+      "pop": 36.5
     },
     {
       "name": "罗牛山",

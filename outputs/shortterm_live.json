@@ -1,6 +1,6 @@
 {
   "version": "shortterm-live-v2",
-  "updated_at": "2026-09-17T17:55:37+08:00",
+  "updated_at": "2026-09-17T19:40:55+08:00",
   "date": "2026-09-17",
   "source": "最新收盘复盘 + 当日盘后 M/S/E/Q 候选",
   "stocks": [
@@ -436,14 +436,14 @@
       "pool": "leader",
       "pool_label": "龙头观察",
       "rank": "龙头1",
-      "factor_score": 89.2,
+      "factor_score": 89.0,
       "trend_score": null,
       "r60_pct": 78.72340425531915,
       "recent_limitup_days": 4,
-      "heat": 401129.6,
+      "heat": 403322.2,
       "strength": 99.6,
       "position": 70.0,
-      "quality": 99.4
+      "quality": 98.8
     },
     {
       "code": "000978.SZ",
@@ -457,14 +457,14 @@
       "pool": "leader",
       "pool_label": "龙头观察",
       "rank": "龙头2",
-      "factor_score": 87.9,
+      "factor_score": 88.4,
       "trend_score": null,
       "r60_pct": 60.69469835466178,
       "recent_limitup_days": 4,
-      "heat": 264820.5,
+      "heat": 339313.5,
       "strength": 99.4,
       "position": 70.0,
-      "quality": 94.7
+      "quality": 96.5
     },
     {
       "code": "601086.SH",
@@ -482,7 +482,7 @@
       "trend_score": null,
       "r60_pct": 112.08151382823873,
       "recent_limitup_days": 4,
-      "heat": 260136.3,
+      "heat": 307765.2,
       "strength": 99.8,
       "position": 70.0,
       "quality": 93.5
@@ -499,14 +499,14 @@
       "pool": "leader",
       "pool_label": "龙头观察",
       "rank": "龙头4",
-      "factor_score": 76.8,
+      "factor_score": 78.7,
       "trend_score": null,
       "r60_pct": 72.05387205387204,
       "recent_limitup_days": 4,
-      "heat": null,
+      "heat": 87032.8,
       "strength": 99.5,
       "position": 70.0,
-      "quality": 50.0
+      "quality": 57.6
     },
     {
       "code": "002412.SZ",
@@ -537,18 +537,18 @@
       "high": null,
       "low": null,
       "open": null,
-      "research_status": "龙头重点",
+      "research_status": "龙头观察",
       "pool": "leader",
       "pool_label": "龙头观察",
       "rank": "龙头6",
-      "factor_score": 75.6,
+      "factor_score": 74.7,
       "trend_score": null,
       "r60_pct": 6.80272108843538,
       "recent_limitup_days": 4,
-      "heat": 168395.3,
+      "heat": 163947.5,
       "strength": 73.7,
       "position": 70.0,
-      "quality": 86.4
+      "quality": 82.9
     },
     {
       "code": "600865.SH",
@@ -572,8 +572,8 @@
       "quality": 50.0
     },
     {
-      "code": "002815.SZ",
-      "name": "崇达技术",
+      "code": "600613.SH",
+      "name": "神奇制药",
       "price": null,
       "pct": null,
       "high": null,
@@ -583,18 +583,18 @@
       "pool": "leader",
       "pool_label": "龙头观察",
       "rank": "龙头8",
-      "factor_score": 71.7,
+      "factor_score": 71.6,
       "trend_score": null,
-      "r60_pct": 29.81676846196556,
-      "recent_limitup_days": 2,
-      "heat": 126364.8,
-      "strength": 96.9,
-      "position": 40.0,
-      "quality": 75.7
+      "r60_pct": 74.0976645435244,
+      "recent_limitup_days": 3,
+      "heat": null,
+      "strength": 99.6,
+      "position": 55.0,
+      "quality": 50.0
     },
     {
-      "code": "600613.SH",
-      "name": "神奇制药",
+      "code": "002815.SZ",
+      "name": "崇达技术",
       "price": null,
       "pct": null,
       "high": null,
@@ -606,12 +606,12 @@
       "rank": "龙头9",
       "factor_score": 71.6,
       "trend_score": null,
-      "r60_pct": 74.0976645435244,
-      "recent_limitup_days": 3,
-      "heat": null,
-      "strength": 99.6,
-      "position": 55.0,
-      "quality": 50.0
+      "r60_pct": 29.81676846196556,
+      "recent_limitup_days": 2,
+      "heat": 131866.3,
+      "strength": 96.9,
+      "position": 40.0,
+      "quality": 75.3
     },
     {
       "code": "000017.SZ",
@@ -698,27 +698,6 @@
       "quality": 50.0
     },
     {
-      "code": "000592.SZ",
-      "name": "平潭发展",
-      "price": null,
-      "pct": null,
-      "high": null,
-      "low": null,
-      "open": null,
-      "research_status": "龙头观察",
-      "pool": "leader",
-      "pool_label": "龙头观察",
-      "rank": "龙头14",
-      "factor_score": 70.9,
-      "trend_score": null,
-      "r60_pct": 25.323741007194258,
-      "recent_limitup_days": 1,
-      "heat": 282318.8,
-      "strength": 95.8,
-      "position": 25.0,
-      "quality": 95.3
-    },
-    {
       "code": "002912.SZ",
       "name": "中新赛克",
       "price": null,
@@ -729,7 +708,7 @@
       "research_status": "龙头观察",
       "pool": "leader",
       "pool_label": "龙头观察",
-      "rank": "龙头15",
+      "rank": "龙头14",
       "factor_score": 70.8,
       "trend_score": null,
       "r60_pct": 34.50630252100841,
@@ -750,7 +729,7 @@
       "research_status": "龙头观察",
       "pool": "leader",
       "pool_label": "龙头观察",
-      "rank": "龙头16",
+      "rank": "龙头15",
       "factor_score": 70.2,
       "trend_score": null,
       "r60_pct": 26.071428571428573,
@@ -759,6 +738,27 @@
       "strength": 96.0,
       "position": 55.0,
       "quality": 50.0
+    },
+    {
+      "code": "000592.SZ",
+      "name": "平潭发展",
+      "price": null,
+      "pct": null,
+      "high": null,
+      "low": null,
+      "open": null,
+      "research_status": "龙头观察",
+      "pool": "leader",
+      "pool_label": "龙头观察",
+      "rank": "龙头16",
+      "factor_score": 70.2,
+      "trend_score": null,
+      "r60_pct": 25.323741007194258,
+      "recent_limitup_days": 1,
+      "heat": 297878.8,
+      "strength": 95.8,
+      "position": 25.0,
+      "quality": 92.4
     },
     {
       "code": "002909.SZ",
@@ -803,8 +803,8 @@
       "quality": 50.0
     },
     {
-      "code": "002396.SZ",
-      "name": "星网锐捷",
+      "code": "600108.SH",
+      "name": "亚盛集团",
       "price": null,
       "pct": null,
       "high": null,
@@ -814,14 +814,14 @@
       "pool": "leader",
       "pool_label": "龙头观察",
       "rank": "龙头19",
-      "factor_score": 69.4,
+      "factor_score": 68.8,
       "trend_score": null,
-      "r60_pct": 105.55849655902591,
-      "recent_limitup_days": 1,
-      "heat": 156354.3,
-      "strength": 99.8,
-      "position": 25.0,
-      "quality": 82.8
+      "r60_pct": 13.793103448275861,
+      "recent_limitup_days": 4,
+      "heat": 40528.8,
+      "strength": 87.9,
+      "position": 70.0,
+      "quality": 36.5
     },
     {
       "code": "000735.SZ",

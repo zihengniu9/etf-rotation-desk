@@ -1,6 +1,6 @@
 {
   "version": "growth-factor-v1",
-  "updated_at": "2026-09-17T17:55:37+08:00",
+  "updated_at": "2026-09-17T19:40:54+08:00",
   "data_as_of": "2026-09-17",
   "source": "同花顺问财财务查询 + 同花顺问财 news-search 历史资讯",
   "point_in_time_status": "当前截面研究；财报字段已按报告期分层，逐股披露日回溯尚待接入，不用于宣称历史回测优胜",

@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-09-17T17:55:39+08:00",
+  "updated_at": "2026-09-17T19:40:56+08:00",
   "reference_date": "2026-09-17",
   "reference_rule": "以最新完成交易日的行情复盘日期为新鲜度基准",
   "summary": {
@@ -49,7 +49,7 @@ window.DASHBOARD_STATUS = {
       "href": "./index.html",
       "state": "current",
       "data_as_of": "2026-09-17",
-      "coverage": "排名 11 只 · 实时报价 213 只",
+      "coverage": "排名 11 只 · 实时报价 214 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
@@ -82,7 +82,7 @@ window.DASHBOARD_STATUS = {
       "href": "./dividend_factor.html",
       "state": "current",
       "data_as_of": "2026-09-17",
-      "coverage": "匹配 2314 只 · 有效 879 只",
+      "coverage": "匹配 2314 只 · 有效 876 只",
       "source": "同花顺问财 · hithink-astock-selector",
       "note": "当前截面已更新；PandaAI 历史回测待参数确认",
       "cadence": "每周/分红方案更新后"
