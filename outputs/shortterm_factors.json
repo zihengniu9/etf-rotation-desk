@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-17T19:35:46+08:00",
-  "for_date": "2026-09-17",
+  "generated_at": "2026-09-18T16:22:29+08:00",
+  "for_date": "2026-09-18",
   "basis": "close_review",
   "rules": "双池盘后口径：核心池 40%S + 35%E + 25%Q；龙头池 40%60日涨幅 + 35%近30日涨停 + 25%股票热度；M仅作市场门控",
   "candidate_pools": {
-    "relay_count": 6,
-    "discovery_count": 14,
+    "relay_count": 9,
+    "discovery_count": 11,
     "core_count": 20,
     "leader_count": 20,
     "total_count": 40,
@@ -15,151 +15,321 @@
     "trend_scanned": 3028,
     "leader_scanned": 3028,
     "leader_history_covered_days": 14,
-    "leader_history_max_date": "2026-09-17",
+    "leader_history_max_date": "2026-09-18",
     "leader_heat_covered": 170
   },
   "high_candidates": [],
   "hot_board": [
     {
-      "concept": "汽车",
-      "count": 10,
-      "stocks": [
-        {
-          "name": "安凯客车",
-          "code": "000868.SZ",
-          "boards": 1
-        },
-        {
-          "name": "天海电子",
-          "code": "001365.SZ",
-          "boards": 1
-        },
-        {
-          "name": "均胜电子",
-          "code": "600699.SH",
-          "boards": 1
-        },
-        {
-          "name": "克来机电",
-          "code": "603960.SH",
-          "boards": 1
-        },
-        {
-          "name": "山子高科",
-          "code": "000981.SZ",
-          "boards": 1
-        },
-        {
-          "name": "金杯汽车",
-          "code": "600609.SH",
-          "boards": 1
-        },
-        {
-          "name": "冠盛股份",
-          "code": "605088.SH",
-          "boards": 1
-        },
-        {
-          "name": "北特科技",
-          "code": "603009.SH",
-          "boards": 1
-        }
-      ]
-    },
-    {
-      "concept": "汽车零部件",
-      "count": 7,
-      "stocks": [
-        {
-          "name": "天海电子",
-          "code": "001365.SZ",
-          "boards": 1
-        },
-        {
-          "name": "均胜电子",
-          "code": "600699.SH",
-          "boards": 1
-        },
-        {
-          "name": "克来机电",
-          "code": "603960.SH",
-          "boards": 1
-        },
-        {
-          "name": "山子高科",
-          "code": "000981.SZ",
-          "boards": 1
-        },
-        {
-          "name": "金杯汽车",
-          "code": "600609.SH",
-          "boards": 1
-        },
-        {
-          "name": "冠盛股份",
-          "code": "605088.SH",
-          "boards": 1
-        },
-        {
-          "name": "北特科技",
-          "code": "603009.SH",
-          "boards": 1
-        }
-      ]
-    },
-    {
       "concept": "电子",
-      "count": 5,
+      "count": 11,
       "stocks": [
-        {
-          "name": "澳弘电子",
-          "code": "605058.SH",
-          "boards": 5
-        },
-        {
-          "name": "中晶科技",
-          "code": "003026.SZ",
-          "boards": 3
-        },
-        {
-          "name": "共达电声",
-          "code": "002655.SZ",
-          "boards": 2
-        },
-        {
-          "name": "先导基电",
-          "code": "600641.SH",
-          "boards": 1
-        },
         {
           "name": "科森科技",
           "code": "603626.SH",
+          "boards": 2
+        },
+        {
+          "name": "远望谷",
+          "code": "002161.SZ",
+          "boards": 1
+        },
+        {
+          "name": "惠科股份",
+          "code": "001399.SZ",
+          "boards": 1
+        },
+        {
+          "name": "托伦斯",
+          "code": "301583.SZ",
+          "boards": 1
+        },
+        {
+          "name": "博通集成",
+          "code": "603068.SH",
+          "boards": 1
+        },
+        {
+          "name": "华天科技",
+          "code": "002185.SZ",
+          "boards": 1
+        },
+        {
+          "name": "阳光照明",
+          "code": "600261.SH",
+          "boards": 1
+        },
+        {
+          "name": "诚邦股份",
+          "code": "603316.SH",
           "boards": 1
         }
       ]
     },
     {
-      "concept": "农林牧渔",
-      "count": 4,
+      "concept": "电力设备",
+      "count": 9,
       "stocks": [
         {
-          "name": "万向德农",
-          "code": "600371.SH",
+          "name": "锡华科技",
+          "code": "603248.SH",
+          "boards": 4
+        },
+        {
+          "name": "太阳电缆",
+          "code": "002300.SZ",
+          "boards": 1
+        },
+        {
+          "name": "中超控股",
+          "code": "002471.SZ",
+          "boards": 1
+        },
+        {
+          "name": "新宏泰",
+          "code": "603016.SH",
+          "boards": 1
+        },
+        {
+          "name": "中电鑫龙",
+          "code": "002298.SZ",
+          "boards": 1
+        },
+        {
+          "name": "亚玛顿",
+          "code": "002623.SZ",
+          "boards": 1
+        },
+        {
+          "name": "精达股份",
+          "code": "600577.SH",
+          "boards": 1
+        },
+        {
+          "name": "华盛昌",
+          "code": "002980.SZ",
+          "boards": 1
+        }
+      ]
+    },
+    {
+      "concept": "轻工制造",
+      "count": 6,
+      "stocks": [
+        {
+          "name": "华瓷股份",
+          "code": "001216.SZ",
+          "boards": 4
+        },
+        {
+          "name": "新宏泽",
+          "code": "002836.SZ",
           "boards": 2
         },
         {
-          "name": "金健米业",
-          "code": "600127.SH",
+          "name": "双枪科技",
+          "code": "001211.SZ",
           "boards": 1
         },
         {
-          "name": "华英农业",
-          "code": "002321.SZ",
+          "name": "天安新材",
+          "code": "603725.SH",
           "boards": 1
         },
         {
-          "name": "敦煌种业",
-          "code": "600354.SH",
+          "name": "大亚圣象",
+          "code": "000910.SZ",
+          "boards": 1
+        },
+        {
+          "name": "浙江正特",
+          "code": "001238.SZ",
+          "boards": 1
+        }
+      ]
+    },
+    {
+      "concept": "电网设备",
+      "count": 6,
+      "stocks": [
+        {
+          "name": "太阳电缆",
+          "code": "002300.SZ",
+          "boards": 1
+        },
+        {
+          "name": "中超控股",
+          "code": "002471.SZ",
+          "boards": 1
+        },
+        {
+          "name": "新宏泰",
+          "code": "603016.SH",
+          "boards": 1
+        },
+        {
+          "name": "中电鑫龙",
+          "code": "002298.SZ",
+          "boards": 1
+        },
+        {
+          "name": "精达股份",
+          "code": "600577.SH",
+          "boards": 1
+        },
+        {
+          "name": "华盛昌",
+          "code": "002980.SZ",
+          "boards": 1
+        }
+      ]
+    },
+    {
+      "concept": "家居用品",
+      "count": 5,
+      "stocks": [
+        {
+          "name": "华瓷股份",
+          "code": "001216.SZ",
+          "boards": 4
+        },
+        {
+          "name": "双枪科技",
+          "code": "001211.SZ",
+          "boards": 1
+        },
+        {
+          "name": "天安新材",
+          "code": "603725.SH",
+          "boards": 1
+        },
+        {
+          "name": "大亚圣象",
+          "code": "000910.SZ",
+          "boards": 1
+        },
+        {
+          "name": "浙江正特",
+          "code": "001238.SZ",
+          "boards": 1
+        }
+      ]
+    },
+    {
+      "concept": "纺织服饰",
+      "count": 5,
+      "stocks": [
+        {
+          "name": "华纺股份",
+          "code": "600448.SH",
+          "boards": 2
+        },
+        {
+          "name": "龙头股份",
+          "code": "600630.SH",
+          "boards": 2
+        },
+        {
+          "name": "真爱美家",
+          "code": "003041.SZ",
+          "boards": 1
+        },
+        {
+          "name": "七匹狼",
+          "code": "002029.SZ",
+          "boards": 1
+        },
+        {
+          "name": "奥康国际",
+          "code": "603001.SH",
+          "boards": 1
+        }
+      ]
+    },
+    {
+      "concept": "机械设备",
+      "count": 5,
+      "stocks": [
+        {
+          "name": "航天动力",
+          "code": "600343.SH",
+          "boards": 1
+        },
+        {
+          "name": "电科思仪",
+          "code": "301689.SZ",
+          "boards": 1
+        },
+        {
+          "name": "沈阳机床",
+          "code": "000410.SZ",
+          "boards": 1
+        },
+        {
+          "name": "锡装股份",
+          "code": "001332.SZ",
+          "boards": 1
+        },
+        {
+          "name": "威星智能",
+          "code": "002849.SZ",
+          "boards": 1
+        }
+      ]
+    },
+    {
+      "concept": "半导体",
+      "count": 5,
+      "stocks": [
+        {
+          "name": "托伦斯",
+          "code": "301583.SZ",
+          "boards": 1
+        },
+        {
+          "name": "博通集成",
+          "code": "603068.SH",
+          "boards": 1
+        },
+        {
+          "name": "华天科技",
+          "code": "002185.SZ",
+          "boards": 1
+        },
+        {
+          "name": "诚邦股份",
+          "code": "603316.SH",
+          "boards": 1
+        },
+        {
+          "name": "盛景微",
+          "code": "603375.SH",
+          "boards": 1
+        }
+      ]
+    },
+    {
+      "concept": "服装家纺",
+      "count": 4,
+      "stocks": [
+        {
+          "name": "龙头股份",
+          "code": "600630.SH",
+          "boards": 2
+        },
+        {
+          "name": "真爱美家",
+          "code": "003041.SZ",
+          "boards": 1
+        },
+        {
+          "name": "七匹狼",
+          "code": "002029.SZ",
+          "boards": 1
+        },
+        {
+          "name": "奥康国际",
+          "code": "603001.SH",
           "boards": 1
         }
       ]
@@ -169,128 +339,23 @@
       "count": 4,
       "stocks": [
         {
-          "name": "沃顿科技",
-          "code": "000920.SZ",
-          "boards": 1
-        },
-        {
           "name": "华软科技",
           "code": "002453.SZ",
+          "boards": 2
+        },
+        {
+          "name": "和远气体",
+          "code": "002971.SZ",
           "boards": 1
         },
         {
-          "name": "华宝股份",
-          "code": "300741.SZ",
+          "name": "道生天合",
+          "code": "601026.SH",
           "boards": 1
         },
         {
-          "name": "雪天盐业",
-          "code": "600929.SH",
-          "boards": 1
-        }
-      ]
-    },
-    {
-      "concept": "底盘与发动机系统",
-      "count": 4,
-      "stocks": [
-        {
-          "name": "克来机电",
-          "code": "603960.SH",
-          "boards": 1
-        },
-        {
-          "name": "山子高科",
-          "code": "000981.SZ",
-          "boards": 1
-        },
-        {
-          "name": "冠盛股份",
-          "code": "605088.SH",
-          "boards": 1
-        },
-        {
-          "name": "北特科技",
-          "code": "603009.SH",
-          "boards": 1
-        }
-      ]
-    },
-    {
-      "concept": "轻工制造",
-      "count": 3,
-      "stocks": [
-        {
-          "name": "华瓷股份",
-          "code": "001216.SZ",
-          "boards": 3
-        },
-        {
-          "name": "新宏泽",
-          "code": "002836.SZ",
-          "boards": 1
-        },
-        {
-          "name": "恒丰纸业",
-          "code": "600356.SH",
-          "boards": 1
-        }
-      ]
-    },
-    {
-      "concept": "电力设备",
-      "count": 3,
-      "stocks": [
-        {
-          "name": "锡华科技",
-          "code": "603248.SH",
-          "boards": 3
-        },
-        {
-          "name": "积成电子",
-          "code": "002339.SZ",
-          "boards": 1
-        },
-        {
-          "name": "吉鑫科技",
-          "code": "601218.SH",
-          "boards": 1
-        }
-      ]
-    },
-    {
-      "concept": "医药生物",
-      "count": 3,
-      "stocks": [
-        {
-          "name": "百花医药",
-          "code": "600721.SH",
-          "boards": 1
-        },
-        {
-          "name": "金石亚药",
-          "code": "300434.SZ",
-          "boards": 1
-        },
-        {
-          "name": "南华生物",
-          "code": "000504.SZ",
-          "boards": 1
-        }
-      ]
-    },
-    {
-      "concept": "风电设备",
-      "count": 2,
-      "stocks": [
-        {
-          "name": "锡华科技",
-          "code": "603248.SH",
-          "boards": 3
-        },
-        {
-          "name": "吉鑫科技",
-          "code": "601218.SH",
+          "name": "肯特催化",
+          "code": "603120.SH",
           "boards": 1
         }
       ]
@@ -298,204 +363,204 @@
   ],
   "watch_hot": [
     {
-      "name": "华瓷股份",
-      "code": "001216.SZ",
-      "boards": 3,
-      "lane": "relay",
-      "hot": true,
-      "best_concept": "轻工制造",
-      "concept_count": 3,
-      "pop": 74.5
-    },
-    {
-      "name": "内蒙新华",
-      "code": "603230.SH",
-      "boards": 2,
-      "lane": "relay",
-      "hot": false,
-      "best_concept": "传媒",
-      "concept_count": 2,
-      "pop": 63.0
-    },
-    {
       "name": "锡华科技",
       "code": "603248.SH",
-      "boards": 3,
+      "boards": 4,
       "lane": "relay",
       "hot": true,
       "best_concept": "电力设备",
-      "concept_count": 3,
-      "pop": 65.9
+      "concept_count": 9,
+      "pop": 98.4
     },
     {
-      "name": "澳弘电子",
-      "code": "605058.SH",
-      "boards": 5,
+      "name": "华瓷股份",
+      "code": "001216.SZ",
+      "boards": 4,
       "lane": "relay",
       "hot": true,
-      "best_concept": "电子",
-      "concept_count": 5,
-      "pop": 77.0
+      "best_concept": "轻工制造",
+      "concept_count": 6,
+      "pop": 95.3
     },
     {
-      "name": "安凯客车",
-      "code": "000868.SZ",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": true,
-      "best_concept": "汽车",
-      "concept_count": 10,
-      "pop": 60.9
-    },
-    {
-      "name": "中晶科技",
-      "code": "003026.SZ",
+      "name": "世联行",
+      "code": "002285.SZ",
       "boards": 3,
       "lane": "relay",
       "hot": true,
-      "best_concept": "电子",
-      "concept_count": 5,
-      "pop": 65.7
+      "best_concept": "房地产",
+      "concept_count": 3,
+      "pop": 74.1
     },
     {
-      "name": "共达电声",
-      "code": "002655.SZ",
+      "name": "华纺股份",
+      "code": "600448.SH",
       "boards": 2,
       "lane": "relay",
       "hot": true,
-      "best_concept": "电子",
+      "best_concept": "纺织服饰",
       "concept_count": 5,
-      "pop": 56.4
+      "pop": 70.7
     },
     {
-      "name": "沃顿科技",
-      "code": "000920.SZ",
-      "boards": 1,
-      "lane": "discovery",
+      "name": "经纬股份",
+      "code": "301390.SZ",
+      "boards": 2,
+      "lane": "relay",
       "hot": true,
-      "best_concept": "基础化工",
-      "concept_count": 4,
-      "pop": 54.1
+      "best_concept": "建筑装饰",
+      "concept_count": 3,
+      "pop": 68.7
     },
     {
-      "name": "天海电子",
-      "code": "001365.SZ",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": true,
-      "best_concept": "汽车",
-      "concept_count": 10,
-      "pop": 54.0
-    },
-    {
-      "name": "百花医药",
-      "code": "600721.SH",
-      "boards": 1,
-      "lane": "discovery",
+      "name": "南华生物",
+      "code": "000504.SZ",
+      "boards": 2,
+      "lane": "relay",
       "hot": true,
       "best_concept": "医药生物",
       "concept_count": 3,
-      "pop": 53.0
+      "pop": 66.5
     },
     {
-      "name": "三峡新材",
-      "code": "600293.SH",
+      "name": "华软科技",
+      "code": "002453.SZ",
+      "boards": 2,
+      "lane": "relay",
+      "hot": true,
+      "best_concept": "基础化工",
+      "concept_count": 4,
+      "pop": 65.2
+    },
+    {
+      "name": "龙头股份",
+      "code": "600630.SH",
+      "boards": 2,
+      "lane": "relay",
+      "hot": true,
+      "best_concept": "纺织服饰",
+      "concept_count": 5,
+      "pop": 64.0
+    },
+    {
+      "name": "远望谷",
+      "code": "002161.SZ",
       "boards": 1,
       "lane": "discovery",
-      "hot": false,
-      "best_concept": "建筑材料",
-      "concept_count": 1,
-      "pop": 50.8
+      "hot": true,
+      "best_concept": "电子",
+      "concept_count": 11,
+      "pop": 60.2
+    },
+    {
+      "name": "太阳电缆",
+      "code": "002300.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": true,
+      "best_concept": "电力设备",
+      "concept_count": 9,
+      "pop": 58.1
     },
     {
       "name": "新宏泽",
       "code": "002836.SZ",
+      "boards": 2,
+      "lane": "relay",
+      "hot": true,
+      "best_concept": "轻工制造",
+      "concept_count": 6,
+      "pop": 62.9
+    },
+    {
+      "name": "航天动力",
+      "code": "600343.SH",
       "boards": 1,
       "lane": "discovery",
       "hot": true,
-      "best_concept": "轻工制造",
-      "concept_count": 3,
-      "pop": 48.5
+      "best_concept": "机械设备",
+      "concept_count": 5,
+      "pop": 57.2
     },
     {
-      "name": "大连圣亚",
-      "code": "600593.SH",
+      "name": "百通能源",
+      "code": "001376.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": false,
+      "best_concept": "公用事业",
+      "concept_count": 2,
+      "pop": 54.1
+    },
+    {
+      "name": "浩瀚深度",
+      "code": "688292.SH",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": false,
+      "best_concept": "通信",
+      "concept_count": 2,
+      "pop": 54.1
+    },
+    {
+      "name": "祥鑫科技",
+      "code": "002965.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": false,
+      "best_concept": "汽车",
+      "concept_count": 2,
+      "pop": 54.1
+    },
+    {
+      "name": "中超控股",
+      "code": "002471.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": true,
+      "best_concept": "电力设备",
+      "concept_count": 9,
+      "pop": 53.7
+    },
+    {
+      "name": "惠科股份",
+      "code": "001399.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": true,
+      "best_concept": "电子",
+      "concept_count": 11,
+      "pop": 53.3
+    },
+    {
+      "name": "福龙马",
+      "code": "603686.SH",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": false,
+      "best_concept": "环保",
+      "concept_count": 1,
+      "pop": 53.1
+    },
+    {
+      "name": "三羊马",
+      "code": "001317.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": false,
+      "best_concept": "交通运输",
+      "concept_count": 1,
+      "pop": 53.1
+    },
+    {
+      "name": "陕西旅游",
+      "code": "603402.SH",
       "boards": 1,
       "lane": "discovery",
       "hot": false,
       "best_concept": "社会服务",
       "concept_count": 1,
-      "pop": 48.4
-    },
-    {
-      "name": "凯迪股份",
-      "code": "605288.SH",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": false,
-      "best_concept": "机械设备",
-      "concept_count": 1,
-      "pop": 48.4
-    },
-    {
-      "name": "均胜电子",
-      "code": "600699.SH",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": true,
-      "best_concept": "汽车",
-      "concept_count": 10,
-      "pop": 48.0
-    },
-    {
-      "name": "金健米业",
-      "code": "600127.SH",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": true,
-      "best_concept": "农林牧渔",
-      "concept_count": 4,
-      "pop": 47.3
-    },
-    {
-      "name": "经纬股份",
-      "code": "301390.SZ",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": false,
-      "best_concept": "建筑装饰",
-      "concept_count": 2,
-      "pop": 47.4
-    },
-    {
-      "name": "新中港",
-      "code": "605162.SH",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": false,
-      "best_concept": "公用事业",
-      "concept_count": 1,
-      "pop": 46.8
-    },
-    {
-      "name": "山子高科",
-      "code": "000981.SZ",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": true,
-      "best_concept": "汽车",
-      "concept_count": 10,
-      "pop": 48.7
-    },
-    {
-      "name": "跨境通",
-      "code": "002640.SZ",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": false,
-      "best_concept": "商贸零售",
-      "concept_count": 1,
-      "pop": 45.5
+      "pop": 53.1
     },
     {
       "name": "闽东电力",
@@ -505,7 +570,7 @@
       "hot": false,
       "best_concept": "公用事业",
       "concept_count": null,
-      "pop": 98.8
+      "pop": 99.4
     },
     {
       "name": "桂林旅游",
@@ -515,17 +580,47 @@
       "hot": false,
       "best_concept": "社会服务",
       "concept_count": null,
-      "pop": 96.5
+      "pop": 88.8
     },
     {
-      "name": "国芳集团",
-      "code": "601086.SH",
+      "name": "龙版传媒",
+      "code": "605577.SH",
       "boards": 0,
       "lane": "leader",
       "hot": false,
-      "best_concept": "商贸零售",
+      "best_concept": "传媒",
       "concept_count": null,
-      "pop": 93.5
+      "pop": 50.0
+    },
+    {
+      "name": "万向德农",
+      "code": "600371.SH",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "农林牧渔",
+      "concept_count": null,
+      "pop": 86.5
+    },
+    {
+      "name": "众泰汽车",
+      "code": "000980.SZ",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "汽车",
+      "concept_count": null,
+      "pop": 80.6
+    },
+    {
+      "name": "澳弘电子",
+      "code": "605058.SH",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "电子",
+      "concept_count": null,
+      "pop": 84.7
     },
     {
       "name": "澳洋健康",
@@ -535,7 +630,7 @@
       "hot": false,
       "best_concept": "医药生物",
       "concept_count": null,
-      "pop": 57.6
+      "pop": 50.0
     },
     {
       "name": "汉森制药",
@@ -548,14 +643,14 @@
       "pop": 50.0
     },
     {
-      "name": "超声电子",
-      "code": "000823.SZ",
+      "name": "敦煌种业",
+      "code": "600354.SH",
       "boards": 0,
       "lane": "leader",
       "hot": false,
-      "best_concept": "电子",
+      "best_concept": "农林牧渔",
       "concept_count": null,
-      "pop": 82.9
+      "pop": 69.4
     },
     {
       "name": "百大集团",
@@ -568,24 +663,34 @@
       "pop": 50.0
     },
     {
-      "name": "神奇制药",
-      "code": "600613.SH",
+      "name": "中新赛克",
+      "code": "002912.SZ",
       "boards": 0,
       "lane": "leader",
       "hot": false,
-      "best_concept": "医药生物",
+      "best_concept": "计算机",
+      "concept_count": null,
+      "pop": 60.0
+    },
+    {
+      "name": "云煤能源",
+      "code": "600792.SH",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "煤炭",
       "concept_count": null,
       "pop": 50.0
     },
     {
-      "name": "崇达技术",
-      "code": "002815.SZ",
+      "name": "海通发展",
+      "code": "603162.SH",
       "boards": 0,
       "lane": "leader",
       "hot": false,
-      "best_concept": "电子",
+      "best_concept": "交通运输",
       "concept_count": null,
-      "pop": 75.3
+      "pop": 50.0
     },
     {
       "name": "深中华A",
@@ -618,62 +723,12 @@
       "pop": 50.0
     },
     {
-      "name": "海通发展",
-      "code": "603162.SH",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "交通运输",
-      "concept_count": null,
-      "pop": 50.0
-    },
-    {
-      "name": "中新赛克",
-      "code": "002912.SZ",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "计算机",
-      "concept_count": null,
-      "pop": 50.0
-    },
-    {
-      "name": "瑞尔特",
-      "code": "002790.SZ",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "轻工制造",
-      "concept_count": null,
-      "pop": 50.0
-    },
-    {
-      "name": "平潭发展",
-      "code": "000592.SZ",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "农林牧渔",
-      "concept_count": null,
-      "pop": 92.4
-    },
-    {
       "name": "集泰股份",
       "code": "002909.SZ",
       "boards": 0,
       "lane": "leader",
       "hot": false,
       "best_concept": "基础化工",
-      "concept_count": null,
-      "pop": 50.0
-    },
-    {
-      "name": "播恩集团",
-      "code": "001366.SZ",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "农林牧渔",
       "concept_count": null,
       "pop": 50.0
     },
@@ -685,109 +740,119 @@
       "hot": false,
       "best_concept": "农林牧渔",
       "concept_count": null,
-      "pop": 36.5
-    },
-    {
-      "name": "罗牛山",
-      "code": "000735.SZ",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "农林牧渔",
-      "concept_count": null,
-      "pop": 50.0
-    }
-  ],
-  "popularity_top": [
-    {
-      "name": "华瓷股份",
-      "code": "001216.SZ",
-      "boards": 3,
-      "amount_yi": null,
-      "theme": "轻工制造",
-      "theme_n": 3,
-      "pop": 74.5
-    },
-    {
-      "name": "内蒙新华",
-      "code": "603230.SH",
-      "boards": 2,
-      "amount_yi": null,
-      "theme": "传媒",
-      "theme_n": 2,
-      "pop": 63.0
-    },
-    {
-      "name": "锡华科技",
-      "code": "603248.SH",
-      "boards": 3,
-      "amount_yi": null,
-      "theme": "电力设备",
-      "theme_n": 3,
-      "pop": 65.9
-    },
-    {
-      "name": "澳弘电子",
-      "code": "605058.SH",
-      "boards": 5,
-      "amount_yi": null,
-      "theme": "电子",
-      "theme_n": 5,
-      "pop": 77.0
-    },
-    {
-      "name": "安凯客车",
-      "code": "000868.SZ",
-      "boards": 1,
-      "amount_yi": null,
-      "theme": "汽车",
-      "theme_n": 10,
-      "pop": 60.9
-    },
-    {
-      "name": "中晶科技",
-      "code": "003026.SZ",
-      "boards": 3,
-      "amount_yi": null,
-      "theme": "电子",
-      "theme_n": 5,
-      "pop": 65.7
-    },
-    {
-      "name": "共达电声",
-      "code": "002655.SZ",
-      "boards": 2,
-      "amount_yi": null,
-      "theme": "电子",
-      "theme_n": 5,
-      "pop": 56.4
-    },
-    {
-      "name": "沃顿科技",
-      "code": "000920.SZ",
-      "boards": 1,
-      "amount_yi": null,
-      "theme": "基础化工",
-      "theme_n": 4,
-      "pop": 54.1
-    },
-    {
-      "name": "天海电子",
-      "code": "001365.SZ",
-      "boards": 1,
-      "amount_yi": null,
-      "theme": "汽车",
-      "theme_n": 10,
-      "pop": 54.0
+      "pop": 49.4
     },
     {
       "name": "百花医药",
       "code": "600721.SH",
-      "boards": 1,
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "医药生物",
+      "concept_count": null,
+      "pop": 85.3
+    },
+    {
+      "name": "崇达技术",
+      "code": "002815.SZ",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "电子",
+      "concept_count": null,
+      "pop": 70.6
+    }
+  ],
+  "popularity_top": [
+    {
+      "name": "锡华科技",
+      "code": "603248.SH",
+      "boards": 4,
+      "amount_yi": null,
+      "theme": "电力设备",
+      "theme_n": 9,
+      "pop": 98.4
+    },
+    {
+      "name": "华瓷股份",
+      "code": "001216.SZ",
+      "boards": 4,
+      "amount_yi": null,
+      "theme": "轻工制造",
+      "theme_n": 6,
+      "pop": 95.3
+    },
+    {
+      "name": "世联行",
+      "code": "002285.SZ",
+      "boards": 3,
+      "amount_yi": null,
+      "theme": "房地产",
+      "theme_n": 3,
+      "pop": 74.1
+    },
+    {
+      "name": "华纺股份",
+      "code": "600448.SH",
+      "boards": 2,
+      "amount_yi": null,
+      "theme": "纺织服饰",
+      "theme_n": 5,
+      "pop": 70.7
+    },
+    {
+      "name": "经纬股份",
+      "code": "301390.SZ",
+      "boards": 2,
+      "amount_yi": null,
+      "theme": "建筑装饰",
+      "theme_n": 3,
+      "pop": 68.7
+    },
+    {
+      "name": "南华生物",
+      "code": "000504.SZ",
+      "boards": 2,
       "amount_yi": null,
       "theme": "医药生物",
       "theme_n": 3,
-      "pop": 53.0
+      "pop": 66.5
+    },
+    {
+      "name": "华软科技",
+      "code": "002453.SZ",
+      "boards": 2,
+      "amount_yi": null,
+      "theme": "基础化工",
+      "theme_n": 4,
+      "pop": 65.2
+    },
+    {
+      "name": "龙头股份",
+      "code": "600630.SH",
+      "boards": 2,
+      "amount_yi": null,
+      "theme": "纺织服饰",
+      "theme_n": 5,
+      "pop": 64.0
+    },
+    {
+      "name": "远望谷",
+      "code": "002161.SZ",
+      "boards": 1,
+      "amount_yi": null,
+      "theme": "电子",
+      "theme_n": 11,
+      "pop": 60.2
+    },
+    {
+      "name": "太阳电缆",
+      "code": "002300.SZ",
+      "boards": 1,
+      "amount_yi": null,
+      "theme": "电力设备",
+      "theme_n": 9,
+      "pop": 58.1
     }
   ],
   "data_source": "同花顺问财收盘复盘 + trend-standard-v1 同日主板横截面"
