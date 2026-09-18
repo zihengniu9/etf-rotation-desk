@@ -1,6 +1,6 @@
 {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-09-18T13:35:57+08:00",
+  "updated_at": "2026-09-18T14:35:57+08:00",
   "reference_date": "2026-09-17",
   "reference_rule": "以最新完成交易日的行情复盘日期为新鲜度基准",
   "summary": {
