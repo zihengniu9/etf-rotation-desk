@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-09-21T14:35:24+08:00",
+  "updated_at": "2026-09-22T09:29:31+08:00",
   "reference_date": "2026-09-18",
   "reference_rule": "以最新完成交易日的行情复盘日期为新鲜度基准",
   "summary": {
@@ -26,7 +26,7 @@ window.DASHBOARD_STATUS = {
       "title": "短线观察",
       "href": "./shortterm_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-09-21",
+      "data_as_of": "2026-09-22",
       "coverage": "梯队 8 只 · 因子候选 16 只",
       "source": "短线 M/S/E/Q 本地生成器",
       "note": "信号日期早于复盘日期时仅作历史快照",
@@ -49,7 +49,7 @@ window.DASHBOARD_STATUS = {
       "href": "./index.html",
       "state": "current",
       "data_as_of": "2026-09-21",
-      "coverage": "排名 50 只 · 实时报价 214 只",
+      "coverage": "排名 53 只 · 实时报价 214 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
@@ -59,7 +59,7 @@ window.DASHBOARD_STATUS = {
       "title": "趋势因子",
       "href": "./trend_engine.html",
       "state": "current",
-      "data_as_of": "2026-09-18",
+      "data_as_of": "2026-09-21",
       "coverage": "历史股票 3032 只 · 信号 2616 个",
       "source": "同花顺问财 · hithink-astock-selector · 36个历史时点",
       "note": "全主板趋势赚钱效应",
