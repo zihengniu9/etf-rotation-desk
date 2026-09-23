@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-09-23T13:08:46+08:00",
+  "updated_at": "2026-09-23T13:37:03+08:00",
   "reference_date": "2026-09-18",
   "reference_rule": "以最新完成交易日的行情复盘日期为新鲜度基准",
   "summary": {
