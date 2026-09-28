@@ -1,11 +1,11 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-09-28T14:35:34+08:00",
+  "updated_at": "2026-09-28T16:33:04+08:00",
   "reference_date": "2026-09-24",
   "reference_rule": "以最新完成交易日的行情复盘日期为新鲜度基准",
   "summary": {
-    "current": 5,
-    "stale": 2,
+    "current": 7,
+    "stale": 0,
     "missing": 0,
     "error": 0
   },
@@ -29,7 +29,7 @@ window.DASHBOARD_STATUS = {
       "data_as_of": "2026-09-28",
       "coverage": "梯队 8 只 · 因子候选 16 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "信号日期早于复盘日期时仅作历史快照",
+      "note": "盘后因子已更新；09:25竞价信号独立保留",
       "cadence": "每个交易日09:25与收盘"
     },
     {
@@ -59,7 +59,7 @@ window.DASHBOARD_STATUS = {
       "title": "趋势因子",
       "href": "./trend_engine.html",
       "state": "current",
-      "data_as_of": "2026-09-24",
+      "data_as_of": "2026-09-28",
       "coverage": "历史股票 3032 只 · 信号 2616 个",
       "source": "同花顺问财 · hithink-astock-selector · 36个历史时点",
       "note": "全主板趋势赚钱效应",
@@ -69,9 +69,9 @@ window.DASHBOARD_STATUS = {
       "key": "growth",
       "title": "成长因子",
       "href": "./growth_factor.html",
-      "state": "stale",
-      "data_as_of": "2026-09-22",
-      "coverage": "主板 2066 只 · 有效 1746 只",
+      "state": "current",
+      "data_as_of": "2026-09-28",
+      "coverage": "主板 2013 只 · 有效 1710 只",
       "source": "同花顺问财财务查询 + 同花顺问财 news-search 历史资讯",
       "note": "财务截面每日更新；历史资讯证据按已采集覆盖",
       "cadence": "每个交易日收盘/财报披露后"
@@ -80,9 +80,9 @@ window.DASHBOARD_STATUS = {
       "key": "dividend",
       "title": "红利因子",
       "href": "./dividend_factor.html",
-      "state": "stale",
-      "data_as_of": "2026-09-17",
-      "coverage": "匹配 2314 只 · 有效 876 只",
+      "state": "current",
+      "data_as_of": "2026-09-28",
+      "coverage": "匹配 623 只 · 有效 623 只",
       "source": "同花顺问财 · hithink-astock-selector",
       "note": "当前截面已更新；PandaAI 历史回测待参数确认",
       "cadence": "每周/分红方案更新后"
