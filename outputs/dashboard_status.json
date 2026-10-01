@@ -1,24 +1,24 @@
 {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-09-30T16:32:27+08:00",
-  "reference_date": "2026-09-29",
-  "reference_rule": "以最新完成交易日的行情复盘日期为新鲜度基准",
+  "updated_at": "2026-10-01T22:42:41+08:00",
+  "reference_date": "2026-09-30",
+  "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
-    "current": 7,
+    "current": 6,
     "stale": 0,
     "missing": 0,
-    "error": 0
+    "error": 1
   },
   "modules": [
     {
       "key": "review",
       "title": "行情复盘",
       "href": "./market_mode.html#daily-review",
-      "state": "current",
+      "state": "error",
       "data_as_of": "2026-09-29",
       "coverage": "涨停板清单 0 只",
       "source": "同花顺问财 · hithink-astock-selector",
-      "note": "最新完成交易日的收盘复盘",
+      "note": "复盘取数不完整（涨停、炸板或隔日反馈缺失），需重新采集",
       "cadence": "每个交易日收盘"
     },
     {

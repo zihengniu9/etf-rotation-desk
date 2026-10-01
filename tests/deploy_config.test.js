@@ -45,6 +45,8 @@ for (const mode of ["Morning", "Intraday", "Close", "Full"]) {
   assert.ok(dailyRunner.includes(`\"${mode}\"`), `Daily runner should support ${mode}`);
 }
 assert.ok(dailyRunner.includes("Test-Tunnel"), "Daily runner should verify the tunnel before collection");
+assert.ok(dailyRunner.includes("--check-trading-day $targetDate"), "Daily runner should skip exchange holidays");
+assert.ok(dailyRunner.indexOf("--check-trading-day $targetDate") < dailyRunner.indexOf('Get-RequiredEnvironment "IWENCAI_API_KEY"'), "Closed sessions must be skipped before requesting credentials");
 assert.ok(dailyRunner.includes("curl.exe --proxy $TunnelProxy"), "Tunnel verification should use HTTPS through the proxy");
 assert.ok(dailyRunner.includes("https://openapi.iwencai.com"), "Tunnel probe should target the official HTTPS endpoint");
 assert.strictEqual(dailyRunner.includes("ws://"), false, "Daily runner must not use WebSocket");

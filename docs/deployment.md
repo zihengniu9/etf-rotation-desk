@@ -40,6 +40,12 @@ For an ETF-only refresh, use `scripts\update_etf_data.ps1`.
 The unified tasks run hidden and non-interactively. Morning runs at 09:28,
 intraday runs every half hour in the trading sessions (09:30-11:30 and
 13:00-15:00), and the full close bundle runs at 16:20, weekdays only.
+The runner also checks the exchange holiday calendar before requesting data.
+Closed sessions exit without changing market snapshots; an unsupported calendar
+year stops collection explicitly until the exchange schedule has been added.
+Data commits trigger GitHub Pages automatically. This is daily automatic
+publication to GitHub, not cloud-only collection: the Windows collector must
+be awake, signed in, and able to access its authenticated tunnel.
 Battery power does not cancel updates. Failed or busy runs retry after five
 minutes, up to three times; a per-project lock prevents overlapping writes.
 Changes to the installer take effect only after rerunning it on the collector.

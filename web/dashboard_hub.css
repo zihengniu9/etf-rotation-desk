@@ -18,13 +18,13 @@
 .strategy-hub-head p {
   margin: 5px 0 0;
   color: var(--text-2, #526071);
-  font-size: 11.5px;
+  font-size: 12px;
   line-height: 1.6;
 }
 
 .strategy-hub-note {
   color: var(--text-3, #748195);
-  font-size: 10.5px;
+  font-size: 12px;
   text-align: right;
   white-space: nowrap;
 }
@@ -67,7 +67,7 @@
 
 .module-card-eyebrow {
   color: var(--text-3, #748195);
-  font-size: 9.5px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: .08em;
 }
@@ -92,7 +92,7 @@
 .module-card-description {
   margin: 8px 0 0;
   color: var(--text-2, #526071);
-  font-size: 11.5px;
+  font-size: 12px;
   line-height: 1.55;
 }
 
@@ -114,7 +114,7 @@
   border-radius: 999px;
   color: var(--text-2, #526071);
   background: #f1f4f8;
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 800;
   white-space: nowrap;
 }
@@ -145,7 +145,7 @@
 .module-card-detail {
   max-width: 58%;
   color: var(--text-3, #748195);
-  font-size: 9.5px;
+  font-size: 12px;
   line-height: 1.45;
   text-align: right;
 }
@@ -165,7 +165,7 @@
   gap: 14px;
   margin-bottom: 11px;
   color: var(--text-2, #526071);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .data-health-summary strong {
@@ -204,14 +204,14 @@
 }
 
 .data-health-top strong {
-  font-size: 11.5px;
+  font-size: 12px;
 }
 
 .fresh-state {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 9.5px;
+  font-size: 12px;
   font-weight: 800;
 }
 
@@ -223,10 +223,15 @@
   content: "";
 }
 
-.fresh-state.current { color: var(--brand-red-dark, #a6151b); }
+/* 数据状态用通用语义色：正常=绿、过期=琥珀、缺失/失败=红；红色不再同时表示“最新”。 */
+.fresh-state.current { color: var(--success, #067647); }
 .fresh-state.stale { color: var(--warning, #b54708); }
 .fresh-state.missing,
-.fresh-state.error { color: var(--down, #087a55); }
+.fresh-state.error { color: var(--danger, #b42318); }
+
+.data-health-card.stale { border-color: rgb(181 71 8 / .28); background: var(--warning-soft, #fff4e5); }
+.data-health-card.missing,
+.data-health-card.error { border-color: rgb(180 35 24 / .26); background: var(--danger-soft, #fef3f2); }
 
 .data-health-card span,
 .data-health-card small {
@@ -236,13 +241,13 @@
 .data-health-date {
   margin-top: 11px;
   color: var(--text-2, #526071);
-  font-size: 10.5px;
+  font-size: 12px;
 }
 
 .data-health-card small {
   margin-top: 6px;
   color: var(--text-3, #748195);
-  font-size: 9.5px;
+  font-size: 12px;
   line-height: 1.45;
 }
 
@@ -264,7 +269,7 @@
 .current-desk-kicker {
   display: block;
   color: var(--desk-color, var(--brand-red, #d71920));
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 850;
 }
 
@@ -291,7 +296,7 @@
   border-radius: 999px;
   color: var(--desk-color, var(--brand-red-dark, #a6151b));
   background: #fff;
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 800;
   text-decoration: none;
   white-space: nowrap;
@@ -323,7 +328,7 @@
 .current-desk-risk span {
   display: block;
   color: var(--text-3, #748195);
-  font-size: 10.5px;
+  font-size: 12px;
 }
 
 .current-desk-stat strong {
@@ -357,13 +362,13 @@
   border-radius: 11px;
   color: var(--text-2, #526071);
   background: #f6f8fb;
-  font-size: 11.5px;
+  font-size: 12px;
   line-height: 1.55;
 }
 
 .current-desk-checks li span {
   color: var(--desk-color, #d71920);
-  font-size: 9.5px;
+  font-size: 12px;
   font-weight: 850;
 }
 
@@ -388,7 +393,7 @@
 .current-desk-risk small {
   margin-top: 10px;
   color: var(--text-3, #748195);
-  font-size: 10.5px;
+  font-size: 12px;
   line-height: 1.55;
 }
 
@@ -424,7 +429,7 @@
 .review-label {
   display: block;
   color: var(--text-3, #748195);
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 800;
 }
 
@@ -447,7 +452,7 @@
   position: relative;
   padding-left: 11px;
   color: var(--text-2, #526071);
-  font-size: 10.5px;
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -474,7 +479,7 @@
 
 .review-footer > span {
   color: var(--text-3, #748195);
-  font-size: 10.5px;
+  font-size: 12px;
   line-height: 1.55;
 }
 
@@ -492,7 +497,7 @@
   border-radius: 999px;
   color: var(--brand-red-dark, #a6151b);
   background: var(--brand-red-soft, #fff3f4);
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 800;
   text-decoration: none;
   white-space: nowrap;
@@ -530,12 +535,46 @@
     white-space: normal;
   }
 
-  .module-grid {
-    grid-template-columns: 1fr;
+  /* 手机端两列紧凑排布：保留标题、状态和说明，隐藏与标题重复的描述。 */
+  .module-grid,
+  .data-health-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .module-card {
-    min-height: 126px;
+    min-height: 0;
+    padding: 12px;
+  }
+
+  .module-card-description {
+    display: none;
+  }
+
+  .module-card-foot {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 10px;
+  }
+
+  .module-card-detail {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .data-health-card {
+    min-height: 0;
+    padding: 10px;
+  }
+
+  .data-health-date {
+    margin-top: 7px;
+  }
+
+  .data-health-summary {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
   }
 
   .current-desk-summary,
@@ -559,9 +598,13 @@
 }
 
 @media (max-width: 430px) {
-  .current-desk-stats,
   .review-grid {
     grid-template-columns: 1fr;
+  }
+
+  .current-desk-stat {
+    min-height: 0;
+    padding: 11px;
   }
 }
 

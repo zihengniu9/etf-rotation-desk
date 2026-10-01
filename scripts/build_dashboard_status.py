@@ -1,15 +1,59 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 import re
-from datetime import datetime
+from datetime import date, datetime, time, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 
 RUN_TZ = ZoneInfo("Asia/Hong_Kong")
 OUTPUTS = Path("outputs")
+CLOSE_DATA_READY = time(15, 30)
+
+# 沪深北交易所公布的工作日休市日（周末默认休市）。每年 12 月交易所公布次年安排后补充，
+# 并同步更新 web/trading_calendar.js（tests/test_dashboard_status.py 会校验两边一致）。
+MARKET_HOLIDAYS = frozenset({
+    # 2026：元旦 1/1-1/3，春节 2/15-2/23，清明 4/4-4/6，劳动节 5/1-5/5，
+    # 端午 6/19-6/21，中秋 9/25-9/27，国庆 10/1-10/7。
+    "2026-01-01", "2026-01-02",
+    "2026-02-16", "2026-02-17", "2026-02-18", "2026-02-19", "2026-02-20", "2026-02-23",
+    "2026-04-06",
+    "2026-05-01", "2026-05-04", "2026-05-05",
+    "2026-06-19",
+    "2026-09-25",
+    "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-06", "2026-10-07",
+})
+
+
+def is_trading_day(value: date) -> bool:
+    return value.weekday() < 5 and value.isoformat() not in MARKET_HOLIDAYS
+
+
+def collection_day_status(value: date) -> str:
+    covered_years = {int(day[:4]) for day in MARKET_HOLIDAYS}
+    if value.year not in covered_years:
+        raise ValueError(f"Trading calendar does not cover {value.year}; update the exchange calendar before collection")
+    return "trading" if is_trading_day(value) else "closed"
+
+
+def latest_completed_trading_day(now: datetime) -> date:
+    """Latest trading day whose close data should already exist at ``now``."""
+    now = now.replace(tzinfo=RUN_TZ) if now.tzinfo is None else now.astimezone(RUN_TZ)
+    candidate = now.date()
+    if not is_trading_day(candidate) or now.time() < CLOSE_DATA_READY:
+        candidate -= timedelta(days=1)
+    while not is_trading_day(candidate):
+        candidate -= timedelta(days=1)
+    return candidate
+
+
+def review_is_complete(review: dict) -> bool:
+    """A review explicitly marked incomplete must not be published as current."""
+    evidence = review.get("market_evidence")
+    return not (isinstance(evidence, dict) and evidence.get("complete") is False)
 
 
 def load_json(name: str) -> dict:
@@ -80,7 +124,7 @@ def file_state(
     return "current"
 
 
-def main() -> int:
+def main(now: datetime | None = None) -> int:
     review = load_json("latest_market_review.json")
     short = load_json("shortterm_signal.json")
     short_factor = load_json("shortterm_factor_preview.json")
@@ -90,7 +134,11 @@ def main() -> int:
     trend = load_json("trend_engine.json")
     growth = load_json("growth_factor_snapshot.json")
     dividend = load_json("dividend_factor_snapshot.json")
-    reference = iso_date(review.get("data_as_of"))
+    now = now or datetime.now(RUN_TZ)
+    now = now.replace(tzinfo=RUN_TZ) if now.tzinfo is None else now.astimezone(RUN_TZ)
+    # 以“最新完成交易日”为基准：不再锚定复盘日期，避免一份失败或滞后的复盘把更新更快的模块判成过期。
+    reference = latest_completed_trading_day(now).isoformat()
+    review_complete = review_is_complete(review)
     industry_latest = build_latest_industry_snapshot(industry_flow)
     short_signal_date = iso_date(short.get("date"))
     short_factor_date = iso_date(short_factor.get("data_as_of"))
@@ -100,10 +148,11 @@ def main() -> int:
     definitions = [
         {
             "key": "review", "title": "行情复盘", "href": "./market_mode.html#daily-review",
-            "date": iso_date(review.get("data_as_of")), "exists": bool(review), "source_status": "ok",
+            "date": iso_date(review.get("data_as_of")), "exists": bool(review),
+            "source_status": "ok" if review_complete else "incomplete",
             "coverage": f"涨停板清单 {len(review.get('leader_board') or [])} 只",
             "source": review.get("source") or "同花顺问财",
-            "note": "最新完成交易日的收盘复盘",
+            "note": "最新完成交易日的收盘复盘" if review_complete else "复盘取数不完整（涨停、炸板或隔日反馈缺失），需重新采集",
             "cadence": "每个交易日收盘", "max_lag_days": 0,
         },
         {
@@ -171,9 +220,9 @@ def main() -> int:
     counts = {state: sum(item["state"] == state for item in modules) for state in ("current", "stale", "missing", "error")}
     payload = {
         "version": "dashboard-status-v1",
-        "updated_at": datetime.now(RUN_TZ).isoformat(timespec="seconds"),
+        "updated_at": now.isoformat(timespec="seconds"),
         "reference_date": reference,
-        "reference_rule": "以最新完成交易日的行情复盘日期为新鲜度基准",
+        "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
         "summary": counts,
         "modules": modules,
     }
@@ -191,5 +240,18 @@ def main() -> int:
     return 0
 
 
+def cli(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Build dashboard status or check the exchange trading calendar.")
+    parser.add_argument("--check-trading-day", type=date.fromisoformat)
+    args = parser.parse_args(argv)
+    if args.check_trading_day is not None:
+        try:
+            print(collection_day_status(args.check_trading_day))
+        except ValueError as error:
+            parser.error(str(error))
+        return 0
+    return main()
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(cli())

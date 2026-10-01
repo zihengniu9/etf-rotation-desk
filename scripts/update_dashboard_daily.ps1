@@ -191,10 +191,14 @@ try {
     exit 0
   }
   $target = Get-HongKongDate
-  if ($target.DayOfWeek -in @([DayOfWeek]::Saturday, [DayOfWeek]::Sunday)) {
-    Write-RunLog "Weekend detected; no market-data mutation"
+  $targetDate = $target.ToString("yyyy-MM-dd")
+  $calendarStatus = ((& $Python "scripts/build_dashboard_status.py" --check-trading-day $targetDate) -join "").Trim()
+  if ($LASTEXITCODE -ne 0) { throw "Trading calendar check failed; no market-data mutation" }
+  if ($calendarStatus -eq "closed") {
+    Write-RunLog "Exchange closed on $targetDate; no market-data mutation"
     exit 0
   }
+  if ($calendarStatus -ne "trading") { throw "Unexpected trading calendar status: $calendarStatus" }
   Get-RequiredEnvironment "IWENCAI_API_KEY"
   $baseUrl = [Environment]::GetEnvironmentVariable("IWENCAI_BASE_URL", "Process")
   if (-not $baseUrl) { $baseUrl = [Environment]::GetEnvironmentVariable("IWENCAI_BASE_URL", "User") }
@@ -207,7 +211,6 @@ try {
   $env:PYTHONUTF8 = "1"
   Test-Tunnel
 
-  $targetDate = $target.ToString("yyyy-MM-dd")
   if ($Mode -in @("Morning", "Full")) { Invoke-Morning $targetDate }
   if ($Mode -eq "Intraday") { Invoke-Intraday $targetDate }
   if ($Mode -in @("Close", "Full")) { Invoke-Close $targetDate }

@@ -44,6 +44,8 @@ assert.equal(currentAuction.basis, "close", "A same-day close must supersede the
 assert.equal(freshness(currentAuction).blocked, false);
 assert.equal(context.buildShortView({...signal, date: "2026-09-14"}, review, factor).basis, "auction");
 assert.equal(freshness(close, {industry: "2026-09-10"}).blocked, true);
+const staleTwice = context.dataFreshness({asOf: "2026-09-11", dataDates: {short: "2026-09-11", industry: "2026-09-10", etf: "2026-09-11"}, dashboardStatus: {modules: [{key: "industry", state: "stale", data_as_of: "2026-09-10"}]}});
+assert.deepEqual(Array.from(staleTwice.stale), ["industry 2026-09-10"], "The snapshot and status list must not duplicate a stale module");
 assert.equal(freshness(close, {etf: ""}).missing[0], "etf");
 assert.equal(freshness(context.buildShortView(null, null, null)).blocked, true);
 const base = {short: close, industry: {name: "a", share: 1, breadth: 1, ratio: 0.5}, etf: {mode: "defense", pickTheme: "a", hotTheme: "a", pickScore: 0.99}};
@@ -72,6 +74,13 @@ async function load(values) {
   const live = await load(files);
   assert.equal(live.dataDates.short, "2026-09-11");
   assert.equal(context.dataFreshness(live).blocked, false);
+  // 复盘滞后（或取数失败）时，基准日取更新更快的核心模块，不能把它们反判为过期。
+  const reviewBehind = await load({...files, shortterm_signal: {...signal, date: "2026-09-11"}, latest_market_review: {...review, data_as_of: "2026-09-10"}, shortterm_factor_preview: {...factor, data_as_of: "2026-09-10"}});
+  assert.equal(reviewBehind.asOf, "2026-09-11", "Reference date must follow the newest core module");
+  assert.equal(reviewBehind.short.basis, "auction");
+  assert.equal(context.dataFreshness(reviewBehind).blocked, false, "A lagging review must not pause fresher core modules");
+  const industryBehind = await load({...files, industry_flow_latest: {...industry, data_as_of: "2026-09-10"}});
+  assert.deepEqual(Array.from(context.dataFreshness(industryBehind).stale), ["industry 2026-09-10"], "Only modules older than the reference are stale");
   const one=context.loadLocal(), two=context.loadLocal();
   assert.equal(one,two,"Concurrent refreshes should share one request batch");
   await one;
