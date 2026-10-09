@@ -1,6 +1,6 @@
 {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-08T16:27:05+08:00",
+  "updated_at": "2026-10-09T09:28:33+08:00",
   "reference_date": "2026-10-08",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -26,10 +26,10 @@
       "title": "短线观察",
       "href": "./shortterm_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-10-08",
+      "data_as_of": "2026-10-09",
       "coverage": "梯队 8 只 · 因子候选 16 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "盘后因子已更新；09:25竞价信号独立保留",
+      "note": "信号日期早于复盘日期时仅作历史快照",
       "cadence": "每个交易日09:25与收盘"
     },
     {
