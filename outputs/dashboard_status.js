@@ -1,24 +1,24 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-09T15:05:29+08:00",
-  "reference_date": "2026-10-08",
+  "updated_at": "2026-10-09T16:27:20+08:00",
+  "reference_date": "2026-10-09",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
-    "current": 6,
+    "current": 7,
     "stale": 0,
     "missing": 0,
-    "error": 1
+    "error": 0
   },
   "modules": [
     {
       "key": "review",
       "title": "行情复盘",
       "href": "./market_mode.html#daily-review",
-      "state": "error",
-      "data_as_of": "2026-09-29",
+      "state": "current",
+      "data_as_of": "2026-10-09",
       "coverage": "涨停板清单 0 只",
       "source": "同花顺问财 · hithink-astock-selector",
-      "note": "复盘取数不完整（涨停、炸板或隔日反馈缺失），需重新采集",
+      "note": "最新完成交易日的收盘复盘",
       "cadence": "每个交易日收盘"
     },
     {
@@ -29,7 +29,7 @@ window.DASHBOARD_STATUS = {
       "data_as_of": "2026-10-09",
       "coverage": "梯队 8 只 · 因子候选 16 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "信号日期早于复盘日期时仅作历史快照",
+      "note": "盘后因子已更新；09:25竞价信号独立保留",
       "cadence": "每个交易日09:25与收盘"
     },
     {
@@ -59,7 +59,7 @@ window.DASHBOARD_STATUS = {
       "title": "趋势因子",
       "href": "./trend_engine.html",
       "state": "current",
-      "data_as_of": "2026-10-08",
+      "data_as_of": "2026-10-09",
       "coverage": "历史股票 3032 只 · 信号 2616 个",
       "source": "同花顺问财 · hithink-astock-selector · 36个历史时点",
       "note": "全主板趋势赚钱效应",
@@ -70,8 +70,8 @@ window.DASHBOARD_STATUS = {
       "title": "成长因子",
       "href": "./growth_factor.html",
       "state": "current",
-      "data_as_of": "2026-10-08",
-      "coverage": "主板 2022 只 · 有效 1714 只",
+      "data_as_of": "2026-10-09",
+      "coverage": "主板 2034 只 · 有效 1723 只",
       "source": "同花顺问财财务查询 + 同花顺问财 news-search 历史资讯",
       "note": "财务截面每日更新；历史资讯证据按已采集覆盖",
       "cadence": "每个交易日收盘/财报披露后"
@@ -81,8 +81,8 @@ window.DASHBOARD_STATUS = {
       "title": "红利因子",
       "href": "./dividend_factor.html",
       "state": "current",
-      "data_as_of": "2026-10-08",
-      "coverage": "匹配 623 只 · 有效 623 只",
+      "data_as_of": "2026-10-09",
+      "coverage": "匹配 98 只 · 有效 98 只",
       "source": "同花顺问财 · hithink-astock-selector",
       "note": "当前截面已更新；PandaAI 历史回测待参数确认",
       "cadence": "每周/分红方案更新后"

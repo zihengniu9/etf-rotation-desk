@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-10-08 16:20:40",
- "for_date": "2026-10-08",
+ "generated_at": "2026-10-09 16:20:51",
+ "for_date": "2026-10-09",
  "rules": "阶段新高板=T收盘/前60日最高收盘>=0.998（观察池，回测：单独不构成超额，需叠人气）；热点=概念涨停家数≥3；新晋龙头=首板但N天M板活动数≥2或题材涨停≥3且竞价不弱",
  "candidate_pools": {
   "relay": {
@@ -15,475 +15,475 @@
  "high_candidates": [
   {
    "hit": true,
-   "r60": 1.1,
+   "r60": 1.1004,
    "first_break": false,
    "prev_sealed": true,
-   "name": "传艺科技",
-   "code": "002866.SZ",
-   "close": 18.59,
-   "pct": 10.0,
-   "pop": 69.6,
-   "note": "",
-   "lane": "discovery",
-   "discovery_reason": "2天2板活动"
+   "name": "九阳股份",
+   "code": "002242.SZ",
+   "close": 15.13,
+   "pct": 10.036364,
+   "pop": 67.0,
+   "note": "硬板强承·卡位候选",
+   "lane": "relay",
+   "discovery_reason": ""
   },
   {
    "hit": true,
-   "r60": 1.0998,
+   "r60": 1.2002,
    "first_break": false,
    "prev_sealed": true,
-   "name": "时代万恒",
-   "code": "600241.SH",
-   "close": 10.69,
-   "pct": 9.979424,
-   "pop": 64.4,
+   "name": "领湃科技",
+   "code": "300530.SZ",
+   "close": 28.9,
+   "pct": 20.016611,
+   "pop": 36.0,
    "note": "",
-   "lane": "relay",
-   "discovery_reason": ""
+   "lane": "discovery",
+   "discovery_reason": "题材涨停11只"
   },
   {
    "hit": true,
    "r60": 1.0999,
    "first_break": false,
    "prev_sealed": true,
-   "name": "上海洗霸",
-   "code": "603200.SH",
-   "close": 49.21,
-   "pct": 9.991059,
-   "pop": 55.3,
+   "name": "三柏硕",
+   "code": "001300.SZ",
+   "close": 14.86,
+   "pct": 9.992598,
+   "pop": 19.5,
    "note": "",
    "lane": "discovery",
-   "discovery_reason": "2天2板活动"
+   "discovery_reason": "题材涨停9只"
   }
  ],
  "hot_board": [
   {
-   "concept": "储能",
-   "count": 11,
+   "concept": "AI应用",
+   "count": 20,
    "stocks": [
     {
-     "name": "传艺科技",
-     "code": "002866.SZ",
-     "boards": 3,
-     "recent_board_count": 3
+     "name": "慈文传媒",
+     "code": "002343.SZ",
+     "boards": 1,
+     "recent_board_count": 1
     },
     {
-     "name": "龙蟠科技",
-     "code": "603906.SH",
-     "boards": 2,
+     "name": "新华文轩",
+     "code": "601811.SH",
+     "boards": 1,
+     "recent_board_count": 7
+    },
+    {
+     "name": "郑中设计",
+     "code": "002811.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "贝瑞基因",
+     "code": "000710.SZ",
+     "boards": 1,
      "recent_board_count": 2
     },
     {
-     "name": "广西能源",
-     "code": "600310.SH",
+     "name": "天融信",
+     "code": "002212.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "雄韬股份",
-     "code": "002733.SZ",
+     "name": "博纳影业",
+     "code": "001330.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "金时科技",
-     "code": "002951.SZ",
+     "name": "芒果超媒",
+     "code": "300413.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "*ST华西",
-     "code": "002630.SZ",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "领湃科技",
-     "code": "300530.SZ",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "力王股份",
-     "code": "920627.BJ",
+     "name": "文投控股",
+     "code": "600715.SH",
      "boards": 1,
      "recent_board_count": 1
     }
    ]
   },
   {
-   "concept": "电力设备",
-   "count": 11,
+   "concept": "人工智能",
+   "count": 17,
    "stocks": [
     {
-     "name": "时代万恒",
-     "code": "600241.SH",
-     "boards": 4,
-     "recent_board_count": 4
+     "name": "新华文轩",
+     "code": "601811.SH",
+     "boards": 1,
+     "recent_board_count": 7
     },
     {
-     "name": "紫竹高科",
-     "code": "002058.SZ",
-     "boards": 3,
-     "recent_board_count": 3
+     "name": "郑中设计",
+     "code": "002811.SZ",
+     "boards": 1,
+     "recent_board_count": 1
     },
     {
-     "name": "龙蟠科技",
-     "code": "603906.SH",
-     "boards": 2,
+     "name": "贝瑞基因",
+     "code": "000710.SZ",
+     "boards": 1,
      "recent_board_count": 2
     },
     {
-     "name": "野马电池",
-     "code": "605378.SH",
+     "name": "天融信",
+     "code": "002212.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "雄韬股份",
-     "code": "002733.SZ",
+     "name": "芒果超媒",
+     "code": "300413.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "金时科技",
-     "code": "002951.SZ",
+     "name": "华建集团",
+     "code": "600629.SH",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "*ST华西",
-     "code": "002630.SZ",
+     "name": "粤传媒",
+     "code": "002181.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "领湃科技",
-     "code": "300530.SZ",
+     "name": "欢瑞世纪",
+     "code": "000892.SZ",
      "boards": 1,
      "recent_board_count": 1
     }
    ]
   },
   {
-   "concept": "锂电池概念",
-   "count": 10,
+   "concept": "文化传媒概念",
+   "count": 16,
    "stocks": [
     {
-     "name": "时代万恒",
-     "code": "600241.SH",
-     "boards": 4,
-     "recent_board_count": 4
+     "name": "新华传媒",
+     "code": "600825.SH",
+     "boards": 9,
+     "recent_board_count": 9
     },
     {
-     "name": "上海洗霸",
-     "code": "603200.SH",
-     "boards": 3,
-     "recent_board_count": 3
-    },
-    {
-     "name": "紫竹高科",
-     "code": "002058.SZ",
-     "boards": 3,
-     "recent_board_count": 3
-    },
-    {
-     "name": "龙蟠科技",
-     "code": "603906.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "兴业股份",
-     "code": "603928.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "野马电池",
-     "code": "605378.SH",
+     "name": "慈文传媒",
+     "code": "002343.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "雄韬股份",
-     "code": "002733.SZ",
+     "name": "新经典",
+     "code": "603096.SH",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "领湃科技",
-     "code": "300530.SZ",
+     "name": "上海电影",
+     "code": "601595.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "新华文轩",
+     "code": "601811.SH",
+     "boards": 1,
+     "recent_board_count": 7
+    },
+    {
+     "name": "博纳影业",
+     "code": "001330.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "芒果超媒",
+     "code": "300413.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "文投控股",
+     "code": "600715.SH",
      "boards": 1,
      "recent_board_count": 1
     }
    ]
   },
   {
-   "concept": "人民币贬值受益",
-   "count": 9,
+   "concept": "IP经济(谷子经济)",
+   "count": 16,
    "stocks": [
     {
-     "name": "传艺科技",
-     "code": "002866.SZ",
-     "boards": 3,
-     "recent_board_count": 3
-    },
-    {
-     "name": "卓越新能",
-     "code": "688196.SH",
+     "name": "慈文传媒",
+     "code": "002343.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "中远海能",
-     "code": "600026.SH",
+     "name": "九牧王",
+     "code": "601566.SH",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "野马电池",
-     "code": "605378.SH",
+     "name": "新经典",
+     "code": "603096.SH",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "三柏硕",
-     "code": "001300.SZ",
+     "name": "上海电影",
+     "code": "601595.SH",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "雄韬股份",
-     "code": "002733.SZ",
+     "name": "新华文轩",
+     "code": "601811.SH",
+     "boards": 1,
+     "recent_board_count": 7
+    },
+    {
+     "name": "郑中设计",
+     "code": "002811.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "招商南油",
-     "code": "601975.SH",
+     "name": "博纳影业",
+     "code": "001330.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "力王股份",
-     "code": "920627.BJ",
+     "name": "芒果超媒",
+     "code": "300413.SZ",
      "boards": 1,
      "recent_board_count": 1
     }
    ]
   },
   {
-   "concept": "新能源汽车",
-   "count": 8,
+   "concept": "传媒",
+   "count": 15,
    "stocks": [
     {
-     "name": "紫竹高科",
-     "code": "002058.SZ",
-     "boards": 3,
-     "recent_board_count": 3
+     "name": "新华传媒",
+     "code": "600825.SH",
+     "boards": 9,
+     "recent_board_count": 9
     },
     {
-     "name": "龙蟠科技",
-     "code": "603906.SH",
+     "name": "慈文传媒",
+     "code": "002343.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "新经典",
+     "code": "603096.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "上海电影",
+     "code": "601595.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "新华文轩",
+     "code": "601811.SH",
+     "boards": 1,
+     "recent_board_count": 7
+    },
+    {
+     "name": "博纳影业",
+     "code": "001330.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "芒果超媒",
+     "code": "300413.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "文投控股",
+     "code": "600715.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    }
+   ]
+  },
+  {
+   "concept": "DeepSeek概念",
+   "count": 13,
+   "stocks": [
+    {
+     "name": "华北制药",
+     "code": "600812.SH",
      "boards": 2,
      "recent_board_count": 2
     },
     {
-     "name": "金溢科技",
-     "code": "002869.SZ",
+     "name": "新华文轩",
+     "code": "601811.SH",
+     "boards": 1,
+     "recent_board_count": 7
+    },
+    {
+     "name": "郑中设计",
+     "code": "002811.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "雄韬股份",
-     "code": "002733.SZ",
+     "name": "贝瑞基因",
+     "code": "000710.SZ",
      "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "东贝集团",
-     "code": "601956.SH",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "宁波高发",
-     "code": "603788.SH",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "领湃科技",
-     "code": "300530.SZ",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "贝特利",
-     "code": "301697.SZ",
-     "boards": 1,
-     "recent_board_count": 1
-    }
-   ]
-  },
-  {
-   "concept": "专精特新",
-   "count": 8,
-   "stocks": [
-    {
-     "name": "传艺科技",
-     "code": "002866.SZ",
-     "boards": 3,
-     "recent_board_count": 3
-    },
-    {
-     "name": "金溢科技",
-     "code": "002869.SZ",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "联环药业",
-     "code": "600513.SH",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "雄韬股份",
-     "code": "002733.SZ",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "必得科技",
-     "code": "605298.SH",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "力王股份",
-     "code": "920627.BJ",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "丰元股份",
-     "code": "002805.SZ",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "楚环科技",
-     "code": "001336.SZ",
-     "boards": 1,
-     "recent_board_count": 1
-    }
-   ]
-  },
-  {
-   "concept": "电池",
-   "count": 8,
-   "stocks": [
-    {
-     "name": "时代万恒",
-     "code": "600241.SH",
-     "boards": 4,
-     "recent_board_count": 4
-    },
-    {
-     "name": "紫竹高科",
-     "code": "002058.SZ",
-     "boards": 3,
-     "recent_board_count": 3
-    },
-    {
-     "name": "龙蟠科技",
-     "code": "603906.SH",
-     "boards": 2,
      "recent_board_count": 2
     },
     {
-     "name": "野马电池",
-     "code": "605378.SH",
+     "name": "天融信",
+     "code": "002212.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "雄韬股份",
-     "code": "002733.SZ",
+     "name": "芒果超媒",
+     "code": "300413.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "领湃科技",
-     "code": "300530.SZ",
+     "name": "麒麟信安",
+     "code": "688152.SH",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "力王股份",
-     "code": "920627.BJ",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "丰元股份",
-     "code": "002805.SZ",
+     "name": "吉视传媒",
+     "code": "601929.SH",
      "boards": 1,
      "recent_board_count": 1
     }
    ]
   },
   {
-   "concept": "固态电池",
-   "count": 8,
+   "concept": "AI智能体",
+   "count": 13,
    "stocks": [
     {
-     "name": "上海洗霸",
-     "code": "603200.SH",
-     "boards": 3,
-     "recent_board_count": 3
-    },
-    {
-     "name": "紫竹高科",
-     "code": "002058.SZ",
-     "boards": 3,
-     "recent_board_count": 3
-    },
-    {
-     "name": "传艺科技",
-     "code": "002866.SZ",
-     "boards": 3,
-     "recent_board_count": 3
-    },
-    {
-     "name": "龙蟠科技",
-     "code": "603906.SH",
-     "boards": 2,
+     "name": "贝瑞基因",
+     "code": "000710.SZ",
+     "boards": 1,
      "recent_board_count": 2
     },
     {
-     "name": "雄韬股份",
-     "code": "002733.SZ",
+     "name": "天融信",
+     "code": "002212.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "力王股份",
-     "code": "920627.BJ",
+     "name": "芒果超媒",
+     "code": "300413.SZ",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "丰元股份",
-     "code": "002805.SZ",
+     "name": "妙可蓝多",
+     "code": "600882.SH",
      "boards": 1,
      "recent_board_count": 1
     },
     {
-     "name": "世名科技",
-     "code": "300522.SZ",
+     "name": "欢瑞世纪",
+     "code": "000892.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "掌阅科技",
+     "code": "603533.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "吉视传媒",
+     "code": "601929.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "中文在线",
+     "code": "300364.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    }
+   ]
+  },
+  {
+   "concept": "乡村振兴",
+   "count": 12,
+   "stocks": [
+    {
+     "name": "金健米业",
+     "code": "600127.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "上海电影",
+     "code": "601595.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "万向德农",
+     "code": "600371.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "敦煌种业",
+     "code": "600354.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "芒果超媒",
+     "code": "300413.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "海南橡胶",
+     "code": "601118.SH",
+     "boards": 1,
+     "recent_board_count": 2
+    },
+    {
+     "name": "华建集团",
+     "code": "600629.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "吉视传媒",
+     "code": "601929.SH",
      "boards": 1,
      "recent_board_count": 1
     }
@@ -494,86 +494,58 @@
   {
    "name": "新华传媒",
    "code": "600825.SH",
-   "boards": 8,
+   "boards": 9,
    "lane": "relay",
-   "recent_days": 8,
-   "recent_board_count": 8,
-   "theme_breadth": 7,
+   "recent_days": 9,
+   "recent_board_count": 9,
+   "theme_breadth": 16,
    "discovery_score": null,
    "hot": true,
-   "best_concept": "创投",
-   "concept_count": 7,
-   "pop": 58.2
+   "best_concept": "文化传媒概念",
+   "concept_count": 16,
+   "pop": 80.4
   },
   {
-   "name": "襄阳轴承",
-   "code": "000678.SZ",
-   "boards": 4,
+   "name": "时代万恒",
+   "code": "600241.SH",
+   "boards": 5,
    "lane": "relay",
-   "recent_days": 4,
-   "recent_board_count": 4,
-   "theme_breadth": 9,
-   "discovery_score": null,
-   "hot": true,
-   "best_concept": "人民币贬值受益",
-   "concept_count": 9,
-   "pop": null
-  },
-  {
-   "name": "善水科技",
-   "code": "301190.SZ",
-   "boards": 3,
-   "lane": "relay",
-   "recent_days": 3,
-   "recent_board_count": 3,
+   "recent_days": 5,
+   "recent_board_count": 5,
    "theme_breadth": 0,
    "discovery_score": null,
    "hot": false,
-   "best_concept": "幽门螺杆菌概念",
+   "best_concept": "锂电池概念",
    "concept_count": 0,
-   "pop": null
+   "pop": 34.4
   },
   {
    "name": "九阳股份",
    "code": "002242.SZ",
-   "boards": 4,
+   "boards": 5,
    "lane": "relay",
-   "recent_days": 4,
-   "recent_board_count": 4,
+   "recent_days": 5,
+   "recent_board_count": 5,
    "theme_breadth": 0,
    "discovery_score": null,
    "hot": false,
    "best_concept": "绿色电力",
    "concept_count": 0,
-   "pop": 43.8
+   "pop": 67.0
   },
   {
-   "name": "深物业A",
-   "code": "000011.SZ",
-   "boards": 3,
-   "lane": "relay",
-   "recent_days": 3,
-   "recent_board_count": 3,
-   "theme_breadth": 7,
-   "discovery_score": null,
-   "hot": true,
-   "best_concept": "一带一路",
-   "concept_count": 7,
-   "pop": null
-  },
-  {
-   "name": "时代万恒",
-   "code": "600241.SH",
+   "name": "紫竹高科",
+   "code": "002058.SZ",
    "boards": 4,
    "lane": "relay",
    "recent_days": 4,
    "recent_board_count": 4,
-   "theme_breadth": 11,
+   "theme_breadth": 0,
    "discovery_score": null,
-   "hot": true,
-   "best_concept": "电力设备",
-   "concept_count": 11,
-   "pop": 64.4
+   "hot": false,
+   "best_concept": "石墨烯",
+   "concept_count": 0,
+   "pop": 24.1
   },
   {
    "name": "园林股份",
@@ -582,16 +554,16 @@
    "lane": "relay",
    "recent_days": 3,
    "recent_board_count": 3,
-   "theme_breadth": 0,
+   "theme_breadth": 12,
    "discovery_score": null,
-   "hot": false,
-   "best_concept": "数据中心(AIDC)",
-   "concept_count": 0,
-   "pop": 24.9
+   "hot": true,
+   "best_concept": "乡村振兴",
+   "concept_count": 12,
+   "pop": null
   },
   {
-   "name": "紫竹高科",
-   "code": "002058.SZ",
+   "name": "传艺科技",
+   "code": "002866.SZ",
    "boards": 3,
    "lane": "relay",
    "recent_days": 3,
@@ -599,195 +571,223 @@
    "theme_breadth": 11,
    "discovery_score": null,
    "hot": true,
-   "best_concept": "电力设备",
+   "best_concept": "专精特新",
    "concept_count": 11,
-   "pop": 28.7
-  },
-  {
-   "name": "南华生物",
-   "code": "000504.SZ",
-   "boards": 1,
-   "lane": "discovery",
-   "recent_days": 9,
-   "recent_board_count": 5,
-   "theme_breadth": 10,
-   "discovery_score": 69.6,
-   "hot": true,
-   "best_concept": "锂电池概念",
-   "concept_count": 10,
    "pop": null
-  },
-  {
-   "name": "传艺科技",
-   "code": "002866.SZ",
-   "boards": 3,
-   "lane": "discovery",
-   "recent_days": 3,
-   "recent_board_count": 3,
-   "theme_breadth": 11,
-   "discovery_score": 45.0,
-   "hot": true,
-   "best_concept": "储能",
-   "concept_count": 11,
-   "pop": 69.6
   },
   {
    "name": "上海洗霸",
    "code": "603200.SH",
    "boards": 3,
-   "lane": "discovery",
+   "lane": "relay",
    "recent_days": 3,
    "recent_board_count": 3,
-   "theme_breadth": 10,
-   "discovery_score": 44.9,
-   "hot": true,
-   "best_concept": "锂电池概念",
-   "concept_count": 10,
-   "pop": 55.3
-  },
-  {
-   "name": "亚联发展",
-   "code": "002316.SZ",
-   "boards": 1,
-   "lane": "discovery",
-   "recent_days": 1,
-   "recent_board_count": 1,
    "theme_breadth": 0,
-   "discovery_score": 44.7,
+   "discovery_score": null,
    "hot": false,
-   "best_concept": "粮食概念",
+   "best_concept": "钠离子电池",
    "concept_count": 0,
    "pop": null
   },
   {
-   "name": "贝瑞基因",
-   "code": "000710.SZ",
-   "boards": 1,
-   "lane": "discovery",
-   "recent_days": 1,
-   "recent_board_count": 1,
-   "theme_breadth": 0,
-   "discovery_score": 41.7,
-   "hot": false,
-   "best_concept": "基因测序",
-   "concept_count": 0,
-   "pop": null
-  },
-  {
-   "name": "均瑶健康",
-   "code": "605388.SH",
+   "name": "兴业股份",
+   "code": "603928.SH",
    "boards": 2,
-   "lane": "discovery",
+   "lane": "relay",
    "recent_days": 2,
    "recent_board_count": 2,
    "theme_breadth": 0,
-   "discovery_score": 41.4,
+   "discovery_score": null,
    "hot": false,
-   "best_concept": "乳业",
+   "best_concept": "光刻胶",
    "concept_count": 0,
    "pop": null
-  },
-  {
-   "name": "蔚蓝生物",
-   "code": "603739.SH",
-   "boards": 1,
-   "lane": "discovery",
-   "recent_days": 1,
-   "recent_board_count": 1,
-   "theme_breadth": 0,
-   "discovery_score": 40.6,
-   "hot": false,
-   "best_concept": "动物疫苗",
-   "concept_count": 0,
-   "pop": null
-  },
-  {
-   "name": "亚邦股份",
-   "code": "603188.SH",
-   "boards": 2,
-   "lane": "discovery",
-   "recent_days": 2,
-   "recent_board_count": 2,
-   "theme_breadth": 0,
-   "discovery_score": 40.3,
-   "hot": false,
-   "best_concept": "染料",
-   "concept_count": 0,
-   "pop": null
-  }
- ],
- "popularity_top": [
-  {
-   "name": "传艺科技",
-   "code": "002866.SZ",
-   "boards": 3,
-   "amount_yi": 6.7,
-   "theme": "储能",
-   "theme_n": 11,
-   "pop": 69.6
-  },
-  {
-   "name": "时代万恒",
-   "code": "600241.SH",
-   "boards": 4,
-   "amount_yi": 3.3,
-   "theme": "电力设备",
-   "theme_n": 11,
-   "pop": 64.4
-  },
-  {
-   "name": "新华传媒",
-   "code": "600825.SH",
-   "boards": 8,
-   "amount_yi": 0.6,
-   "theme": "创投",
-   "theme_n": 7,
-   "pop": 58.2
-  },
-  {
-   "name": "上海洗霸",
-   "code": "603200.SH",
-   "boards": 3,
-   "amount_yi": 15.3,
-   "theme": "锂电池概念",
-   "theme_n": 10,
-   "pop": 55.3
   },
   {
    "name": "龙蟠科技",
    "code": "603906.SH",
    "boards": 2,
-   "amount_yi": 17.1,
-   "theme": "储能",
-   "theme_n": 11,
-   "pop": 52.5
+   "lane": "discovery",
+   "recent_days": 2,
+   "recent_board_count": 2,
+   "theme_breadth": 11,
+   "discovery_score": 46.2,
+   "hot": true,
+   "best_concept": "一带一路",
+   "concept_count": 11,
+   "pop": null
   },
   {
-   "name": "顺灏股份",
-   "code": "002565.SZ",
+   "name": "雄韬股份",
+   "code": "002733.SZ",
+   "boards": 2,
+   "lane": "discovery",
+   "recent_days": 2,
+   "recent_board_count": 2,
+   "theme_breadth": 11,
+   "discovery_score": 44.2,
+   "hot": true,
+   "best_concept": "专精特新",
+   "concept_count": 11,
+   "pop": 38.2
+  },
+  {
+   "name": "领湃科技",
+   "code": "300530.SZ",
+   "boards": 2,
+   "lane": "discovery",
+   "recent_days": 2,
+   "recent_board_count": 2,
+   "theme_breadth": 0,
+   "discovery_score": 40.5,
+   "hot": false,
+   "best_concept": "钠离子电池",
+   "concept_count": 0,
+   "pop": 36.0
+  },
+  {
+   "name": "陆家嘴",
+   "code": "600663.SH",
+   "boards": 2,
+   "lane": "discovery",
+   "recent_days": 2,
+   "recent_board_count": 2,
+   "theme_breadth": 0,
+   "discovery_score": 40.4,
+   "hot": false,
+   "best_concept": "参股保险",
+   "concept_count": 0,
+   "pop": null
+  },
+  {
+   "name": "野马电池",
+   "code": "605378.SH",
    "boards": 1,
-   "amount_yi": 15.6,
-   "theme": "一带一路",
-   "theme_n": 7,
-   "pop": 44.0
+   "lane": "discovery",
+   "recent_days": 1,
+   "recent_board_count": 1,
+   "theme_breadth": 0,
+   "discovery_score": 40.2,
+   "hot": false,
+   "best_concept": "共同富裕示范区",
+   "concept_count": 0,
+   "pop": null
+  },
+  {
+   "name": "丰元股份",
+   "code": "002805.SZ",
+   "boards": 2,
+   "lane": "discovery",
+   "recent_days": 2,
+   "recent_board_count": 2,
+   "theme_breadth": 11,
+   "discovery_score": 38.6,
+   "hot": true,
+   "best_concept": "专精特新",
+   "concept_count": 11,
+   "pop": 41.6
+  },
+  {
+   "name": "国新能源",
+   "code": "600617.SH",
+   "boards": 1,
+   "lane": "discovery",
+   "recent_days": 1,
+   "recent_board_count": 1,
+   "theme_breadth": 0,
+   "discovery_score": 38.4,
+   "hot": false,
+   "best_concept": "天然气",
+   "concept_count": 0,
+   "pop": null
+  },
+  {
+   "name": "三柏硕",
+   "code": "001300.SZ",
+   "boards": 2,
+   "lane": "discovery",
+   "recent_days": 2,
+   "recent_board_count": 2,
+   "theme_breadth": 0,
+   "discovery_score": 37.5,
+   "hot": false,
+   "best_concept": "足球概念",
+   "concept_count": 0,
+   "pop": 19.5
+  }
+ ],
+ "popularity_top": [
+  {
+   "name": "新华传媒",
+   "code": "600825.SH",
+   "boards": 9,
+   "amount_yi": 6.3,
+   "theme": "文化传媒概念",
+   "theme_n": 16,
+   "pop": 80.4
   },
   {
    "name": "九阳股份",
    "code": "002242.SZ",
-   "boards": 4,
-   "amount_yi": 1.5,
-   "theme": "绿色电力",
-   "theme_n": 5,
-   "pop": 43.8
+   "boards": 5,
+   "amount_yi": 20.6,
+   "theme": "机器人概念",
+   "theme_n": 9,
+   "pop": 67.0
   },
   {
-   "name": "招商南油",
-   "code": "601975.SH",
+   "name": "金健米业",
+   "code": "600127.SH",
    "boards": 1,
-   "amount_yi": 14.7,
-   "theme": "人民币贬值受益",
-   "theme_n": 9,
-   "pop": 43.8
+   "amount_yi": 29.6,
+   "theme": "乡村振兴",
+   "theme_n": 12,
+   "pop": 54.4
+  },
+  {
+   "name": "华北制药",
+   "code": "600812.SH",
+   "boards": 2,
+   "amount_yi": 6.9,
+   "theme": "DeepSeek概念",
+   "theme_n": 13,
+   "pop": 46.5
+  },
+  {
+   "name": "芒果超媒",
+   "code": "300413.SZ",
+   "boards": 1,
+   "amount_yi": 23.8,
+   "theme": "AI应用",
+   "theme_n": 20,
+   "pop": 46.0
+  },
+  {
+   "name": "中文在线",
+   "code": "300364.SZ",
+   "boards": 1,
+   "amount_yi": 18.5,
+   "theme": "AI应用",
+   "theme_n": 20,
+   "pop": 44.5
+  },
+  {
+   "name": "博纳影业",
+   "code": "001330.SZ",
+   "boards": 1,
+   "amount_yi": 16.2,
+   "theme": "AI应用",
+   "theme_n": 20,
+   "pop": 43.5
+  },
+  {
+   "name": "西部黄金",
+   "code": "601069.SH",
+   "boards": 1,
+   "amount_yi": 7.1,
+   "theme": "西部大开发",
+   "theme_n": 12,
+   "pop": 42.3
   }
  ],
  "data_source": "问财"
