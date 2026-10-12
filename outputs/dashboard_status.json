@@ -1,13 +1,13 @@
 {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-12T13:04:02+08:00",
+  "updated_at": "2026-10-12T14:15:26+08:00",
   "reference_date": "2026-10-09",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
-    "current": 7,
+    "current": 6,
     "stale": 0,
     "missing": 0,
-    "error": 0
+    "error": 1
   },
   "modules": [
     {
@@ -36,11 +36,11 @@
       "key": "industry",
       "title": "行业主线",
       "href": "./industry_mainline_dashboard.html",
-      "state": "current",
+      "state": "error",
       "data_as_of": "2026-10-12",
       "coverage": "252 个历史日 · 22680 行",
       "source": "行业成分股行情与资金承载",
-      "note": "行业主线数据已成功刷新",
+      "note": "在线接口未返回可用数据，沿用上一版行业数据",
       "cadence": "每个交易日收盘"
     },
     {
@@ -49,7 +49,7 @@
       "href": "./index.html",
       "state": "current",
       "data_as_of": "2026-10-12",
-      "coverage": "排名 12 只 · 实时报价 212 只",
+      "coverage": "排名 9 只 · 实时报价 213 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
