@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-12T09:34:14+08:00",
+  "updated_at": "2026-10-12T10:04:07+08:00",
   "reference_date": "2026-10-09",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -38,7 +38,7 @@ window.DASHBOARD_STATUS = {
       "href": "./industry_mainline_dashboard.html",
       "state": "current",
       "data_as_of": "2026-10-12",
-      "coverage": "252 个历史日 · 22673 行",
+      "coverage": "252 个历史日 · 22680 行",
       "source": "行业成分股行情与资金承载",
       "note": "行业主线数据已成功刷新",
       "cadence": "每个交易日收盘"
@@ -49,7 +49,7 @@ window.DASHBOARD_STATUS = {
       "href": "./index.html",
       "state": "current",
       "data_as_of": "2026-10-12",
-      "coverage": "排名 10 只 · 实时报价 171 只",
+      "coverage": "排名 13 只 · 实时报价 209 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
