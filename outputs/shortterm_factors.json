@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-10-12 16:22:03",
- "for_date": "2026-10-12",
+ "generated_at": "2026-10-13 16:20:34",
+ "for_date": "2026-10-13",
  "rules": "阶段新高板=T收盘/前60日最高收盘>=0.998（观察池，回测：单独不构成超额，需叠人气）；热点=概念涨停家数≥3；新晋龙头=首板但N天M板活动数≥2或题材涨停≥3且竞价不弱",
  "candidate_pools": {
   "relay": {
@@ -15,482 +15,454 @@
  "high_candidates": [
   {
    "hit": true,
-   "r60": 1.1004,
+   "r60": 1.1006,
    "first_break": false,
-   "prev_sealed": false,
-   "name": "博纳影业",
-   "code": "001330.SZ",
-   "close": 7.67,
-   "pct": 10.043042,
-   "pop": 48.3,
-   "note": "",
-   "lane": "discovery",
-   "discovery_reason": "题材涨停20只"
-  },
-  {
-   "hit": true,
-   "r60": 1.089,
-   "first_break": true,
    "prev_sealed": true,
-   "name": "新华文轩",
-   "code": "601811.SH",
-   "close": 23.0,
-   "pct": 9.995218,
-   "pop": 46.1,
+   "name": "百洋股份",
+   "code": "002696.SZ",
+   "close": 8.86,
+   "pct": 10.062111999999999,
+   "pop": 81.0,
    "note": "",
    "lane": "discovery",
-   "discovery_reason": "10天7板活动 + 题材涨停20只"
+   "discovery_reason": "2天2板活动 + 题材涨停11只"
   }
  ],
  "hot_board": [
   {
-   "concept": "文化传媒概念",
-   "count": 16,
+   "concept": "乡村振兴",
+   "count": 14,
    "stocks": [
     {
-     "name": "新华传媒",
-     "code": "600825.SH",
-     "boards": 10,
-     "recent_board_count": 10
-    },
-    {
-     "name": "慈文传媒",
-     "code": "002343.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "新经典",
-     "code": "603096.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "上海电影",
-     "code": "601595.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "新华文轩",
-     "code": "601811.SH",
-     "boards": 2,
-     "recent_board_count": 8
-    },
-    {
-     "name": "博纳影业",
-     "code": "001330.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "欢瑞世纪",
-     "code": "000892.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "掌阅科技",
-     "code": "603533.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    }
-   ]
-  },
-  {
-   "concept": "AI应用",
-   "count": 15,
-   "stocks": [
-    {
-     "name": "慈文传媒",
-     "code": "002343.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "新华文轩",
-     "code": "601811.SH",
-     "boards": 2,
-     "recent_board_count": 8
-    },
-    {
-     "name": "博纳影业",
-     "code": "001330.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "欢瑞世纪",
-     "code": "000892.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "掌阅科技",
-     "code": "603533.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "吉视传媒",
-     "code": "601929.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "格尔软件",
-     "code": "603232.SH",
-     "boards": 2,
-     "recent_board_count": 2
+     "name": "百洋股份",
+     "code": "002696.SZ",
+     "boards": 3,
+     "recent_board_count": 3
     },
     {
      "name": "丽人丽妆",
      "code": "605136.SH",
+     "boards": 3,
+     "recent_board_count": 3
+    },
+    {
+     "name": "农心科技",
+     "code": "001231.SZ",
      "boards": 2,
      "recent_board_count": 2
+    },
+    {
+     "name": "广电网络",
+     "code": "600831.SH",
+     "boards": 2,
+     "recent_board_count": 2
+    },
+    {
+     "name": "粤桂股份",
+     "code": "000833.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "中兴商业",
+     "code": "000715.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "皇台酒业",
+     "code": "000995.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "中马传动",
+     "code": "603767.SH",
+     "boards": 1,
+     "recent_board_count": 1
     }
    ]
   },
   {
-   "concept": "传媒",
-   "count": 14,
+   "concept": "华为概念",
+   "count": 13,
    "stocks": [
-    {
-     "name": "新华传媒",
-     "code": "600825.SH",
-     "boards": 10,
-     "recent_board_count": 10
-    },
-    {
-     "name": "慈文传媒",
-     "code": "002343.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
     {
      "name": "新经典",
      "code": "603096.SH",
+     "boards": 3,
+     "recent_board_count": 3
+    },
+    {
+     "name": "广电网络",
+     "code": "600831.SH",
      "boards": 2,
      "recent_board_count": 2
     },
     {
-     "name": "上海电影",
-     "code": "601595.SH",
+     "name": "雪人集团",
+     "code": "002639.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "元隆雅图",
+     "code": "002878.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "依顿电子",
+     "code": "603328.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "和顺石油",
+     "code": "603353.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "骏亚科技",
+     "code": "603386.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "风语筑",
+     "code": "603466.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    }
+   ]
+  },
+  {
+   "concept": "5G",
+   "count": 12,
+   "stocks": [
+    {
+     "name": "广电网络",
+     "code": "600831.SH",
      "boards": 2,
      "recent_board_count": 2
     },
     {
-     "name": "新华文轩",
-     "code": "601811.SH",
-     "boards": 2,
-     "recent_board_count": 8
+     "name": "中京电子",
+     "code": "002579.SZ",
+     "boards": 1,
+     "recent_board_count": 1
     },
     {
-     "name": "博纳影业",
-     "code": "001330.SZ",
+     "name": "超声电子",
+     "code": "000823.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "迅捷兴",
+     "code": "688655.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "协和电子",
+     "code": "605258.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "依顿电子",
+     "code": "603328.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "骏亚科技",
+     "code": "603386.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "华脉科技",
+     "code": "603042.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    }
+   ]
+  },
+  {
+   "concept": "数字经济",
+   "count": 12,
+   "stocks": [
+    {
+     "name": "东百集团",
+     "code": "600693.SH",
      "boards": 2,
      "recent_board_count": 2
     },
     {
-     "name": "欢瑞世纪",
-     "code": "000892.SZ",
-     "boards": 2,
+     "name": "中京电子",
+     "code": "002579.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "魅视科技",
+     "code": "001229.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "郑中设计",
+     "code": "002811.SZ",
+     "boards": 1,
      "recent_board_count": 2
     },
     {
-     "name": "掌阅科技",
-     "code": "603533.SH",
-     "boards": 2,
+     "name": "雪人集团",
+     "code": "002639.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "元隆雅图",
+     "code": "002878.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "冰山冷热",
+     "code": "000530.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "跨境通",
+     "code": "002640.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    }
+   ]
+  },
+  {
+   "concept": "一带一路",
+   "count": 12,
+   "stocks": [
+    {
+     "name": "龙版传媒",
+     "code": "605577.SH",
+     "boards": 3,
+     "recent_board_count": 4
+    },
+    {
+     "name": "百洋股份",
+     "code": "002696.SZ",
+     "boards": 3,
+     "recent_board_count": 3
+    },
+    {
+     "name": "杭氧股份",
+     "code": "002430.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "郑中设计",
+     "code": "002811.SZ",
+     "boards": 1,
      "recent_board_count": 2
+    },
+    {
+     "name": "雪人集团",
+     "code": "002639.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "龙建股份",
+     "code": "600853.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "三和管桩",
+     "code": "003037.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "华阳国际",
+     "code": "002949.SZ",
+     "boards": 1,
+     "recent_board_count": 1
     }
    ]
   },
   {
    "concept": "人工智能",
-   "count": 14,
+   "count": 11,
    "stocks": [
-    {
-     "name": "新华文轩",
-     "code": "601811.SH",
-     "boards": 2,
-     "recent_board_count": 8
-    },
-    {
-     "name": "欢瑞世纪",
-     "code": "000892.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "掌阅科技",
-     "code": "603533.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "吉视传媒",
-     "code": "601929.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "格尔软件",
-     "code": "603232.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "德才股份",
-     "code": "605287.SH",
-     "boards": 2,
-     "recent_board_count": 3
-    },
-    {
-     "name": "德生科技",
-     "code": "002908.SZ",
-     "boards": 1,
-     "recent_board_count": 1
-    },
     {
      "name": "广电网络",
      "code": "600831.SH",
+     "boards": 2,
+     "recent_board_count": 2
+    },
+    {
+     "name": "魅视科技",
+     "code": "001229.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "郑中设计",
+     "code": "002811.SZ",
+     "boards": 1,
+     "recent_board_count": 2
+    },
+    {
+     "name": "元隆雅图",
+     "code": "002878.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "返利科技",
+     "code": "600228.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "华阳国际",
+     "code": "002949.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "理工能科",
+     "code": "002322.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "金奥博",
+     "code": "002917.SZ",
      "boards": 1,
      "recent_board_count": 1
     }
    ]
   },
   {
-   "concept": "IP经济(谷子经济)",
-   "count": 11,
-   "stocks": [
-    {
-     "name": "慈文传媒",
-     "code": "002343.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "新经典",
-     "code": "603096.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "上海电影",
-     "code": "601595.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "新华文轩",
-     "code": "601811.SH",
-     "boards": 2,
-     "recent_board_count": 8
-    },
-    {
-     "name": "博纳影业",
-     "code": "001330.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "欢瑞世纪",
-     "code": "000892.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "掌阅科技",
-     "code": "603533.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "吉视传媒",
-     "code": "601929.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    }
-   ]
-  },
-  {
-   "concept": "AIGC概念",
-   "count": 11,
-   "stocks": [
-    {
-     "name": "慈文传媒",
-     "code": "002343.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "新华文轩",
-     "code": "601811.SH",
-     "boards": 2,
-     "recent_board_count": 8
-    },
-    {
-     "name": "博纳影业",
-     "code": "001330.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "欢瑞世纪",
-     "code": "000892.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "掌阅科技",
-     "code": "603533.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "吉视传媒",
-     "code": "601929.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "德才股份",
-     "code": "605287.SH",
-     "boards": 2,
-     "recent_board_count": 3
-    },
-    {
-     "name": "盛视科技",
-     "code": "002990.SZ",
-     "boards": 1,
-     "recent_board_count": 1
-    }
-   ]
-  },
-  {
-   "concept": "西部大开发",
-   "count": 11,
-   "stocks": [
-    {
-     "name": "新华文轩",
-     "code": "601811.SH",
-     "boards": 2,
-     "recent_board_count": 8
-    },
-    {
-     "name": "博纳影业",
-     "code": "001330.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "欢瑞世纪",
-     "code": "000892.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "百洋股份",
-     "code": "002696.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "农心科技",
-     "code": "001231.SZ",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "广电网络",
-     "code": "600831.SH",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "内蒙新华",
-     "code": "603230.SH",
-     "boards": 1,
-     "recent_board_count": 7
-    },
-    {
-     "name": "赛力斯",
-     "code": "601127.SH",
-     "boards": 1,
-     "recent_board_count": 1
-    }
-   ]
-  },
-  {
-   "concept": "乡村振兴",
+   "concept": "基础化工",
    "count": 10,
    "stocks": [
     {
-     "name": "上海电影",
-     "code": "601595.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "吉视传媒",
-     "code": "601929.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "百洋股份",
-     "code": "002696.SZ",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "丽人丽妆",
-     "code": "605136.SH",
-     "boards": 2,
-     "recent_board_count": 2
-    },
-    {
-     "name": "德才股份",
-     "code": "605287.SH",
-     "boards": 2,
-     "recent_board_count": 3
-    },
-    {
-     "name": "宏辉果蔬",
-     "code": "603336.SH",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
-     "name": "金丹科技",
-     "code": "300829.SZ",
-     "boards": 1,
-     "recent_board_count": 1
-    },
-    {
      "name": "农心科技",
      "code": "001231.SZ",
+     "boards": 2,
+     "recent_board_count": 2
+    },
+    {
+     "name": "醋化股份",
+     "code": "603968.SH",
+     "boards": 2,
+     "recent_board_count": 2
+    },
+    {
+     "name": "粤桂股份",
+     "code": "000833.SZ",
      "boards": 1,
      "recent_board_count": 1
+    },
+    {
+     "name": "*ST三房",
+     "code": "600370.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "吉华集团",
+     "code": "603980.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "杭氧股份",
+     "code": "002430.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "建新股份",
+     "code": "300107.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "亚邦股份",
+     "code": "603188.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    }
+   ]
+  },
+  {
+   "concept": "共封装光学(CPO)",
+   "count": 10,
+   "stocks": [
+    {
+     "name": "东百集团",
+     "code": "600693.SH",
+     "boards": 2,
+     "recent_board_count": 2
+    },
+    {
+     "name": "中京电子",
+     "code": "002579.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "超声电子",
+     "code": "000823.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "迅捷兴",
+     "code": "688655.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "华盛昌",
+     "code": "002980.SZ",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "依顿电子",
+     "code": "603328.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "骏亚科技",
+     "code": "603386.SH",
+     "boards": 1,
+     "recent_board_count": 1
+    },
+    {
+     "name": "澳弘电子",
+     "code": "605058.SH",
+     "boards": 1,
+     "recent_board_count": 10
     }
    ]
   }
  ],
  "watch_hot": [
-  {
-   "name": "新华传媒",
-   "code": "600825.SH",
-   "boards": 10,
-   "lane": "relay",
-   "recent_days": 10,
-   "recent_board_count": 10,
-   "theme_breadth": 16,
-   "discovery_score": null,
-   "hot": true,
-   "best_concept": "文化传媒概念",
-   "concept_count": 16,
-   "pop": 85.4
-  },
   {
    "name": "九阳股份",
    "code": "002242.SZ",
@@ -498,12 +470,12 @@
    "lane": "relay",
    "recent_days": 6,
    "recent_board_count": 6,
-   "theme_breadth": 0,
+   "theme_breadth": 10,
    "discovery_score": null,
-   "hot": false,
-   "best_concept": "绿色电力",
-   "concept_count": 0,
-   "pop": 71.6
+   "hot": true,
+   "best_concept": "机器人概念",
+   "concept_count": 10,
+   "pop": null
   },
   {
    "name": "时代万恒",
@@ -512,38 +484,10 @@
    "lane": "relay",
    "recent_days": 6,
    "recent_board_count": 6,
-   "theme_breadth": 9,
-   "discovery_score": null,
-   "hot": true,
-   "best_concept": "电力设备",
-   "concept_count": 9,
-   "pop": 67.2
-  },
-  {
-   "name": "紫竹高科",
-   "code": "002058.SZ",
-   "boards": 4,
-   "lane": "relay",
-   "recent_days": 4,
-   "recent_board_count": 4,
-   "theme_breadth": 9,
-   "discovery_score": null,
-   "hot": true,
-   "best_concept": "电力设备",
-   "concept_count": 9,
-   "pop": null
-  },
-  {
-   "name": "三柏硕",
-   "code": "001300.SZ",
-   "boards": 2,
-   "lane": "relay",
-   "recent_days": 2,
-   "recent_board_count": 2,
    "theme_breadth": 0,
    "discovery_score": null,
    "hot": false,
-   "best_concept": "足球概念",
+   "best_concept": "锂电池概念",
    "concept_count": 0,
    "pop": null
   },
@@ -554,39 +498,81 @@
    "lane": "relay",
    "recent_days": 3,
    "recent_board_count": 3,
-   "theme_breadth": 9,
+   "theme_breadth": 12,
    "discovery_score": null,
    "hot": true,
-   "best_concept": "DeepSeek概念",
-   "concept_count": 9,
-   "pop": 53.8
-  },
-  {
-   "name": "楚环科技",
-   "code": "001336.SZ",
-   "boards": 2,
-   "lane": "relay",
-   "recent_days": 2,
-   "recent_board_count": 2,
-   "theme_breadth": 0,
-   "discovery_score": null,
-   "hot": false,
-   "best_concept": "新型城镇化",
-   "concept_count": 0,
+   "best_concept": "数字经济",
+   "concept_count": 12,
    "pop": null
   },
   {
-   "name": "雄韬股份",
-   "code": "002733.SZ",
+   "name": "新经典",
+   "code": "603096.SH",
+   "boards": 3,
+   "lane": "relay",
+   "recent_days": 3,
+   "recent_board_count": 3,
+   "theme_breadth": 13,
+   "discovery_score": null,
+   "hot": true,
+   "best_concept": "华为概念",
+   "concept_count": 13,
+   "pop": 65.7
+  },
+  {
+   "name": "慈文传媒",
+   "code": "002343.SZ",
+   "boards": 3,
+   "lane": "relay",
+   "recent_days": 3,
+   "recent_board_count": 3,
+   "theme_breadth": 0,
+   "discovery_score": null,
+   "hot": false,
+   "best_concept": "短剧游戏",
+   "concept_count": 0,
+   "pop": 60.9
+  },
+  {
+   "name": "德才股份",
+   "code": "605287.SH",
+   "boards": 2,
+   "lane": "relay",
+   "recent_days": 4,
+   "recent_board_count": 3,
+   "theme_breadth": 14,
+   "discovery_score": null,
+   "hot": true,
+   "best_concept": "乡村振兴",
+   "concept_count": 14,
+   "pop": null
+  },
+  {
+   "name": "龙版传媒",
+   "code": "605577.SH",
+   "boards": 3,
+   "lane": "relay",
+   "recent_days": 5,
+   "recent_board_count": 4,
+   "theme_breadth": 12,
+   "discovery_score": null,
+   "hot": true,
+   "best_concept": "一带一路",
+   "concept_count": 12,
+   "pop": 92.9
+  },
+  {
+   "name": "远程股份",
+   "code": "002692.SZ",
    "boards": 2,
    "lane": "relay",
    "recent_days": 2,
    "recent_board_count": 2,
-   "theme_breadth": 9,
+   "theme_breadth": 10,
    "discovery_score": null,
    "hot": true,
-   "best_concept": "电力设备",
-   "concept_count": 9,
+   "best_concept": "储能",
+   "concept_count": 10,
    "pop": null
   },
   {
@@ -596,96 +582,68 @@
    "lane": "discovery",
    "recent_days": 11,
    "recent_board_count": 8,
-   "theme_breadth": 16,
-   "discovery_score": 76.6,
+   "theme_breadth": 13,
+   "discovery_score": 74.9,
    "hot": true,
-   "best_concept": "文化传媒概念",
-   "concept_count": 16,
-   "pop": 46.1
+   "best_concept": "华为概念",
+   "concept_count": 13,
+   "pop": null
   },
   {
-   "name": "澳弘电子",
-   "code": "605058.SH",
+   "name": "内蒙新华",
+   "code": "603230.SH",
    "boards": 1,
    "lane": "discovery",
-   "recent_days": 15,
-   "recent_board_count": 9,
+   "recent_days": 13,
+   "recent_board_count": 7,
    "theme_breadth": 0,
-   "discovery_score": 67.0,
+   "discovery_score": 67.8,
    "hot": false,
-   "best_concept": "PCB概念",
+   "best_concept": "文化传媒概念",
    "concept_count": 0,
    "pop": null
   },
   {
-   "name": "中新赛克",
-   "code": "002912.SZ",
-   "boards": 1,
+   "name": "丽人丽妆",
+   "code": "605136.SH",
+   "boards": 3,
    "lane": "discovery",
-   "recent_days": 5,
+   "recent_days": 3,
    "recent_board_count": 3,
-   "theme_breadth": 15,
-   "discovery_score": 51.6,
+   "theme_breadth": 14,
+   "discovery_score": 55.2,
    "hot": true,
-   "best_concept": "AI应用",
-   "concept_count": 15,
-   "pop": null
+   "best_concept": "乡村振兴",
+   "concept_count": 14,
+   "pop": 67.5
   },
   {
-   "name": "龙版传媒",
-   "code": "605577.SH",
+   "name": "百洋股份",
+   "code": "002696.SZ",
+   "boards": 3,
+   "lane": "discovery",
+   "recent_days": 3,
+   "recent_board_count": 3,
+   "theme_breadth": 14,
+   "discovery_score": 48.0,
+   "hot": true,
+   "best_concept": "乡村振兴",
+   "concept_count": 14,
+   "pop": 81.0
+  },
+  {
+   "name": "东百集团",
+   "code": "600693.SH",
    "boards": 2,
    "lane": "discovery",
-   "recent_days": 4,
-   "recent_board_count": 3,
-   "theme_breadth": 16,
-   "discovery_score": 51.3,
+   "recent_days": 2,
+   "recent_board_count": 2,
+   "theme_breadth": 12,
+   "discovery_score": 45.1,
    "hot": true,
-   "best_concept": "文化传媒概念",
-   "concept_count": 16,
-   "pop": 27.2
-  },
-  {
-   "name": "德才股份",
-   "code": "605287.SH",
-   "boards": 2,
-   "lane": "discovery",
-   "recent_days": 4,
-   "recent_board_count": 3,
-   "theme_breadth": 16,
-   "discovery_score": 47.4,
-   "hot": true,
-   "best_concept": "文化传媒概念",
-   "concept_count": 16,
-   "pop": 19.9
-  },
-  {
-   "name": "吉林化纤",
-   "code": "000420.SZ",
-   "boards": 1,
-   "lane": "discovery",
-   "recent_days": 1,
-   "recent_board_count": 1,
-   "theme_breadth": 0,
-   "discovery_score": 44.3,
-   "hot": false,
-   "best_concept": "冰雪产业",
-   "concept_count": 0,
-   "pop": null
-  },
-  {
-   "name": "绿盟科技",
-   "code": "300369.SZ",
-   "boards": 1,
-   "lane": "discovery",
-   "recent_days": 1,
-   "recent_board_count": 1,
-   "theme_breadth": 15,
-   "discovery_score": 44.2,
-   "hot": true,
-   "best_concept": "AI应用",
-   "concept_count": 15,
-   "pop": null
+   "best_concept": "数字经济",
+   "concept_count": 12,
+   "pop": 83.1
   },
   {
    "name": "博纳影业",
@@ -694,86 +652,114 @@
    "lane": "discovery",
    "recent_days": 2,
    "recent_board_count": 2,
-   "theme_breadth": 16,
-   "discovery_score": 44.0,
+   "theme_breadth": 0,
+   "discovery_score": 44.3,
+   "hot": false,
+   "best_concept": "短剧游戏",
+   "concept_count": 0,
+   "pop": null
+  },
+  {
+   "name": "*ST威领",
+   "code": "002667.SZ",
+   "boards": 2,
+   "lane": "discovery",
+   "recent_days": 2,
+   "recent_board_count": 2,
+   "theme_breadth": 10,
+   "discovery_score": 44.3,
    "hot": true,
-   "best_concept": "文化传媒概念",
-   "concept_count": 16,
-   "pop": 48.3
+   "best_concept": "储能",
+   "concept_count": 10,
+   "pop": 72.0
+  },
+  {
+   "name": "欢瑞世纪",
+   "code": "000892.SZ",
+   "boards": 2,
+   "lane": "discovery",
+   "recent_days": 2,
+   "recent_board_count": 2,
+   "theme_breadth": 11,
+   "discovery_score": 44.1,
+   "hot": true,
+   "best_concept": "人工智能",
+   "concept_count": 11,
+   "pop": null
   }
  ],
  "popularity_top": [
   {
-   "name": "新华传媒",
-   "code": "600825.SH",
-   "boards": 10,
-   "amount_yi": 4.9,
-   "theme": "文化传媒概念",
-   "theme_n": 16,
-   "pop": 85.4
-  },
-  {
-   "name": "九阳股份",
-   "code": "002242.SZ",
-   "boards": 6,
-   "amount_yi": 20.0,
-   "theme": "机器人概念",
-   "theme_n": 9,
-   "pop": 71.6
-  },
-  {
-   "name": "时代万恒",
-   "code": "600241.SH",
-   "boards": 6,
-   "amount_yi": 12.0,
-   "theme": "电力设备",
-   "theme_n": 9,
-   "pop": 67.2
-  },
-  {
-   "name": "华北制药",
-   "code": "600812.SH",
+   "name": "龙版传媒",
+   "code": "605577.SH",
    "boards": 3,
-   "amount_yi": 10.0,
-   "theme": "DeepSeek概念",
+   "amount_yi": 11.2,
+   "theme": "一带一路",
+   "theme_n": 12,
+   "pop": 92.9
+  },
+  {
+   "name": "东百集团",
+   "code": "600693.SH",
+   "boards": 2,
+   "amount_yi": 20.6,
+   "theme": "数字经济",
+   "theme_n": 12,
+   "pop": 83.1
+  },
+  {
+   "name": "百洋股份",
+   "code": "002696.SZ",
+   "boards": 3,
+   "amount_yi": 3.1,
+   "theme": "乡村振兴",
+   "theme_n": 14,
+   "pop": 81.0
+  },
+  {
+   "name": "*ST威领",
+   "code": "002667.SZ",
+   "boards": 2,
+   "amount_yi": 8.5,
+   "theme": "储能",
+   "theme_n": 10,
+   "pop": 72.0
+  },
+  {
+   "name": "丽人丽妆",
+   "code": "605136.SH",
+   "boards": 3,
+   "amount_yi": 3.6,
+   "theme": "乡村振兴",
+   "theme_n": 14,
+   "pop": 67.5
+  },
+  {
+   "name": "新经典",
+   "code": "603096.SH",
+   "boards": 3,
+   "amount_yi": 0.9,
+   "theme": "华为概念",
+   "theme_n": 13,
+   "pop": 65.7
+  },
+  {
+   "name": "慈文传媒",
+   "code": "002343.SZ",
+   "boards": 3,
+   "amount_yi": 1.2,
+   "theme": "IP经济(谷子经济)",
+   "theme_n": 10,
+   "pop": 60.9
+  },
+  {
+   "name": "长白山",
+   "code": "603099.SH",
+   "boards": 1,
+   "amount_yi": 10.7,
+   "theme": "体育产业",
    "theme_n": 9,
-   "pop": 53.8
-  },
-  {
-   "name": "掌阅科技",
-   "code": "603533.SH",
-   "boards": 2,
-   "amount_yi": 21.0,
-   "theme": "文化传媒概念",
-   "theme_n": 16,
-   "pop": 49.8
-  },
-  {
-   "name": "博纳影业",
-   "code": "001330.SZ",
-   "boards": 2,
-   "amount_yi": 15.7,
-   "theme": "文化传媒概念",
-   "theme_n": 16,
-   "pop": 48.3
-  },
-  {
-   "name": "吉视传媒",
-   "code": "601929.SH",
-   "boards": 2,
-   "amount_yi": 14.0,
-   "theme": "文化传媒概念",
-   "theme_n": 16,
-   "pop": 47.6
-  },
-  {
-   "name": "新华文轩",
-   "code": "601811.SH",
-   "boards": 2,
-   "amount_yi": 12.6,
-   "theme": "文化传媒概念",
-   "theme_n": 16,
-   "pop": 46.1
+   "pop": 59.9
   }
  ],
  "data_source": "问财"
