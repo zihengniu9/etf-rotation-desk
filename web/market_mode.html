@@ -815,7 +815,7 @@
       // 消息面视图：采集失败或超过 24 小时未更新时不参与判定（applied=false），页面明确显示原因。
       function newsView(news, nowMs) {
         var empty={applied:false,state:"unavailable",reasons:[],themes:[],items:[],sources:[],marketScore:null,generatedAt:null,stale:false};
-        if(!news||typeof news!=="object") { empty.reasons=["未生成消息面数据（运行 scripts/update_news_signal.py）"]; return empty; }
+        if(!news||typeof news!=="object") { empty.reasons=["尚未接入可用快讯，未参与模式判定"]; return empty; }
         var gate=news.gate||{}, generated=Date.parse(news.generated_at||""), now=nowMs==null?Date.now():nowMs;
         var stale=!Number.isFinite(generated)||now-generated>24*3600*1000||generated>now+5*60*1000;
         var ok=news.status==="ok"&&["block","caution","clear"].indexOf(gate.state)>=0;

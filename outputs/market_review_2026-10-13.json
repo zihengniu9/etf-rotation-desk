@@ -1,0 +1,1528 @@
+{
+  "version": "latest-review-v1",
+  "updated_at": "2026-10-17T01:08:33+08:00",
+  "data_as_of": "2026-10-13",
+  "source": "同花顺问财 · hithink-astock-selector",
+  "market": {
+    "index_change": null,
+    "limit_up": 67,
+    "limit_down": 8,
+    "failed_rate": 0.1728,
+    "failed_count": 14,
+    "touched_limit_up": 81,
+    "max_boards": 3,
+    "board_rows": 67,
+    "board_break_rate": 0.3731
+  },
+  "market_evidence": {
+    "complete": false,
+    "anomalies": [
+      "隔日反馈缺少指定日期涨幅：600825.SH；不以最新涨幅或0补齐"
+    ],
+    "universe": "沪深A股（非ST，含创业板与科创板）",
+    "data_as_of": "2026-10-13",
+    "limit_up_codes": [
+      "000530.SZ",
+      "000558.SZ",
+      "000668.SZ",
+      "000715.SZ",
+      "000823.SZ",
+      "000833.SZ",
+      "000995.SZ",
+      "001229.SZ",
+      "001231.SZ",
+      "001318.SZ",
+      "002172.SZ",
+      "002184.SZ",
+      "002322.SZ",
+      "002343.SZ",
+      "002430.SZ",
+      "002549.SZ",
+      "002579.SZ",
+      "002587.SZ",
+      "002623.SZ",
+      "002639.SZ",
+      "002640.SZ",
+      "002693.SZ",
+      "002696.SZ",
+      "002748.SZ",
+      "002811.SZ",
+      "002862.SZ",
+      "002878.SZ",
+      "002917.SZ",
+      "002949.SZ",
+      "002980.SZ",
+      "003037.SZ",
+      "300107.SZ",
+      "301010.SZ",
+      "301041.SZ",
+      "600199.SH",
+      "600202.SH",
+      "600228.SH",
+      "600237.SH",
+      "600281.SH",
+      "600391.SH",
+      "600593.SH",
+      "600693.SH",
+      "600712.SH",
+      "600802.SH",
+      "600831.SH",
+      "600847.SH",
+      "600851.SH",
+      "600853.SH",
+      "601188.SH",
+      "603001.SH",
+      "603042.SH",
+      "603096.SH",
+      "603099.SH",
+      "603188.SH",
+      "603328.SH",
+      "603353.SH",
+      "603386.SH",
+      "603466.SH",
+      "603767.SH",
+      "603956.SH",
+      "603968.SH",
+      "603980.SH",
+      "605058.SH",
+      "605136.SH",
+      "605258.SH",
+      "605577.SH",
+      "688655.SH"
+    ],
+    "limit_down_codes": [
+      "001336.SZ",
+      "002058.SZ",
+      "002487.SZ",
+      "002768.SZ",
+      "002866.SZ",
+      "600812.SH",
+      "603230.SH",
+      "603668.SH"
+    ],
+    "opened_codes": [
+      "002086.SZ",
+      "002354.SZ",
+      "002425.SZ",
+      "002692.SZ",
+      "002724.SZ",
+      "002913.SZ",
+      "002961.SZ",
+      "600316.SH",
+      "600318.SH",
+      "600408.SH",
+      "603528.SH",
+      "603578.SH",
+      "603669.SH",
+      "605287.SH"
+    ],
+    "feedback_codes": [
+      "000892.SZ",
+      "001231.SZ",
+      "001330.SZ",
+      "002242.SZ",
+      "002264.SZ",
+      "002343.SZ",
+      "002441.SZ",
+      "002531.SZ",
+      "002576.SZ",
+      "002591.SZ",
+      "002692.SZ",
+      "002696.SZ",
+      "002908.SZ",
+      "002990.SZ",
+      "300006.SZ",
+      "300829.SZ",
+      "301052.SZ",
+      "301419.SZ",
+      "301658.SZ",
+      "600192.SH",
+      "600241.SH",
+      "600560.SH",
+      "600693.SH",
+      "600812.SH",
+      "600825.SH",
+      "600831.SH",
+      "600851.SH",
+      "601127.SH",
+      "601595.SH",
+      "601811.SH",
+      "601929.SH",
+      "603032.SH",
+      "603096.SH",
+      "603230.SH",
+      "603232.SH",
+      "603336.SH",
+      "603500.SH",
+      "603528.SH",
+      "603533.SH",
+      "603968.SH",
+      "603992.SH",
+      "605136.SH",
+      "605287.SH",
+      "605577.SH",
+      "688004.SH",
+      "688517.SH"
+    ],
+    "failed_rate_definition": "收盘未封住的曾涨停股票数 / 当日触及涨停股票总数；不等于封板股票的盘中开板比例"
+  },
+  "previous_limit_up_feedback": {
+    "count": 45,
+    "expected_count": 46,
+    "missing_codes": [
+      "600825.SH"
+    ],
+    "avg_return": 1.126,
+    "median_return": -0.284,
+    "positive_ratio": 0.489,
+    "signal_date": "2026-10-12",
+    "evaluation_date": "2026-10-13"
+  },
+  "leader_board": [
+    {
+      "code": "603096.SH",
+      "name": "新经典",
+      "boards": 3,
+      "change": 10.02,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:30:00",
+      "theme": [
+        "传媒",
+        "文化传媒",
+        "出版"
+      ],
+      "reason": "图书出版+AI应用+内容IP",
+      "recent_days": 3,
+      "recent_board_count": 3
+    },
+    {
+      "code": "002343.SZ",
+      "name": "慈文传媒",
+      "boards": 3,
+      "change": 10.01,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:30:00",
+      "theme": [
+        "传媒",
+        "影视院线",
+        "影视院线Ⅲ"
+      ],
+      "reason": "微短剧+影视IP+江西国资",
+      "recent_days": 3,
+      "recent_board_count": 3
+    },
+    {
+      "code": "605136.SH",
+      "name": "丽人丽妆",
+      "boards": 3,
+      "change": 10.02,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:31:00",
+      "theme": [
+        "商贸零售",
+        "互联网电商",
+        "互联网电商Ⅲ"
+      ],
+      "reason": "化妆品电商+海外总代+业绩扭亏",
+      "recent_days": 3,
+      "recent_board_count": 3
+    },
+    {
+      "code": "002696.SZ",
+      "name": "百洋股份",
+      "boards": 3,
+      "change": 10.06,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:34:15",
+      "theme": [
+        "农林牧渔",
+        "农产品加工",
+        "水产饲料"
+      ],
+      "reason": "水产饲料+鱼粉涨价+青岛国资",
+      "recent_days": 3,
+      "recent_board_count": 3
+    },
+    {
+      "code": "605577.SH",
+      "name": "龙版传媒",
+      "boards": 3,
+      "change": 9.99,
+      "break_count": 3,
+      "final_time": "2026-10-13 13:01:26",
+      "theme": [
+        "传媒",
+        "文化传媒",
+        "出版"
+      ],
+      "reason": "AI漫剧+数字出版+出版发行",
+      "recent_days": 5,
+      "recent_board_count": 4
+    },
+    {
+      "code": "001231.SZ",
+      "name": "农心科技",
+      "boards": 2,
+      "change": 10.0,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:30:30",
+      "theme": [
+        "基础化工",
+        "农化制品",
+        "农药"
+      ],
+      "reason": "农药制剂+原药投产+海外登记",
+      "recent_days": 2,
+      "recent_board_count": 2
+    },
+    {
+      "code": "600831.SH",
+      "name": "广电网络",
+      "boards": 2,
+      "change": 9.97,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:39:15",
+      "theme": [
+        "传媒",
+        "文化传媒",
+        "电视广播"
+      ],
+      "reason": "预重整+短剧+云网算力",
+      "recent_days": 2,
+      "recent_board_count": 2
+    },
+    {
+      "code": "603968.SH",
+      "name": "醋化股份",
+      "boards": 2,
+      "change": 10.04,
+      "break_count": 2,
+      "final_time": "2026-10-13 09:46:15",
+      "theme": [
+        "基础化工",
+        "化学制品",
+        "食品及饲料添加剂"
+      ],
+      "reason": "乙腈涨价+安赛蜜+染料+食品饲料添加剂",
+      "recent_days": 2,
+      "recent_board_count": 2
+    },
+    {
+      "code": "600851.SH",
+      "name": "海欣股份",
+      "boards": 2,
+      "change": 10.0,
+      "break_count": 3,
+      "final_time": "2026-10-13 13:24:56",
+      "theme": [
+        "医药生物",
+        "化学制药",
+        "化学制剂"
+      ],
+      "reason": "股东变更+医药健康+APDC",
+      "recent_days": 2,
+      "recent_board_count": 2
+    },
+    {
+      "code": "600693.SH",
+      "name": "东百集团",
+      "boards": 2,
+      "change": 10.02,
+      "break_count": 4,
+      "final_time": "2026-10-13 09:57:30",
+      "theme": [
+        "商贸零售",
+        "零售",
+        "百货零售"
+      ],
+      "reason": "光探测芯片+股权收购+商业零售",
+      "recent_days": 2,
+      "recent_board_count": 2
+    },
+    {
+      "code": "000668.SZ",
+      "name": "荣丰控股",
+      "boards": 1,
+      "change": 10.01,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:30:00",
+      "theme": [
+        "房地产",
+        "住宅开发"
+      ],
+      "reason": "控制权变更+复牌+要约收购+跨境物流",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "000823.SZ",
+      "name": "超声电子",
+      "boards": 1,
+      "change": 10.0,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:32:00",
+      "theme": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ],
+      "reason": "三季报预增+覆铜板+印制板+高阶HDI",
+      "recent_days": null,
+      "recent_board_count": null
+    }
+  ],
+  "leader_pool": [
+    {
+      "code": "603096.SH",
+      "name": "新经典",
+      "boards": 3,
+      "change": 10.02,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:30:00",
+      "theme": [
+        "传媒",
+        "文化传媒",
+        "出版"
+      ],
+      "reason": "图书出版+AI应用+内容IP",
+      "recent_days": 3,
+      "recent_board_count": 3
+    },
+    {
+      "code": "002343.SZ",
+      "name": "慈文传媒",
+      "boards": 3,
+      "change": 10.01,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:30:00",
+      "theme": [
+        "传媒",
+        "影视院线",
+        "影视院线Ⅲ"
+      ],
+      "reason": "微短剧+影视IP+江西国资",
+      "recent_days": 3,
+      "recent_board_count": 3
+    },
+    {
+      "code": "605136.SH",
+      "name": "丽人丽妆",
+      "boards": 3,
+      "change": 10.02,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:31:00",
+      "theme": [
+        "商贸零售",
+        "互联网电商",
+        "互联网电商Ⅲ"
+      ],
+      "reason": "化妆品电商+海外总代+业绩扭亏",
+      "recent_days": 3,
+      "recent_board_count": 3
+    },
+    {
+      "code": "002696.SZ",
+      "name": "百洋股份",
+      "boards": 3,
+      "change": 10.06,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:34:15",
+      "theme": [
+        "农林牧渔",
+        "农产品加工",
+        "水产饲料"
+      ],
+      "reason": "水产饲料+鱼粉涨价+青岛国资",
+      "recent_days": 3,
+      "recent_board_count": 3
+    },
+    {
+      "code": "605577.SH",
+      "name": "龙版传媒",
+      "boards": 3,
+      "change": 9.99,
+      "break_count": 3,
+      "final_time": "2026-10-13 13:01:26",
+      "theme": [
+        "传媒",
+        "文化传媒",
+        "出版"
+      ],
+      "reason": "AI漫剧+数字出版+出版发行",
+      "recent_days": 5,
+      "recent_board_count": 4
+    },
+    {
+      "code": "001231.SZ",
+      "name": "农心科技",
+      "boards": 2,
+      "change": 10.0,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:30:30",
+      "theme": [
+        "基础化工",
+        "农化制品",
+        "农药"
+      ],
+      "reason": "农药制剂+原药投产+海外登记",
+      "recent_days": 2,
+      "recent_board_count": 2
+    },
+    {
+      "code": "600831.SH",
+      "name": "广电网络",
+      "boards": 2,
+      "change": 9.97,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:39:15",
+      "theme": [
+        "传媒",
+        "文化传媒",
+        "电视广播"
+      ],
+      "reason": "预重整+短剧+云网算力",
+      "recent_days": 2,
+      "recent_board_count": 2
+    },
+    {
+      "code": "603968.SH",
+      "name": "醋化股份",
+      "boards": 2,
+      "change": 10.04,
+      "break_count": 2,
+      "final_time": "2026-10-13 09:46:15",
+      "theme": [
+        "基础化工",
+        "化学制品",
+        "食品及饲料添加剂"
+      ],
+      "reason": "乙腈涨价+安赛蜜+染料+食品饲料添加剂",
+      "recent_days": 2,
+      "recent_board_count": 2
+    },
+    {
+      "code": "600851.SH",
+      "name": "海欣股份",
+      "boards": 2,
+      "change": 10.0,
+      "break_count": 3,
+      "final_time": "2026-10-13 13:24:56",
+      "theme": [
+        "医药生物",
+        "化学制药",
+        "化学制剂"
+      ],
+      "reason": "股东变更+医药健康+APDC",
+      "recent_days": 2,
+      "recent_board_count": 2
+    },
+    {
+      "code": "600693.SH",
+      "name": "东百集团",
+      "boards": 2,
+      "change": 10.02,
+      "break_count": 4,
+      "final_time": "2026-10-13 09:57:30",
+      "theme": [
+        "商贸零售",
+        "零售",
+        "百货零售"
+      ],
+      "reason": "光探测芯片+股权收购+商业零售",
+      "recent_days": 2,
+      "recent_board_count": 2
+    },
+    {
+      "code": "000668.SZ",
+      "name": "荣丰控股",
+      "boards": 1,
+      "change": 10.01,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:30:00",
+      "theme": [
+        "房地产",
+        "住宅开发"
+      ],
+      "reason": "控制权变更+复牌+要约收购+跨境物流",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "000823.SZ",
+      "name": "超声电子",
+      "boards": 1,
+      "change": 10.0,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:32:00",
+      "theme": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ],
+      "reason": "三季报预增+覆铜板+印制板+高阶HDI",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "603188.SH",
+      "name": "亚邦股份",
+      "boards": 1,
+      "change": 10.08,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:33:00",
+      "theme": [
+        "基础化工",
+        "化学制品",
+        "纺织化学用品"
+      ],
+      "reason": "染料中间体+染料产业链+业绩修复",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "000833.SZ",
+      "name": "粤桂股份",
+      "boards": 1,
+      "change": 10.02,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:34:15",
+      "theme": [
+        "基础化工",
+        "非金属材料",
+        "非金属材料Ⅲ"
+      ],
+      "reason": "业绩预增+硫铁矿+新能源材料",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "600847.SH",
+      "name": "万里股份",
+      "boards": 1,
+      "change": 10.04,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:34:45",
+      "theme": [
+        "电力设备",
+        "电池",
+        "其他电池"
+      ],
+      "reason": "新能源锂电池+储能+铅酸电池",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "603767.SH",
+      "name": "中马传动",
+      "boards": 1,
+      "change": 10.01,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:35:45",
+      "theme": [
+        "汽车",
+        "汽车零部件",
+        "底盘与发动机系统"
+      ],
+      "reason": "新能源汽车减速器+汽车变速器+净利润增长",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002549.SZ",
+      "name": "凯美特气",
+      "boards": 1,
+      "change": 10.04,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:54:15",
+      "theme": [
+        "环保",
+        "环境治理",
+        "大气治理"
+      ],
+      "reason": "光刻气+电子特气+尾气回收",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002693.SZ",
+      "name": "双成药业",
+      "boards": 1,
+      "change": 10.02,
+      "break_count": 0,
+      "final_time": "2026-10-13 09:58:15",
+      "theme": [
+        "医药生物",
+        "生物制品",
+        "其他生物制品"
+      ],
+      "reason": "多肽药+药品出海+受托加工",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002748.SZ",
+      "name": "世龙实业",
+      "boards": 1,
+      "change": 9.99,
+      "break_count": 0,
+      "final_time": "2026-10-13 10:14:15",
+      "theme": [
+        "基础化工",
+        "化学原料",
+        "氯碱"
+      ],
+      "reason": "氯化亚砜+染料产业链+业绩增长",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "600202.SH",
+      "name": "哈空调",
+      "boards": 1,
+      "change": 10.04,
+      "break_count": 0,
+      "final_time": "2026-10-13 10:35:45",
+      "theme": [
+        "机械设备",
+        "通用设备",
+        "制冷空调设备"
+      ],
+      "reason": "空冷设备+飞翼式空冷+道达尔供应商",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "601188.SH",
+      "name": "龙江交通",
+      "boards": 1,
+      "change": 9.93,
+      "break_count": 0,
+      "final_time": "2026-10-13 10:48:41",
+      "theme": [
+        "交通运输",
+        "公路铁路运输",
+        "高速公路"
+      ],
+      "reason": "冰雪旅游保障+高速公路运营",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "000715.SZ",
+      "name": "中兴商业",
+      "boards": 1,
+      "change": 10.1,
+      "break_count": 0,
+      "final_time": "2026-10-13 10:52:26",
+      "theme": [
+        "商贸零售",
+        "零售",
+        "百货零售"
+      ],
+      "reason": "百货零售+冰雪消费+恐龙文旅",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "301010.SZ",
+      "name": "晶雪节能",
+      "boards": 1,
+      "change": 20.0,
+      "break_count": 0,
+      "final_time": "2026-10-13 10:55:26",
+      "theme": [
+        "建筑材料",
+        "其他建材"
+      ],
+      "reason": "冰雪经济+冷库围护",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "600593.SH",
+      "name": "大连圣亚",
+      "boards": 1,
+      "change": 10.0,
+      "break_count": 0,
+      "final_time": "2026-10-13 10:56:26",
+      "theme": [
+        "社会服务",
+        "旅游及酒店",
+        "人工景点"
+      ],
+      "reason": "哈尔滨景区+景区经营+海洋馆",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "603328.SH",
+      "name": "依顿电子",
+      "boards": 1,
+      "change": 9.98,
+      "break_count": 0,
+      "final_time": "2026-10-13 11:00:11",
+      "theme": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ],
+      "reason": "股权激励+印制电路板+算力PCB",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "603386.SH",
+      "name": "骏亚科技",
+      "boards": 1,
+      "change": 10.01,
+      "break_count": 0,
+      "final_time": "2026-10-13 11:10:26",
+      "theme": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ],
+      "reason": "PCB+高多层HDI+人形机器人",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002639.SZ",
+      "name": "雪人集团",
+      "boards": 1,
+      "change": 10.03,
+      "break_count": 0,
+      "final_time": "2026-10-13 11:18:11",
+      "theme": [
+        "机械设备",
+        "通用设备",
+        "制冷空调设备"
+      ],
+      "reason": "制冰系统+数据中心冷却+海外制冷",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "001229.SZ",
+      "name": "魅视科技",
+      "boards": 1,
+      "change": 10.01,
+      "break_count": 0,
+      "final_time": "2026-10-13 11:18:26",
+      "theme": [
+        "计算机",
+        "计算机设备",
+        "其他计算机设备"
+      ],
+      "reason": "磷化铟+专业视听+AI视觉",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "301041.SZ",
+      "name": "金百泽",
+      "boards": 1,
+      "change": 20.0,
+      "break_count": 0,
+      "final_time": "2026-10-13 11:27:26",
+      "theme": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ],
+      "reason": "PCB+AI算力+业绩增长",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002579.SZ",
+      "name": "中京电子",
+      "boards": 1,
+      "change": 9.97,
+      "break_count": 0,
+      "final_time": "2026-10-13 11:27:41",
+      "theme": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ],
+      "reason": "高阶HDI+高端PCB+存储算力",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002949.SZ",
+      "name": "华阳国际",
+      "boards": 1,
+      "change": 9.98,
+      "break_count": 0,
+      "final_time": "2026-10-13 11:28:56",
+      "theme": [
+        "建筑装饰",
+        "工程咨询服务"
+      ],
+      "reason": "AI设计+建筑设计+城市更新",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "603353.SH",
+      "name": "和顺石油",
+      "boards": 1,
+      "change": 10.01,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:00:11",
+      "theme": [
+        "石油石化",
+        "石油加工贸易",
+        "油品石化贸易"
+      ],
+      "reason": "半导体IP+成品油",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "600237.SH",
+      "name": "铜峰电子",
+      "boards": 1,
+      "change": 9.99,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:00:56",
+      "theme": [
+        "电子",
+        "元件",
+        "被动元件"
+      ],
+      "reason": "薄膜电容器+薄膜材料+复合铜箔基膜",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "600228.SH",
+      "name": "返利科技",
+      "boards": 1,
+      "change": 9.98,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:01:41",
+      "theme": [
+        "传媒",
+        "文化传媒",
+        "数字媒体"
+      ],
+      "reason": "在线导购+人工智能应用",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "603466.SH",
+      "name": "风语筑",
+      "boards": 1,
+      "change": 9.97,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:01:56",
+      "theme": [
+        "传媒",
+        "文化传媒",
+        "数字媒体"
+      ],
+      "reason": "AI视频+数字展示+具身智能+人工智能教育",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002862.SZ",
+      "name": "实丰文化",
+      "boards": 1,
+      "change": 10.0,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:02:26",
+      "theme": [
+        "轻工制造",
+        "家居用品",
+        "文娱用品"
+      ],
+      "reason": "AI玩具+IP潮玩+玩具制造",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "603001.SH",
+      "name": "奥康国际",
+      "boards": 1,
+      "change": 9.97,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:03:26",
+      "theme": [
+        "纺织服饰",
+        "服装家纺",
+        "鞋帽及其他"
+      ],
+      "reason": "皮鞋皮具+业绩扭亏+股权转让",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "603980.SH",
+      "name": "吉华集团",
+      "boards": 1,
+      "change": 10.0,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:06:11",
+      "theme": [
+        "基础化工",
+        "化学制品",
+        "纺织化学用品"
+      ],
+      "reason": "染料+控制权变更",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002980.SZ",
+      "name": "华盛昌",
+      "boards": 1,
+      "change": 10.0,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:06:26",
+      "theme": [
+        "电力设备",
+        "电网设备",
+        "电气自控设备"
+      ],
+      "reason": "光通信测试+硅光产品+伽蓝特收购",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "603042.SH",
+      "name": "华脉科技",
+      "boards": 1,
+      "change": 10.03,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:22:11",
+      "theme": [
+        "通信",
+        "通信设备",
+        "通信线缆及配套"
+      ],
+      "reason": "光纤光缆+扭亏为盈+6G通信",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "000558.SZ",
+      "name": "天府文旅",
+      "boards": 1,
+      "change": 10.03,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:23:41",
+      "theme": [
+        "社会服务",
+        "旅游及酒店",
+        "自然景点"
+      ],
+      "reason": "冰雪旅游+毕棚沟收购+影旅融合",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "600712.SH",
+      "name": "南宁百货",
+      "boards": 1,
+      "change": 10.06,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:28:11",
+      "theme": [
+        "商贸零售",
+        "零售",
+        "百货零售"
+      ],
+      "reason": "百货零售+平陆运河+扭亏为盈",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "600281.SH",
+      "name": "华阳新材",
+      "boards": 1,
+      "change": 9.93,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:39:41",
+      "theme": [
+        "有色金属",
+        "小金属",
+        "其他小金属"
+      ],
+      "reason": "贵金属回收+铂族金属加工+山西国资",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002172.SZ",
+      "name": "澳洋健康",
+      "boards": 1,
+      "change": 10.04,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:47:41",
+      "theme": [
+        "医药生物",
+        "医疗服务",
+        "医院"
+      ],
+      "reason": "脑机接口+医疗服务+国资控股+“羊”字辈",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002811.SZ",
+      "name": "郑中设计",
+      "boards": 1,
+      "change": 9.98,
+      "break_count": 0,
+      "final_time": "2026-10-13 13:52:56",
+      "theme": [
+        "建筑装饰",
+        "工程咨询服务"
+      ],
+      "reason": "半导体投资+室内设计+软装增长",
+      "recent_days": 3,
+      "recent_board_count": 2
+    },
+    {
+      "code": "002623.SZ",
+      "name": "亚玛顿",
+      "boards": 1,
+      "change": 10.01,
+      "break_count": 0,
+      "final_time": "2026-10-13 14:28:56",
+      "theme": [
+        "电力设备",
+        "光伏设备",
+        "光伏辅材"
+      ],
+      "reason": "玻璃基板+光伏玻璃+钙钛矿玻璃",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "000995.SZ",
+      "name": "皇台酒业",
+      "boards": 1,
+      "change": 9.96,
+      "break_count": 1,
+      "final_time": "2026-10-13 09:32:00",
+      "theme": [
+        "食品饮料",
+        "白酒",
+        "白酒Ⅲ"
+      ],
+      "reason": "白酒+区域品牌+线上营销",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002184.SZ",
+      "name": "海得控制",
+      "boards": 1,
+      "change": 10.04,
+      "break_count": 1,
+      "final_time": "2026-10-13 09:33:00",
+      "theme": [
+        "机械设备",
+        "自动化设备",
+        "工控设备"
+      ],
+      "reason": "工业自动化+工业AI+算力基础设施",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "003037.SZ",
+      "name": "三和管桩",
+      "boards": 1,
+      "change": 10.07,
+      "break_count": 1,
+      "final_time": "2026-10-13 09:35:45",
+      "theme": [
+        "建筑材料",
+        "水泥"
+      ],
+      "reason": "水利技术+新能源管桩+海工桩",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002917.SZ",
+      "name": "金奥博",
+      "boards": 1,
+      "change": 10.0,
+      "break_count": 1,
+      "final_time": "2026-10-13 09:37:00",
+      "theme": [
+        "基础化工",
+        "化学制品",
+        "民爆用品"
+      ],
+      "reason": "拟收购+民爆+西藏客户+机器人概念",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "300107.SZ",
+      "name": "建新股份",
+      "boards": 1,
+      "change": 20.03,
+      "break_count": 1,
+      "final_time": "2026-10-13 10:04:00",
+      "theme": [
+        "基础化工",
+        "化学制品",
+        "纺织化学用品"
+      ],
+      "reason": "染料+精细化工+电子化学品+纸张化学品",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002322.SZ",
+      "name": "理工能科",
+      "boards": 1,
+      "change": 10.01,
+      "break_count": 1,
+      "final_time": "2026-10-13 10:07:15",
+      "theme": [
+        "计算机",
+        "软件开发",
+        "垂直应用软件"
+      ],
+      "reason": "业绩预增+电力造价+高分红",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "000530.SZ",
+      "name": "冰山冷热",
+      "boards": 1,
+      "change": 9.98,
+      "break_count": 1,
+      "final_time": "2026-10-13 10:20:15",
+      "theme": [
+        "机械设备",
+        "通用设备",
+        "制冷空调设备"
+      ],
+      "reason": "数据中心液冷+储能温控+冷热设备+冰雪工程",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "605258.SH",
+      "name": "协和电子",
+      "boards": 1,
+      "change": 10.01,
+      "break_count": 1,
+      "final_time": "2026-10-13 10:40:30",
+      "theme": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ],
+      "reason": "PCB+高频通讯+新能源电池",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002640.SZ",
+      "name": "跨境通",
+      "boards": 1,
+      "change": 9.89,
+      "break_count": 1,
+      "final_time": "2026-10-13 10:53:41",
+      "theme": [
+        "商贸零售",
+        "互联网电商",
+        "互联网电商Ⅲ"
+      ],
+      "reason": "跨境电商+AI应用+中报扭亏",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "600853.SH",
+      "name": "龙建股份",
+      "boards": 1,
+      "change": 9.94,
+      "break_count": 1,
+      "final_time": "2026-10-13 11:17:56",
+      "theme": [
+        "建筑装饰",
+        "基础建设"
+      ],
+      "reason": "冰雪经济+公路市政+海外基建+寒区施工",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002878.SZ",
+      "name": "元隆雅图",
+      "boards": 1,
+      "change": 9.98,
+      "break_count": 1,
+      "final_time": "2026-10-13 13:07:26",
+      "theme": [
+        "传媒",
+        "文化传媒",
+        "广告营销"
+      ],
+      "reason": "冰雪经济+IP文创+短剧游戏+AI应用",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "001318.SZ",
+      "name": "阳光乳业",
+      "boards": 1,
+      "change": 10.04,
+      "break_count": 1,
+      "final_time": "2026-10-13 13:09:56",
+      "theme": [
+        "食品饮料",
+        "饮料制造",
+        "乳品"
+      ],
+      "reason": "低温乳品+冷链物流+新品研发",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002430.SZ",
+      "name": "杭氧股份",
+      "boards": 1,
+      "change": 9.99,
+      "break_count": 1,
+      "final_time": "2026-10-13 14:01:56",
+      "theme": [
+        "基础化工",
+        "化学制品",
+        "其他化学制品"
+      ],
+      "reason": "电子气体+工业气体+空分设备",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "603099.SH",
+      "name": "长白山",
+      "boards": 1,
+      "change": 10.0,
+      "break_count": 1,
+      "final_time": "2026-10-13 14:46:26",
+      "theme": [
+        "社会服务",
+        "旅游及酒店",
+        "自然景点"
+      ],
+      "reason": "冰雪旅游+旅游客运+温泉度假",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "605058.SH",
+      "name": "澳弘电子",
+      "boards": 1,
+      "change": 10.0,
+      "break_count": 2,
+      "final_time": "2026-10-13 10:37:00",
+      "theme": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ],
+      "reason": "PCB+AI服务器电源+具身智能",
+      "recent_days": 17,
+      "recent_board_count": 10
+    },
+    {
+      "code": "603956.SH",
+      "name": "威派格",
+      "boards": 1,
+      "change": 9.99,
+      "break_count": 2,
+      "final_time": "2026-10-13 13:07:56",
+      "theme": [
+        "机械设备",
+        "专用设备",
+        "其他专用设备"
+      ],
+      "reason": "PCB钻针+智慧水务+河图平台",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "600391.SH",
+      "name": "航发科技",
+      "boards": 1,
+      "change": 10.01,
+      "break_count": 2,
+      "final_time": "2026-10-13 13:13:11",
+      "theme": [
+        "国防军工",
+        "军工装备",
+        "航空装备"
+      ],
+      "reason": "航空发动机+长江1000A+外贸配套",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "600199.SH",
+      "name": "金种子酒",
+      "boards": 1,
+      "change": 9.99,
+      "break_count": 3,
+      "final_time": "2026-10-13 10:57:41",
+      "theme": [
+        "食品饮料",
+        "白酒",
+        "白酒Ⅲ"
+      ],
+      "reason": "白酒主业+啤白融合+亏损收窄",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "600802.SH",
+      "name": "福建水泥",
+      "boards": 1,
+      "change": 9.98,
+      "break_count": 3,
+      "final_time": "2026-10-13 13:03:11",
+      "theme": [
+        "建筑材料",
+        "水泥"
+      ],
+      "reason": "水泥熟料+重点工程+福建国资",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "688655.SH",
+      "name": "迅捷兴",
+      "boards": 1,
+      "change": 20.0,
+      "break_count": 3,
+      "final_time": "2026-10-13 14:42:41",
+      "theme": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ],
+      "reason": "印制电路板+高速光模块+定增获批",
+      "recent_days": null,
+      "recent_board_count": null
+    },
+    {
+      "code": "002587.SZ",
+      "name": "奥拓电子",
+      "boards": 1,
+      "change": 9.92,
+      "break_count": 3,
+      "final_time": "2026-10-13 14:52:26",
+      "theme": [
+        "电子",
+        "光学光电子",
+        "LED"
+      ],
+      "reason": "AI视讯+虚拟拍摄+电影屏",
+      "recent_days": null,
+      "recent_board_count": null
+    }
+  ],
+  "theme_rank": [
+    {
+      "theme": "电子",
+      "count": 10
+    },
+    {
+      "theme": "元件",
+      "count": 9
+    },
+    {
+      "theme": "基础化工",
+      "count": 9
+    },
+    {
+      "theme": "印制电路板",
+      "count": 8
+    },
+    {
+      "theme": "传媒",
+      "count": 7
+    },
+    {
+      "theme": "化学制品",
+      "count": 6
+    },
+    {
+      "theme": "文化传媒",
+      "count": 6
+    },
+    {
+      "theme": "商贸零售",
+      "count": 5
+    }
+  ],
+  "review": {
+    "label": "数据不足",
+    "conclusion": "缺少完整指定日期的炸板或隔日反馈样本，暂不判断短线强弱。",
+    "suitable": [
+      "只研究高辨识度核心及其同梯队竞争关系",
+      "次日竞价不恶化且板块仍有扩散时再复核",
+      "把隔日反馈作为环境确认，不把涨停数量当买点"
+    ],
+    "avoid": [
+      "中后排补涨与末端加速",
+      "仅凭单日涨停数量追逐题材",
+      "忽略炸板率和核心竞价的主动交易"
+    ],
+    "next_day_checks": [
+      "最高板是否继续晋级或出现负反馈",
+      "昨日涨停股溢价是否继续为正",
+      "炸板率、跌停家数和板块扩散是否同步改善"
+    ],
+    "note": "这是收盘复盘快照，不等于次日自动交易指令。"
+  },
+  "queries": [
+    "2026年10月13日沪深A股 非ST 涨停的股票 连续涨停天数 涨停开板次数 涨停原因 所属同花顺行业 2026年10月13日涨跌幅",
+    "2026年10月13日沪深A股 非ST 跌停 股票代码 股票简称",
+    "2026年10月13日沪深A股 非ST 曾涨停 股票代码 股票简称",
+    "2026年10月12日沪深A股 非ST 涨停股票 2026年10月13日涨跌幅"
+  ],
+  "query_attempts": [
+    {
+      "label": "涨停",
+      "query": "2026年10月13日沪深A股 非ST 涨停股票 股票简称 股票代码 所属同花顺行业 连续涨停天数 涨停开板次数 涨停原因 近10日涨停次数 几天几板",
+      "rows": 0
+    },
+    {
+      "label": "涨停",
+      "query": "2026年10月13日沪深A股 非ST 涨停的股票 连续涨停天数 涨停开板次数 涨停原因 所属同花顺行业 2026年10月13日涨跌幅",
+      "rows": 67
+    },
+    {
+      "label": "跌停",
+      "query": "2026年10月13日沪深A股 非ST 跌停 股票代码 股票简称",
+      "rows": 8
+    },
+    {
+      "label": "曾涨停",
+      "query": "2026年10月13日沪深A股 非ST 曾涨停 股票代码 股票简称",
+      "rows": 14
+    },
+    {
+      "label": "隔日反馈",
+      "query": "2026年10月12日沪深A股 非ST 涨停股票 2026年10月13日涨跌幅",
+      "rows": 46
+    }
+  ]
+}

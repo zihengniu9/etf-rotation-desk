@@ -1,24 +1,24 @@
 {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-16T16:27:02+08:00",
+  "updated_at": "2026-10-17T01:03:06+08:00",
   "reference_date": "2026-10-16",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
-    "current": 6,
+    "current": 8,
     "stale": 0,
     "missing": 0,
-    "error": 1
+    "error": 0
   },
   "modules": [
     {
       "key": "review",
       "title": "行情复盘",
       "href": "./market_mode.html#daily-review",
-      "state": "error",
+      "state": "current",
       "data_as_of": "2026-10-16",
-      "coverage": "涨停板清单 0 只",
+      "coverage": "涨停板清单 12 只",
       "source": "同花顺问财 · hithink-astock-selector",
-      "note": "复盘取数不完整（涨停、炸板或隔日反馈缺失），需重新采集",
+      "note": "最新完成交易日的收盘复盘",
       "cadence": "每个交易日收盘"
     },
     {
@@ -27,7 +27,7 @@
       "href": "./shortterm_dashboard.html",
       "state": "current",
       "data_as_of": "2026-10-16",
-      "coverage": "梯队 6 只 · 因子候选 14 只",
+      "coverage": "梯队 6 只 · 因子候选 40 只",
       "source": "短线 M/S/E/Q 本地生成器",
       "note": "盘后因子已更新；09:25竞价信号独立保留",
       "cadence": "每个交易日09:25与收盘"
@@ -86,6 +86,17 @@
       "source": "同花顺问财 · hithink-astock-selector",
       "note": "当前截面已更新；PandaAI 历史回测待参数确认",
       "cadence": "每周/分红方案更新后"
+    },
+    {
+      "key": "news",
+      "title": "消息面",
+      "href": "./market_mode.html#news-panel",
+      "state": "current",
+      "data_as_of": "2026-10-17",
+      "coverage": "相关快讯 1440 条 · 源 3/3",
+      "source": "财联社 / 东方财富 / 新浪财经 7×24",
+      "note": "重大利空：古巴谴责美国制裁古巴金融机构",
+      "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
 }
