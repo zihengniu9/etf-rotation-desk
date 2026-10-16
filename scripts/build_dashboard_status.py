@@ -134,6 +134,7 @@ def main(now: datetime | None = None) -> int:
     trend = load_json("trend_engine.json")
     growth = load_json("growth_factor_snapshot.json")
     dividend = load_json("dividend_factor_snapshot.json")
+    news = load_json("news_signal.json")
     now = now or datetime.now(RUN_TZ)
     now = now.replace(tzinfo=RUN_TZ) if now.tzinfo is None else now.astimezone(RUN_TZ)
     # 以“最新完成交易日”为基准：不再锚定复盘日期，避免一份失败或滞后的复盘把更新更快的模块判成过期。
@@ -202,6 +203,14 @@ def main(now: datetime | None = None) -> int:
             "source": dividend.get("source") or "同花顺问财",
             "note": "当前截面已更新；PandaAI 历史回测待参数确认",
             "cadence": "每周/分红方案更新后", "max_lag_days": 5,
+        },
+        {
+            "key": "news", "title": "消息面", "href": "./market_mode.html#news-panel",
+            "date": iso_date(news.get("generated_at")), "exists": bool(news), "source_status": news.get("status") or "",
+            "coverage": f"相关快讯 {(news.get('counts') or {}).get('relevant', '—')} 条 · 源 {sum(1 for item in news.get('sources') or [] if item.get('status') == 'ok')}/{len(news.get('sources') or [])}",
+            "source": "财联社 / 东方财富 / 新浪财经 7×24",
+            "note": "；".join((news.get("gate") or {}).get("reasons") or []) or "消息面只阻断或提示进攻，不单独触发进攻",
+            "cadence": "09:25前、盘中、收盘后", "max_lag_days": 0,
         },
     ]
 

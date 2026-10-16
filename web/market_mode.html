@@ -158,6 +158,33 @@
     .switch-state.is-current { color:var(--blue); background:#fff; box-shadow:inset 0 0 0 1px rgb(200 40 53 / .22); }
     .switch-state.is-pass { color:var(--success); background:var(--success-soft); }
     .switch-state.is-fail { color:var(--text-3); background:#f2f4f7; }
+    .news-panel { padding:18px 20px; }
+    .news-summary { display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; }
+    .news-gate { display:inline-flex; align-items:center; min-height:28px; padding:0 11px; border-radius:999px; font-size:13px; font-weight:850; }
+    .news-gate.block { color:#fff; background:var(--danger); }
+    .news-gate.caution { color:var(--warning); background:var(--warning-soft); }
+    .news-gate.clear { color:var(--success); background:var(--success-soft); }
+    .news-gate.unavailable { color:var(--text-3); background:#f2f4f7; }
+    .news-meta { color:var(--text-2); font-size:12px; }
+    .news-effects { margin:12px 0 0; padding:10px 12px; border-radius:12px; background:#f6f8fb; color:var(--text-2); font-size:12.5px; line-height:1.65; }
+    .news-effects.block { background:var(--danger-soft); color:var(--danger); }
+    .news-effects.caution { background:var(--warning-soft); color:var(--warning); }
+    .news-themes { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+    .news-theme { display:inline-flex; align-items:center; gap:5px; min-height:26px; padding:0 9px; border:1px solid var(--line); border-radius:999px; background:#fff; font-size:12px; }
+    .news-theme b { font-weight:800; }
+    .news-theme.neg b,.news-tag.neg { color:var(--down); }
+    .news-theme.pos b,.news-tag.pos { color:var(--up); }
+    .news-theme.alert { border-color:rgb(22 128 95 / .35); background:#effaf5; }
+    .news-list { display:grid; gap:0; margin:12px 0 0; padding:0; list-style:none; }
+    .news-row { display:grid; grid-template-columns:86px minmax(0,1fr) auto; align-items:baseline; gap:10px; padding:9px 0; border-top:1px solid var(--line); font-size:13px; }
+    .news-row time { color:var(--text-3); font-size:12px; }
+    .news-row a,.news-row span.news-title { color:var(--text); text-decoration:none; line-height:1.5; }
+    .news-row a:hover { color:var(--blue); }
+    .news-row small { display:block; margin-top:2px; color:var(--text-3); font-size:12px; }
+    .news-tag { font-size:12px; font-weight:800; white-space:nowrap; }
+    .news-tag.flat { color:var(--text-3); }
+    .news-note { margin:10px 0 0; color:var(--text-3); font-size:12px; line-height:1.6; }
+    @media (max-width:720px) { .news-panel { padding:14px; } .news-row { grid-template-columns:1fr auto; } .news-row time { grid-column:1 / -1; } }
     .local-only { display:none; }
     .is-local .local-only { display:inline; }
     .data-health-more > summary { min-height:36px; padding:0 2px; color:var(--text-2); font-size:12px; font-weight:750; }
@@ -409,6 +436,12 @@
     </section>
 
     <div class="section-head">
+      <div><h2>消息面</h2><p>近 24 小时政策、行业与外部冲击快讯；只用于给进攻模式踩刹车，利好消息不会单独触发进攻。</p></div>
+      <p id="news-head-note">财联社 · 东方财富 · 新浪财经</p>
+    </div>
+    <section class="panel news-panel" id="news-panel" aria-live="polite" aria-label="消息面"></section>
+
+    <div class="section-head">
       <div><h2>当前模式执行台</h2><p>只展开当前最占优的模式；其他策略保留入口，不混入本页主结论。</p></div>
       <p>模式判断 ≠ 个股买卖建议</p>
     </div>
@@ -514,6 +547,7 @@
   <script src="../outputs/dividend_factor_snapshot.js?v=20260831"></script>
   <script src="../outputs/dashboard_status.js?v=20260831-close"></script>
   <script src="../outputs/latest_market_review.js?v=20260831-close"></script>
+  <script src="../outputs/news_signal.js?v=20261017"></script>
   <script src="./dashboard_contract.js?v=20261016-data-check"></script>
   <script src="./trading_calendar.js?v=20261001"></script>
   <script src="./trend_engine.js"></script>
@@ -547,7 +581,8 @@
         growth: null,
         dividend: null,
         dashboardStatus: null,
-        latestReview: null
+        latestReview: null,
+        news: null
       };
 
       var MODE_META = {
@@ -595,7 +630,7 @@
       var escapeHtml = function (v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) { return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[c]; }); };
       var pct = function (v, digits) { return (v >= 0 ? "+" : "") + num(v).toFixed(digits == null ? 2 : digits) + "%"; };
 
-      var MODULE_LABELS = {review:"复盘",short:"短线",industry:"行业",etf:"ETF",trend:"趋势",growth:"成长",dividend:"红利"};
+      var MODULE_LABELS = {news:"消息面",review:"复盘",short:"短线",industry:"行业",etf:"ETF",trend:"趋势",growth:"成长",dividend:"红利"};
       var isLocalView = location.protocol === "file:" || /^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname);
       var fmtInt = function (v, suffix) { return v === null || v === undefined || v === "" || !Number.isFinite(Number(v)) ? "—" : Math.round(Number(v)) + (suffix || ""); };
       var fmtRate = function (v) { return v === null || v === undefined || v === "" || !Number.isFinite(Number(v)) ? "—" : (Number(v) * 100).toFixed(1) + "%"; };
@@ -711,7 +746,8 @@
         var labels=typeof MODULE_LABELS!=="undefined"?MODULE_LABELS:{};
         var modules=typeof healthModules==="function"?healthModules(snapshot):((snapshot.dashboardStatus||{}).modules||null);
         (modules||[]).forEach(function(item){
-          if(item.state==="error"||item.state==="missing") degraded.push((labels[item.key]||item.title||item.key)+(item.state==="error"?"更新失败":"缺失"));
+          // 消息面是辅助刹车，失败时在消息面卡片里说明，不把核心结论标成“需复核”。
+          if(item.key!=="news"&&(item.state==="error"||item.state==="missing")) degraded.push((labels[item.key]||item.title||item.key)+(item.state==="error"?"更新失败":"缺失"));
         });
         var s=snapshot.short||{};
         if(s.basis==="auction"&&s.ecoDate&&asOf&&s.ecoDate<asOf) degraded.push("短线涨跌停数据为 "+s.ecoDate.slice(5)+" 收盘");
@@ -744,7 +780,15 @@
         var scores={short:shortScore,etf:etfScore,trend:trendScore,resonance:resonance,defense:risk};
         var eligible={short:s.available!==false&&s.allowResearch!==false&&shortScore>=75,
           etf:etf.mode==="attack",trend:!!(trendView&&trendView.historyAvailable&&trendView.status==="ready"&&!trendView.blockers.length)};
-        eligible.resonance=!!(eligible.short&&eligible.etf&&eligible.trend&&links===3);
+        // 消息面只踩刹车：重大利空阻断全部进攻；主题利空暂停对应模式；偏空时取消共振。利好不改变任何门控。
+        var news=newsView(snapshot.news), newsBlocks=[];
+        if(news.applied) {
+          if(news.state==="block") { ["short","etf","trend"].forEach(function(key){ if(eligible[key]) newsBlocks.push({mode:key,reason:news.reasons[0]||"消息面重大利空"}); eligible[key]=false; }); }
+          var etfAlert=newsThemeAlert(news,etf.pickTheme), shortAlert=newsThemeAlert(news,s.leaderTheme);
+          if(eligible.etf&&etfAlert) { eligible.etf=false; newsBlocks.push({mode:"etf",reason:"首选主题「"+etf.pickTheme+"」消息净分 "+etfAlert.score}); }
+          if(eligible.short&&shortAlert) { eligible.short=false; newsBlocks.push({mode:"short",reason:"龙头题材「"+s.leaderTheme+"」消息净分 "+shortAlert.score}); }
+        }
+        eligible.resonance=!!(eligible.short&&eligible.etf&&eligible.trend&&links===3&&!(news.applied&&news.state==="caution"));
         // 各模式分数来自不同公式，不能横向比大小；多个模式同时通过门控时按固定优先级取主模式。
         var priority=["resonance","short","trend","etf"];
         var mode="defense";
@@ -753,9 +797,31 @@
         var secondary=candidates.filter(function(key){return key!==mode;})[0]||"defense";
         var phase=mode==="short"?(shortScore>=75?"情绪修复后的进攻窗口":"核心试错"):mode==="etf"?"工具趋势占优":mode==="trend"?"趋势环境占优":mode==="resonance"?"跨体系共振":"风险收缩";
         var riskLabel=(s.riskReasons||[]).length?"高":mode==="short"?"中高":risk>=65?"高":risk>=40?"中":"中低";
-        return { scores:scores,eligible:eligible,priority:priority.concat("defense"),mode:mode,secondary:secondary,phase:phase,risk:risk,riskLabel:riskLabel,
+        if(news.applied&&news.state==="block") riskLabel="高";
+        else if(news.applied&&news.state==="caution") riskLabel=({"中低":"中","中":"中高","中高":"高"})[riskLabel]||riskLabel;
+        return { scores:scores,eligible:eligible,priority:priority.concat("defense"),mode:mode,secondary:secondary,phase:phase,risk:risk,riskLabel:riskLabel,news:news,newsBlocks:newsBlocks,
           diagnostics:{breadth:breadth,share:share,ratio:ratio,excess:excess,sameEtf:sameEtf,indEtf:indEtf,indShort:indShort,etfShort:etfShort,trendScore:trendScore,trendView:trendView} };
       }
+
+      // 消息面视图：采集失败或超过 24 小时未更新时不参与判定（applied=false），页面明确显示原因。
+      function newsView(news, nowMs) {
+        var empty={applied:false,state:"unavailable",reasons:[],themes:[],items:[],sources:[],marketScore:null,generatedAt:null,stale:false};
+        if(!news||typeof news!=="object") { empty.reasons=["未生成消息面数据（运行 scripts/update_news_signal.py）"]; return empty; }
+        var gate=news.gate||{}, generated=Date.parse(news.generated_at||""), now=nowMs==null?Date.now():nowMs;
+        var stale=!Number.isFinite(generated)||now-generated>24*3600*1000;
+        var ok=news.status==="ok"&&gate.state&&gate.state!=="unavailable";
+        return {applied:ok&&!stale,state:ok?(stale?"unavailable":gate.state):"unavailable",stale:ok&&stale,
+          reasons:stale&&ok?["消息面超过 24 小时未更新（"+String(news.generated_at||"").slice(0,16).replace("T"," ")+"）"]:(gate.reasons||[]),
+          themes:Array.isArray(news.themes)?news.themes:[],items:Array.isArray(news.items)?news.items:[],sources:Array.isArray(news.sources)?news.sources:[],
+          marketScore:news.market?news.market.score:null,generatedAt:news.generated_at||null,counts:news.counts||{},rule:gate.rule||""};
+      }
+      function newsThemeFor(view, name) {
+        var target=String(name||"").toLowerCase(); if(!target||target==="—") return null;
+        return (view.themes||[]).filter(function(theme){
+          return (theme.aliases||[theme.theme]).concat([theme.theme]).some(function(alias){ alias=String(alias||"").toLowerCase(); return alias&&(target.indexOf(alias)>=0||alias.indexOf(target)>=0); });
+        }).sort(function(a,b){return a.score-b.score;})[0]||null;
+      }
+      function newsThemeAlert(view, name) { var theme=newsThemeFor(view,name); return theme&&theme.alert?theme:null; }
 
       function renderList(id, items) { $(id).innerHTML=items.map(function(x){return "<li>"+escapeHtml(x)+"</li>";}).join(""); }
 
@@ -779,7 +845,7 @@
         var freshnessReason=describeFreshness(a.freshness).join("；");
         var degradedReason=(a.freshness.degraded||[]).join("；"), degraded=a.currentAllowed&&!!degradedReason; a.degraded=degraded;
         $("mode-title").textContent=!a.currentAllowed?"当前结论暂停":meta.name;
-        $("mode-subtitle").textContent=!a.currentAllowed?"核心数据没有更新到同一交易日（"+freshnessReason+"）；下方保留历史快照，仅用于复核，不作为当前执行依据。":(degraded?"部分数据需复核（"+degradedReason+"），以下结论仅供参考。":"")+a.phase+"。"+((snapshot.short.riskReasons||[]).length?"短线："+snapshot.short.riskReasons.join("、")+"。":"")+meta.desc;
+        $("mode-subtitle").textContent=!a.currentAllowed?"核心数据没有更新到同一交易日（"+freshnessReason+"）；下方保留历史快照，仅用于复核，不作为当前执行依据。":(degraded?"部分数据需复核（"+degradedReason+"），以下结论仅供参考。":"")+a.phase+"。"+(a.news.applied&&a.news.state==="block"?"消息面阻断进攻（"+a.news.reasons.join("；")+"）。":a.news.applied&&a.news.state==="caution"?"消息面偏空（"+a.news.reasons.join("；")+"），控制仓位。":"")+(a.newsBlocks.length&&a.news.state!=="block"?"消息面暂停："+a.newsBlocks.map(function(b){return MODE_META[b.mode].name+"（"+b.reason+"）";}).join("；")+"。":"")+((snapshot.short.riskReasons||[]).length?"短线："+snapshot.short.riskReasons.join("、")+"。":"")+meta.desc;
         // 防守分只是 100 − 短线分的派生值，不代表“防守有多少把握”；防守时改显示进攻门控通过数。
         var isDefense=a.mode==="defense", passed=["resonance","short","trend","etf"].filter(function(k){return a.eligible[k];}).length;
         $("mode-score").textContent=a.currentAllowed?(isDefense?passed+"/4":Math.round(scores[a.mode])):"—";
@@ -810,7 +876,43 @@
         $("mode-kicker").textContent=a.currentAllowed?"当前主模式":"主模式判定";
         $("decision-grid").classList.toggle("paused",!a.currentAllowed);
         document.body.classList.toggle("is-local",isLocalView);
-        renderHub(); renderDataHealth(); renderCurrentDesk(); renderTrend(); renderModeList(); renderModeDetail(a.mode); renderStyleFactors(); renderSwitchGrid(); renderDailyReview(); renderEvidence();
+        renderHub(); renderDataHealth(); renderNews(); renderCurrentDesk(); renderTrend(); renderModeList(); renderModeDetail(a.mode); renderStyleFactors(); renderSwitchGrid(); renderDailyReview(); renderEvidence();
+      }
+
+      function renderNews() {
+        var panel=$("news-panel"); if(!panel) return;
+        var a=state.analysis||{}, view=a.news||newsView(state.snapshot.news);
+        var gateLabel={block:"阻断进攻",caution:"偏空 · 控制仓位",clear:"未见重要利空",unavailable:view.stale?"已过期 · 未参与判定":"未接入 · 未参与判定"}[view.state]||"未接入";
+        var sources=view.sources.map(function(src){return src.name+(src.status==="ok"?" "+src.count+"条":src.status==="empty"?" 0条":" 失败");}).join(" · ");
+        var when=view.generatedAt?String(view.generatedAt).slice(5,16).replace("T"," "):"—";
+        var effects=[];
+        if(view.applied) {
+          var paused=(a.newsBlocks||[]).map(function(b){return MODE_META[b.mode].name;});
+          effects=effects.concat(view.reasons);
+          if(view.state==="block") effects.push(paused.length?"已暂停："+paused.join("、")+"，主模式切换为防守等待。":"进攻模式全部阻断（本次本就没有进攻模式通过门控，结论不变）。");
+          else if(view.state==="caution") effects.push("不阻断进攻，但风险等级上调一档，共振进攻不成立。");
+          (a.newsBlocks||[]).filter(function(b){return view.state!=="block";}).forEach(function(b){effects.push(MODE_META[b.mode].name+"暂停："+b.reason);});
+          if(!effects.length) effects.push("消息面未改变当前门控结果。");
+        } else effects=view.reasons.length?view.reasons:["消息面未参与本次判定"];
+        var themes=view.themes.filter(function(t){return Math.abs(t.score)>=0.5;}).sort(function(x,y){return Math.abs(y.score)-Math.abs(x.score);}).slice(0,8).map(function(t){
+          var cls=t.score<0?"neg":"pos";
+          return '<span class="news-theme '+cls+(t.alert?' alert':'')+'">'+escapeHtml(t.theme)+' <b>'+(t.score>0?"+":"")+escapeHtml(t.score)+'</b><small>'+t.positive+'利好/'+t.negative+'利空</small></span>';
+        }).join("");
+        var items=view.items.slice(0,8).map(function(it){
+          var tag=it.sentiment>0?'<span class="news-tag pos">利好</span>':it.sentiment<0?'<span class="news-tag neg">利空</span>':'<span class="news-tag flat">中性</span>';
+          var title=it.url?'<a href="'+escapeHtml(it.url)+'" target="_blank" rel="noopener">'+escapeHtml(it.title)+'</a>':'<span class="news-title">'+escapeHtml(it.title)+'</span>';
+          var words=[].concat(it.evidence&&it.evidence.negative||[],it.evidence&&it.evidence.positive||[]).slice(0,3).join("、");
+          var meta=[it.source+(it.also_in&&it.also_in.length?" 等"+(it.also_in.length+1)+"家":""),it.scope==="market"?"大盘":(it.themes||[]).join("/"),"权重"+it.weight,words?"命中："+words:""].filter(Boolean).join(" · ");
+          return '<li class="news-row"><time>'+escapeHtml(String(it.published_at||"").slice(5,16).replace("T"," "))+'</time><div>'+title+'<small>'+escapeHtml(meta)+'</small></div>'+tag+'</li>';
+        }).join("");
+        panel.innerHTML='<div class="news-summary"><span class="news-gate '+escapeHtml(view.state)+'">'+escapeHtml(gateLabel)+'</span>'+
+          '<span class="news-meta">大盘消息净分 <strong>'+(view.marketScore==null?"—":escapeHtml(view.marketScore))+'</strong></span>'+
+          '<span class="news-meta">相关快讯 '+escapeHtml((view.counts||{}).relevant==null?"—":view.counts.relevant)+' 条</span>'+
+          '<span class="news-meta">更新 '+escapeHtml(when)+'</span>'+(sources?'<span class="news-meta">'+escapeHtml(sources)+'</span>':'')+'</div>'+
+          '<div class="news-effects '+(view.applied?escapeHtml(view.state):"")+'">'+effects.map(escapeHtml).join("<br>")+'</div>'+
+          (themes?'<div class="news-themes">'+themes+'</div>':'')+
+          (items?'<ul class="news-list">'+items+'</ul>':'')+
+          '<p class="news-note">按关键词与来源重要级别归类，12 小时半衰；分类可能误判，点标题看原文复核。'+escapeHtml(view.rule||"")+'</p>';
       }
 
       function renderHub() {
@@ -1153,9 +1255,10 @@
           fetchJson("../outputs/dividend_factor_snapshot.json").catch(function(){return window.DIVIDEND_FACTOR_SNAPSHOT||null;}),
           fetchJson("../outputs/dashboard_status.json").catch(function(){return window.DASHBOARD_STATUS||null;}),
           fetchJson("../outputs/shortterm_factor_preview.json").catch(function(){return window.SHORT_FACTOR_PREVIEW||null;}),
-          fetchJson("../outputs/growth_factor_snapshot.json").catch(function(){return window.GROWTH_FACTOR_SNAPSHOT||null;})
+          fetchJson("../outputs/growth_factor_snapshot.json").catch(function(){return window.GROWTH_FACTOR_SNAPSHOT||null;}),
+          fetchJson("../outputs/news_signal.json").catch(function(){return window.NEWS_SIGNAL||null;})
         ]).then(function(all){
-          var sig=all[0],indData=all[1],picks=all[2],ranks=all[3],hots=all[4],trendData=all[5],latestReview=all[6],dividendData=all[7],dashboardStatus=all[8],shortFactor=all[9],growthData=all[10];
+          var sig=all[0],indData=all[1],picks=all[2],ranks=all[3],hots=all[4],trendData=all[5],latestReview=all[6],dividendData=all[7],dashboardStatus=all[8],shortFactor=all[9],growthData=all[10],newsData=all[11];
           var statusEtf=((dashboardStatus&&dashboardStatus.modules)||[]).filter(function(item){return item.key==="etf";})[0]||{};
           var shortView=buildShortView(sig,latestReview,shortFactor);
           var industryDate=String(indData.data_as_of||"").slice(0,10), etfDate=String(statusEtf.data_as_of||"").slice(0,10);
@@ -1189,7 +1292,7 @@
             trendLatest:trendData||null,
             growth:growthData||window.GROWTH_FACTOR_SNAPSHOT||null,
             dividend:dividendData||window.DIVIDEND_FACTOR_SNAPSHOT||null,
-            dashboardStatus:dashboardStatus,latestReview:latestReview};
+            dashboardStatus:dashboardStatus,latestReview:latestReview,news:newsData||window.NEWS_SIGNAL||null};
           render(snapshot,"live");
         }).catch(function(err){
           if(state.source==="live") {
@@ -1239,6 +1342,7 @@
         FALLBACK.shortFactor=window.SHORT_FACTOR_PREVIEW||null;
         FALLBACK.dashboardStatus=window.DASHBOARD_STATUS||null;
         FALLBACK.latestReview=window.LATEST_MARKET_REVIEW||null;
+        FALLBACK.news=window.NEWS_SIGNAL||null;
         FALLBACK.short=buildShortView(sig,FALLBACK.latestReview,FALLBACK.shortFactor);
         var statusEtf=((FALLBACK.dashboardStatus&&FALLBACK.dashboardStatus.modules)||[]).filter(function(item){return item.key==="etf";})[0]||{};
         FALLBACK.dataDates={
