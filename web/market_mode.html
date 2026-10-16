@@ -158,6 +158,19 @@
     .switch-state.is-current { color:var(--blue); background:#fff; box-shadow:inset 0 0 0 1px rgb(200 40 53 / .22); }
     .switch-state.is-pass { color:var(--success); background:var(--success-soft); }
     .switch-state.is-fail { color:var(--text-3); background:#f2f4f7; }
+    .anchor-desk,.anchor-desk-bottom { position:relative; z-index:1; }
+    .anchor-desk { padding:0; display:flex; flex-wrap:wrap; align-items:stretch; gap:10px; margin-top:14px; }
+    .anchor-desk .current-desk-stats { flex:1 1 560px; margin:0; padding:0; }
+    .anchor-desk .current-desk-action { align-self:center; }
+    .anchor-desk-bottom { margin-top:12px; }
+    .anchor-desk-bottom .current-desk-bottom { margin-top:0; }
+    .anchor-desk-title { display:block; margin:0 0 8px; color:var(--text-3); font-size:12px; font-weight:800; }
+    .anchor-foot { position:relative; z-index:1; margin:12px 0 0; color:var(--text-3); font-size:12px; }
+    .hub-combined .data-health { padding:0; border:0; background:none; box-shadow:none; }
+    .hub-divider { height:1px; margin:16px 0 14px; background:var(--line); }
+    .hub-subtitle { margin:0 0 9px; font-size:15px; }
+    .hub-subtitle small { margin-left:8px; color:var(--text-3); font-size:12px; font-weight:600; }
+    @media (max-width:720px) { .hub-subtitle small { display:block; margin:4px 0 0; } .anchor-desk .current-desk-stats { flex-basis:100%; } }
     .news-panel { padding:18px 20px; }
     .news-summary { display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; }
     .news-gate { display:inline-flex; align-items:center; min-height:28px; padding:0 11px; border-radius:999px; font-size:13px; font-weight:850; }
@@ -392,6 +405,7 @@
         <span class="meta">次级模式 <strong id="secondary-mode">—</strong></span>
         <span class="meta">数据状态 <strong id="freshness">—</strong></span>
       </div>
+      <div class="current-mode-desk anchor-desk" id="current-mode-desk" aria-live="polite" aria-label="当前模式执行台"></div>
       <div class="decision-grid" id="decision-grid">
         <article class="decision-card">
           <div class="decision-label"><i></i><span id="suitable-label">适合研究什么</span></div>
@@ -406,13 +420,15 @@
           <ul id="invalidate-list"><li>等待模式判定</li></ul>
         </article>
       </div>
+      <div class="anchor-desk-bottom" id="current-desk-bottom"></div>
+      <p class="anchor-foot">模式判断 ≠ 个股买卖建议；只展开当前主模式，其他策略在下方入口进入。</p>
     </section>
 
     <div class="section-head">
-      <div><h2>今日策略入口</h2><p>行情模式只负责路由；各模块保持独立，不合成股票总分。</p></div>
+      <div><h2>今日策略入口 · 数据覆盖</h2><p>行情模式只负责路由，各模块保持独立、不合成股票总分；每个入口都标出数据是否最新。</p></div>
       <p>状态优先于排名</p>
     </div>
-    <section class="panel strategy-hub" aria-labelledby="strategy-hub-title">
+    <section class="panel strategy-hub hub-combined" aria-labelledby="strategy-hub-title">
       <div class="strategy-hub-head">
         <div>
           <h2 id="strategy-hub-title">按当前行情选择研究页面</h2>
@@ -421,18 +437,15 @@
         <span class="strategy-hub-note">趋势、成长、短线、行业、ETF各自验证</span>
       </div>
       <div class="module-grid" id="strategy-hub" aria-live="polite"></div>
-    </section>
-
-    <div class="section-head">
-      <div><h2>数据覆盖与新鲜度</h2><p>以最新完成交易日为基准；落后、缺失或取数不完整的模块会单独标出，不会被包装成“当前结论”。</p></div>
-      <p>点击模块查看具体数据与口径</p>
-    </div>
-    <section class="panel data-health" aria-labelledby="data-health-title">
+      <div class="hub-divider" role="presentation"></div>
+      <div class="data-health" aria-labelledby="data-health-title">
+      <h3 class="hub-subtitle">数据覆盖与新鲜度 <small>以最新完成交易日为基准；落后、缺失或取数不完整的模块单独标出</small></h3>
       <div class="data-health-summary"><strong id="data-health-title">正在检查全部模块</strong><span id="data-health-note">—</span></div>
       <details class="data-health-more" id="data-health-more">
         <summary id="data-health-toggle">展开模块明细</summary>
         <div class="data-health-grid" id="data-health-grid" aria-live="polite"></div>
       </details>
+      </div>
     </section>
 
     <div class="section-head">
@@ -441,11 +454,6 @@
     </div>
     <section class="panel news-panel" id="news-panel" aria-live="polite" aria-label="消息面"></section>
 
-    <div class="section-head">
-      <div><h2>当前模式执行台</h2><p>只展开当前最占优的模式；其他策略保留入口，不混入本页主结论。</p></div>
-      <p>模式判断 ≠ 个股买卖建议</p>
-    </div>
-    <section class="panel current-mode-desk" id="current-mode-desk" aria-live="polite" aria-label="当前模式执行台"></section>
 
     <div id="trend-module-section" hidden>
     <div class="section-head trend-head">
@@ -1002,8 +1010,10 @@
         var model=models[key];
         $("trend-module-section").hidden=key!=="trend";
         $("current-mode-desk").style.setProperty("--desk-color",meta.color);
-        $("current-mode-desk").innerHTML='<div class="current-desk-summary"><div><span class="current-desk-kicker">'+(a.currentAllowed?"当前主模式":"历史模式复核")+' · '+escapeHtml(a.phase)+'</span><h3>'+escapeHtml(a.currentAllowed?model.title:"历史"+model.title.replace("执行台","快照"))+'</h3><p>'+escapeHtml(a.currentAllowed?model.note:"核心行情日期未对齐，本区仅保留历史指标与复核入口，不产生当前执行结论。")+'</p></div><a class="current-desk-action" href="'+modeHref(key)+'">'+escapeHtml(model.action)+' →</a></div>'+
-          '<div class="current-desk-stats">'+model.stats.map(function(item){return '<div class="current-desk-stat"><span>'+escapeHtml(item[0])+'</span><strong>'+escapeHtml(item[1])+'</strong></div>';}).join("")+'</div>'+ 
+        $("current-mode-desk").innerHTML='<div class="current-desk-stats">'+model.stats.map(function(item){return '<div class="current-desk-stat"><span>'+escapeHtml(item[0])+'</span><strong>'+escapeHtml(item[1])+'</strong></div>';}).join("")+'</div>'+
+          '<a class="current-desk-action" href="'+modeHref(key)+'" title="'+escapeHtml(a.currentAllowed?model.note:"核心行情日期未对齐，仅保留历史指标与复核入口")+'">'+escapeHtml(model.action)+' →</a>';
+        $("current-desk-bottom").style.setProperty("--desk-color",meta.color);
+        $("current-desk-bottom").innerHTML='<span class="anchor-desk-title">'+escapeHtml(a.currentAllowed?model.title:"历史"+model.title.replace("执行台","快照"))+' · '+escapeHtml(a.currentAllowed?model.note:"核心行情日期未对齐，本区仅保留历史指标，不产生当前执行结论。")+'</span>'+
           '<div class="current-desk-bottom"><ol class="current-desk-checks">'+model.checks.map(function(item,index){return '<li><span>'+String(index+1).padStart(2,"0")+'</span>'+escapeHtml(item)+'</li>';}).join("")+'</ol><div class="current-desk-risk"><span>风险提示</span><strong>'+escapeHtml(model.risk)+'</strong></div></div>';
       }
 
