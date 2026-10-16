@@ -77,6 +77,7 @@ function Invoke-Morning([string]$TargetDate) {
   $signal = Join-Path $ShorttermRoot "signal_0925.py"
   if (-not (Test-Path -LiteralPath $signal)) { throw "short-term signal generator not found: $signal" }
   Invoke-Step "short-term 09:25 signal" $Python @($signal, "--date", $TargetDate)
+  Invoke-Step "news signal" $Python @("scripts/update_news_signal.py")
   Invoke-Step "dashboard status" $Python @("scripts/build_dashboard_status.py")
   Invoke-Step "static site build" $Python @("scripts/build_static_site.py")
 }
@@ -88,6 +89,7 @@ function Invoke-Intraday([string]$TargetDate) {
   )
   Invoke-Step "industry mainline" $Python @("scripts/update_industry_data.py", "--refresh", "--as-of", $TargetDate)
   Invoke-Step "industry stock roles" $Python @("scripts/update_industry_stock_roles.py")
+  Invoke-Step "news signal" $Python @("scripts/update_news_signal.py")
   Invoke-Step "dashboard status" $Python @("scripts/build_dashboard_status.py")
   Invoke-Step "static site build" $Python @("scripts/build_static_site.py")
 }
@@ -148,6 +150,7 @@ function Invoke-Close([string]$TargetDate) {
   Invoke-Step "growth factor snapshot" $Python @("scripts/run_growth_factor_analysis.py", "--as-of", $TargetDate)
   Invoke-Step "short-term live snapshot" $Python @("scripts/build_shortterm_live.py")
   Invoke-Step "short-term rule plan" $Python @("scripts/build_shortterm_plan.py")
+  Invoke-Step "news signal" $Python @("scripts/update_news_signal.py")
   Invoke-Step "dashboard status" $Python @("scripts/build_dashboard_status.py")
   Invoke-Step "static site build" $Python @("scripts/build_static_site.py")
 }

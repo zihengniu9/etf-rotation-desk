@@ -80,3 +80,18 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\update_dashboard
 An unchanged output directory still retries unpublished commits. The machine
 must be awake with the configured user session and tunnel available for data
 collection; GitHub Pages does not run the collector.
+
+## News Gate
+
+`python scripts/update_news_signal.py` collects public news from CLS, Eastmoney,
+and Sina independently. Collection pages backward to the last 24 hours, up to
+2,500 records per source. Source status and actual oldest/newest timestamps are
+written to `outputs/news_signal.json`; hitting the cap is not full coverage.
+These are real headlines, not the sample image bundled with the feature.
+
+The existing 09:28 morning task, half-hour intraday tasks, and 16:20 close task
+also refresh news. The morning trigger is after the auction, not before 09:25.
+The news card is advisory: keyword classification is not verification of an
+announcement or an investment recommendation. Positive news cannot unlock an
+otherwise blocked mode. Failed, invalid-dated, and older-than-24-hour news is
+excluded from mode decisions. Coverage and source failures remain visible.

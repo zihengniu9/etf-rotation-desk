@@ -41,6 +41,7 @@ jobs:
           node tests/market_freshness.test.js
           node tests/market_mode_router.test.js
           node tests/deploy_config.test.js
+          node tests/market_news.test.js
           python scripts/build_static_site.py
 
 # Market-data collection intentionally runs on the user's Windows machine.

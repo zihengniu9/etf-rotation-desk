@@ -16,6 +16,7 @@ from scripts.build_dashboard_status import (
     file_state,
     latest_completed_trading_day,
     review_is_complete,
+    news_file_state,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -63,6 +64,13 @@ class TradingCalendarTests(unittest.TestCase):
 
 
 class DashboardStatusTests(unittest.TestCase):
+    def test_news_freshness_uses_elapsed_hours_not_calendar_dates(self):
+        now = at("2026-10-19T09:00")
+        self.assertEqual(news_file_state({"status": "ok", "generated_at": "2026-10-18T16:00:00+08:00"}, now), "current")
+        self.assertEqual(news_file_state({"status": "ok", "generated_at": "2026-10-18T08:59:00+08:00"}, now), "stale")
+        self.assertEqual(news_file_state({"status": "ok", "generated_at": "2026-10-20T09:00:00+08:00"}, now), "error")
+        self.assertEqual(news_file_state({"status": "ok", "generated_at": "invalid"}, now), "error")
+
     def test_incomplete_review_is_not_complete(self):
         self.assertFalse(review_is_complete({"market_evidence": {"complete": False}}))
         self.assertTrue(review_is_complete({"market_evidence": {"complete": True}}))
@@ -85,6 +93,7 @@ class DashboardStatusTests(unittest.TestCase):
                 "trend_engine.json": {"data_as_of": day},
                 "growth_factor_snapshot.json": {"data_as_of": day},
                 "dividend_factor_snapshot.json": {"data_as_of": day},
+                "news_signal.json": {"generated_at": day + "T16:00:00+08:00", "status": "ok", "gate": {"state": "clear", "reasons": []}},
             }
             for name, payload in files.items():
                 (outputs / name).write_text(json.dumps(payload), encoding="utf-8")
@@ -97,6 +106,17 @@ class DashboardStatusTests(unittest.TestCase):
         self.assertEqual(states.pop("review"), "error")
         self.assertEqual(set(states.values()), {"current"}, "Fresher modules must not be marked stale by a lagging review")
         self.assertEqual(payload["summary"]["error"], 1)
+
+    def test_news_module_reports_failed_collection(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            outputs = Path(tmp)
+            (outputs / "news_signal.json").write_text(json.dumps({"generated_at": "2026-09-30T16:00:00+08:00", "status": "error", "gate": {"reasons": ["所有消息源采集失败"]}}), encoding="utf-8")
+            with mock.patch.object(status_builder, "OUTPUTS", outputs):
+                status_builder.main(now=at("2026-09-30T16:32"))
+            payload = json.loads((outputs / "dashboard_status.json").read_text(encoding="utf-8"))
+        news = next(item for item in payload["modules"] if item["key"] == "news")
+        self.assertEqual(news["state"], "error")
+        self.assertIn("采集失败", news["note"])
 
     def test_latest_industry_snapshot_drops_historical_rows(self):
         payload = {
