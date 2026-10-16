@@ -24,6 +24,7 @@ const context = vm.createContext({
 vm.runInContext(source("buildShortView", "formatGeneratedAt"), context);
 vm.runInContext(source("themeKey", "buildShortView"), context);
 vm.runInContext(source("analyze", "renderList"), context);
+vm.runInContext(source("healthModules", "render"), context);
 vm.runInContext(source("loadLocal", "hydrateFileFallback"), context);
 vm.runInContext(html.slice(html.indexOf("      function hydrateFileFallback("), html.indexOf('      $("refresh").addEventListener')), context);
 
@@ -48,6 +49,22 @@ const staleTwice = context.dataFreshness({asOf: "2026-09-11", dataDates: {short:
 assert.deepEqual(Array.from(staleTwice.stale), ["industry 2026-09-10"], "The snapshot and status list must not duplicate a stale module");
 assert.equal(freshness(close, {etf: ""}).missing[0], "etf");
 assert.equal(freshness(context.buildShortView(null, null, null)).blocked, true);
+// 生态数据早于信号日期、或任一模块更新失败时，不阻断但必须标为“需复核”。
+const lagged = context.buildShortView({...signal, date: "2026-09-11", base_date: "2026-09-10"}, null, factor);
+assert.equal(lagged.ecoDate, "2026-09-10");
+const laggedFresh = context.dataFreshness({asOf: "2026-09-11", short: lagged, dataDates: {short: lagged.data_as_of, industry: "2026-09-11", etf: "2026-09-11"}, dashboardStatus: health});
+assert.equal(laggedFresh.blocked, false);
+assert.ok(laggedFresh.degraded.some(item => item.includes("09-10")), "Lagged eco data must be flagged");
+const failedReview = context.dataFreshness({asOf: "2026-09-11", short: close, dataDates: {short: close.data_as_of, industry: "2026-09-11", etf: "2026-09-11"}, dashboardStatus: {modules: health.modules.concat([{key: "review", title: "行情复盘", state: "error", data_as_of: "2026-09-11"}])}});
+assert.equal(failedReview.blocked, false);
+assert.equal(failedReview.degraded.length, 1, "A failed module must be reported as degraded");
+assert.equal(freshness(close).degraded.length, 0, "Clean data must not be flagged");
+assert.equal(context.ecoLabel(lagged, "涨/跌停"), "涨/跌停 · 09-10 收盘");
+assert.equal(context.ecoLabel(close, "炸板率"), "炸板率");
+const incompleteWithoutManifest = context.dataFreshness({asOf: "2026-09-11", short: close, dataDates: {short: "2026-09-11", industry: "2026-09-11", etf: "2026-09-11"}, latestReview: {market_evidence: {complete: false}}});
+assert.ok(incompleteWithoutManifest.degraded.includes("行情复盘取数不完整"), "An explicit review failure needs a warning even without a manifest");
+const falselyCurrentReview = context.dataFreshness({asOf: "2026-09-11", short: close, dataDates: {short: "2026-09-11", industry: "2026-09-11", etf: "2026-09-11"}, latestReview: {market_evidence: {complete: false}}, dashboardStatus: {modules: health.modules.concat([{key: "review", title: "行情复盘", state: "current"}])}});
+assert.deepEqual(Array.from(falselyCurrentReview.degraded), ["行情复盘更新失败"], "Review evidence must override an optimistic status manifest without duplicate warnings");
 const base = {short: close, industry: {name: "a", share: 1, breadth: 1, ratio: 0.5}, etf: {mode: "defense", pickTheme: "a", hotTheme: "a", pickScore: 0.99}};
 assert.equal(context.analyze(base).mode, "defense", "Highest relative score cannot bypass a module's entry conditions");
 const risky = context.buildShortView(signal, {...review, market: {...review.market, limit_down: 21}}, {...factor, market: {score: 90}});

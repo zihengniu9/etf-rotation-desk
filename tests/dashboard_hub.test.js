@@ -1,5 +1,6 @@
 const assert = require("assert");
 const fs = require("fs");
+const vm = require("vm");
 const path = require("path");
 
 const root = path.join(__dirname, "../web");
@@ -15,7 +16,7 @@ assert.ok(market.includes('id="current-mode-desk"'));
 assert.ok(market.includes('id="daily-review"'));
 assert.ok(market.includes('id="trend-module-section" hidden'));
 assert.ok(market.includes('.mode-fill { display:block;'));
-assert.ok(market.includes('src="./dashboard_contract.js?v=20260912-risk-gate"'));
+assert.ok(market.includes('src="./dashboard_contract.js?v=20261016-data-check"'));
 assert.ok(market.includes('href="./index.html"'));
 assert.ok(market.includes('latest_market_review.json'));
 assert.ok(market.includes('dividend_factor_snapshot.json'));
@@ -67,4 +68,17 @@ for (const page of ["index.html", "market_mode.html", "industry_mainline_dashboa
 }
 assert.ok(etfAlias.includes('window.location.replace("./index.html")'));
 
+{
+  // 红利快照没有 currentAvailable 字段时，按截面候选推断，不能显示“等待数据”。
+  const ctx = {window: {}}; vm.createContext(ctx); vm.runInContext(contract, ctx);
+  const dividend = ctx.window.DASHBOARD_CONTRACT.modules.find(item => item.key === "dividend");
+  assert.equal(dividend.resolve({dividend: {data_as_of: "2026-10-16", candidates: [{}], validation: {current_cross_section: true, backtest_claim_allowed: false}}}).label, "截面已更新");
+  assert.equal(dividend.resolve({dividend: {data_as_of: "2026-10-16", candidates: [{}], validation: {backtest_claim_allowed: true}}}).label, "已验证研究");
+  assert.equal(dividend.resolve({dividend: null}).label, "等待数据");
+  assert.equal(dividend.resolve({dividend: {data_as_of: "2026-10-16", candidates: []}}).label, "等待数据");
+  assert.equal(dividend.resolve({dividend: {candidates: [{}]}}).label, "等待数据", "Undated candidates cannot establish availability");
+  assert.equal(dividend.resolve({dividend: {data_as_of: "2026-10-16", candidates: [{}], validation: {current_cross_section: false}}}).label, "等待数据", "Explicit validation failure must override leftover candidates");
+  assert.equal(dividend.resolve({dividend: {data_as_of: "2026-10-16", candidates: [{}], currentAvailable: false}}).label, "等待数据");
+  assert.equal(dividend.resolve({dividend: {data_as_of: "2026-10-16", candidates: [{}], backtestAvailable: false, validation: {backtest_claim_allowed: true}}}).label, "截面已更新", "Explicit unverified history must not become verified");
+}
 console.log("dashboard hub tests passed");

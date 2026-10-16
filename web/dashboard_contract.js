@@ -43,6 +43,12 @@
       description: "估值、分红持续性与现金流覆盖",
       resolve: function (snapshot) {
         var dividend = snapshot.dividend || {};
+        // Legacy snapshots omit availability flags; explicit validation failures remain authoritative.
+        var validation = dividend.validation || {};
+        var currentAvailable = dividend.currentAvailable != null ? !!dividend.currentAvailable
+          : (validation.current_cross_section != null ? validation.current_cross_section === true : Array.isArray(dividend.candidates) && dividend.candidates.length > 0) && !!dividend.data_as_of;
+        var backtestAvailable = dividend.backtestAvailable != null ? !!dividend.backtestAvailable : validation.backtest_claim_allowed === true;
+        dividend = { currentAvailable: currentAvailable, backtestAvailable: backtestAvailable };
         if (dividend.currentAvailable && dividend.backtestAvailable) {
           return { label: "已验证研究", tone: "ready", detail: "当前截面和历史验证均已接入" };
         }

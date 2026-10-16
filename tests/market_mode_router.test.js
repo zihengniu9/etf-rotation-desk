@@ -93,6 +93,16 @@ for (const key of Object.keys(context.MODE_META)) {
 assert.equal((target.innerHTML.match(/class="switch-card current"/g) || []).length, 1);
 assert.ok(/switch-card current"><div class="switch-card-head"><h3>趋势交易/.test(target.innerHTML));
 
+// Defense displays passed attack gates, not a derived confidence score.
+vm.runInContext(between("      function renderModeList(", "      function renderTrendFactorBreakdown("), context);
+target.querySelectorAll = () => [];
+context.state = {selectedMode: "defense", analysis: {mode: "defense", currentAllowed: true, eligible: {}, scores: {resonance: 18, short: 53, trend: 20, etf: 30, defense: 47}}};
+context.renderModeList();
+const defenseRow = target.innerHTML.match(/<button[^>]*data-mode="defense"[\s\S]*?<\/button>/)[0];
+assert.ok(defenseRow.includes("进攻门控通过"));
+assert.ok(defenseRow.includes('class="mode-value">0/4'));
+assert.ok(!defenseRow.includes('class="mode-value">47'));
+
 // 页面结构与样式约束。
 assert.ok(html.includes('src="./trading_calendar.js'), "Market page must load the trading calendar");
 assert.ok(!/function nextWeekday\(/.test(html), "Weekday-only next-session logic must not return");
