@@ -1,7 +1,7 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-19T15:06:00+08:00",
-  "reference_date": "2026-10-16",
+  "updated_at": "2026-10-19T16:27:21+08:00",
+  "reference_date": "2026-10-19",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
     "current": 8,
@@ -15,7 +15,7 @@ window.DASHBOARD_STATUS = {
       "title": "行情复盘",
       "href": "./market_mode.html#daily-review",
       "state": "current",
-      "data_as_of": "2026-10-16",
+      "data_as_of": "2026-10-19",
       "coverage": "涨停板清单 12 只",
       "source": "同花顺问财 · hithink-astock-selector",
       "note": "最新完成交易日的收盘复盘",
@@ -27,9 +27,9 @@ window.DASHBOARD_STATUS = {
       "href": "./shortterm_dashboard.html",
       "state": "current",
       "data_as_of": "2026-10-19",
-      "coverage": "梯队 7 只 · 因子候选 15 只",
+      "coverage": "梯队 7 只 · 因子候选 40 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "信号日期早于复盘日期时仅作历史快照",
+      "note": "盘后因子已更新；09:25竞价信号独立保留",
       "cadence": "每个交易日09:25与收盘"
     },
     {
@@ -59,7 +59,7 @@ window.DASHBOARD_STATUS = {
       "title": "趋势因子",
       "href": "./trend_engine.html",
       "state": "current",
-      "data_as_of": "2026-10-16",
+      "data_as_of": "2026-10-19",
       "coverage": "历史股票 3032 只 · 信号 2616 个",
       "source": "同花顺问财 · hithink-astock-selector · 36个历史时点",
       "note": "全主板趋势赚钱效应",
@@ -70,8 +70,8 @@ window.DASHBOARD_STATUS = {
       "title": "成长因子",
       "href": "./growth_factor.html",
       "state": "current",
-      "data_as_of": "2026-10-16",
-      "coverage": "主板 1965 只 · 有效 1673 只",
+      "data_as_of": "2026-10-19",
+      "coverage": "主板 1961 只 · 有效 1668 只",
       "source": "同花顺问财财务查询 + 同花顺问财 news-search 历史资讯",
       "note": "财务截面每日更新；历史资讯证据按已采集覆盖",
       "cadence": "每个交易日收盘/财报披露后"
@@ -81,8 +81,8 @@ window.DASHBOARD_STATUS = {
       "title": "红利因子",
       "href": "./dividend_factor.html",
       "state": "current",
-      "data_as_of": "2026-10-16",
-      "coverage": "匹配 2106 只 · 有效 960 只",
+      "data_as_of": "2026-10-19",
+      "coverage": "匹配 623 只 · 有效 623 只",
       "source": "同花顺问财 · hithink-astock-selector",
       "note": "当前截面已更新；PandaAI 历史回测待参数确认",
       "cadence": "每周/分红方案更新后"
@@ -93,9 +93,9 @@ window.DASHBOARD_STATUS = {
       "href": "./market_mode.html#news-panel",
       "state": "current",
       "data_as_of": "2026-10-19",
-      "coverage": "相关快讯 861 条 · 源 3/3",
+      "coverage": "相关快讯 960 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重大利空：财联社10月19日电，商务部、海关总署、中央军委装备发展部公告2026年第49号，公布优化调整无人机相关物项出口管制措施…",
+      "note": "重大利空：两部门：优化调整挖泥船相关物项出口管制措施 对盾构机等物项实施出口管制",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
