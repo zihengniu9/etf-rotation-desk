@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-19T11:35:04+08:00",
+  "updated_at": "2026-10-19T13:05:37+08:00",
   "reference_date": "2026-10-16",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -93,7 +93,7 @@ window.DASHBOARD_STATUS = {
       "href": "./market_mode.html#news-panel",
       "state": "current",
       "data_as_of": "2026-10-19",
-      "coverage": "相关快讯 702 条 · 源 3/3",
+      "coverage": "相关快讯 747 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
       "note": "重大利空：美国财政部长斯科特·贝森特表示：“在对俄制裁问题上，没有人比特朗普总统更强硬。”",
       "cadence": "早盘09:28、盘中、收盘后"
