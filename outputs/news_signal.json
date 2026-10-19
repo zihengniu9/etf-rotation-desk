@@ -1,9 +1,9 @@
 {
   "version": "news-signal-v1",
-  "generated_at": "2026-10-19T10:41:05+08:00",
+  "generated_at": "2026-10-19T11:04:59+08:00",
   "window": {
-    "start": "2026-10-18T10:41+08:00",
-    "end": "2026-10-19T10:41+08:00",
+    "start": "2026-10-18T11:04+08:00",
+    "end": "2026-10-19T11:04+08:00",
     "hours": 24,
     "half_life_hours": 12.0
   },
@@ -13,48 +13,48 @@
       "key": "cls",
       "name": "财联社",
       "status": "ok",
-      "count": 210,
+      "count": 225,
       "fetched": 250,
-      "oldest_at": "2026-10-17T21:50:24+08:00",
-      "latest_at": "2026-10-19T10:37:03+08:00",
+      "oldest_at": "2026-10-18T03:09:41+08:00",
+      "latest_at": "2026-10-19T11:03:19+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 0.7
+      "seconds": 0.8
     },
     {
       "key": "eastmoney",
       "name": "东方财富",
       "status": "ok",
-      "count": 336,
+      "count": 355,
       "fetched": 400,
-      "oldest_at": "2026-10-17T20:57:35+08:00",
-      "latest_at": "2026-10-19T10:38:28+08:00",
+      "oldest_at": "2026-10-18T02:05:15+08:00",
+      "latest_at": "2026-10-19T11:00:43+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 0.7
+      "seconds": 0.6
     },
     {
       "key": "sina",
       "name": "新浪财经",
       "status": "ok",
-      "count": 856,
+      "count": 890,
       "fetched": 900,
-      "oldest_at": "2026-10-18T08:24:02+08:00",
-      "latest_at": "2026-10-19T10:40:04+08:00",
+      "oldest_at": "2026-10-18T10:33:35+08:00",
+      "latest_at": "2026-10-19T11:04:18+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 5.4
+      "seconds": 4.9
     }
   ],
   "counts": {
-    "fetched": 1402,
-    "unique": 1184,
-    "relevant": 645,
-    "market": 238
+    "fetched": 1470,
+    "unique": 1234,
+    "relevant": 672,
+    "market": 240
   },
   "market": {
-    "score": 39.25,
-    "positive": 74,
+    "score": 39.35,
+    "positive": 75,
     "negative": 47
   },
   "gate": {
@@ -66,24 +66,6 @@
   },
   "themes": [
     {
-      "theme": "纳指",
-      "aliases": [
-        "纳指",
-        "纳斯达克",
-        "美股",
-        "标普"
-      ],
-      "score": -1.24,
-      "positive": 4,
-      "negative": 2,
-      "items": [
-        "bdcf11326da9",
-        "792797f3c2ef",
-        "353c8241f009"
-      ],
-      "alert": false
-    },
-    {
       "theme": "有色",
       "aliases": [
         "有色",
@@ -94,7 +76,7 @@
         "能源金属",
         "稀土"
       ],
-      "score": -0.54,
+      "score": -0.53,
       "positive": 3,
       "negative": 1,
       "items": [
@@ -105,23 +87,20 @@
       "alert": false
     },
     {
-      "theme": "新能源",
+      "theme": "纳指",
       "aliases": [
-        "新能源",
-        "光伏",
-        "风电",
-        "电池",
-        "锂电",
-        "储能",
-        "电网"
+        "纳指",
+        "纳斯达克",
+        "美股",
+        "标普"
       ],
-      "score": 0.81,
-      "positive": 9,
-      "negative": 4,
+      "score": -0.21,
+      "positive": 5,
+      "negative": 2,
       "items": [
-        "30877871f5d0",
-        "7511158ffe50",
-        "513ba4369c14"
+        "dd9557ed3f83",
+        "bdcf11326da9",
+        "792797f3c2ef"
       ],
       "alert": false
     },
@@ -132,7 +111,7 @@
         "油气",
         "化工"
       ],
-      "score": 0.92,
+      "score": 0.9,
       "positive": 8,
       "negative": 7,
       "items": [
@@ -148,13 +127,13 @@
         "煤炭",
         "能源"
       ],
-      "score": 1.17,
-      "positive": 3,
+      "score": 2.13,
+      "positive": 4,
       "negative": 1,
       "items": [
+        "79cd45f774c0",
         "2b7cbe558f2e",
-        "0518384aaaae",
-        "9fcf9c61fdbf"
+        "0518384aaaae"
       ],
       "alert": false
     },
@@ -166,31 +145,13 @@
         "航天",
         "航空"
       ],
-      "score": 1.28,
-      "positive": 12,
+      "score": 2.24,
+      "positive": 13,
       "negative": 14,
       "items": [
+        "d8e4f92d42e6",
         "4216ae96c766",
-        "46ca1dcba04b",
-        "07e655889a36"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "半导体",
-      "aliases": [
-        "半导体",
-        "芯片",
-        "集成电路",
-        "科创芯片"
-      ],
-      "score": 2.57,
-      "positive": 9,
-      "negative": 3,
-      "items": [
-        "cde7086760ff",
-        "7724d2e09038",
-        "bd880c672b98"
+        "46ca1dcba04b"
       ],
       "alert": false
     },
@@ -202,13 +163,34 @@
         "建筑",
         "建材"
       ],
-      "score": 2.66,
+      "score": 2.6,
       "positive": 4,
       "negative": 2,
       "items": [
         "985a1c7e2676",
         "601742ccb95b",
         "7f2d596d9000"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "新能源",
+      "aliases": [
+        "新能源",
+        "光伏",
+        "风电",
+        "电池",
+        "锂电",
+        "储能",
+        "电网"
+      ],
+      "score": 2.77,
+      "positive": 11,
+      "negative": 4,
+      "items": [
+        "f1d6232f4b4b",
+        "b5bd8da9604e",
+        "bd3ceaf6646f"
       ],
       "alert": false
     },
@@ -220,13 +202,13 @@
         "影视",
         "文化"
       ],
-      "score": 2.84,
+      "score": 2.78,
       "positive": 5,
       "negative": 1,
       "items": [
-        "a98d5982b0a9",
-        "4b82ae83a814",
-        "4ed34dad486f"
+        "65a8d2268d93",
+        "ff0e23b9cadb",
+        "a98d5982b0a9"
       ],
       "alert": false
     },
@@ -240,13 +222,13 @@
         "生物",
         "医疗"
       ],
-      "score": 2.94,
+      "score": 2.88,
       "positive": 10,
       "negative": 3,
       "items": [
-        "227dbb54f4dc",
-        "d2ef6c96f2fa",
-        "b0237f103aa8"
+        "65a8d2268d93",
+        "ff0e23b9cadb",
+        "227dbb54f4dc"
       ],
       "alert": false
     },
@@ -256,13 +238,31 @@
         "黄金",
         "贵金属"
       ],
-      "score": 3.0,
+      "score": 2.93,
       "positive": 5,
       "negative": 1,
       "items": [
         "2593e9ae7022",
         "5a1ab284441d",
         "ee17dfccdb17"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "半导体",
+      "aliases": [
+        "半导体",
+        "芯片",
+        "集成电路",
+        "科创芯片"
+      ],
+      "score": 3.49,
+      "positive": 10,
+      "negative": 3,
+      "items": [
+        "1a30d3a49f79",
+        "cde7086760ff",
+        "7724d2e09038"
       ],
       "alert": false
     },
@@ -274,13 +274,13 @@
         "非银",
         "多元金融"
       ],
-      "score": 4.32,
+      "score": 4.23,
       "positive": 9,
       "negative": 2,
       "items": [
+        "c9e050612ed4",
         "a98d5982b0a9",
-        "b0237f103aa8",
-        "5a1ab284441d"
+        "b0237f103aa8"
       ],
       "alert": false
     },
@@ -291,48 +291,13 @@
         "恒生",
         "中概"
       ],
-      "score": 4.84,
+      "score": 4.72,
       "positive": 7,
       "negative": 0,
       "items": [
         "792797f3c2ef",
         "790ed2dbdf4c",
         "da1f1321fa4f"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "通信",
-      "aliases": [
-        "通信",
-        "5G",
-        "光模块",
-        "光电"
-      ],
-      "score": 5.13,
-      "positive": 10,
-      "negative": 2,
-      "items": [
-        "a98d5982b0a9",
-        "c0991b671cec",
-        "1444c6029c3f"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "电力",
-      "aliases": [
-        "电力",
-        "公用事业",
-        "燃气"
-      ],
-      "score": 5.47,
-      "positive": 8,
-      "negative": 1,
-      "items": [
-        "3362fe641886",
-        "9947ab8f0466",
-        "d85f3a7be92b"
       ],
       "alert": false
     },
@@ -344,7 +309,7 @@
         "种植",
         "农产品"
       ],
-      "score": 5.5,
+      "score": 5.38,
       "positive": 6,
       "negative": 2,
       "items": [
@@ -361,13 +326,48 @@
         "新能源车",
         "智能驾驶"
       ],
-      "score": 5.83,
+      "score": 5.7,
       "positive": 11,
       "negative": 3,
       "items": [
-        "3b1771b5d658",
-        "10574896225a",
-        "22731ff6fe95"
+        "cab15986fb97",
+        "b5bd8da9604e",
+        "b752ee613a05"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "电力",
+      "aliases": [
+        "电力",
+        "公用事业",
+        "燃气"
+      ],
+      "score": 6.34,
+      "positive": 9,
+      "negative": 1,
+      "items": [
+        "79cd45f774c0",
+        "3362fe641886",
+        "9947ab8f0466"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "通信",
+      "aliases": [
+        "通信",
+        "5G",
+        "光模块",
+        "光电"
+      ],
+      "score": 6.73,
+      "positive": 11,
+      "negative": 2,
+      "items": [
+        "65a8d2268d93",
+        "ff0e23b9cadb",
+        "f7b87e8971f5"
       ],
       "alert": false
     },
@@ -376,7 +376,7 @@
       "aliases": [
         "保险"
       ],
-      "score": 7.32,
+      "score": 7.15,
       "positive": 9,
       "negative": 1,
       "items": [
@@ -394,13 +394,13 @@
         "央企",
         "防守"
       ],
-      "score": 13.31,
-      "positive": 17,
+      "score": 13.99,
+      "positive": 18,
       "negative": 1,
       "items": [
-        "36a230780861",
-        "dbb0d311a811",
-        "e4ecaee2710b"
+        "79cd45f774c0",
+        "870bc4d0994c",
+        "67573601ddb2"
       ],
       "alert": false
     },
@@ -409,13 +409,13 @@
       "aliases": [
         "银行"
       ],
-      "score": 13.95,
-      "positive": 23,
+      "score": 16.61,
+      "positive": 26,
       "negative": 4,
       "items": [
-        "3c74b119da14",
-        "dbb0d311a811",
-        "719b866f4397"
+        "c1e22dccc2db",
+        "29087a5f08bf",
+        "65a8d2268d93"
       ],
       "alert": false
     },
@@ -425,13 +425,13 @@
         "机器人",
         "自动化"
       ],
-      "score": 26.62,
+      "score": 26.02,
       "positive": 20,
       "negative": 1,
       "items": [
+        "29a5869418d4",
         "bde0ab48e293",
-        "050182a26573",
-        "8ebf62046648"
+        "050182a26573"
       ],
       "alert": false
     },
@@ -446,13 +446,13 @@
         "云计算",
         "大数据"
       ],
-      "score": 46.16,
-      "positive": 61,
+      "score": 46.84,
+      "positive": 62,
       "negative": 19,
       "items": [
-        "fea781ec20d1",
-        "ac0532aceba5",
-        "90f57aecd666"
+        "dd9557ed3f83",
+        "e55fbb011667",
+        "022f4d4e2862"
       ],
       "alert": false
     },
@@ -467,13 +467,13 @@
         "零售",
         "旅游"
       ],
-      "score": 52.64,
-      "positive": 45,
+      "score": 56.38,
+      "positive": 50,
       "negative": 7,
       "items": [
-        "78f96b9623ab",
-        "10574896225a",
-        "1444c6029c3f"
+        "fbd0dec5163e",
+        "cab15986fb97",
+        "120c062d0cd8"
       ],
       "alert": false
     }
@@ -486,7 +486,7 @@
         "东方财富"
       ],
       "published_at": "2026-10-19T10:20+08:00",
-      "age_hours": 0.3,
+      "age_hours": 0.7,
       "title": "九部门：加速脑机接口、具身智能等前沿科技成果向市场转化",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqt7646881.d.html",
       "scope": "theme",
@@ -496,7 +496,7 @@
       ],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.94,
+      "impact": 2.873,
       "evidence": {
         "positive": [
           "支持",
@@ -517,7 +517,7 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-19T10:19+08:00",
-      "age_hours": 0.4,
+      "age_hours": 0.8,
       "title": "九部门：加速脑机接口、具身智能等前沿科技成果向市场转化",
       "url": "https://api3.cls.cn/share/article/2507952?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "theme",
@@ -527,7 +527,7 @@
       ],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.938,
+      "impact": 2.871,
       "evidence": {
         "positive": [
           "支持",
@@ -548,7 +548,7 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-19T10:14+08:00",
-      "age_hours": 0.4,
+      "age_hours": 0.8,
       "title": "九部门：加快推进科技兴商 深入实施“人工智能+制造”专项行动",
       "url": "https://api3.cls.cn/share/article/2507941?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "theme",
@@ -559,7 +559,7 @@
       ],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.925,
+      "impact": 2.859,
       "evidence": {
         "positive": [
           "支持",
@@ -581,14 +581,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T10:12+08:00",
-      "age_hours": 0.5,
+      "age_hours": 0.9,
       "title": "今年前三季度货物进出口总额同比增长18.8%",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqt7635627.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.92,
+      "impact": 2.853,
       "evidence": {
         "positive": [
           "加快",
@@ -610,14 +610,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T10:01+08:00",
-      "age_hours": 0.7,
+      "age_hours": 1.1,
       "title": "今年前三季度国内生产总值同比增长4.6%",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqs0845078.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.886,
+      "impact": 2.821,
       "evidence": {
         "positive": [
           "稳定",
@@ -641,14 +641,14 @@
         "东方财富"
       ],
       "published_at": "2026-10-19T09:20+08:00",
-      "age_hours": 1.3,
+      "age_hours": 1.7,
       "title": "中国央行：今日开展800亿元7天逆回购操作，投标量800亿元，中标量800亿元，操作利率为1.40%，与此前持平。",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqs0785242.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.777,
+      "impact": 2.714,
       "evidence": {
         "positive": [
           "回购",
@@ -671,7 +671,7 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-19T08:00+08:00",
-      "age_hours": 2.7,
+      "age_hours": 3.1,
       "title": "财联社10月19日早间新闻精选",
       "url": "https://api3.cls.cn/share/article/2507796?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -690,7 +690,7 @@
       ],
       "sentiment": -1,
       "weight": 3,
-      "impact": -2.571,
+      "impact": -2.513,
       "evidence": {
         "positive": [
           "回购",
@@ -735,7 +735,7 @@
         "东方财富"
       ],
       "published_at": "2026-10-19T05:24+08:00",
-      "age_hours": 5.3,
+      "age_hours": 5.7,
       "title": "事关国民经济运行与科技兴商 今天举办两场重要发布会",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivswyx7632318.d.html",
       "scope": "market",
@@ -744,7 +744,7 @@
       ],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.212,
+      "impact": 2.162,
       "evidence": {
         "positive": [
           "加快",
@@ -767,7 +767,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T10:24+08:00",
-      "age_hours": 0.3,
+      "age_hours": 0.7,
       "title": "农业农村部公布6起涉种违法典型案例",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqt7654114.d.html",
       "scope": "market",
@@ -776,7 +776,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.969,
+      "impact": 1.924,
       "evidence": {
         "positive": [
           "加大"
@@ -797,7 +797,7 @@
       "source": "东方财富",
       "also_in": [],
       "published_at": "2026-10-19T10:22+08:00",
-      "age_hours": 0.3,
+      "age_hours": 0.7,
       "title": "9部门：提升基本需求类服务水平",
       "url": "https://finance.eastmoney.com/a/202610193899639353.html",
       "scope": "theme",
@@ -806,7 +806,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.964,
+      "impact": 1.919,
       "evidence": {
         "positive": [
           "支持",
@@ -829,7 +829,7 @@
       "source": "东方财富",
       "also_in": [],
       "published_at": "2026-10-19T10:22+08:00",
-      "age_hours": 0.3,
+      "age_hours": 0.7,
       "title": "9部门：大力发展基于人工智能的个性化定制",
       "url": "https://finance.eastmoney.com/a/202610193899638941.html",
       "scope": "theme",
@@ -839,7 +839,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.964,
+      "impact": 1.919,
       "evidence": {
         "positive": [
           "鼓励",
@@ -860,7 +860,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T10:20+08:00",
-      "age_hours": 0.3,
+      "age_hours": 0.7,
       "title": "九部门：深入实施人工智能中小企业创业支持计划，推动普惠算力赋能商贸领域人工智能创业企业",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqt7647563.d.html",
       "scope": "theme",
@@ -869,7 +869,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.961,
+      "impact": 1.916,
       "evidence": {
         "positive": [
           "支持",
@@ -890,7 +890,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T10:19+08:00",
-      "age_hours": 0.4,
+      "age_hours": 0.8,
       "title": "九部门：推广实施《人工智能终端智能化分级》系列国家标准",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqs0873798.d.html",
       "scope": "theme",
@@ -899,7 +899,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.959,
+      "impact": 1.915,
       "evidence": {
         "positive": [
           "加快",
@@ -921,7 +921,7 @@
         "东方财富"
       ],
       "published_at": "2026-10-19T10:18+08:00",
-      "age_hours": 0.4,
+      "age_hours": 0.8,
       "title": "九部门：培育健康规范的机器人、虚拟数字人陪伴等智能服务新业态",
       "url": "https://api3.cls.cn/share/article/2507950?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "theme",
@@ -932,7 +932,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.956,
+      "impact": 1.912,
       "evidence": {
         "positive": [
           "支持",
@@ -955,7 +955,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T10:18+08:00",
-      "age_hours": 0.4,
+      "age_hours": 0.8,
       "title": "九部门：加推动具身智能技术在商贸领域落地，拓展家庭服务、商贸物流等应用场景",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqs0871309.d.html",
       "scope": "theme",
@@ -965,7 +965,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.956,
+      "impact": 1.912,
       "evidence": {
         "positive": [
           "支持",
@@ -988,7 +988,7 @@
         "东方财富"
       ],
       "published_at": "2026-10-19T10:17+08:00",
-      "age_hours": 0.4,
+      "age_hours": 0.8,
       "title": "九部门：加强强制性产品认证（CCC认证）电商平台联网核查",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqt7643383.d.html",
       "scope": "theme",
@@ -997,7 +997,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.956,
+      "impact": 1.911,
       "evidence": {
         "positive": [
           "加快",
@@ -1017,7 +1017,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T10:17+08:00",
-      "age_hours": 0.4,
+      "age_hours": 0.8,
       "title": "九部门：深化批发业和产业数字化协同，推动批发企业线上线下融合发展",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqs0870366.d.html",
       "scope": "theme",
@@ -1026,7 +1026,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.955,
+      "impact": 1.911,
       "evidence": {
         "positive": [
           "鼓励",
@@ -1049,7 +1049,7 @@
         "东方财富"
       ],
       "published_at": "2026-10-19T10:17+08:00",
-      "age_hours": 0.4,
+      "age_hours": 0.8,
       "title": "九部门：大力发展基于人工智能的个性化定制 培育一批具有行业影响力的定制品牌",
       "url": "https://api3.cls.cn/share/article/2507949?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "theme",
@@ -1059,7 +1059,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.955,
+      "impact": 1.91,
       "evidence": {
         "positive": [
           "鼓励",
@@ -1080,7 +1080,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T10:17+08:00",
-      "age_hours": 0.4,
+      "age_hours": 0.8,
       "title": "九部门：实施加快数智供应链发展专项行动，深化物联网、云计算、区块链等技术协同创新",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqt7642573.d.html",
       "scope": "theme",
@@ -1089,7 +1089,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.955,
+      "impact": 1.91,
       "evidence": {
         "positive": [
           "加快",
@@ -1109,7 +1109,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T10:17+08:00",
-      "age_hours": 0.4,
+      "age_hours": 0.8,
       "title": "九部门：支持超高清视听技术研发与产业化，推动沉浸式视听在商圈、文化娱乐、旅游、教育培训等多领域应用",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqs0869627.d.html",
       "scope": "theme",
@@ -1120,7 +1120,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.954,
+      "impact": 1.91,
       "evidence": {
         "positive": [
           "支持",
