@@ -1,9 +1,9 @@
 {
   "version": "news-signal-v1",
-  "generated_at": "2026-10-19T09:28:37+08:00",
+  "generated_at": "2026-10-19T09:34:37+08:00",
   "window": {
-    "start": "2026-10-18T09:28+08:00",
-    "end": "2026-10-19T09:28+08:00",
+    "start": "2026-10-18T09:34+08:00",
+    "end": "2026-10-19T09:34+08:00",
     "hours": 24,
     "half_life_hours": 12.0
   },
@@ -13,48 +13,48 @@
       "key": "cls",
       "name": "财联社",
       "status": "ok",
-      "count": 163,
+      "count": 171,
       "fetched": 200,
-      "oldest_at": "2026-10-17T21:16:58+08:00",
-      "latest_at": "2026-10-19T09:25:54+08:00",
+      "oldest_at": "2026-10-17T23:57:47+08:00",
+      "latest_at": "2026-10-19T09:33:52+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 0.7
+      "seconds": 0.8
     },
     {
       "key": "eastmoney",
       "name": "东方财富",
       "status": "ok",
-      "count": 270,
+      "count": 275,
       "fetched": 300,
-      "oldest_at": "2026-10-18T03:45:32+08:00",
-      "latest_at": "2026-10-19T09:26:02+08:00",
+      "oldest_at": "2026-10-18T05:10:00+08:00",
+      "latest_at": "2026-10-19T09:30:21+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 0.6
+      "seconds": 0.4
     },
     {
       "key": "sina",
       "name": "新浪财经",
       "status": "ok",
-      "count": 707,
+      "count": 729,
       "fetched": 750,
-      "oldest_at": "2026-10-18T07:31:29+08:00",
-      "latest_at": "2026-10-19T09:28:11+08:00",
+      "oldest_at": "2026-10-18T08:24:02+08:00",
+      "latest_at": "2026-10-19T09:34:13+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 4.5
+      "seconds": 5.0
     }
   ],
   "counts": {
-    "fetched": 1140,
-    "unique": 964,
-    "relevant": 526,
-    "market": 219
+    "fetched": 1175,
+    "unique": 990,
+    "relevant": 535,
+    "market": 222
   },
   "market": {
-    "score": 34.63,
-    "positive": 70,
+    "score": 33.45,
+    "positive": 68,
     "negative": 44
   },
   "gate": {
@@ -72,7 +72,7 @@
         "油气",
         "化工"
       ],
-      "score": -2.19,
+      "score": -2.17,
       "positive": 3,
       "negative": 6,
       "items": [
@@ -93,7 +93,7 @@
         "能源金属",
         "稀土"
       ],
-      "score": -1.62,
+      "score": -1.61,
       "positive": 2,
       "negative": 1,
       "items": [
@@ -111,7 +111,7 @@
         "美股",
         "标普"
       ],
-      "score": -1.33,
+      "score": -1.32,
       "positive": 4,
       "negative": 2,
       "items": [
@@ -129,31 +129,13 @@
         "种植",
         "农产品"
       ],
-      "score": -1.13,
+      "score": -1.12,
       "positive": 1,
       "negative": 2,
       "items": [
         "0518384aaaae",
         "95b2f31f52e2",
         "066869107958"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "军工",
-      "aliases": [
-        "军工",
-        "国防",
-        "航天",
-        "航空"
-      ],
-      "score": 0.4,
-      "positive": 9,
-      "negative": 13,
-      "items": [
-        "80b835e5bdde",
-        "412fa9e6b2a3",
-        "fde05d77038b"
       ],
       "alert": false
     },
@@ -182,7 +164,7 @@
         "建筑",
         "建材"
       ],
-      "score": 0.79,
+      "score": 0.78,
       "positive": 3,
       "negative": 2,
       "items": [
@@ -220,7 +202,7 @@
         "新能源车",
         "智能驾驶"
       ],
-      "score": 1.1,
+      "score": 1.09,
       "positive": 7,
       "negative": 3,
       "items": [
@@ -236,13 +218,31 @@
         "煤炭",
         "能源"
       ],
-      "score": 1.25,
+      "score": 1.24,
       "positive": 3,
       "negative": 1,
       "items": [
         "2b7cbe558f2e",
         "0518384aaaae",
         "9fcf9c61fdbf"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "军工",
+      "aliases": [
+        "军工",
+        "国防",
+        "航天",
+        "航空"
+      ],
+      "score": 1.39,
+      "positive": 10,
+      "negative": 13,
+      "items": [
+        "b0237f103aa8",
+        "9d6f4beb24c0",
+        "d7c9b61ef70d"
       ],
       "alert": false
     },
@@ -256,13 +256,13 @@
         "生物",
         "医疗"
       ],
-      "score": 1.84,
+      "score": 1.83,
       "positive": 9,
       "negative": 4,
       "items": [
+        "b0237f103aa8",
         "df314da86419",
-        "407ca47adcec",
-        "334cc4622b09"
+        "407ca47adcec"
       ],
       "alert": false
     },
@@ -274,29 +274,13 @@
         "影视",
         "文化"
       ],
-      "score": 2.01,
+      "score": 2.0,
       "positive": 4,
       "negative": 1,
       "items": [
-        "4dcfdf73c80b",
-        "6466a5427007",
-        "6e4827705c2d"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "机器人",
-      "aliases": [
-        "机器人",
-        "自动化"
-      ],
-      "score": 2.4,
-      "positive": 8,
-      "negative": 1,
-      "items": [
-        "f09879add13a",
-        "63de4e0c908a",
-        "86b09b5f5865"
+        "3d0135af98dc",
+        "b0237f103aa8",
+        "4dcfdf73c80b"
       ],
       "alert": false
     },
@@ -308,13 +292,29 @@
         "集成电路",
         "科创芯片"
       ],
-      "score": 2.74,
-      "positive": 10,
+      "score": 2.23,
+      "positive": 9,
       "negative": 3,
       "items": [
+        "b0237f103aa8",
         "3e29d3155e04",
-        "c5bbef9a86be",
-        "f09879add13a"
+        "c5bbef9a86be"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "机器人",
+      "aliases": [
+        "机器人",
+        "自动化"
+      ],
+      "score": 2.39,
+      "positive": 8,
+      "negative": 1,
+      "items": [
+        "f09879add13a",
+        "63de4e0c908a",
+        "86b09b5f5865"
       ],
       "alert": false
     },
@@ -324,7 +324,7 @@
         "黄金",
         "贵金属"
       ],
-      "score": 3.21,
+      "score": 3.2,
       "positive": 5,
       "negative": 1,
       "items": [
@@ -342,7 +342,7 @@
         "光模块",
         "光电"
       ],
-      "score": 4.47,
+      "score": 4.44,
       "positive": 9,
       "negative": 2,
       "items": [
@@ -360,13 +360,13 @@
         "非银",
         "多元金融"
       ],
-      "score": 4.64,
+      "score": 4.61,
       "positive": 9,
       "negative": 2,
       "items": [
+        "b0237f103aa8",
         "5a1ab284441d",
-        "9f7469f7da59",
-        "61bfdc37c10b"
+        "9f7469f7da59"
       ],
       "alert": false
     },
@@ -377,13 +377,13 @@
         "恒生",
         "中概"
       ],
-      "score": 5.18,
+      "score": 5.16,
       "positive": 7,
       "negative": 0,
       "items": [
+        "790ed2dbdf4c",
         "da1f1321fa4f",
-        "9c92efa84a42",
-        "926c609d9be4"
+        "9c92efa84a42"
       ],
       "alert": false
     },
@@ -392,7 +392,7 @@
       "aliases": [
         "保险"
       ],
-      "score": 5.8,
+      "score": 5.76,
       "positive": 7,
       "negative": 1,
       "items": [
@@ -410,7 +410,7 @@
         "央企",
         "防守"
       ],
-      "score": 11.2,
+      "score": 11.14,
       "positive": 15,
       "negative": 1,
       "items": [
@@ -431,8 +431,8 @@
         "零售",
         "旅游"
       ],
-      "score": 12.39,
-      "positive": 22,
+      "score": 11.33,
+      "positive": 20,
       "negative": 7,
       "items": [
         "6e4827705c2d",
@@ -452,13 +452,13 @@
         "云计算",
         "大数据"
       ],
-      "score": 12.93,
+      "score": 12.86,
       "positive": 40,
       "negative": 18,
       "items": [
+        "4eb6e06d2d8f",
         "4d09c2d7825b",
-        "96d88916258e",
-        "4a5f1c5217df"
+        "96d88916258e"
       ],
       "alert": false
     },
@@ -467,13 +467,13 @@
       "aliases": [
         "银行"
       ],
-      "score": 14.2,
+      "score": 14.12,
       "positive": 25,
       "negative": 4,
       "items": [
+        "340cfd637aca",
         "c9545bce04a8",
-        "a51faec71a15",
-        "926c609d9be4"
+        "a51faec71a15"
       ],
       "alert": false
     }
@@ -486,14 +486,14 @@
         "东方财富"
       ],
       "published_at": "2026-10-19T09:20+08:00",
-      "age_hours": 0.1,
+      "age_hours": 0.2,
       "title": "中国央行：今日开展800亿元7天逆回购操作，投标量800亿元，中标量800亿元，操作利率为1.40%，与此前持平。",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqs0785242.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.978,
+      "impact": 2.961,
       "evidence": {
         "positive": [
           "回购",
@@ -516,7 +516,7 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-19T08:00+08:00",
-      "age_hours": 1.5,
+      "age_hours": 1.6,
       "title": "财联社10月19日早间新闻精选",
       "url": "https://api3.cls.cn/share/article/2507796?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -535,7 +535,7 @@
       ],
       "sentiment": -1,
       "weight": 3,
-      "impact": -2.757,
+      "impact": -2.741,
       "evidence": {
         "positive": [
           "回购",
@@ -580,7 +580,7 @@
         "东方财富"
       ],
       "published_at": "2026-10-19T05:24+08:00",
-      "age_hours": 4.1,
+      "age_hours": 4.2,
       "title": "事关国民经济运行与科技兴商 今天举办两场重要发布会",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivswyx7632318.d.html",
       "scope": "market",
@@ -589,7 +589,7 @@
       ],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.372,
+      "impact": 2.358,
       "evidence": {
         "positive": [
           "加快",
@@ -612,14 +612,14 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-19T09:21+08:00",
-      "age_hours": 0.1,
+      "age_hours": 0.2,
       "title": "财联社10月19日电，央行今日开展800亿元7天期逆回购操作，操作利率为1.40%，与此前持平。",
       "url": "https://api3.cls.cn/share/article/2507872?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.986,
+      "impact": 1.975,
       "evidence": {
         "positive": [
           "回购"
@@ -641,14 +641,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T09:20+08:00",
-      "age_hours": 0.1,
+      "age_hours": 0.2,
       "title": "韩国财政部长表示，2026年GDP增长3.4%-3.6%是可能的。",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqt7556903.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.984,
+      "impact": 1.973,
       "evidence": {
         "positive": [
           "增长"
@@ -672,7 +672,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T09:10+08:00",
-      "age_hours": 0.3,
+      "age_hours": 0.4,
       "title": "中金财富期货：黄金表现较为稳定",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqs0773080.d.html",
       "scope": "market",
@@ -681,7 +681,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.966,
+      "impact": 1.955,
       "evidence": {
         "positive": [
           "稳定"
@@ -702,14 +702,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T08:38+08:00",
-      "age_hours": 0.8,
+      "age_hours": 0.9,
       "title": "日本央行行长植田和男：财政支出提振需求，有助于推高物价和工资。",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqs0737791.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.906,
+      "impact": 1.895,
       "evidence": {
         "positive": [
           "提振"
@@ -730,14 +730,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T08:28+08:00",
-      "age_hours": 1.0,
+      "age_hours": 1.1,
       "title": "日本央行行长植田和男：通过实施适当的货币政策以实现 2% 的通胀目标，日本央行可以为稳定日本国债市场做出贡献。",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqt7497930.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.888,
+      "impact": 1.877,
       "evidence": {
         "positive": [
           "稳定"
@@ -758,14 +758,14 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-19T08:27+08:00",
-      "age_hours": 1.0,
+      "age_hours": 1.1,
       "title": "日本央行行长：将密切关注长期利率的市场走势",
       "url": "https://api3.cls.cn/share/article/2507824?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.885,
+      "impact": 1.874,
       "evidence": {
         "positive": [
           "稳定"
@@ -786,14 +786,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T08:24+08:00",
-      "age_hours": 1.1,
+      "age_hours": 1.2,
       "title": "日本央行行长植田和男：日本央行将全面审视市场状况，以决定是否进行干预，例如长期利率上升的速度是否过快，或者市场功能是否出…",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqt7493310.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.88,
+      "impact": 1.869,
       "evidence": {
         "positive": [
           "稳定"
@@ -814,7 +814,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T08:23+08:00",
-      "age_hours": 1.1,
+      "age_hours": 1.2,
       "title": "中信证券：预计后续资金面将维持相对宽松格局，央行存在降息降准空间",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtiqs0720223.d.html",
       "scope": "market",
@@ -823,7 +823,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.878,
+      "impact": 1.868,
       "evidence": {
         "positive": [
           "降准",
@@ -862,14 +862,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T08:09+08:00",
-      "age_hours": 1.3,
+      "age_hours": 1.4,
       "title": "日本央行行长植田和男：日本经济温和复苏、就业市场趋紧也在推高通胀。",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtchu0836379.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.852,
+      "impact": 1.842,
       "evidence": {
         "positive": [
           "复苏"
@@ -890,14 +890,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T08:08+08:00",
-      "age_hours": 1.3,
+      "age_hours": 1.4,
       "title": "日本央行行长植田和男：中东冲突正在推高能源成本和各类价格，这可以被定义为供给驱动型通胀。",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtchu0835591.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 2,
-      "impact": -1.851,
+      "impact": -1.84,
       "evidence": {
         "positive": [],
         "negative": [
@@ -920,14 +920,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T08:07+08:00",
-      "age_hours": 1.4,
+      "age_hours": 1.5,
       "title": "日本央行行长植田和男：工资增长持续向各种商品和服务转嫁，这也是一种趋势。",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtchu0835150.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.85,
+      "impact": 1.839,
       "evidence": {
         "positive": [
           "增长"
@@ -948,14 +948,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T08:06+08:00",
-      "age_hours": 1.4,
+      "age_hours": 1.5,
       "title": "日本央行行长植田和男：将潜在通胀稳定在2%左右变得越来越重要。",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtchv7606833.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.848,
+      "impact": 1.838,
       "evidence": {
         "positive": [
           "稳定"
@@ -976,7 +976,7 @@
       "source": "东方财富",
       "also_in": [],
       "published_at": "2026-10-19T07:59+08:00",
-      "age_hours": 1.5,
+      "age_hours": 1.6,
       "title": "朗高科技创业板IPO获批：市占率七成 踩中“柴油换电”风口",
       "url": "https://finance.eastmoney.com/a/202610183899104854.html",
       "scope": "market",
@@ -985,7 +985,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.835,
+      "impact": 1.825,
       "evidence": {
         "positive": [
           "获批"
@@ -1007,7 +1007,7 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-19T07:55+08:00",
-      "age_hours": 1.6,
+      "age_hours": 1.7,
       "title": "投资日历：周一资本市场大事提醒",
       "url": "https://api3.cls.cn/share/article/2507801?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -1016,7 +1016,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.829,
+      "impact": 1.818,
       "evidence": {
         "positive": [
           "回购",
@@ -1038,7 +1038,7 @@
       "source": "东方财富",
       "also_in": [],
       "published_at": "2026-10-19T07:42+08:00",
-      "age_hours": 1.8,
+      "age_hours": 1.9,
       "title": "首批红利增长ETF集中上报 红利策略ETF数量接近百只",
       "url": "https://finance.eastmoney.com/a/202610193899237997.html",
       "scope": "market",
@@ -1047,7 +1047,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.806,
+      "impact": 1.796,
       "evidence": {
         "positive": [
           "增长"
@@ -1068,7 +1068,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-19T07:34+08:00",
-      "age_hours": 1.9,
+      "age_hours": 2.0,
       "title": "印度财政部长将股市表现不佳归咎于资金易撤出与流动性过剩",
       "url": "https://finance.sina.cn/7x24/2026-10-19/detail-inivtchu0809261.d.html",
       "scope": "market",
@@ -1078,7 +1078,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.791,
+      "impact": 1.781,
       "evidence": {
         "positive": [
           "增长"
@@ -1102,7 +1102,7 @@
       "source": "东方财富",
       "also_in": [],
       "published_at": "2026-10-19T07:32+08:00",
-      "age_hours": 1.9,
+      "age_hours": 2.0,
       "title": "回购增持再贷款落地两周年 中小市值公司成主要受益者",
       "url": "https://finance.eastmoney.com/a/202610193899221430.html",
       "scope": "market",
@@ -1112,7 +1112,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.788,
+      "impact": 1.777,
       "evidence": {
         "positive": [
           "支持",
