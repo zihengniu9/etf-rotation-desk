@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-19T16:27:21+08:00",
+  "updated_at": "2026-10-20T09:29:45+08:00",
   "reference_date": "2026-10-19",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -26,10 +26,10 @@ window.DASHBOARD_STATUS = {
       "title": "短线观察",
       "href": "./shortterm_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-10-19",
-      "coverage": "梯队 7 只 · 因子候选 40 只",
+      "data_as_of": "2026-10-20",
+      "coverage": "梯队 8 只 · 因子候选 16 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "盘后因子已更新；09:25竞价信号独立保留",
+      "note": "信号日期早于复盘日期时仅作历史快照",
       "cadence": "每个交易日09:25与收盘"
     },
     {
@@ -92,10 +92,10 @@ window.DASHBOARD_STATUS = {
       "title": "消息面",
       "href": "./market_mode.html#news-panel",
       "state": "current",
-      "data_as_of": "2026-10-19",
-      "coverage": "相关快讯 960 条 · 源 3/3",
+      "data_as_of": "2026-10-20",
+      "coverage": "相关快讯 1395 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重大利空：两部门：优化调整挖泥船相关物项出口管制措施 对盾构机等物项实施出口管制",
+      "note": "重大利空：欧盟：俄乌冲突结束前不会解除任何对俄制裁",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
