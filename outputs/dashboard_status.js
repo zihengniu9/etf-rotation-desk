@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-21T16:29:36+08:00",
+  "updated_at": "2026-10-22T09:37:28+08:00",
   "reference_date": "2026-10-21",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -26,10 +26,10 @@ window.DASHBOARD_STATUS = {
       "title": "短线观察",
       "href": "./shortterm_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-10-21",
-      "coverage": "梯队 8 只 · 因子候选 40 只",
+      "data_as_of": "2026-10-22",
+      "coverage": "梯队 8 只 · 因子候选 16 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "盘后因子已更新；09:25竞价信号独立保留",
+      "note": "信号日期早于复盘日期时仅作历史快照",
       "cadence": "每个交易日09:25与收盘"
     },
     {
@@ -37,7 +37,7 @@ window.DASHBOARD_STATUS = {
       "title": "行业主线",
       "href": "./industry_mainline_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-10-21",
+      "data_as_of": "2026-10-22",
       "coverage": "252 个历史日 · 22680 行",
       "source": "行业成分股行情与资金承载",
       "note": "行业主线数据已成功刷新",
@@ -48,8 +48,8 @@ window.DASHBOARD_STATUS = {
       "title": "ETF轮动",
       "href": "./index.html",
       "state": "current",
-      "data_as_of": "2026-10-21",
-      "coverage": "排名 8 只 · 实时报价 214 只",
+      "data_as_of": "2026-10-22",
+      "coverage": "排名 6 只 · 实时报价 167 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
@@ -92,10 +92,10 @@ window.DASHBOARD_STATUS = {
       "title": "消息面",
       "href": "./market_mode.html#news-panel",
       "state": "current",
-      "data_as_of": "2026-10-21",
-      "coverage": "相关快讯 1525 条 · 源 3/3",
+      "data_as_of": "2026-10-22",
+      "coverage": "相关快讯 1585 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重大利空：威特科夫在与泽连斯基会谈后将向普京递交和平方案",
+      "note": "重大利空：美国财政部：制裁针对伊朗影子船队网络。",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
