@@ -1,9 +1,9 @@
 {
   "version": "news-signal-v1",
-  "generated_at": "2026-10-22T13:37:02+08:00",
+  "generated_at": "2026-10-22T14:37:09+08:00",
   "window": {
-    "start": "2026-10-21T13:37+08:00",
-    "end": "2026-10-22T13:37+08:00",
+    "start": "2026-10-21T14:37+08:00",
+    "end": "2026-10-22T14:37+08:00",
     "hours": 24,
     "half_life_hours": 12.0
   },
@@ -13,49 +13,49 @@
       "key": "cls",
       "name": "财联社",
       "status": "ok",
-      "count": 695,
-      "fetched": 700,
-      "oldest_at": "2026-10-21T13:31:04+08:00",
-      "latest_at": "2026-10-22T13:36:19+08:00",
+      "count": 703,
+      "fetched": 750,
+      "oldest_at": "2026-10-21T12:55:49+08:00",
+      "latest_at": "2026-10-22T14:32:30+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 2.5
+      "seconds": 4.3
     },
     {
       "key": "eastmoney",
       "name": "东方财富",
       "status": "ok",
-      "count": 883,
+      "count": 882,
       "fetched": 900,
-      "oldest_at": "2026-10-21T13:14:15+08:00",
-      "latest_at": "2026-10-22T13:32:41+08:00",
+      "oldest_at": "2026-10-21T14:06:20+08:00",
+      "latest_at": "2026-10-22T14:32:15+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 3.2
+      "seconds": 14.5
     },
     {
       "key": "sina",
       "name": "新浪财经",
       "status": "ok",
-      "count": 2358,
+      "count": 2351,
       "fetched": 2400,
-      "oldest_at": "2026-10-21T12:56:25+08:00",
-      "latest_at": "2026-10-22T13:35:25+08:00",
+      "oldest_at": "2026-10-21T14:09:57+08:00",
+      "latest_at": "2026-10-22T14:36:51+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 35.1
+      "seconds": 23.3
     }
   ],
   "counts": {
-    "fetched": 3936,
-    "unique": 3181,
-    "relevant": 1602,
-    "market": 483
+    "fetched": 3934,
+    "unique": 3175,
+    "relevant": 1609,
+    "market": 500
   },
   "market": {
-    "score": 39.9,
-    "positive": 127,
-    "negative": 85
+    "score": 44.09,
+    "positive": 134,
+    "negative": 88
   },
   "gate": {
     "state": "block",
@@ -72,13 +72,13 @@
         "恒生",
         "中概"
       ],
-      "score": -1.04,
+      "score": -2.88,
       "positive": 1,
-      "negative": 3,
+      "negative": 5,
       "items": [
-        "59e93bf69ef8",
-        "ac0625f8e0a1",
-        "e66cda4be37c"
+        "73debb9b5a76",
+        "615a606855da",
+        "dbefb34abcff"
       ],
       "alert": false
     },
@@ -87,31 +87,13 @@
       "aliases": [
         "保险"
       ],
-      "score": -0.58,
+      "score": -0.55,
       "positive": 4,
       "negative": 2,
       "items": [
+        "afd2eb62eda3",
         "ef4052839586",
-        "c1ae00521d1f",
-        "dbd691b6d578"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "地产",
-      "aliases": [
-        "房地产",
-        "地产",
-        "建筑",
-        "建材"
-      ],
-      "score": 1.9,
-      "positive": 6,
-      "negative": 1,
-      "items": [
-        "5ab5ece40992",
-        "fce74fbdc883",
-        "2e3c158cfa9d"
+        "c1ae00521d1f"
       ],
       "alert": false
     },
@@ -123,13 +105,13 @@
         "航天",
         "航空"
       ],
-      "score": 2.08,
-      "positive": 19,
-      "negative": 13,
+      "score": 0.08,
+      "positive": 18,
+      "negative": 14,
       "items": [
-        "9b74b6264f73",
-        "05ff1ef1eabb",
-        "f9b73eb74bf5"
+        "b375c8d61a78",
+        "a249a94f1ad4",
+        "9b74b6264f73"
       ],
       "alert": false
     },
@@ -141,13 +123,31 @@
         "影视",
         "文化"
       ],
-      "score": 2.21,
+      "score": 1.13,
       "positive": 5,
-      "negative": 2,
+      "negative": 3,
       "items": [
-        "0721e4c2f270",
-        "4fe0bc782a16",
-        "11ece268f076"
+        "b8c0ed110601",
+        "73debb9b5a76",
+        "0721e4c2f270"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "地产",
+      "aliases": [
+        "房地产",
+        "地产",
+        "建筑",
+        "建材"
+      ],
+      "score": 1.55,
+      "positive": 5,
+      "negative": 1,
+      "items": [
+        "4b9493393f24",
+        "5ab5ece40992",
+        "fce74fbdc883"
       ],
       "alert": false
     },
@@ -157,31 +157,13 @@
         "煤炭",
         "能源"
       ],
-      "score": 2.96,
-      "positive": 4,
+      "score": 2.56,
+      "positive": 3,
       "negative": 0,
       "items": [
         "9494e5f9f850",
         "467815398c47",
         "c4ca1897c6c7"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "红利",
-      "aliases": [
-        "红利",
-        "高股息",
-        "央企",
-        "防守"
-      ],
-      "score": 4.01,
-      "positive": 7,
-      "negative": 1,
-      "items": [
-        "9494e5f9f850",
-        "7c24d6d1372b",
-        "f8e771fef18d"
       ],
       "alert": false
     },
@@ -195,7 +177,7 @@
         "生物",
         "医疗"
       ],
-      "score": 4.29,
+      "score": 4.05,
       "positive": 9,
       "negative": 5,
       "items": [
@@ -206,35 +188,20 @@
       "alert": false
     },
     {
-      "theme": "证券",
+      "theme": "纳指",
       "aliases": [
-        "证券",
-        "券商",
-        "非银",
-        "多元金融"
+        "纳指",
+        "纳斯达克",
+        "美股",
+        "标普"
       ],
-      "score": 4.57,
-      "positive": 8,
+      "score": 4.28,
+      "positive": 6,
       "negative": 2,
       "items": [
-        "6ded560e4d70",
-        "8019bba6f31e",
-        "ecc004920e62"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "银行",
-      "aliases": [
-        "银行"
-      ],
-      "score": 5.1,
-      "positive": 23,
-      "negative": 20,
-      "items": [
-        "435f51963189",
-        "5303f1309ecd",
-        "b2e3858a8d22"
+        "5c8cb8ca3c60",
+        "73debb9b5a76",
+        "4097c18a32c9"
       ],
       "alert": false
     },
@@ -249,31 +216,49 @@
         "能源金属",
         "稀土"
       ],
-      "score": 5.35,
+      "score": 5.04,
       "positive": 10,
       "negative": 1,
       "items": [
-        "c9875ea55a7f",
-        "487668aba870",
-        "7af80e5a057c"
+        "e2cd3b3becec",
+        "35d93d18a260",
+        "2cf37ad0a750"
       ],
       "alert": false
     },
     {
-      "theme": "纳指",
+      "theme": "红利",
       "aliases": [
-        "纳指",
-        "纳斯达克",
-        "美股",
-        "标普"
+        "红利",
+        "高股息",
+        "央企",
+        "防守"
       ],
-      "score": 5.54,
-      "positive": 6,
+      "score": 5.45,
+      "positive": 7,
       "negative": 1,
       "items": [
-        "4097c18a32c9",
-        "db5383d23a00",
-        "e6f3c4d1195b"
+        "e7120414fc5e",
+        "9494e5f9f850",
+        "7c24d6d1372b"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "证券",
+      "aliases": [
+        "证券",
+        "券商",
+        "非银",
+        "多元金融"
+      ],
+      "score": 5.75,
+      "positive": 7,
+      "negative": 2,
+      "items": [
+        "5c8cb8ca3c60",
+        "378c448e467b",
+        "e1a9e51b5ed3"
       ],
       "alert": false
     },
@@ -285,30 +270,28 @@
         "种植",
         "农产品"
       ],
-      "score": 6.99,
-      "positive": 6,
+      "score": 6.35,
+      "positive": 5,
       "negative": 1,
       "items": [
-        "b24360b2d6d1",
-        "9494e5f9f850",
-        "bee28ceb7f1d"
+        "bc31563873d2",
+        "8cfa4a8ddf98",
+        "b24360b2d6d1"
       ],
       "alert": false
     },
     {
-      "theme": "电力",
+      "theme": "银行",
       "aliases": [
-        "电力",
-        "公用事业",
-        "燃气"
+        "银行"
       ],
-      "score": 8.1,
-      "positive": 21,
-      "negative": 2,
+      "score": 7.45,
+      "positive": 24,
+      "negative": 20,
       "items": [
-        "5c2934a8100b",
-        "c5f87141ed02",
-        "1ed4d3b579b3"
+        "28a3606fc2f8",
+        "683687939fd4",
+        "bf428808e4bd"
       ],
       "alert": false
     },
@@ -319,13 +302,46 @@
         "油气",
         "化工"
       ],
-      "score": 8.79,
-      "positive": 21,
-      "negative": 15,
+      "score": 8.08,
+      "positive": 24,
+      "negative": 17,
       "items": [
-        "0fc8d32e90d1",
-        "465c1c4dfd15",
-        "354258001455"
+        "35c1d96a72fb",
+        "e8caece0c45a",
+        "bb9096c16c06"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "电力",
+      "aliases": [
+        "电力",
+        "公用事业",
+        "燃气"
+      ],
+      "score": 8.15,
+      "positive": 18,
+      "negative": 1,
+      "items": [
+        "e56fa2149f0c",
+        "5c2934a8100b",
+        "c5f87141ed02"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "黄金",
+      "aliases": [
+        "黄金",
+        "贵金属"
+      ],
+      "score": 11.33,
+      "positive": 12,
+      "negative": 1,
+      "items": [
+        "35d93d18a260",
+        "2cf37ad0a750",
+        "7345ce7448a4"
       ],
       "alert": false
     },
@@ -337,29 +353,13 @@
         "光模块",
         "光电"
       ],
-      "score": 11.99,
-      "positive": 26,
+      "score": 12.79,
+      "positive": 25,
       "negative": 4,
       "items": [
+        "8b0c59a209a5",
         "07d28632424b",
-        "5048b6a605e9",
-        "b88103022cfb"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "黄金",
-      "aliases": [
-        "黄金",
-        "贵金属"
-      ],
-      "score": 12.0,
-      "positive": 12,
-      "negative": 1,
-      "items": [
-        "4623c7042018",
-        "0e1e7c4c36b5",
-        "a2e13e80c4fb"
+        "5048b6a605e9"
       ],
       "alert": false
     },
@@ -374,13 +374,13 @@
         "储能",
         "电网"
       ],
-      "score": 17.11,
-      "positive": 31,
+      "score": 14.99,
+      "positive": 26,
       "negative": 1,
       "items": [
-        "05ff1ef1eabb",
-        "aecdba703ea1",
-        "f3f3d0886e54"
+        "ca84d390f302",
+        "6aefdc5eed07",
+        "aecdba703ea1"
       ],
       "alert": false
     },
@@ -390,13 +390,13 @@
         "机器人",
         "自动化"
       ],
-      "score": 23.72,
-      "positive": 39,
+      "score": 22.13,
+      "positive": 38,
       "negative": 5,
       "items": [
-        "b829dc011c81",
-        "3e4d3983aa94",
-        "f3b0bcd0c820"
+        "378c448e467b",
+        "8a23bbeb1e09",
+        "b829dc011c81"
       ],
       "alert": false
     },
@@ -411,13 +411,13 @@
         "零售",
         "旅游"
       ],
-      "score": 25.75,
-      "positive": 45,
-      "negative": 8,
+      "score": 25.57,
+      "positive": 44,
+      "negative": 9,
       "items": [
-        "25780a84f2d3",
-        "82cdbe12acea",
-        "38f41585639e"
+        "e56fa2149f0c",
+        "1abf31ad2f5e",
+        "b00d307176e0"
       ],
       "alert": false
     },
@@ -428,13 +428,13 @@
         "新能源车",
         "智能驾驶"
       ],
-      "score": 28.23,
-      "positive": 49,
+      "score": 26.48,
+      "positive": 48,
       "negative": 10,
       "items": [
-        "5048b6a605e9",
-        "6f4b5cafc705",
-        "05ff1ef1eabb"
+        "4555daaaa4f4",
+        "b375c8d61a78",
+        "6aefdc5eed07"
       ],
       "alert": false
     },
@@ -446,13 +446,13 @@
         "集成电路",
         "科创芯片"
       ],
-      "score": 44.57,
-      "positive": 88,
-      "negative": 4,
+      "score": 44.76,
+      "positive": 90,
+      "negative": 5,
       "items": [
-        "5048b6a605e9",
-        "0721e4c2f270",
-        "b88103022cfb"
+        "1abf31ad2f5e",
+        "80d960923cc3",
+        "1e0a8e0c0b19"
       ],
       "alert": false
     },
@@ -467,13 +467,13 @@
         "云计算",
         "大数据"
       ],
-      "score": 79.27,
-      "positive": 154,
+      "score": 79.18,
+      "positive": 155,
       "negative": 18,
       "items": [
-        "162fdac4dfcc",
-        "b829dc011c81",
-        "42197df21467"
+        "1abf31ad2f5e",
+        "5c8cb8ca3c60",
+        "db621f7c2bfc"
       ],
       "alert": false
     }
@@ -486,14 +486,14 @@
         "东方财富"
       ],
       "published_at": "2026-10-22T08:50+08:00",
-      "age_hours": 4.8,
+      "age_hours": 5.8,
       "title": "韩国央行将基准利率维持在3%不变 符合市场预期",
       "url": "https://api3.cls.cn/share/article/2511709?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 3,
-      "impact": -2.277,
+      "impact": -2.149,
       "evidence": {
         "positive": [],
         "negative": [
@@ -517,14 +517,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-22T08:50+08:00",
-      "age_hours": 4.8,
+      "age_hours": 5.8,
       "title": "韩国央行在连续两次加息后维持利率不变 符合预期",
       "url": "https://finance.sina.cn/7x24/2026-10-22/detail-inivzytw8086839.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 3,
-      "impact": -2.276,
+      "impact": -2.148,
       "evidence": {
         "positive": [],
         "negative": [
@@ -548,7 +548,7 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-22T08:01+08:00",
-      "age_hours": 5.6,
+      "age_hours": 6.6,
       "title": "财联社10月22日早间新闻精选",
       "url": "https://api3.cls.cn/share/article/2511665?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -565,7 +565,7 @@
       ],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.171,
+      "impact": 2.049,
       "evidence": {
         "positive": [
           "回购",
@@ -597,11 +597,266 @@
       }
     },
     {
+      "id": "d5ca82a6f6bc",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-10-22T14:32+08:00",
+      "age_hours": 0.1,
+      "title": "菲律宾央行：如此果断的应对将使货币政策处于适当的限制性水平。",
+      "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwarrq8101921.d.html",
+      "scope": "market",
+      "themes": [],
+      "sentiment": -1,
+      "weight": 2,
+      "impact": -1.992,
+      "evidence": {
+        "positive": [],
+        "negative": [
+          "限制"
+        ],
+        "market": [
+          "央行"
+        ],
+        "authority": [
+          "央行"
+        ],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "c33fee0c1ec8",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-10-22T14:32+08:00",
+      "age_hours": 0.1,
+      "title": "菲律宾央行：已认识到需要采取强有力的货币政策应对措施，以应对不断扩大的价格压力。",
+      "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwarrq8100626.d.html",
+      "scope": "market",
+      "themes": [],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.99,
+      "evidence": {
+        "positive": [
+          "扩大"
+        ],
+        "negative": [],
+        "market": [
+          "央行"
+        ],
+        "authority": [
+          "央行"
+        ],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "56e9d3cfeebb",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-10-22T14:31+08:00",
+      "age_hours": 0.1,
+      "title": "菲律宾央行：在财政措施的支持下，国内经济活动预计将复苏。",
+      "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwarrq8100514.d.html",
+      "scope": "market",
+      "themes": [],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.99,
+      "evidence": {
+        "positive": [
+          "支持",
+          "复苏"
+        ],
+        "negative": [],
+        "market": [
+          "央行"
+        ],
+        "authority": [
+          "央行"
+        ],
+        "severe": [],
+        "speculative": [
+          "预计"
+        ]
+      }
+    },
+    {
+      "id": "1abf31ad2f5e",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-10-22T14:31+08:00",
+      "age_hours": 0.1,
+      "title": "韩国央行：预计明年起芯片出口强劲势头将传导至私人消费领域",
+      "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwarrs4872539.d.html",
+      "scope": "market",
+      "themes": [
+        "半导体",
+        "人工智能",
+        "消费"
+      ],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.989,
+      "evidence": {
+        "positive": [
+          "提振",
+          "扩大",
+          "增长",
+          "复苏"
+        ],
+        "negative": [],
+        "market": [
+          "央行"
+        ],
+        "authority": [
+          "央行"
+        ],
+        "severe": [],
+        "speculative": [
+          "预计"
+        ]
+      }
+    },
+    {
+      "id": "8b0c59a209a5",
+      "source": "新浪财经",
+      "also_in": [
+        "财联社",
+        "东方财富"
+      ],
+      "published_at": "2026-10-22T14:21+08:00",
+      "age_hours": 0.3,
+      "title": "新易盛：订单交付有序开展",
+      "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwarrs4862376.d.html",
+      "scope": "theme",
+      "themes": [
+        "通信"
+      ],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.97,
+      "evidence": {
+        "positive": [
+          "推进",
+          "订单"
+        ],
+        "negative": [],
+        "market": [],
+        "authority": [],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "7ff2ca0bca33",
+      "source": "财联社",
+      "also_in": [
+        "东方财富",
+        "新浪财经"
+      ],
+      "published_at": "2026-10-22T13:58+08:00",
+      "age_hours": 0.6,
+      "title": "花旗：正积极推进境内券商牌照申请",
+      "url": "https://api3.cls.cn/share/article/2512071?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "market",
+      "themes": [
+        "证券"
+      ],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.926,
+      "evidence": {
+        "positive": [
+          "获批",
+          "推进"
+        ],
+        "negative": [],
+        "market": [
+          "证监会"
+        ],
+        "authority": [
+          "证监会"
+        ],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "e7120414fc5e",
+      "source": "财联社",
+      "also_in": [
+        "新浪财经"
+      ],
+      "published_at": "2026-10-22T13:53+08:00",
+      "age_hours": 0.7,
+      "title": "银行板块局部回暖 工商银行涨超2%创历史新高",
+      "url": "https://api3.cls.cn/share/article/2512074?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "theme",
+      "themes": [
+        "银行",
+        "红利"
+      ],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.917,
+      "evidence": {
+        "positive": [
+          "回暖"
+        ],
+        "negative": [],
+        "market": [
+          "A股"
+        ],
+        "authority": [],
+        "severe": [],
+        "speculative": [
+          "拟"
+        ]
+      }
+    },
+    {
+      "id": "ac4f59fe0c6e",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-10-22T13:40+08:00",
+      "age_hours": 0.9,
+      "title": "野村：亚洲避险情绪明显 正在影响美国国债和澳元走势",
+      "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwarrs4819525.d.html",
+      "scope": "market",
+      "themes": [
+        "石油"
+      ],
+      "sentiment": -1,
+      "weight": 2,
+      "impact": -1.894,
+      "evidence": {
+        "positive": [],
+        "negative": [
+          "加息"
+        ],
+        "market": [
+          "央行",
+          "加息",
+          "中东"
+        ],
+        "authority": [
+          "央行"
+        ],
+        "severe": [],
+        "speculative": [
+          "预期"
+        ]
+      }
+    },
+    {
       "id": "0e1e7c4c36b5",
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-22T13:15+08:00",
-      "age_hours": 0.4,
+      "age_hours": 1.4,
       "title": "现货白银日内跌幅扩大至3%",
       "url": "https://api3.cls.cn/share/article/2512031?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "theme",
@@ -610,7 +865,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.959,
+      "impact": 1.849,
       "evidence": {
         "positive": [
           "扩大"
@@ -627,7 +882,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-22T13:14+08:00",
-      "age_hours": 0.4,
+      "age_hours": 1.4,
       "title": "WTI原油突破99美元/桶，日内涨1.92%。",
       "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwamis8149046.d.html",
       "scope": "theme",
@@ -636,7 +891,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.958,
+      "impact": 1.848,
       "evidence": {
         "positive": [
           "突破"
@@ -655,7 +910,7 @@
         "东方财富"
       ],
       "published_at": "2026-10-22T06:10+08:00",
-      "age_hours": 7.4,
+      "age_hours": 8.4,
       "title": "周四你需要知道的隔夜全球要闻：美要求非紧急人员撤离沙特；泽连斯基称乌方支持尽快启动新一轮三方会谈；美股纳指收涨超1% SpaceX大涨超7%",
       "url": "https://api3.cls.cn/share/article/2511626?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -670,7 +925,7 @@
       ],
       "sentiment": 1,
       "weight": 3,
-      "impact": 1.951,
+      "impact": 1.842,
       "evidence": {
         "positive": [
           "支持",
@@ -704,7 +959,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-22T12:40+08:00",
-      "age_hours": 0.9,
+      "age_hours": 1.9,
       "title": "摩根大通等机构经济学家预计新西兰央行今年将再加息两次",
       "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwamiu4890768.d.html",
       "scope": "market",
@@ -713,7 +968,7 @@
       ],
       "sentiment": -1,
       "weight": 2,
-      "impact": -1.895,
+      "impact": -1.788,
       "evidence": {
         "positive": [],
         "negative": [
@@ -737,7 +992,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-22T12:14+08:00",
-      "age_hours": 1.4,
+      "age_hours": 2.4,
       "title": "央行拟切换隔夜逆回购！红利低波ETF华泰柏瑞（512890）成交4.58亿元领跑同类",
       "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwamis8086872.d.html",
       "scope": "market",
@@ -750,7 +1005,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.847,
+      "impact": 1.743,
       "evidence": {
         "positive": [
           "回购",
@@ -781,7 +1036,7 @@
         "新浪财经"
       ],
       "published_at": "2026-10-22T12:12+08:00",
-      "age_hours": 1.4,
+      "age_hours": 2.4,
       "title": "日本国债收益率触及数周低点 交易员权衡中东局势及央行政策前景",
       "url": "https://api3.cls.cn/share/article/2511968?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -791,7 +1046,7 @@
       ],
       "sentiment": -1,
       "weight": 2,
-      "impact": -1.843,
+      "impact": -1.74,
       "evidence": {
         "positive": [],
         "negative": [
@@ -815,7 +1070,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-22T11:42+08:00",
-      "age_hours": 1.9,
+      "age_hours": 2.9,
       "title": "南非下调经济增长预期 临时削减燃油税",
       "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwamiu4821692.d.html",
       "scope": "market",
@@ -824,7 +1079,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.791,
+      "impact": 1.69,
       "evidence": {
         "positive": [
           "推进",
@@ -857,7 +1112,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-22T11:04+08:00",
-      "age_hours": 2.5,
+      "age_hours": 3.5,
       "title": "人民银行广东省分行：截至9月末广东社融规模存量达44.98万亿元，同比增长7.0%",
       "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwaezw4902286.d.html",
       "scope": "market",
@@ -866,7 +1121,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.727,
+      "impact": 1.63,
       "evidence": {
         "positive": [
           "增长"
@@ -888,14 +1143,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-22T10:47+08:00",
-      "age_hours": 2.8,
+      "age_hours": 3.8,
       "title": "韩国央行申铉松：明年政府预算支出将为GDP增长贡献0.5个百分点。",
       "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwaezu8111705.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.699,
+      "impact": 1.603,
       "evidence": {
         "positive": [
           "增长"
@@ -910,245 +1165,6 @@
         ],
         "severe": [],
         "speculative": []
-      }
-    },
-    {
-      "id": "dfbdd09edbb8",
-      "source": "新浪财经",
-      "also_in": [],
-      "published_at": "2026-10-22T10:41+08:00",
-      "age_hours": 2.9,
-      "title": "韩国央行行长：进一步加息的时机将取决于对后续数据的评估。",
-      "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwaezw4875818.d.html",
-      "scope": "market",
-      "themes": [],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.688,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "加息"
-        ],
-        "market": [
-          "央行",
-          "加息"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "239fa392b064",
-      "source": "财联社",
-      "also_in": [],
-      "published_at": "2026-10-22T03:39+08:00",
-      "age_hours": 10.0,
-      "title": "美要求非紧急人员撤离沙特",
-      "url": "https://api3.cls.cn/share/article/2511596?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [],
-      "sentiment": -1,
-      "weight": 3,
-      "impact": -1.687,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "袭击"
-        ],
-        "market": [
-          "国务院"
-        ],
-        "authority": [
-          "国务院",
-          "美国政府"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "d39c50c2b055",
-      "source": "东方财富",
-      "also_in": [],
-      "published_at": "2026-10-22T10:33+08:00",
-      "age_hours": 3.1,
-      "title": "韩国央行大幅上调今明两年经济增长预测 通胀预期同步走高",
-      "url": "https://finance.eastmoney.com/a/202610223903786634.html",
-      "scope": "market",
-      "themes": [],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.676,
-      "evidence": {
-        "positive": [
-          "回购",
-          "增长"
-        ],
-        "negative": [],
-        "market": [
-          "央行"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": [
-          "预期",
-          "预测"
-        ]
-      }
-    },
-    {
-      "id": "1ea14afd9fe3",
-      "source": "新浪财经",
-      "also_in": [],
-      "published_at": "2026-10-22T10:27+08:00",
-      "age_hours": 3.2,
-      "title": "韩国央行申铉松：韩元近期走强有望提振韩国消费。",
-      "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwaezu8088015.d.html",
-      "scope": "market",
-      "themes": [
-        "消费"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.667,
-      "evidence": {
-        "positive": [
-          "提振"
-        ],
-        "negative": [],
-        "market": [
-          "央行"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "e639bdbceb58",
-      "source": "新浪财经",
-      "also_in": [],
-      "published_at": "2026-10-22T10:24+08:00",
-      "age_hours": 3.2,
-      "title": "韩国央行行长申铉松：将持续应对，直至通胀压力稳定在目标水平。",
-      "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwaezw4856396.d.html",
-      "scope": "market",
-      "themes": [],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.662,
-      "evidence": {
-        "positive": [
-          "稳定"
-        ],
-        "negative": [],
-        "market": [
-          "央行"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "5692d8c907e0",
-      "source": "新浪财经",
-      "also_in": [],
-      "published_at": "2026-10-22T10:21+08:00",
-      "age_hours": 3.3,
-      "title": "申铉松：7月、8月的加息为韩国央行创造了政策空间。",
-      "url": "https://finance.sina.cn/7x24/2026-10-22/detail-iniwaezu8078463.d.html",
-      "scope": "market",
-      "themes": [],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.656,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "加息"
-        ],
-        "market": [
-          "央行",
-          "加息"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "bedafa7eb577",
-      "source": "新浪财经",
-      "also_in": [],
-      "published_at": "2026-10-22T03:06+08:00",
-      "age_hours": 10.5,
-      "title": "美国准备下令撤离驻海湾多国使馆部分工作人员",
-      "url": "https://finance.sina.cn/7x24/2026-10-22/detail-inivzqea8050324.d.html",
-      "scope": "market",
-      "themes": [],
-      "sentiment": -1,
-      "weight": 3,
-      "impact": -1.636,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "冲突"
-        ],
-        "market": [
-          "国务院",
-          "冲突",
-          "伊朗"
-        ],
-        "authority": [
-          "国务院"
-        ],
-        "severe": [],
-        "speculative": [
-          "可能"
-        ]
-      }
-    },
-    {
-      "id": "bc349da691e8",
-      "source": "财联社",
-      "also_in": [
-        "新浪财经"
-      ],
-      "published_at": "2026-10-22T10:05+08:00",
-      "age_hours": 3.5,
-      "title": "八部门：加强产业基础领域通用大模型和行业大模型研发布局 推动工业机理与智能体决策模型融合",
-      "url": "https://api3.cls.cn/share/article/2511804?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "theme",
-      "themes": [
-        "人工智能"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.632,
-      "evidence": {
-        "positive": [
-          "加快"
-        ],
-        "negative": [],
-        "market": [],
-        "authority": [],
-        "severe": [],
-        "speculative": [
-          "预测"
-        ]
       }
     }
   ]
