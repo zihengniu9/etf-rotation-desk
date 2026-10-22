@@ -49394,5 +49394,368 @@
         "通信网络设备及器件"
       ]
     }
+  ],
+  "20261022": [
+    {
+      "name": "大业股份",
+      "code": "603278.SH",
+      "boards": 5,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "通用设备",
+        "金属制品"
+      ]
+    },
+    {
+      "name": "海洋王",
+      "code": "002724.SZ",
+      "boards": 5,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "光学光电子",
+        "LED"
+      ]
+    },
+    {
+      "name": "三峡新材",
+      "code": "600293.SH",
+      "boards": 3,
+      "amount": null,
+      "concepts": [
+        "建筑材料",
+        "玻璃玻纤"
+      ]
+    },
+    {
+      "name": "星光股份",
+      "code": "002076.SZ",
+      "boards": 3,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "光学光电子",
+        "LED"
+      ]
+    },
+    {
+      "name": "上海九百",
+      "code": "600838.SH",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "商贸零售",
+        "零售",
+        "百货零售"
+      ]
+    },
+    {
+      "name": "天洋新材",
+      "code": "603330.SH",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "基础化工",
+        "塑料制品",
+        "其他塑料制品"
+      ]
+    },
+    {
+      "name": "海量数据",
+      "code": "603138.SH",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "计算机",
+        "软件开发",
+        "横向通用软件"
+      ]
+    },
+    {
+      "name": "哈空调",
+      "code": "600202.SH",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "通用设备",
+        "制冷空调设备"
+      ]
+    },
+    {
+      "name": "出版传媒",
+      "code": "601999.SH",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "传媒",
+        "文化传媒",
+        "出版"
+      ]
+    },
+    {
+      "name": "南矿集团",
+      "code": "001360.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "专用设备",
+        "能源及重型设备"
+      ]
+    },
+    {
+      "name": "赛福天",
+      "code": "603028.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "通用设备",
+        "金属制品"
+      ]
+    },
+    {
+      "name": "大洋电机",
+      "code": "002249.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "电机",
+        "电机Ⅲ"
+      ]
+    },
+    {
+      "name": "长城电工",
+      "code": "600192.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "电网设备",
+        "输变电设备"
+      ]
+    },
+    {
+      "name": "湖南天雁",
+      "code": "600698.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "底盘与发动机系统"
+      ]
+    },
+    {
+      "name": "多伦科技",
+      "code": "603528.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "计算机",
+        "软件开发",
+        "垂直应用软件"
+      ]
+    },
+    {
+      "name": "睿能科技",
+      "code": "603933.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "自动化设备",
+        "工控设备"
+      ]
+    },
+    {
+      "name": "芯瑞达",
+      "code": "002983.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "光学光电子",
+        "LED"
+      ]
+    },
+    {
+      "name": "华新精科",
+      "code": "603370.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "电机",
+        "电机Ⅲ"
+      ]
+    },
+    {
+      "name": "林州重机",
+      "code": "002535.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "专用设备",
+        "能源及重型设备"
+      ]
+    },
+    {
+      "name": "安乃达",
+      "code": "603350.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "电机",
+        "电机Ⅲ"
+      ]
+    },
+    {
+      "name": "襄阳轴承",
+      "code": "000678.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "底盘与发动机系统"
+      ]
+    },
+    {
+      "name": "南方路机",
+      "code": "603280.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "工程机械",
+        "工程机械Ⅲ"
+      ]
+    },
+    {
+      "name": "阳光照明",
+      "code": "600261.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "光学光电子",
+        "LED"
+      ]
+    },
+    {
+      "name": "山河智能",
+      "code": "002097.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "工程机械",
+        "工程机械Ⅲ"
+      ]
+    },
+    {
+      "name": "正裕工业",
+      "code": "603089.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "底盘与发动机系统"
+      ]
+    },
+    {
+      "name": "兆威机电",
+      "code": "003021.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "电机",
+        "电机Ⅲ"
+      ]
+    },
+    {
+      "name": "华阳智能",
+      "code": "301502.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "电机",
+        "电机Ⅲ"
+      ]
+    },
+    {
+      "name": "奕帆传动",
+      "code": "301023.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "电机",
+        "电机Ⅲ"
+      ]
+    },
+    {
+      "name": "博汇股份",
+      "code": "300839.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "石油石化",
+        "石油加工贸易",
+        "石油加工"
+      ]
+    },
+    {
+      "name": "冰山冷热",
+      "code": "000530.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "通用设备",
+        "制冷空调设备"
+      ]
+    },
+    {
+      "name": "北新路桥",
+      "code": "002307.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "建筑装饰",
+        "基础建设"
+      ]
+    },
+    {
+      "name": "鸣志电器",
+      "code": "603728.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "电机",
+        "电机Ⅲ"
+      ]
+    },
+    {
+      "name": "沈鼓集团",
+      "code": "601091.SH",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "专用设备",
+        "能源及重型设备"
+      ]
+    }
   ]
 }
