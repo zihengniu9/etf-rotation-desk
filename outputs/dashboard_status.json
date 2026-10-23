@@ -1,6 +1,6 @@
 {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-22T16:28:55+08:00",
+  "updated_at": "2026-10-23T09:30:00+08:00",
   "reference_date": "2026-10-22",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -26,10 +26,10 @@
       "title": "短线观察",
       "href": "./shortterm_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-10-22",
-      "coverage": "梯队 8 只 · 因子候选 40 只",
+      "data_as_of": "2026-10-23",
+      "coverage": "梯队 8 只 · 因子候选 16 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "盘后因子已更新；09:25竞价信号独立保留",
+      "note": "信号日期早于复盘日期时仅作历史快照",
       "cadence": "每个交易日09:25与收盘"
     },
     {
@@ -92,10 +92,10 @@
       "title": "消息面",
       "href": "./market_mode.html#news-panel",
       "state": "current",
-      "data_as_of": "2026-10-22",
-      "coverage": "相关快讯 1631 条 · 源 3/3",
+      "data_as_of": "2026-10-23",
+      "coverage": "相关快讯 1519 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重大利空：美国财政部：制裁针对伊朗影子船队网络。",
+      "note": "重大利空：希腊财政部表示，已注意到美国财政部关于采取措施应对与伊朗相关的制裁规避和非法金融活动的公告。",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
