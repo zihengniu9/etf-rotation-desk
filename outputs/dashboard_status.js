@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-23T09:30:00+08:00",
+  "updated_at": "2026-10-23T10:06:44+08:00",
   "reference_date": "2026-10-22",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -37,8 +37,8 @@ window.DASHBOARD_STATUS = {
       "title": "行业主线",
       "href": "./industry_mainline_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-10-22",
-      "coverage": "252 个历史日 · 22680 行",
+      "data_as_of": "2026-10-23",
+      "coverage": "252 个历史日 · 22678 行",
       "source": "行业成分股行情与资金承载",
       "note": "行业主线数据已成功刷新",
       "cadence": "每个交易日收盘"
@@ -48,8 +48,8 @@ window.DASHBOARD_STATUS = {
       "title": "ETF轮动",
       "href": "./index.html",
       "state": "current",
-      "data_as_of": "2026-10-22",
-      "coverage": "排名 4 只 · 实时报价 214 只",
+      "data_as_of": "2026-10-23",
+      "coverage": "排名 3 只 · 实时报价 210 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
@@ -93,7 +93,7 @@ window.DASHBOARD_STATUS = {
       "href": "./market_mode.html#news-panel",
       "state": "current",
       "data_as_of": "2026-10-23",
-      "coverage": "相关快讯 1519 条 · 源 3/3",
+      "coverage": "相关快讯 1518 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
       "note": "重大利空：希腊财政部表示，已注意到美国财政部关于采取措施应对与伊朗相关的制裁规避和非法金融活动的公告。",
       "cadence": "早盘09:28、盘中、收盘后"
