@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-23T14:07:20+08:00",
+  "updated_at": "2026-10-23T15:07:44+08:00",
   "reference_date": "2026-10-22",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -49,7 +49,7 @@ window.DASHBOARD_STATUS = {
       "href": "./index.html",
       "state": "current",
       "data_as_of": "2026-10-23",
-      "coverage": "排名 3 只 · 实时报价 212 只",
+      "coverage": "排名 8 只 · 实时报价 213 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
@@ -93,9 +93,9 @@ window.DASHBOARD_STATUS = {
       "href": "./market_mode.html#news-panel",
       "state": "current",
       "data_as_of": "2026-10-23",
-      "coverage": "相关快讯 1508 条 · 源 3/3",
+      "coverage": "相关快讯 1512 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重要利空：特朗普在艾奥瓦州集会上表示，过去一周通过霍尔木兹海峡的石油运输量超过了以往任何时候，包括伊朗战争之前，并将原因归于美国的…",
+      "note": "重要利空：财联社10月23日电，哈萨克斯坦央行将基准利率从16.25%下调至15.75%。",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
