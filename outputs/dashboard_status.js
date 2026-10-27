@@ -1,11 +1,11 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-27T15:13:53+08:00",
-  "reference_date": "2026-10-26",
+  "updated_at": "2026-10-27T16:41:56+08:00",
+  "reference_date": "2026-10-27",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
-    "current": 7,
-    "stale": 1,
+    "current": 8,
+    "stale": 0,
     "missing": 0,
     "error": 0
   },
@@ -15,7 +15,7 @@ window.DASHBOARD_STATUS = {
       "title": "行情复盘",
       "href": "./market_mode.html#daily-review",
       "state": "current",
-      "data_as_of": "2026-10-26",
+      "data_as_of": "2026-10-27",
       "coverage": "涨停板清单 12 只",
       "source": "同花顺问财 · hithink-astock-selector",
       "note": "最新完成交易日的收盘复盘",
@@ -26,7 +26,7 @@ window.DASHBOARD_STATUS = {
       "title": "短线观察",
       "href": "./shortterm_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-10-26",
+      "data_as_of": "2026-10-27",
       "coverage": "梯队 8 只 · 因子候选 40 只",
       "source": "短线 M/S/E/Q 本地生成器",
       "note": "盘后因子已更新；09:25竞价信号独立保留",
@@ -59,7 +59,7 @@ window.DASHBOARD_STATUS = {
       "title": "趋势因子",
       "href": "./trend_engine.html",
       "state": "current",
-      "data_as_of": "2026-10-26",
+      "data_as_of": "2026-10-27",
       "coverage": "历史股票 3032 只 · 信号 2616 个",
       "source": "同花顺问财 · hithink-astock-selector · 36个历史时点",
       "note": "全主板趋势赚钱效应",
@@ -69,9 +69,9 @@ window.DASHBOARD_STATUS = {
       "key": "growth",
       "title": "成长因子",
       "href": "./growth_factor.html",
-      "state": "stale",
-      "data_as_of": "2026-10-22",
-      "coverage": "主板 1947 只 · 有效 1660 只",
+      "state": "current",
+      "data_as_of": "2026-10-27",
+      "coverage": "主板 1927 只 · 有效 1646 只",
       "source": "同花顺问财财务查询 + 同花顺问财 news-search 历史资讯",
       "note": "财务截面每日更新；历史资讯证据按已采集覆盖",
       "cadence": "每个交易日收盘/财报披露后"
@@ -93,9 +93,9 @@ window.DASHBOARD_STATUS = {
       "href": "./market_mode.html#news-panel",
       "state": "current",
       "data_as_of": "2026-10-27",
-      "coverage": "相关快讯 717 条 · 源 2/3",
+      "coverage": "相关快讯 701 条 · 源 2/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重要利空：评论丨日本央行的“不加息”信号说给谁听？",
+      "note": "重要利空：财联社10月27日电，马来亚银行经济学家表示，菲律宾央行可能于12月将政策利率上调25个基点至5.75%，随后暂停加息，…",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
