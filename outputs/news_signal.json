@@ -1,9 +1,9 @@
 {
   "version": "news-signal-v1",
-  "generated_at": "2026-10-27T16:41:41+08:00",
+  "generated_at": "2026-10-28T09:33:31+08:00",
   "window": {
-    "start": "2026-10-26T16:41+08:00",
-    "end": "2026-10-27T16:41+08:00",
+    "start": "2026-10-27T09:33+08:00",
+    "end": "2026-10-28T09:33+08:00",
     "hours": 24,
     "half_life_hours": 12.0
   },
@@ -13,25 +13,25 @@
       "key": "cls",
       "name": "财联社",
       "status": "ok",
-      "count": 697,
+      "count": 678,
       "fetched": 700,
-      "oldest_at": "2026-10-26T16:38:40+08:00",
-      "latest_at": "2026-10-27T16:36:30+08:00",
+      "oldest_at": "2026-10-27T09:00:27+08:00",
+      "latest_at": "2026-10-28T09:27:46+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 44.7
+      "seconds": 29.7
     },
     {
       "key": "eastmoney",
       "name": "东方财富",
       "status": "ok",
-      "count": 961,
-      "fetched": 1000,
-      "oldest_at": "2026-10-26T16:15:45+08:00",
-      "latest_at": "2026-10-27T16:36:30+08:00",
+      "count": 1014,
+      "fetched": 1100,
+      "oldest_at": "2026-10-27T07:59:11+08:00",
+      "latest_at": "2026-10-28T09:28:42+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 17.8
+      "seconds": 17.2
     },
     {
       "key": "sina",
@@ -42,46 +42,46 @@
       "oldest_at": null,
       "latest_at": null,
       "window_covered": false,
-      "message": "URLError: <urlopen error _ssl.c:993: The handshake operation timed out>",
-      "seconds": 15.1
+      "message": "TimeoutError: The read operation timed out",
+      "seconds": 164.7
     }
   ],
   "counts": {
-    "fetched": 1658,
-    "unique": 1388,
-    "relevant": 701,
-    "market": 165
+    "fetched": 1680,
+    "unique": 1404,
+    "relevant": 694,
+    "market": 137
   },
   "market": {
-    "score": 28.41,
-    "positive": 56,
-    "negative": 25
+    "score": 24.11,
+    "positive": 47,
+    "negative": 23
   },
   "gate": {
     "state": "caution",
     "reasons": [
-      "重要利空：财联社10月27日电，马来亚银行经济学家表示，菲律宾央行可能于12月将政策利率上调25个基点至5.75%，随后暂停加息，…"
+      "重要利空：财联社10月28日电，新西兰央行将基准利率维持在2.75%不变，市场预期加息25个基点。"
     ],
     "rule": "重大利空（权威主体及冲击词线索、非预测、权重3且18小时内）或大盘净分≤-6.0 → 阻断进攻；净分≤-3.0或有重要利空 → 提示；主题净分≤-3.0 → 该主题对应模式暂停。关键词不是权威性核验，需复核原文；利好消息不单独触发进攻。"
   },
   "themes": [
     {
-      "theme": "军工",
+      "theme": "证券",
       "aliases": [
-        "军工",
-        "国防",
-        "航天",
-        "航空"
+        "证券",
+        "券商",
+        "非银",
+        "多元金融"
       ],
-      "score": -3.65,
+      "score": -0.19,
       "positive": 1,
-      "negative": 5,
+      "negative": 1,
       "items": [
-        "fbc32a00fd23",
-        "fc8d6e524b8c",
-        "21bea169d27d"
+        "44013455fb7f",
+        "1ac3cdca6cef",
+        "011f2b10be82"
       ],
-      "alert": true
+      "alert": false
     },
     {
       "theme": "农业",
@@ -91,13 +91,13 @@
         "种植",
         "农产品"
       ],
-      "score": 0.16,
+      "score": -0.17,
       "positive": 3,
-      "negative": 2,
+      "negative": 3,
       "items": [
-        "55f1f9b4b08c",
-        "cb360ab10d8a",
-        "bd8b4f608cb4"
+        "81bb0d61e76f",
+        "eb5992f48dcc",
+        "8ab92182e190"
       ],
       "alert": false
     },
@@ -109,46 +109,13 @@
         "建筑",
         "建材"
       ],
-      "score": 0.99,
-      "positive": 2,
+      "score": 0.0,
+      "positive": 0,
       "negative": 0,
       "items": [
+        "d6202d07ac37",
         "b8a46dbe9911",
-        "51cc85dd96ae",
-        "4e808d784592"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "保险",
-      "aliases": [
-        "保险"
-      ],
-      "score": 1.2,
-      "positive": 3,
-      "negative": 1,
-      "items": [
-        "39d5e2e7ba3c",
-        "c6875e8050c5",
-        "5dbbc371e517"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "证券",
-      "aliases": [
-        "证券",
-        "券商",
-        "非银",
-        "多元金融"
-      ],
-      "score": 1.32,
-      "positive": 1,
-      "negative": 0,
-      "items": [
-        "434527a4c4f5",
-        "a1660b63f0a2",
-        "14686d5cbdcd"
+        "51cc85dd96ae"
       ],
       "alert": false
     },
@@ -158,65 +125,13 @@
         "煤炭",
         "能源"
       ],
-      "score": 3.79,
-      "positive": 4,
+      "score": 1.2,
+      "positive": 3,
       "negative": 0,
       "items": [
-        "7f6931669f16",
-        "43b9fd539207",
-        "dd843779286a"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "传媒",
-      "aliases": [
-        "传媒",
-        "游戏",
-        "影视",
-        "文化"
-      ],
-      "score": 4.37,
-      "positive": 6,
-      "negative": 1,
-      "items": [
-        "30e8e2343ffe",
-        "806e74feda34",
-        "b73130801bd8"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "港股",
-      "aliases": [
-        "港股",
-        "恒生",
-        "中概"
-      ],
-      "score": 5.14,
-      "positive": 5,
-      "negative": 0,
-      "items": [
-        "bb189fa1e9d3",
-        "e7774de4dab6",
-        "9ab567e04369"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "石油",
-      "aliases": [
-        "石油",
-        "油气",
-        "化工"
-      ],
-      "score": 5.32,
-      "positive": 10,
-      "negative": 4,
-      "items": [
-        "645e36103634",
-        "69eb23b0f910",
-        "b8207a4b12c9"
+        "c7bf6dd74115",
+        "81bb0d61e76f",
+        "35367b443597"
       ],
       "alert": false
     },
@@ -231,13 +146,46 @@
         "能源金属",
         "稀土"
       ],
-      "score": 6.18,
-      "positive": 10,
+      "score": 2.13,
+      "positive": 5,
       "negative": 0,
       "items": [
-        "13cce33a4d54",
-        "96e004ed49a8",
-        "db262d80cd7e"
+        "10b2df1236ee",
+        "6d5cefae13f9",
+        "0a9252b7d953"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "保险",
+      "aliases": [
+        "保险"
+      ],
+      "score": 2.34,
+      "positive": 4,
+      "negative": 1,
+      "items": [
+        "d68f538d2030",
+        "9204f7450af1",
+        "f97beed07aa9"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "军工",
+      "aliases": [
+        "军工",
+        "国防",
+        "航天",
+        "航空"
+      ],
+      "score": 3.9,
+      "positive": 5,
+      "negative": 5,
+      "items": [
+        "30aa27994e61",
+        "665d0e25269a",
+        "6c1bbcddec5f"
       ],
       "alert": false
     },
@@ -249,47 +197,28 @@
         "央企",
         "防守"
       ],
-      "score": 7.48,
-      "positive": 9,
-      "negative": 0,
-      "items": [
-        "d945b19e0c93",
-        "2a49d555691f",
-        "4de8245e3105"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "纳指",
-      "aliases": [
-        "纳指",
-        "纳斯达克",
-        "美股",
-        "标普"
-      ],
-      "score": 7.55,
-      "positive": 10,
+      "score": 5.84,
+      "positive": 11,
       "negative": 1,
       "items": [
-        "647a3b48c988",
-        "ae2fe0516782",
-        "946470aae8e0"
+        "9e356e0fd4e8",
+        "2a42524833ed",
+        "7dcc6503bd37"
       ],
       "alert": false
     },
     {
-      "theme": "黄金",
+      "theme": "银行",
       "aliases": [
-        "黄金",
-        "贵金属"
+        "银行"
       ],
-      "score": 7.68,
-      "positive": 10,
-      "negative": 2,
+      "score": 6.23,
+      "positive": 15,
+      "negative": 7,
       "items": [
-        "971393f5f06d",
-        "a35576ba3a88",
-        "6c8d7b65688f"
+        "c7fef672e0b3",
+        "6e84125d5950",
+        "8c53b83c8c8c"
       ],
       "alert": false
     },
@@ -300,13 +229,30 @@
         "公用事业",
         "燃气"
       ],
-      "score": 9.21,
-      "positive": 15,
+      "score": 6.97,
+      "positive": 13,
       "negative": 0,
       "items": [
-        "0dfe8b102797",
-        "4f59d6fe837b",
-        "006d7561b82e"
+        "4f98e24c7503",
+        "10b2df1236ee",
+        "71b4c5ac7fc4"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "石油",
+      "aliases": [
+        "石油",
+        "油气",
+        "化工"
+      ],
+      "score": 7.8,
+      "positive": 9,
+      "negative": 5,
+      "items": [
+        "c7bf6dd74115",
+        "81bb0d61e76f",
+        "32522137590c"
       ],
       "alert": false
     },
@@ -317,103 +263,13 @@
         "新能源车",
         "智能驾驶"
       ],
-      "score": 10.95,
-      "positive": 16,
-      "negative": 1,
+      "score": 8.42,
+      "positive": 15,
+      "negative": 2,
       "items": [
-        "9131817fd2fe",
-        "f17e3ec7952a",
-        "2897b5463624"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "通信",
-      "aliases": [
-        "通信",
-        "5G",
-        "光模块",
-        "光电"
-      ],
-      "score": 11.0,
-      "positive": 25,
-      "negative": 4,
-      "items": [
-        "51d61312969c",
-        "be6672450349",
-        "bcda9ad0eca5"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "银行",
-      "aliases": [
-        "银行"
-      ],
-      "score": 11.73,
-      "positive": 19,
-      "negative": 6,
-      "items": [
-        "15a68a10044e",
-        "4d00c04ce57f",
-        "b259552521c5"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "新能源",
-      "aliases": [
-        "新能源",
-        "光伏",
-        "风电",
-        "电池",
-        "锂电",
-        "储能",
-        "电网"
-      ],
-      "score": 11.83,
-      "positive": 22,
-      "negative": 0,
-      "items": [
-        "8fcad4b8181b",
-        "19804fde7394",
-        "45f7a4a5c721"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "机器人",
-      "aliases": [
-        "机器人",
-        "自动化"
-      ],
-      "score": 12.17,
-      "positive": 16,
-      "negative": 1,
-      "items": [
-        "24a58da9796e",
-        "806e74feda34",
-        "2df3248b1370"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "医药",
-      "aliases": [
-        "医药",
-        "创新药",
-        "中药",
-        "制药",
-        "生物",
-        "医疗"
-      ],
-      "score": 14.3,
-      "positive": 18,
-      "negative": 0,
-      "items": [
-        "2075e39ebfd2",
-        "57ec70124cc7",
-        "c59ee5bff263"
+        "3192baaf60e0",
+        "d86be5e5521a",
+        "7a9445ed5f72"
       ],
       "alert": false
     },
@@ -428,13 +284,157 @@
         "零售",
         "旅游"
       ],
-      "score": 14.94,
-      "positive": 24,
-      "negative": 8,
+      "score": 8.79,
+      "positive": 16,
+      "negative": 6,
       "items": [
-        "1023d25dc253",
-        "2a43556e583b",
-        "806e74feda34"
+        "44013455fb7f",
+        "8421eb8ec86c",
+        "ef3edc1d16dc"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "港股",
+      "aliases": [
+        "港股",
+        "恒生",
+        "中概"
+      ],
+      "score": 9.02,
+      "positive": 9,
+      "negative": 0,
+      "items": [
+        "6ddeaf973650",
+        "8d81e84660d7",
+        "2a42524833ed"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "传媒",
+      "aliases": [
+        "传媒",
+        "游戏",
+        "影视",
+        "文化"
+      ],
+      "score": 9.91,
+      "positive": 13,
+      "negative": 0,
+      "items": [
+        "6e84125d5950",
+        "33dfc8a813b5",
+        "12e58c3dc066"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "黄金",
+      "aliases": [
+        "黄金",
+        "贵金属"
+      ],
+      "score": 12.18,
+      "positive": 15,
+      "negative": 0,
+      "items": [
+        "31048103a256",
+        "8d81e84660d7",
+        "ad6a5eb7468c"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "医药",
+      "aliases": [
+        "医药",
+        "创新药",
+        "中药",
+        "制药",
+        "生物",
+        "医疗"
+      ],
+      "score": 12.24,
+      "positive": 22,
+      "negative": 0,
+      "items": [
+        "f652a968cb99",
+        "52b08449ef57",
+        "8d81e84660d7"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "通信",
+      "aliases": [
+        "通信",
+        "5G",
+        "光模块",
+        "光电"
+      ],
+      "score": 13.24,
+      "positive": 16,
+      "negative": 2,
+      "items": [
+        "fa3d5289b916",
+        "07d701788468",
+        "4f98e24c7503"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "新能源",
+      "aliases": [
+        "新能源",
+        "光伏",
+        "风电",
+        "电池",
+        "锂电",
+        "储能",
+        "电网"
+      ],
+      "score": 13.52,
+      "positive": 24,
+      "negative": 0,
+      "items": [
+        "afab493eebc1",
+        "b556705989c4",
+        "8f0ebdcfc514"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "机器人",
+      "aliases": [
+        "机器人",
+        "自动化"
+      ],
+      "score": 14.76,
+      "positive": 24,
+      "negative": 2,
+      "items": [
+        "44013455fb7f",
+        "7a9445ed5f72",
+        "0720c79a22dd"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "纳指",
+      "aliases": [
+        "纳指",
+        "纳斯达克",
+        "美股",
+        "标普"
+      ],
+      "score": 15.41,
+      "positive": 14,
+      "negative": 1,
+      "items": [
+        "32522137590c",
+        "8d81e84660d7",
+        "509486596787"
       ],
       "alert": false
     },
@@ -446,13 +446,13 @@
         "集成电路",
         "科创芯片"
       ],
-      "score": 24.35,
-      "positive": 32,
+      "score": 34.01,
+      "positive": 46,
       "negative": 1,
       "items": [
-        "65f53155dfef",
-        "2bd46a13b5ce",
-        "8b6e8b314d32"
+        "ce9f021638ed",
+        "31048103a256",
+        "8f0ebdcfc514"
       ],
       "alert": false
     },
@@ -467,152 +467,60 @@
         "云计算",
         "大数据"
       ],
-      "score": 37.99,
-      "positive": 66,
-      "negative": 8,
+      "score": 47.88,
+      "positive": 78,
+      "negative": 6,
       "items": [
-        "65f53155dfef",
-        "2bd46a13b5ce",
-        "d8037c49147d"
+        "afab493eebc1",
+        "ce9f021638ed",
+        "c7fef672e0b3"
       ],
       "alert": false
     }
   ],
   "items": [
     {
-      "id": "d8037c49147d",
+      "id": "32522137590c",
       "source": "财联社",
       "also_in": [],
-      "published_at": "2026-10-27T16:08+08:00",
-      "age_hours": 0.6,
-      "title": "沪电股份：第三季度净利润同比增长161% 环比增长60%",
-      "url": "https://api3.cls.cn/share/article/2516554?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "theme",
+      "published_at": "2026-10-28T08:37+08:00",
+      "age_hours": 0.9,
+      "title": "投资日历：周三资本市场大事提醒",
+      "url": "https://api3.cls.cn/share/article/2517246?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "market",
       "themes": [
-        "人工智能"
+        "石油",
+        "纳指"
       ],
       "sentiment": 1,
-      "weight": 2,
-      "impact": 1.937,
+      "weight": 3,
+      "impact": 2.841,
       "evidence": {
         "positive": [
-          "增长"
+          "回购"
         ],
         "negative": [],
-        "market": [],
-        "authority": [],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "b259552521c5",
-      "source": "财联社",
-      "also_in": [],
-      "published_at": "2026-10-27T15:59+08:00",
-      "age_hours": 0.7,
-      "title": "财联社10月27日电，马来亚银行经济学家表示，菲律宾央行可能于12月将政策利率上调25个基点至5.75%，随后暂停加息，…",
-      "url": "https://api3.cls.cn/share/article/2516534?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [
-        "银行"
-      ],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.92,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "加息",
-          "暂停"
-        ],
         "market": [
-          "央行",
-          "加息"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": [
-          "可能"
-        ]
-      }
-    },
-    {
-      "id": "dfa6071bae2c",
-      "source": "财联社",
-      "also_in": [],
-      "published_at": "2026-10-27T15:54+08:00",
-      "age_hours": 0.8,
-      "title": "财联社10月27日电，美国资管公司普徕仕资本市场策略师表示，当前利率期货定价反映市场预期美联储至2027年底加息节奏偏温…",
-      "url": "https://api3.cls.cn/share/article/2516520?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.91,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "加息"
-        ],
-        "market": [
-          "美联储",
-          "加息"
+          "逆回购",
+          "美联储"
         ],
         "authority": [
           "美联储"
         ],
         "severe": [],
         "speculative": [
-          "预期"
+          "预计"
         ]
       }
     },
     {
-      "id": "806e74feda34",
+      "id": "8d81e84660d7",
       "source": "财联社",
       "also_in": [],
-      "published_at": "2026-10-27T15:36+08:00",
-      "age_hours": 1.1,
-      "title": "10月27日连板股分析：连板股晋级率不足三成 海洋王走出8天7板",
-      "url": "https://api3.cls.cn/share/article/2516488?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [
-        "机器人",
-        "消费",
-        "传媒"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.878,
-      "evidence": {
-        "positive": [
-          "扩大",
-          "加快"
-        ],
-        "negative": [
-          "退市"
-        ],
-        "market": [
-          "发改委"
-        ],
-        "authority": [
-          "发改委"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "5eb1a6bd90ae",
-      "source": "财联社",
-      "also_in": [],
-      "published_at": "2026-10-27T08:27+08:00",
-      "age_hours": 8.2,
-      "title": "财联社10月27日早间新闻精选",
-      "url": "https://api3.cls.cn/share/article/2515962?os=web&sv=7.7.5&app=CailianpressWeb",
+      "published_at": "2026-10-28T08:08+08:00",
+      "age_hours": 1.4,
+      "title": "财联社10月28日早间新闻精选",
+      "url": "https://api3.cls.cn/share/article/2517250?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
       "themes": [
         "半导体",
@@ -620,36 +528,35 @@
         "通信",
         "机器人",
         "医药",
-        "银行",
+        "黄金",
+        "汽车",
+        "军工",
         "消费",
         "石油",
-        "纳指"
+        "传媒",
+        "纳指",
+        "港股"
       ],
       "sentiment": 1,
       "weight": 3,
-      "impact": 1.864,
+      "impact": 2.764,
       "evidence": {
         "positive": [
-          "支持",
+          "回购",
+          "补贴",
+          "突破",
+          "加快",
           "稳定",
-          "订单",
-          "增长",
-          "加大"
+          "增长"
         ],
-        "negative": [
-          "冲突",
-          "下滑"
-        ],
+        "negative": [],
         "market": [
-          "人民银行",
+          "证监会",
           "IPO",
-          "冲突",
-          "中东",
-          "伊朗",
-          "A股"
+          "以色列"
         ],
         "authority": [
-          "人民银行"
+          "证监会"
         ],
         "severe": [],
         "speculative": [
@@ -660,167 +567,21 @@
       }
     },
     {
-      "id": "fbc32a00fd23",
-      "source": "财联社",
+      "id": "4a8c5891e806",
+      "source": "东方财富",
       "also_in": [],
-      "published_at": "2026-10-27T15:11+08:00",
-      "age_hours": 1.5,
-      "title": "10月27日涨停分析",
-      "url": "https://api3.cls.cn/share/article/2516442?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "theme",
-      "themes": [
-        "机器人",
-        "军工",
-        "消费"
-      ],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.835,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "退市"
-        ],
-        "market": [],
-        "authority": [],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "d945b19e0c93",
-      "source": "财联社",
-      "also_in": [
-        "东方财富"
-      ],
-      "published_at": "2026-10-27T15:05+08:00",
-      "age_hours": 1.6,
-      "title": "中国作为首批签约国签署《联合国可转让货物单证公约》",
-      "url": "https://api3.cls.cn/share/article/2516427?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "theme",
-      "themes": [
-        "红利"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.823,
-      "evidence": {
-        "positive": [
-          "签约"
-        ],
-        "negative": [],
-        "market": [],
-        "authority": [
-          "商务部"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "2044cb32a0ba",
-      "source": "财联社",
-      "also_in": [],
-      "published_at": "2026-10-27T07:17+08:00",
-      "age_hours": 9.4,
-      "title": "周二你需要知道的隔夜全球要闻：AI交易回暖提振纳指收涨0.8%；油价回落；巴西股指收盘重挫13.9%",
-      "url": "https://api3.cls.cn/share/article/2515913?os=web&sv=7.7.5&app=CailianpressWeb",
+      "published_at": "2026-10-28T09:23+08:00",
+      "age_hours": 0.2,
+      "title": "央行今日开展1510亿元7天期逆回购操作",
+      "url": "https://finance.eastmoney.com/a/202610283911126853.html",
       "scope": "market",
-      "themes": [
-        "半导体",
-        "人工智能",
-        "通信",
-        "银行",
-        "黄金",
-        "石油",
-        "纳指",
-        "港股"
-      ],
-      "sentiment": 1,
-      "weight": 3,
-      "impact": 1.742,
-      "evidence": {
-        "positive": [
-          "支持",
-          "提振",
-          "回暖",
-          "加大"
-        ],
-        "negative": [],
-        "market": [
-          "央行",
-          "IPO",
-          "中东"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": [
-          "预计",
-          "预期",
-          "预测"
-        ]
-      }
-    },
-    {
-      "id": "a35576ba3a88",
-      "source": "财联社",
-      "also_in": [],
-      "published_at": "2026-10-27T14:05+08:00",
-      "age_hours": 2.6,
-      "title": "只有美伊冲突结束黄金才能复苏？美银策略师强调关键利空仍未解决",
-      "url": "https://api3.cls.cn/share/article/2516337?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [
-        "银行",
-        "黄金"
-      ],
+      "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.721,
+      "impact": 1.98,
       "evidence": {
         "positive": [
-          "稳定",
-          "增长",
-          "复苏"
-        ],
-        "negative": [
-          "利空",
-          "冲突"
-        ],
-        "market": [
-          "央行",
-          "冲突"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "9ab567e04369",
-      "source": "财联社",
-      "also_in": [
-        "东方财富"
-      ],
-      "published_at": "2026-10-27T12:02+08:00",
-      "age_hours": 4.6,
-      "title": "财联社10月27日午间新闻精选",
-      "url": "https://api3.cls.cn/share/article/2516216?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [
-        "港股"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.529,
-      "evidence": {
-        "positive": [
-          "回购",
-          "增长"
+          "回购"
         ],
         "negative": [],
         "market": [
@@ -835,321 +596,551 @@
       }
     },
     {
-      "id": "8c6c27508281",
-      "source": "东方财富",
-      "also_in": [],
-      "published_at": "2026-10-27T11:14+08:00",
-      "age_hours": 5.5,
-      "title": "2028年或迎“AI浩劫”？分析师推演泡沫破裂路径 并给出投资建议！",
-      "url": "https://finance.eastmoney.com/a/202610273909457451.html",
-      "scope": "theme",
-      "themes": [
-        "人工智能",
-        "通信"
-      ],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.46,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "暴跌"
-        ],
-        "market": [],
-        "authority": [],
-        "severe": [
-          "暴跌"
-        ],
-        "speculative": [
-          "预期",
-          "预测"
-        ]
-      }
-    },
-    {
-      "id": "83e7b8bcacf0",
-      "source": "东方财富",
-      "also_in": [],
-      "published_at": "2026-10-27T11:12+08:00",
-      "age_hours": 5.5,
-      "title": "大牛股斩获五连板！零售板块强势拉涨 关注这四条主线机会",
-      "url": "https://finance.eastmoney.com/a/202610273909447222.html",
-      "scope": "market",
-      "themes": [
-        "消费"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.457,
-      "evidence": {
-        "positive": [
-          "扩大",
-          "增长"
-        ],
-        "negative": [],
-        "market": [
-          "GDP"
-        ],
-        "authority": [
-          "商务部"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "7917ae6e8ece",
+      "id": "ac5c61da11e2",
       "source": "财联社",
       "also_in": [],
-      "published_at": "2026-10-27T10:14+08:00",
-      "age_hours": 6.5,
-      "title": "食品饮料板块异动拉升 桂发祥2连板",
-      "url": "https://api3.cls.cn/share/article/2516097?os=web&sv=7.7.5&app=CailianpressWeb",
+      "published_at": "2026-10-28T09:22+08:00",
+      "age_hours": 0.2,
+      "title": "财联社10月28日电，央行今日开展1510亿元7天期逆回购操作，操作利率为1.40%。同时，开展了10000亿元隔夜逆回…",
+      "url": "https://api3.cls.cn/share/article/2517346?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.377,
+      "impact": 1.978,
       "evidence": {
         "positive": [
-          "扩大",
-          "加快"
+          "回购"
         ],
         "negative": [],
         "market": [
-          "发改委"
+          "央行",
+          "逆回购"
         ],
         "authority": [
-          "发改委"
+          "央行"
         ],
         "severe": [],
         "speculative": []
       }
     },
     {
-      "id": "7061d583a74c",
-      "source": "财联社",
-      "also_in": [],
-      "published_at": "2026-10-27T09:43+08:00",
-      "age_hours": 7.0,
-      "title": "零售概念表现活跃 茂业商业涨停",
-      "url": "https://api3.cls.cn/share/article/2516061?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [
-        "消费"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.337,
-      "evidence": {
-        "positive": [
-          "增长"
-        ],
-        "negative": [],
-        "market": [
-          "GDP"
-        ],
-        "authority": [
-          "商务部"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "36e17a14348a",
+      "id": "0ae36b7dda42",
       "source": "财联社",
       "also_in": [
         "东方财富"
       ],
-      "published_at": "2026-10-27T09:32+08:00",
-      "age_hours": 7.2,
-      "title": "国家统计局：1—9月算力与数据中心建设带动光纤制造、光缆制造行业利润分别增长5.7倍和1.1倍",
-      "url": "https://api3.cls.cn/share/article/2516043?os=web&sv=7.7.5&app=CailianpressWeb",
+      "published_at": "2026-10-28T09:00+08:00",
+      "age_hours": 0.5,
+      "title": "财联社10月28日电，新西兰央行将基准利率维持在2.75%不变，市场预期加息25个基点。",
+      "url": "https://api3.cls.cn/share/article/2517316?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "market",
+      "themes": [],
+      "sentiment": -1,
+      "weight": 2,
+      "impact": -1.938,
+      "evidence": {
+        "positive": [],
+        "negative": [
+          "加息"
+        ],
+        "market": [
+          "央行",
+          "加息"
+        ],
+        "authority": [
+          "央行"
+        ],
+        "severe": [],
+        "speculative": [
+          "预期"
+        ]
+      }
+    },
+    {
+      "id": "8be7b65e0dfd",
+      "source": "东方财富",
+      "also_in": [],
+      "published_at": "2026-10-28T08:22+08:00",
+      "age_hours": 1.2,
+      "title": "中期选举受油价掣肘？特朗普力辩是“短期阵痛” 更多俄柴油或进入市场！",
+      "url": "https://finance.eastmoney.com/a/202610283910909110.html",
+      "scope": "market",
+      "themes": [
+        "石油"
+      ],
+      "sentiment": -1,
+      "weight": 2,
+      "impact": -1.867,
+      "evidence": {
+        "positive": [
+          "入市"
+        ],
+        "negative": [
+          "冲突",
+          "战争"
+        ],
+        "market": [
+          "冲突",
+          "伊朗"
+        ],
+        "authority": [],
+        "severe": [
+          "战争"
+        ],
+        "speculative": []
+      }
+    },
+    {
+      "id": "8746e38acfed",
+      "source": "东方财富",
+      "also_in": [],
+      "published_at": "2026-10-28T08:06+08:00",
+      "age_hours": 1.5,
+      "title": "加码对华投资限制损害美企利益",
+      "url": "https://finance.eastmoney.com/a/202610283910667838.html",
+      "scope": "market",
+      "themes": [],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.839,
+      "evidence": {
+        "positive": [
+          "扩大",
+          "加大"
+        ],
+        "negative": [
+          "限制"
+        ],
+        "market": [
+          "财政部"
+        ],
+        "authority": [
+          "财政部"
+        ],
+        "severe": [],
+        "speculative": [
+          "拟"
+        ]
+      }
+    },
+    {
+      "id": "162a49857b5e",
+      "source": "财联社",
+      "also_in": [],
+      "published_at": "2026-10-28T07:42+08:00",
+      "age_hours": 1.8,
+      "title": "SK海力士预计存储供不应求持续至2030年",
+      "url": "https://api3.cls.cn/share/article/2517239?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "theme",
+      "themes": [
+        "半导体"
+      ],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.798,
+      "evidence": {
+        "positive": [
+          "加快"
+        ],
+        "negative": [],
+        "market": [],
+        "authority": [],
+        "severe": [],
+        "speculative": [
+          "预计"
+        ]
+      }
+    },
+    {
+      "id": "af1a14061666",
+      "source": "财联社",
+      "also_in": [
+        "东方财富"
+      ],
+      "published_at": "2026-10-28T07:37+08:00",
+      "age_hours": 1.9,
+      "title": "SK海力士预计明年营收及营业利润再上新台阶 明年投资规模将大幅增加",
+      "url": "https://api3.cls.cn/share/article/2517236?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "theme",
+      "themes": [
+        "半导体"
+      ],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.788,
+      "evidence": {
+        "positive": [
+          "推进"
+        ],
+        "negative": [],
+        "market": [],
+        "authority": [],
+        "severe": [],
+        "speculative": [
+          "预计"
+        ]
+      }
+    },
+    {
+      "id": "84ac07cee986",
+      "source": "财联社",
+      "also_in": [],
+      "published_at": "2026-10-28T07:29+08:00",
+      "age_hours": 2.1,
+      "title": "SK海力士第三季度营收首破100万亿韩元 同比增长328%",
+      "url": "https://api3.cls.cn/share/article/2517228?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "theme",
       "themes": [
         "人工智能"
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.323,
+      "impact": 1.775,
       "evidence": {
         "positive": [
-          "加快",
-          "推进",
+          "突破",
           "增长"
         ],
         "negative": [],
         "market": [],
         "authority": [],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "fc9f5dfb580d",
-      "source": "财联社",
-      "also_in": [
-        "东方财富"
-      ],
-      "published_at": "2026-10-27T09:30+08:00",
-      "age_hours": 7.2,
-      "title": "国家统计局：1—9月份全国规模以上工业企业利润增长15.5%",
-      "url": "https://api3.cls.cn/share/article/2516041?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "theme",
-      "themes": [
-        "通信",
-        "有色",
-        "汽车",
-        "煤炭",
-        "石油",
-        "电力"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.321,
-      "evidence": {
-        "positive": [
-          "增长"
-        ],
-        "negative": [],
-        "market": [],
-        "authority": [],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "434527a4c4f5",
-      "source": "财联社",
-      "also_in": [
-        "东方财富"
-      ],
-      "published_at": "2026-10-27T09:30+08:00",
-      "age_hours": 7.2,
-      "title": "清越科技3.7亿元基金先行赔付启动 监管部署券商做好适格投资者服务",
-      "url": "https://api3.cls.cn/share/article/2516026?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [
-        "证券"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.32,
-      "evidence": {
-        "positive": [
-          "推进",
-          "加大"
-        ],
-        "negative": [
-          "处罚"
-        ],
-        "market": [
-          "证监会"
-        ],
-        "authority": [
-          "证监会"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "df69a2cbf882",
-      "source": "财联社",
-      "also_in": [
-        "东方财富"
-      ],
-      "published_at": "2026-10-27T09:22+08:00",
-      "age_hours": 7.3,
-      "title": "财联社10月27日电，韩国央行官员表示，第三季度GDP数据使韩国今年经济增长预测上调0.35个百分点；私人消费将从202…",
-      "url": "https://api3.cls.cn/share/article/2516024?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [
-        "消费"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.311,
-      "evidence": {
-        "positive": [
-          "增长",
-          "复苏"
-        ],
-        "negative": [],
-        "market": [
-          "央行",
-          "GDP"
-        ],
-        "authority": [
-          "央行"
-        ],
         "severe": [],
         "speculative": [
-          "预测"
+          "预期"
         ]
       }
     },
     {
-      "id": "986461041e2c",
+      "id": "a1d0a5712f46",
       "source": "东方财富",
       "also_in": [],
-      "published_at": "2026-10-27T09:22+08:00",
-      "age_hours": 7.3,
-      "title": "央行开展10000亿元隔夜逆回购操作",
-      "url": "https://finance.eastmoney.com/a/202610273909176189.html",
+      "published_at": "2026-10-28T07:13+08:00",
+      "age_hours": 2.3,
+      "title": "债市制度优化持续推进 稳市机制落地 跨市场互联互通在即",
+      "url": "https://finance.eastmoney.com/a/202610283910635836.html",
       "scope": "market",
       "themes": [
         "银行"
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.311,
+      "impact": 1.748,
       "evidence": {
         "positive": [
-          "回购"
+          "推进"
         ],
         "negative": [],
         "market": [
-          "央行",
-          "人民银行",
-          "逆回购"
-        ],
-        "authority": [
-          "央行",
-          "人民银行"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "02c45a8fa9b0",
-      "source": "财联社",
-      "also_in": [],
-      "published_at": "2026-10-27T09:21+08:00",
-      "age_hours": 7.3,
-      "title": "财联社10月27日电，央行今日开展4120亿元7天期逆回购操作，操作利率为1.40%。同时，开展了10000亿元隔夜逆回…",
-      "url": "https://api3.cls.cn/share/article/2516021?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.309,
-      "evidence": {
-        "positive": [
-          "回购"
-        ],
-        "negative": [],
-        "market": [
-          "央行",
-          "逆回购"
+          "央行"
         ],
         "authority": [
           "央行"
         ],
         "severe": [],
         "speculative": []
+      }
+    },
+    {
+      "id": "e1603be7596d",
+      "source": "财联社",
+      "also_in": [
+        "东方财富"
+      ],
+      "published_at": "2026-10-28T06:15+08:00",
+      "age_hours": 3.3,
+      "title": "周三你需要知道的隔夜全球要闻：特朗普暗示委内瑞拉可能成为美国的州；博索纳罗“流亡”美国；科技股走强提振纳指收涨1%",
+      "url": "https://api3.cls.cn/share/article/2517201?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "market",
+      "themes": [
+        "半导体",
+        "通信",
+        "黄金",
+        "军工",
+        "石油",
+        "纳指",
+        "港股"
+      ],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.653,
+      "evidence": {
+        "positive": [
+          "提振",
+          "扩大",
+          "增长"
+        ],
+        "negative": [
+          "调查",
+          "禁止"
+        ],
+        "market": [
+          "中东",
+          "以色列",
+          "伊朗"
+        ],
+        "authority": [],
+        "severe": [],
+        "speculative": [
+          "预计",
+          "预期",
+          "预测",
+          "可能"
+        ]
+      }
+    },
+    {
+      "id": "c4f24428303a",
+      "source": "财联社",
+      "also_in": [],
+      "published_at": "2026-10-28T04:03+08:00",
+      "age_hours": 5.5,
+      "title": "出口民调显示内塔尼亚胡阵营未获议会多数席位",
+      "url": "https://api3.cls.cn/share/article/2517181?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "market",
+      "themes": [],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.455,
+      "evidence": {
+        "positive": [
+          "支持"
+        ],
+        "negative": [],
+        "market": [
+          "以色列"
+        ],
+        "authority": [],
+        "severe": [],
+        "speculative": [
+          "预计"
+        ]
+      }
+    },
+    {
+      "id": "e9734ea45c65",
+      "source": "财联社",
+      "also_in": [],
+      "published_at": "2026-10-28T04:01+08:00",
+      "age_hours": 5.5,
+      "title": "纳指收涨1.18% 存储、光通信板块继续走强",
+      "url": "https://api3.cls.cn/share/article/2517179?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "theme",
+      "themes": [
+        "半导体",
+        "通信",
+        "纳指"
+      ],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.453,
+      "evidence": {
+        "positive": [
+          "扩大"
+        ],
+        "negative": [],
+        "market": [],
+        "authority": [],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "632e41d2270f",
+      "source": "财联社",
+      "also_in": [],
+      "published_at": "2026-10-27T20:39+08:00",
+      "age_hours": 12.9,
+      "title": "美股盘前要闻一览：马斯克称机器人所需内存将超过其他任何领域；英伟达与Meta在Muse模型上加强合作；台积电拟上调先进封装价格至多20%",
+      "url": "https://api3.cls.cn/share/article/2516926?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "market",
+      "themes": [
+        "半导体",
+        "人工智能",
+        "机器人",
+        "黄金",
+        "汽车",
+        "石油",
+        "纳指"
+      ],
+      "sentiment": 1,
+      "weight": 3,
+      "impact": 1.424,
+      "evidence": {
+        "positive": [
+          "扩大"
+        ],
+        "negative": [],
+        "market": [
+          "央行"
+        ],
+        "authority": [
+          "央行"
+        ],
+        "severe": [],
+        "speculative": [
+          "预测",
+          "拟"
+        ]
+      }
+    },
+    {
+      "id": "3d2ec234a1d8",
+      "source": "财联社",
+      "also_in": [
+        "东方财富"
+      ],
+      "published_at": "2026-10-28T01:25+08:00",
+      "age_hours": 8.1,
+      "title": "财联社10月28日电，美联储隔夜逆回购协议（RRP）周二使用规模为2.26亿美元（交易对手2家），上个交易日报2亿美元。",
+      "url": "https://api3.cls.cn/share/article/2517149?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "market",
+      "themes": [],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.25,
+      "evidence": {
+        "positive": [
+          "回购"
+        ],
+        "negative": [],
+        "market": [
+          "逆回购",
+          "美联储"
+        ],
+        "authority": [
+          "美联储"
+        ],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "d41bcfccac33",
+      "source": "财联社",
+      "also_in": [
+        "东方财富"
+      ],
+      "published_at": "2026-10-28T01:03+08:00",
+      "age_hours": 8.5,
+      "title": "财联社10月28日电，美国财政部拍卖5年期国债，中标利率为4.845%，略高于预售时的发行前收益率4.841%。本次拍卖…",
+      "url": "https://api3.cls.cn/share/article/2517142?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "market",
+      "themes": [],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.224,
+      "evidence": {
+        "positive": [
+          "中标"
+        ],
+        "negative": [],
+        "market": [
+          "财政部"
+        ],
+        "authority": [
+          "财政部"
+        ],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "d44b001ee7a8",
+      "source": "东方财富",
+      "also_in": [],
+      "published_at": "2026-10-28T00:24+08:00",
+      "age_hours": 9.2,
+      "title": "全球央行“超级周” 加息按下暂停键？",
+      "url": "https://finance.eastmoney.com/a/202610273910551133.html",
+      "scope": "market",
+      "themes": [],
+      "sentiment": -1,
+      "weight": 2,
+      "impact": -1.178,
+      "evidence": {
+        "positive": [],
+        "negative": [
+          "加息",
+          "暂停"
+        ],
+        "market": [
+          "央行",
+          "美联储",
+          "加息"
+        ],
+        "authority": [
+          "央行",
+          "美联储"
+        ],
+        "severe": [],
+        "speculative": [
+          "预计",
+          "预期"
+        ]
+      }
+    },
+    {
+      "id": "9a1f5d45644c",
+      "source": "财联社",
+      "also_in": [],
+      "published_at": "2026-10-28T00:03+08:00",
+      "age_hours": 9.5,
+      "title": "英伟达与甲骨文宣布扩大合作",
+      "url": "https://api3.cls.cn/share/article/2517113?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "theme",
+      "themes": [
+        "半导体",
+        "人工智能"
+      ],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.155,
+      "evidence": {
+        "positive": [
+          "扩大",
+          "增长"
+        ],
+        "negative": [],
+        "market": [],
+        "authority": [],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "7e54c4f882cf",
+      "source": "财联社",
+      "also_in": [
+        "东方财富"
+      ],
+      "published_at": "2026-10-27T17:01+08:00",
+      "age_hours": 16.5,
+      "title": "非法收受财物4.36亿余元 中国证监会原党委委员王会民一审被判死缓",
+      "url": "https://api3.cls.cn/share/article/2516640?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "market",
+      "themes": [
+        "银行"
+      ],
+      "sentiment": -1,
+      "weight": 3,
+      "impact": -1.154,
+      "evidence": {
+        "positive": [],
+        "negative": [
+          "处罚"
+        ],
+        "market": [
+          "证监会",
+          "人民币"
+        ],
+        "authority": [
+          "证监会"
+        ],
+        "severe": [],
+        "speculative": [
+          "尚未"
+        ]
       }
     }
   ]

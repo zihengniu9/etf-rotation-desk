@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-27T16:41:56+08:00",
+  "updated_at": "2026-10-28T09:33:41+08:00",
   "reference_date": "2026-10-27",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -26,10 +26,10 @@ window.DASHBOARD_STATUS = {
       "title": "短线观察",
       "href": "./shortterm_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-10-27",
-      "coverage": "梯队 8 只 · 因子候选 40 只",
+      "data_as_of": "2026-10-28",
+      "coverage": "梯队 8 只 · 因子候选 16 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "盘后因子已更新；09:25竞价信号独立保留",
+      "note": "信号日期早于复盘日期时仅作历史快照",
       "cadence": "每个交易日09:25与收盘"
     },
     {
@@ -92,10 +92,10 @@ window.DASHBOARD_STATUS = {
       "title": "消息面",
       "href": "./market_mode.html#news-panel",
       "state": "current",
-      "data_as_of": "2026-10-27",
-      "coverage": "相关快讯 701 条 · 源 2/3",
+      "data_as_of": "2026-10-28",
+      "coverage": "相关快讯 694 条 · 源 2/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重要利空：财联社10月27日电，马来亚银行经济学家表示，菲律宾央行可能于12月将政策利率上调25个基点至5.75%，随后暂停加息，…",
+      "note": "重要利空：财联社10月28日电，新西兰央行将基准利率维持在2.75%不变，市场预期加息25个基点。",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
