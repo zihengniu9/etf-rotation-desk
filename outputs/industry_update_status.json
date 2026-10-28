@@ -1,9 +1,8 @@
 {
-  "attempted_at": "2026-10-28T11:07:42+08:00",
-  "status": "stale",
-  "data_as_of": "2026-10-27",
+  "attempted_at": "2026-10-28T13:05:48+08:00",
+  "status": "success",
+  "data_as_of": "2026-10-28",
   "rows": 22680,
   "history_days": 252,
-  "message": "在线接口未返回可用数据，沿用上一版行业数据",
-  "error": "XMLSyntaxError: no text parsed from document (line 0)"
+  "message": "行业主线数据已成功刷新"
 }
