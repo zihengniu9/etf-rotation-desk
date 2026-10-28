@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-28T10:15:46+08:00",
+  "updated_at": "2026-10-28T11:18:42+08:00",
   "reference_date": "2026-10-27",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -93,9 +93,9 @@ window.DASHBOARD_STATUS = {
       "href": "./market_mode.html#news-panel",
       "state": "current",
       "data_as_of": "2026-10-28",
-      "coverage": "相关快讯 706 条 · 源 2/3",
+      "coverage": "相关快讯 713 条 · 源 2/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重要利空：财联社10月28日电，新西兰央行将基准利率维持在2.75%不变，市场预期加息25个基点。",
+      "note": "重要利空：财联社10月28日电，新西兰央行行长布雷曼表示，未讨论官方现金利处于什么水平才具有限制性。",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
