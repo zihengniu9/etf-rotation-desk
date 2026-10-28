@@ -1,8 +1,9 @@
 {
-  "attempted_at": "2026-10-27T16:24:51+08:00",
-  "status": "success",
+  "attempted_at": "2026-10-28T10:08:48+08:00",
+  "status": "stale",
   "data_as_of": "2026-10-27",
   "rows": 22680,
   "history_days": 252,
-  "message": "行业主线数据已成功刷新"
+  "message": "在线接口未返回可用数据，沿用上一版行业数据",
+  "error": "AttributeError: 'NoneType' object has no attribute 'text'"
 }

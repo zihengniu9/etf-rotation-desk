@@ -1,13 +1,13 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-28T09:33:41+08:00",
+  "updated_at": "2026-10-28T10:15:46+08:00",
   "reference_date": "2026-10-27",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
-    "current": 8,
+    "current": 7,
     "stale": 0,
     "missing": 0,
-    "error": 0
+    "error": 1
   },
   "modules": [
     {
@@ -36,11 +36,11 @@ window.DASHBOARD_STATUS = {
       "key": "industry",
       "title": "行业主线",
       "href": "./industry_mainline_dashboard.html",
-      "state": "current",
+      "state": "error",
       "data_as_of": "2026-10-27",
       "coverage": "252 个历史日 · 22680 行",
       "source": "行业成分股行情与资金承载",
-      "note": "行业主线数据已成功刷新",
+      "note": "在线接口未返回可用数据，沿用上一版行业数据",
       "cadence": "每个交易日收盘"
     },
     {
@@ -48,8 +48,8 @@ window.DASHBOARD_STATUS = {
       "title": "ETF轮动",
       "href": "./index.html",
       "state": "current",
-      "data_as_of": "2026-10-27",
-      "coverage": "排名 5 只 · 实时报价 214 只",
+      "data_as_of": "2026-10-28",
+      "coverage": "排名 4 只 · 实时报价 207 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
@@ -93,7 +93,7 @@ window.DASHBOARD_STATUS = {
       "href": "./market_mode.html#news-panel",
       "state": "current",
       "data_as_of": "2026-10-28",
-      "coverage": "相关快讯 694 条 · 源 2/3",
+      "coverage": "相关快讯 706 条 · 源 2/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
       "note": "重要利空：财联社10月28日电，新西兰央行将基准利率维持在2.75%不变，市场预期加息25个基点。",
       "cadence": "早盘09:28、盘中、收盘后"
