@@ -51692,5 +51692,315 @@
         "光学元件"
       ]
     }
+  ],
+  "20261028": [
+    {
+      "name": "襄阳轴承",
+      "code": "000678.SZ",
+      "boards": 5,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "底盘与发动机系统"
+      ]
+    },
+    {
+      "name": "光洋股份",
+      "code": "002708.SZ",
+      "boards": 3,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "底盘与发动机系统"
+      ]
+    },
+    {
+      "name": "江顺科技",
+      "code": "001400.SZ",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "专用设备",
+        "其他专用设备"
+      ]
+    },
+    {
+      "name": "宁波东力",
+      "code": "002164.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "通用设备",
+        "金属制品"
+      ]
+    },
+    {
+      "name": "山东矿机",
+      "code": "002526.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "专用设备",
+        "能源及重型设备"
+      ]
+    },
+    {
+      "name": "万向钱潮",
+      "code": "000559.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "底盘与发动机系统"
+      ]
+    },
+    {
+      "name": "恒工精密",
+      "code": "301261.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "通用设备",
+        "金属制品"
+      ]
+    },
+    {
+      "name": "五方光电",
+      "code": "002962.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "光学光电子",
+        "光学元件"
+      ]
+    },
+    {
+      "name": "宇晶股份",
+      "code": "002943.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "通用设备",
+        "机床工具"
+      ]
+    },
+    {
+      "name": "百普赛斯",
+      "code": "301080.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "医药生物",
+        "生物制品",
+        "其他生物制品"
+      ]
+    },
+    {
+      "name": "长缆科技",
+      "code": "002879.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "电网设备",
+        "线缆部件及其他"
+      ]
+    },
+    {
+      "name": "东方嘉盛",
+      "code": "002889.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "交通运输",
+        "物流",
+        "物流Ⅲ"
+      ]
+    },
+    {
+      "name": "西子洁能",
+      "code": "002534.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "其他电源设备",
+        "其他电源设备Ⅲ"
+      ]
+    },
+    {
+      "name": "博杰股份",
+      "code": "002975.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "自动化设备",
+        "工控设备"
+      ]
+    },
+    {
+      "name": "斯迪克",
+      "code": "300806.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "基础化工",
+        "塑料制品",
+        "膜材料"
+      ]
+    },
+    {
+      "name": "豪恩汽电",
+      "code": "301488.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "汽车电子电气系统"
+      ]
+    },
+    {
+      "name": "振邦智能",
+      "code": "003028.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "消费电子",
+        "消费电子零部件及组装"
+      ]
+    },
+    {
+      "name": "中欣氟材",
+      "code": "002915.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "基础化工",
+        "化学制品",
+        "氟化工"
+      ]
+    },
+    {
+      "name": "金安国纪",
+      "code": "002636.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "元件",
+        "印制电路板"
+      ]
+    },
+    {
+      "name": "光华科技",
+      "code": "002741.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "电子化学品",
+        "电子化学品Ⅲ"
+      ]
+    },
+    {
+      "name": "澳洋健康",
+      "code": "002172.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "医药生物",
+        "医疗服务",
+        "医院"
+      ]
+    },
+    {
+      "name": "富瀚微",
+      "code": "300613.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "半导体",
+        "数字芯片设计"
+      ]
+    },
+    {
+      "name": "建设工业",
+      "code": "002265.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "国防军工",
+        "军工装备",
+        "地面兵装"
+      ]
+    },
+    {
+      "name": "盈方微",
+      "code": "000670.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电子",
+        "其他电子",
+        "其他电子Ⅲ"
+      ]
+    },
+    {
+      "name": "百纳千成",
+      "code": "300291.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "传媒",
+        "影视院线",
+        "影视院线Ⅲ"
+      ]
+    },
+    {
+      "name": "铖昌科技",
+      "code": "001270.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "国防军工",
+        "军工电子",
+        "军工电子Ⅲ"
+      ]
+    },
+    {
+      "name": "莱美药业",
+      "code": "300006.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "医药生物",
+        "化学制药",
+        "化学制剂"
+      ]
+    },
+    {
+      "name": "儒竞科技",
+      "code": "301525.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "通用设备",
+        "制冷空调设备"
+      ]
+    }
   ]
 }
