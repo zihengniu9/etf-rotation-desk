@@ -1,9 +1,9 @@
 {
   "version": "news-signal-v1",
-  "generated_at": "2026-10-29T13:36:36+08:00",
+  "generated_at": "2026-10-29T14:06:07+08:00",
   "window": {
-    "start": "2026-10-28T13:36+08:00",
-    "end": "2026-10-29T13:36+08:00",
+    "start": "2026-10-28T14:06+08:00",
+    "end": "2026-10-29T14:06+08:00",
     "hours": 24,
     "half_life_hours": 12.0
   },
@@ -13,25 +13,25 @@
       "key": "cls",
       "name": "财联社",
       "status": "ok",
-      "count": 742,
+      "count": 744,
       "fetched": 750,
-      "oldest_at": "2026-10-28T13:20:29+08:00",
-      "latest_at": "2026-10-29T13:35:35+08:00",
+      "oldest_at": "2026-10-28T13:58:20+08:00",
+      "latest_at": "2026-10-29T14:05:03+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 3.1
+      "seconds": 3.4
     },
     {
       "key": "eastmoney",
       "name": "东方财富",
       "status": "ok",
-      "count": 1000,
-      "fetched": 1100,
-      "oldest_at": "2026-10-28T10:53:54+08:00",
-      "latest_at": "2026-10-29T13:33:35+08:00",
+      "count": 994,
+      "fetched": 1000,
+      "oldest_at": "2026-10-28T13:58:40+08:00",
+      "latest_at": "2026-10-29T14:01:22+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 2.7
+      "seconds": 1.8
     },
     {
       "key": "sina",
@@ -39,21 +39,21 @@
       "status": "ok",
       "count": 2500,
       "fetched": 2500,
-      "oldest_at": "2026-10-28T16:02:26+08:00",
-      "latest_at": "2026-10-29T13:35:21+08:00",
+      "oldest_at": "2026-10-28T16:08:06+08:00",
+      "latest_at": "2026-10-29T14:05:19+08:00",
       "window_covered": false,
       "message": "",
-      "seconds": 38.1
+      "seconds": 37.8
     }
   ],
   "counts": {
-    "fetched": 4242,
-    "unique": 3588,
-    "relevant": 1602,
-    "market": 540
+    "fetched": 4238,
+    "unique": 3568,
+    "relevant": 1612,
+    "market": 541
   },
   "market": {
-    "score": 27.29,
+    "score": 26.94,
     "positive": 132,
     "negative": 98
   },
@@ -73,29 +73,13 @@
         "航天",
         "航空"
       ],
-      "score": -3.23,
-      "positive": 7,
+      "score": -2.16,
+      "positive": 8,
       "negative": 14,
       "items": [
-        "fbb470f2e406",
-        "2500205a1ebb",
-        "ac63b7936452"
-      ],
-      "alert": true
-    },
-    {
-      "theme": "黄金",
-      "aliases": [
-        "黄金",
-        "贵金属"
-      ],
-      "score": -0.94,
-      "positive": 3,
-      "negative": 6,
-      "items": [
-        "adab6c9d7224",
-        "ec6e815baa9e",
-        "67d4eea808b3"
+        "f30920310833",
+        "7d558e490dc6",
+        "d4a0101384ee"
       ],
       "alert": false
     },
@@ -118,24 +102,6 @@
       "alert": false
     },
     {
-      "theme": "证券",
-      "aliases": [
-        "证券",
-        "券商",
-        "非银",
-        "多元金融"
-      ],
-      "score": 1.28,
-      "positive": 4,
-      "negative": 2,
-      "items": [
-        "c671301d0858",
-        "b72d225e92f5",
-        "7631879f3b35"
-      ],
-      "alert": false
-    },
-    {
       "theme": "纳指",
       "aliases": [
         "纳指",
@@ -143,7 +109,7 @@
         "美股",
         "标普"
       ],
-      "score": 1.33,
+      "score": 1.29,
       "positive": 9,
       "negative": 4,
       "items": [
@@ -154,13 +120,47 @@
       "alert": false
     },
     {
+      "theme": "证券",
+      "aliases": [
+        "证券",
+        "券商",
+        "非银",
+        "多元金融"
+      ],
+      "score": 1.5,
+      "positive": 4,
+      "negative": 1,
+      "items": [
+        "c671301d0858",
+        "b72d225e92f5",
+        "7631879f3b35"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "黄金",
+      "aliases": [
+        "黄金",
+        "贵金属"
+      ],
+      "score": 2.06,
+      "positive": 6,
+      "negative": 6,
+      "items": [
+        "b4c9111abc3e",
+        "e0c09f18b95b",
+        "98f462d1e6ca"
+      ],
+      "alert": false
+    },
+    {
       "theme": "港股",
       "aliases": [
         "港股",
         "恒生",
         "中概"
       ],
-      "score": 2.47,
+      "score": 2.4,
       "positive": 4,
       "negative": 1,
       "items": [
@@ -176,7 +176,7 @@
         "煤炭",
         "能源"
       ],
-      "score": 2.69,
+      "score": 2.61,
       "positive": 5,
       "negative": 1,
       "items": [
@@ -197,7 +197,7 @@
         "能源金属",
         "稀土"
       ],
-      "score": 2.82,
+      "score": 2.75,
       "positive": 4,
       "negative": 0,
       "items": [
@@ -215,13 +215,13 @@
         "影视",
         "文化"
       ],
-      "score": 3.03,
-      "positive": 7,
+      "score": 3.94,
+      "positive": 8,
       "negative": 1,
       "items": [
+        "63f8a1dcf22d",
         "4914d2e24ca5",
-        "7a43995e415f",
-        "793f301e3464"
+        "7a43995e415f"
       ],
       "alert": false
     },
@@ -233,13 +233,13 @@
         "建筑",
         "建材"
       ],
-      "score": 4.54,
-      "positive": 9,
+      "score": 6.37,
+      "positive": 11,
       "negative": 3,
       "items": [
-        "730d168ed8f8",
-        "85238bb3402b",
-        "9e77a3e617c6"
+        "d2f24b1c958a",
+        "84c827eea076",
+        "730d168ed8f8"
       ],
       "alert": false
     },
@@ -251,7 +251,7 @@
         "央企",
         "防守"
       ],
-      "score": 7.36,
+      "score": 7.15,
       "positive": 11,
       "negative": 0,
       "items": [
@@ -266,13 +266,13 @@
       "aliases": [
         "保险"
       ],
-      "score": 8.4,
-      "positive": 13,
-      "negative": 1,
+      "score": 9.4,
+      "positive": 14,
+      "negative": 0,
       "items": [
+        "1b179f46c280",
         "fdec91382e43",
-        "9cb7b251c4a8",
-        "d317ccfbb0f6"
+        "9cb7b251c4a8"
       ],
       "alert": false
     },
@@ -283,13 +283,13 @@
         "公用事业",
         "燃气"
       ],
-      "score": 9.52,
-      "positive": 21,
+      "score": 10.23,
+      "positive": 22,
       "negative": 1,
       "items": [
+        "7c67b7c254c6",
         "205f5098d899",
-        "fbf506fccd28",
-        "5771726e4dbd"
+        "fbf506fccd28"
       ],
       "alert": false
     },
@@ -298,13 +298,13 @@
       "aliases": [
         "银行"
       ],
-      "score": 12.17,
-      "positive": 42,
-      "negative": 18,
+      "score": 11.83,
+      "positive": 41,
+      "negative": 17,
       "items": [
-        "36e6ff6f713e",
-        "9c29ff50da1d",
-        "77b5d8ae6c2b"
+        "73a8048d60df",
+        "521072fc0baa",
+        "1aa463b2bf7f"
       ],
       "alert": false
     },
@@ -318,8 +318,8 @@
         "生物",
         "医疗"
       ],
-      "score": 12.48,
-      "positive": 24,
+      "score": 11.85,
+      "positive": 23,
       "negative": 3,
       "items": [
         "103054cb90bc",
@@ -334,13 +334,13 @@
         "机器人",
         "自动化"
       ],
-      "score": 14.88,
-      "positive": 34,
+      "score": 16.42,
+      "positive": 36,
       "negative": 5,
       "items": [
-        "6b2905da12e4",
-        "32a52b999333",
-        "37a16a4bda26"
+        "3f7e486b2e6b",
+        "1a4ad353626c",
+        "6b2905da12e4"
       ],
       "alert": false
     },
@@ -351,13 +351,31 @@
         "油气",
         "化工"
       ],
-      "score": 17.17,
+      "score": 16.93,
       "positive": 36,
-      "negative": 16,
+      "negative": 15,
       "items": [
+        "de3a1fea176a",
         "83c4dafc4006",
-        "08dba34295ea",
-        "1097927919c4"
+        "08dba34295ea"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "通信",
+      "aliases": [
+        "通信",
+        "5G",
+        "光模块",
+        "光电"
+      ],
+      "score": 20.04,
+      "positive": 39,
+      "negative": 6,
+      "items": [
+        "9b94dba2434e",
+        "45fa00715028",
+        "1e1271a33dad"
       ],
       "alert": false
     },
@@ -372,48 +390,13 @@
         "储能",
         "电网"
       ],
-      "score": 18.66,
-      "positive": 34,
+      "score": 20.1,
+      "positive": 36,
       "negative": 3,
       "items": [
-        "7eacb63c716e",
-        "205f5098d899",
-        "5771726e4dbd"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "通信",
-      "aliases": [
-        "通信",
-        "5G",
-        "光模块",
-        "光电"
-      ],
-      "score": 20.62,
-      "positive": 39,
-      "negative": 6,
-      "items": [
-        "9b94dba2434e",
-        "45fa00715028",
-        "1e1271a33dad"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "汽车",
-      "aliases": [
-        "汽车",
-        "新能源车",
-        "智能驾驶"
-      ],
-      "score": 22.56,
-      "positive": 36,
-      "negative": 8,
-      "items": [
-        "6b2905da12e4",
-        "53324cb5ba84",
-        "2d8e587ae2aa"
+        "e0b914d9743f",
+        "f6dfb243a858",
+        "e013274ddba0"
       ],
       "alert": false
     },
@@ -428,13 +411,30 @@
         "零售",
         "旅游"
       ],
-      "score": 23.15,
+      "score": 22.5,
       "positive": 48,
       "negative": 9,
       "items": [
+        "0e9d62667b3c",
         "4914d2e24ca5",
-        "a1958ba6de97",
-        "6121a1402ee7"
+        "a1958ba6de97"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "汽车",
+      "aliases": [
+        "汽车",
+        "新能源车",
+        "智能驾驶"
+      ],
+      "score": 23.88,
+      "positive": 38,
+      "negative": 8,
+      "items": [
+        "374d5c4cf522",
+        "c28f6465159d",
+        "26e6fbba390e"
       ],
       "alert": false
     },
@@ -446,13 +446,13 @@
         "集成电路",
         "科创芯片"
       ],
-      "score": 33.25,
-      "positive": 57,
+      "score": 32.07,
+      "positive": 56,
       "negative": 8,
       "items": [
-        "bddec93f2c49",
-        "9b94dba2434e",
-        "f032f9468199"
+        "3f65d43818a2",
+        "22724caaf703",
+        "615bbf52ea77"
       ],
       "alert": false
     },
@@ -467,13 +467,13 @@
         "云计算",
         "大数据"
       ],
-      "score": 71.87,
-      "positive": 130,
+      "score": 70.83,
+      "positive": 128,
       "negative": 19,
       "items": [
-        "bddec93f2c49",
-        "32a52b999333",
-        "8881894df31c"
+        "3f7e486b2e6b",
+        "5e6688a8f881",
+        "aafda7ff2644"
       ],
       "alert": false
     }
@@ -486,7 +486,7 @@
         "东方财富"
       ],
       "published_at": "2026-10-29T12:07+08:00",
-      "age_hours": 1.5,
+      "age_hours": 2.0,
       "title": "财联社10月29日午间新闻精选",
       "url": "https://api3.cls.cn/share/article/2518880?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -496,7 +496,7 @@
       ],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.754,
+      "impact": 2.676,
       "evidence": {
         "positive": [
           "鼓励"
@@ -518,7 +518,7 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-29T11:38+08:00",
-      "age_hours": 2.0,
+      "age_hours": 2.5,
       "title": "四部门：进一步提高海南自由贸易港贸易自由化便利化水平",
       "url": "https://api3.cls.cn/share/article/2518859?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -528,7 +528,7 @@
       ],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.678,
+      "impact": 2.603,
       "evidence": {
         "positive": [
           "支持",
@@ -550,7 +550,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-29T11:36+08:00",
-      "age_hours": 2.0,
+      "age_hours": 2.5,
       "title": "商务部等四部门关于进一步提高海南自由贸易港贸易自由化便利化水平的通知",
       "url": "https://finance.sina.cn/7x24/2026-10-29/detail-iniwwawy6159252.d.html",
       "scope": "theme",
@@ -559,7 +559,7 @@
       ],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.672,
+      "impact": 2.597,
       "evidence": {
         "positive": [
           "支持",
@@ -579,7 +579,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-29T07:49+08:00",
-      "age_hours": 5.8,
+      "age_hours": 6.3,
       "title": "特朗普暂缓对机器人和工业机械加征关税 指示官员与贸易伙伴展开谈判",
       "url": "https://finance.sina.cn/7x24/2026-10-29/detail-iniwvwra6105618.d.html",
       "scope": "market",
@@ -588,7 +588,7 @@
       ],
       "sentiment": -1,
       "weight": 3,
-      "impact": -2.147,
+      "impact": -2.087,
       "evidence": {
         "positive": [
           "提振"
@@ -617,14 +617,14 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-29T07:48+08:00",
-      "age_hours": 5.8,
+      "age_hours": 6.3,
       "title": "投资日历：周四资本市场大事提醒",
       "url": "https://api3.cls.cn/share/article/2518597?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 3,
-      "impact": 2.146,
+      "impact": 2.085,
       "evidence": {
         "positive": [
           "回购"
@@ -645,7 +645,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-29T07:15+08:00",
-      "age_hours": 6.3,
+      "age_hours": 6.8,
       "title": "Alphabet财报不及预期、美联储维持利率不变，美国股指期货下跌",
       "url": "https://finance.sina.cn/7x24/2026-10-29/detail-iniwvwre2865715.d.html",
       "scope": "market",
@@ -656,7 +656,7 @@
       ],
       "sentiment": -1,
       "weight": 3,
-      "impact": -2.079,
+      "impact": -2.021,
       "evidence": {
         "positive": [],
         "negative": [
@@ -685,7 +685,7 @@
         "东方财富"
       ],
       "published_at": "2026-10-29T06:15+08:00",
-      "age_hours": 7.3,
+      "age_hours": 7.8,
       "title": "周四你需要知道的隔夜全球要闻：谷歌业绩不及预期盘后大跌10%；光通信巨头迈威尔拟收购Lumentum；万斯致信伊朗，试图重启和平谈判",
       "url": "https://api3.cls.cn/share/article/2518558?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -702,7 +702,7 @@
       ],
       "sentiment": -1,
       "weight": 3,
-      "impact": -1.962,
+      "impact": -1.907,
       "evidence": {
         "positive": [
           "增长"
@@ -736,14 +736,14 @@
         "东方财富"
       ],
       "published_at": "2026-10-29T13:00+08:00",
-      "age_hours": 0.6,
+      "age_hours": 1.1,
       "title": "普京：多极世界正在成为现实 ",
       "url": "https://finance.sina.cn/7x24/2026-10-29/detail-iniwwifc5365820.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 2,
-      "impact": -1.932,
+      "impact": -1.878,
       "evidence": {
         "positive": [],
         "negative": [
@@ -766,7 +766,7 @@
         "东方财富"
       ],
       "published_at": "2026-10-29T05:52+08:00",
-      "age_hours": 7.7,
+      "age_hours": 8.2,
       "title": "美联储利率决议及发布会要点速览：美联储按兵不动；中间派库克转鹰；沃什拟降低决策频率",
       "url": "https://api3.cls.cn/share/article/2518556?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -776,7 +776,7 @@
       ],
       "sentiment": -1,
       "weight": 3,
-      "impact": -1.92,
+      "impact": -1.866,
       "evidence": {
         "positive": [],
         "negative": [
@@ -804,14 +804,14 @@
       "source": "东方财富",
       "also_in": [],
       "published_at": "2026-10-29T12:38+08:00",
-      "age_hours": 1.0,
+      "age_hours": 1.5,
       "title": "涉内幕交易，上市公司董事长被立案！上任仅一个月",
       "url": "https://finance.eastmoney.com/a/202610293913669576.html",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 2,
-      "impact": -1.891,
+      "impact": -1.838,
       "evidence": {
         "positive": [],
         "negative": [
@@ -833,7 +833,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-29T12:31+08:00",
-      "age_hours": 1.1,
+      "age_hours": 1.6,
       "title": "丰田汽车9月销量、产量连续第三个月下滑",
       "url": "https://finance.sina.cn/7x24/2026-10-29/detail-iniwwiew6069641.d.html",
       "scope": "theme",
@@ -843,7 +843,7 @@
       ],
       "sentiment": -1,
       "weight": 2,
-      "impact": -1.879,
+      "impact": -1.826,
       "evidence": {
         "positive": [
           "增长"
@@ -867,14 +867,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-29T12:30+08:00",
-      "age_hours": 1.1,
+      "age_hours": 1.6,
       "title": "韩国央行董事会成员HWANG表示，借贷成本高企，陷入困境的中小企业令经济增长受限。",
       "url": "https://finance.sina.cn/7x24/2026-10-29/detail-iniwwiey2844835.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.877,
+      "impact": 1.824,
       "evidence": {
         "positive": [
           "增长"
@@ -895,7 +895,7 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-29T11:44+08:00",
-      "age_hours": 1.9,
+      "age_hours": 2.4,
       "title": "四部门：支持海南自由贸易港开展LNG期货交割库相关业务 允许LNG期货保税交割业务采取能量计量",
       "url": "https://api3.cls.cn/share/article/2518863?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -905,7 +905,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.796,
+      "impact": 1.745,
       "evidence": {
         "positive": [
           "支持",
@@ -929,7 +929,7 @@
         "东方财富"
       ],
       "published_at": "2026-10-29T11:44+08:00",
-      "age_hours": 1.9,
+      "age_hours": 2.4,
       "title": "四部门：支持海南自由贸易港的内外贸企业投保内贸险 加大内外贸一体化承保支持力度",
       "url": "https://api3.cls.cn/share/article/2518864?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -939,7 +939,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.795,
+      "impact": 1.745,
       "evidence": {
         "positive": [
           "支持",
@@ -964,7 +964,7 @@
         "新浪财经"
       ],
       "published_at": "2026-10-29T11:41+08:00",
-      "age_hours": 1.9,
+      "age_hours": 2.4,
       "title": "四部门：允许在海南自由贸易港海关特殊监管区域进行保税再制造生产的产品出区进入国内自由贸易试验区",
       "url": "https://api3.cls.cn/share/article/2518861?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -973,7 +973,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.79,
+      "impact": 1.74,
       "evidence": {
         "positive": [
           "支持",
@@ -998,7 +998,7 @@
         "新浪财经"
       ],
       "published_at": "2026-10-29T11:38+08:00",
-      "age_hours": 2.0,
+      "age_hours": 2.5,
       "title": "商务部等四部委：在海南自由贸易港开展汽车研发测试用故障关键零部件进口试点",
       "url": "https://finance.eastmoney.com/a/202610293913653626.html",
       "scope": "theme",
@@ -1007,7 +1007,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.785,
+      "impact": 1.735,
       "evidence": {
         "positive": [
           "支持"
@@ -1026,7 +1026,7 @@
       "source": "东方财富",
       "also_in": [],
       "published_at": "2026-10-29T11:37+08:00",
-      "age_hours": 2.0,
+      "age_hours": 2.5,
       "title": "四部门：进一步提高海南自由贸易港贸易自由化便利化水平",
       "url": "https://finance.eastmoney.com/a/202610293913653028.html",
       "scope": "market",
@@ -1036,7 +1036,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.784,
+      "impact": 1.734,
       "evidence": {
         "positive": [
           "支持",
@@ -1060,14 +1060,14 @@
         "东方财富"
       ],
       "published_at": "2026-10-29T11:21+08:00",
-      "age_hours": 2.3,
+      "age_hours": 2.7,
       "title": "上海：完善防范化解政府和国企拖欠中小企业账款的长效机制 将清欠任务纳入国企绩效考核",
       "url": "https://api3.cls.cn/share/article/2518844?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 2,
-      "impact": -1.756,
+      "impact": -1.707,
       "evidence": {
         "positive": [],
         "negative": [
@@ -1090,14 +1090,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-10-29T11:17+08:00",
-      "age_hours": 2.3,
+      "age_hours": 2.8,
       "title": "上海：对清理拖欠中小企业账款情况加强审计监督，将清欠任务纳入国有企业绩效考核",
       "url": "https://finance.sina.cn/7x24/2026-10-29/detail-iniwwawy6143362.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 2,
-      "impact": -1.749,
+      "impact": -1.7,
       "evidence": {
         "positive": [],
         "negative": [
@@ -1122,7 +1122,7 @@
         "东方财富"
       ],
       "published_at": "2026-10-29T11:15+08:00",
-      "age_hours": 2.3,
+      "age_hours": 2.8,
       "title": "委内瑞拉代总统要求英格兰银行归还黄金储备",
       "url": "https://finance.sina.cn/7x24/2026-10-29/detail-iniwwaxa2918347.d.html",
       "scope": "market",
@@ -1132,7 +1132,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.747,
+      "impact": 1.698,
       "evidence": {
         "positive": [
           "达成协议"
