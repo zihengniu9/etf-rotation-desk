@@ -1,9 +1,9 @@
 {
   "version": "news-signal-v1",
-  "generated_at": "2026-10-30T15:21:04+08:00",
+  "generated_at": "2026-10-30T16:29:28+08:00",
   "window": {
-    "start": "2026-10-29T15:21+08:00",
-    "end": "2026-10-30T15:21+08:00",
+    "start": "2026-10-29T16:29+08:00",
+    "end": "2026-10-30T16:29+08:00",
     "hours": 24,
     "half_life_hours": 12.0
   },
@@ -13,77 +13,58 @@
       "key": "cls",
       "name": "财联社",
       "status": "ok",
-      "count": 722,
+      "count": 746,
       "fetched": 750,
-      "oldest_at": "2026-10-29T14:54:08+08:00",
-      "latest_at": "2026-10-30T15:13:09+08:00",
+      "oldest_at": "2026-10-29T16:25:09+08:00",
+      "latest_at": "2026-10-30T16:28:40+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 51.0
+      "seconds": 2.8
     },
     {
       "key": "eastmoney",
       "name": "东方财富",
       "status": "ok",
-      "count": 931,
+      "count": 961,
       "fetched": 1000,
-      "oldest_at": "2026-10-29T13:59:14+08:00",
-      "latest_at": "2026-10-30T15:15:31+08:00",
+      "oldest_at": "2026-10-29T15:54:00+08:00",
+      "latest_at": "2026-10-30T16:25:24+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 20.4
+      "seconds": 2.9
     },
     {
       "key": "sina",
       "name": "新浪财经",
-      "status": "error",
-      "count": 0,
-      "fetched": 0,
-      "oldest_at": null,
-      "latest_at": null,
+      "status": "ok",
+      "count": 2500,
+      "fetched": 2500,
+      "oldest_at": "2026-10-29T18:10:23+08:00",
+      "latest_at": "2026-10-30T16:28:56+08:00",
       "window_covered": false,
-      "message": "TimeoutError: The read operation timed out",
-      "seconds": 200.7
+      "message": "",
+      "seconds": 34.5
     }
   ],
   "counts": {
-    "fetched": 1647,
-    "unique": 1359,
-    "relevant": 663,
-    "market": 178
+    "fetched": 4206,
+    "unique": 3478,
+    "relevant": 1530,
+    "market": 565
   },
   "market": {
-    "score": -4.7,
-    "positive": 47,
-    "negative": 37
+    "score": 19.94,
+    "positive": 121,
+    "negative": 89
   },
   "gate": {
     "state": "caution",
     "reasons": [
-      "大盘消息净分 -4.7 偏空",
-      "重要利空：财联社10月30日电，日本央行行长植田和男表示，将在包括下次会议在内的每次会议上继续考虑加息问题。"
+      "重要利空：德国总理默茨：正努力尽快结束伊朗战争，这场战争对欧洲造成了巨大影响。"
     ],
     "rule": "重大利空（权威主体及冲击词线索、非预测、权重3且18小时内）或大盘净分≤-6.0 → 阻断进攻；净分≤-3.0或有重要利空 → 提示；主题净分≤-3.0 → 该主题对应模式暂停。关键词不是权威性核验，需复核原文；利好消息不单独触发进攻。"
   },
   "themes": [
-    {
-      "theme": "农业",
-      "aliases": [
-        "农业",
-        "养殖",
-        "种植",
-        "农产品"
-      ],
-      "score": -1.47,
-      "positive": 0,
-      "negative": 3,
-      "items": [
-        "9cc48682ed6d",
-        "d4cb0e37eb1c",
-        "e5ae0066211e"
-      ],
-      "alert": false
-    },
     {
       "theme": "军工",
       "aliases": [
@@ -92,31 +73,31 @@
         "航天",
         "航空"
       ],
-      "score": 0.11,
-      "positive": 14,
-      "negative": 9,
+      "score": -5.27,
+      "positive": 17,
+      "negative": 19,
       "items": [
-        "3c58e1028255",
-        "2ba9764e6dd7",
-        "124af4c20429"
+        "65148b76472e",
+        "3f36d8f9989d",
+        "3c58e1028255"
       ],
-      "alert": false
+      "alert": true
     },
     {
-      "theme": "证券",
+      "theme": "农业",
       "aliases": [
-        "证券",
-        "券商",
-        "非银",
-        "多元金融"
+        "农业",
+        "养殖",
+        "种植",
+        "农产品"
       ],
-      "score": 0.74,
+      "score": -0.3,
       "positive": 2,
-      "negative": 0,
+      "negative": 3,
       "items": [
-        "35741fde4347",
-        "761634835b97",
-        "aaa47a3ed83f"
+        "5bd21e7133fb",
+        "4e36c7a6c18d",
+        "f42ee6409765"
       ],
       "alert": false
     },
@@ -131,47 +112,13 @@
         "能源金属",
         "稀土"
       ],
-      "score": 0.9,
+      "score": 0.11,
       "positive": 5,
-      "negative": 1,
+      "negative": 2,
       "items": [
+        "e02de9b15325",
         "bb9c9aaff6cb",
-        "7b3314da1776",
-        "7371f9e0893e"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "传媒",
-      "aliases": [
-        "传媒",
-        "游戏",
-        "影视",
-        "文化"
-      ],
-      "score": 2.01,
-      "positive": 3,
-      "negative": 0,
-      "items": [
-        "dc05255fd4c2",
-        "40fae9dbf86a",
-        "1f2e498ae522"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "煤炭",
-      "aliases": [
-        "煤炭",
-        "能源"
-      ],
-      "score": 2.07,
-      "positive": 2,
-      "negative": 0,
-      "items": [
-        "9cc48682ed6d",
-        "591f4a51811e",
-        "b97937c6d7a7"
+        "7b3314da1776"
       ],
       "alert": false
     },
@@ -181,13 +128,60 @@
         "黄金",
         "贵金属"
       ],
-      "score": 2.11,
-      "positive": 7,
+      "score": 0.29,
+      "positive": 6,
+      "negative": 4,
+      "items": [
+        "291465b111db",
+        "c5d66a579835",
+        "14240b725866"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "银行",
+      "aliases": [
+        "银行"
+      ],
+      "score": 1.25,
+      "positive": 26,
+      "negative": 16,
+      "items": [
+        "96986e9577a6",
+        "b8405f383de2",
+        "735d5f9c55bf"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "保险",
+      "aliases": [
+        "保险"
+      ],
+      "score": 2.58,
+      "positive": 8,
+      "negative": 3,
+      "items": [
+        "bd5f75fe4cae",
+        "96986e9577a6",
+        "115deb897c2e"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "港股",
+      "aliases": [
+        "港股",
+        "恒生",
+        "中概"
+      ],
+      "score": 2.95,
+      "positive": 6,
       "negative": 2,
       "items": [
-        "c3f05c64e4a0",
-        "643799aaa5e6",
-        "3d6bb634f916"
+        "86d1b98ff2f9",
+        "a9d6a6219f8a",
+        "90e56e459e2e"
       ],
       "alert": false
     },
@@ -199,77 +193,47 @@
         "建筑",
         "建材"
       ],
-      "score": 2.39,
-      "positive": 3,
+      "score": 3.42,
+      "positive": 6,
+      "negative": 1,
+      "items": [
+        "dd5344a781e1",
+        "246736b112d4",
+        "8df62b4cdda4"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "煤炭",
+      "aliases": [
+        "煤炭",
+        "能源"
+      ],
+      "score": 3.51,
+      "positive": 4,
+      "negative": 1,
+      "items": [
+        "4e36c7a6c18d",
+        "acd5e8d3c384",
+        "9cc48682ed6d"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "证券",
+      "aliases": [
+        "证券",
+        "券商",
+        "非银",
+        "多元金融"
+      ],
+      "score": 3.58,
+      "positive": 5,
       "negative": 0,
       "items": [
-        "0d111e97fa40",
-        "f9ca98136770",
-        "c7d98987c08d"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "保险",
-      "aliases": [
-        "保险"
-      ],
-      "score": 3.08,
-      "positive": 6,
-      "negative": 1,
-      "items": [
-        "c71234d87c45",
-        "67b5530bab7e",
-        "8732d613dce2"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "港股",
-      "aliases": [
-        "港股",
-        "恒生",
-        "中概"
-      ],
-      "score": 3.45,
-      "positive": 6,
-      "negative": 1,
-      "items": [
-        "a9d6a6219f8a",
-        "90e56e459e2e",
-        "6506dce21a82"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "银行",
-      "aliases": [
-        "银行"
-      ],
-      "score": 3.49,
-      "positive": 17,
-      "negative": 5,
-      "items": [
-        "621f12a81ae4",
-        "bb8da9adc557",
-        "f628bfc3dbb0"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "石油",
-      "aliases": [
-        "石油",
-        "油气",
-        "化工"
-      ],
-      "score": 5.26,
-      "positive": 11,
-      "negative": 3,
-      "items": [
-        "67b5530bab7e",
-        "591f4a51811e",
-        "702e932fb705"
+        "417683310d8a",
+        "3d4ceb3b0c2a",
+        "35741fde4347"
       ],
       "alert": false
     },
@@ -281,13 +245,31 @@
         "美股",
         "标普"
       ],
-      "score": 5.47,
-      "positive": 9,
-      "negative": 2,
+      "score": 3.9,
+      "positive": 10,
+      "negative": 6,
       "items": [
-        "3c48c9768180",
-        "c40dd478b9fb",
-        "835ff0ae2d72"
+        "fff3785f57c4",
+        "2f8d635683e2",
+        "2b759837daf8"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "传媒",
+      "aliases": [
+        "传媒",
+        "游戏",
+        "影视",
+        "文化"
+      ],
+      "score": 4.11,
+      "positive": 6,
+      "negative": 1,
+      "items": [
+        "a9b778b7922b",
+        "dc05255fd4c2",
+        "180942a74a2e"
       ],
       "alert": false
     },
@@ -299,7 +281,7 @@
         "央企",
         "防守"
       ],
-      "score": 5.64,
+      "score": 5.66,
       "positive": 9,
       "negative": 0,
       "items": [
@@ -310,19 +292,35 @@
       "alert": false
     },
     {
-      "theme": "电力",
+      "theme": "机器人",
       "aliases": [
-        "电力",
-        "公用事业",
-        "燃气"
+        "机器人",
+        "自动化"
       ],
-      "score": 7.25,
-      "positive": 13,
+      "score": 11.74,
+      "positive": 18,
       "negative": 1,
       "items": [
-        "a3e40bb61891",
-        "e7f227d54ee0",
-        "be934c301853"
+        "5fa277492724",
+        "520f26716e7b",
+        "38b039851540"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "石油",
+      "aliases": [
+        "石油",
+        "油气",
+        "化工"
+      ],
+      "score": 12.46,
+      "positive": 28,
+      "negative": 13,
+      "items": [
+        "8851e067ef4f",
+        "478b996f7597",
+        "669b624a51f0"
       ],
       "alert": false
     },
@@ -337,13 +335,103 @@
         "储能",
         "电网"
       ],
-      "score": 7.32,
-      "positive": 12,
-      "negative": 0,
+      "score": 15.44,
+      "positive": 30,
+      "negative": 6,
       "items": [
-        "db7ee3247d8e",
-        "9cc48682ed6d",
-        "7883cc561616"
+        "cb6ed3779ef0",
+        "32ff695886e8",
+        "32b2841469f8"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "电力",
+      "aliases": [
+        "电力",
+        "公用事业",
+        "燃气"
+      ],
+      "score": 15.94,
+      "positive": 27,
+      "negative": 4,
+      "items": [
+        "244885dce4a9",
+        "c729a1f98797",
+        "120aee57646b"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "半导体",
+      "aliases": [
+        "半导体",
+        "芯片",
+        "集成电路",
+        "科创芯片"
+      ],
+      "score": 16.42,
+      "positive": 39,
+      "negative": 8,
+      "items": [
+        "2a53fea93534",
+        "d6993ea4422b",
+        "46d8e470bf27"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "汽车",
+      "aliases": [
+        "汽车",
+        "新能源车",
+        "智能驾驶"
+      ],
+      "score": 17.69,
+      "positive": 27,
+      "negative": 4,
+      "items": [
+        "57b2651e7124",
+        "fff3785f57c4",
+        "18ea3eede6f2"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "通信",
+      "aliases": [
+        "通信",
+        "5G",
+        "光模块",
+        "光电"
+      ],
+      "score": 18.11,
+      "positive": 26,
+      "negative": 3,
+      "items": [
+        "b25d0fcab9b3",
+        "4ff63f65334d",
+        "067bd0c27e35"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "医药",
+      "aliases": [
+        "医药",
+        "创新药",
+        "中药",
+        "制药",
+        "生物",
+        "医疗"
+      ],
+      "score": 20.2,
+      "positive": 30,
+      "negative": 1,
+      "items": [
+        "32ff695886e8",
+        "51fb86c0aafd",
+        "4c6b41aaaedc"
       ],
       "alert": false
     },
@@ -358,102 +446,13 @@
         "零售",
         "旅游"
       ],
-      "score": 8.0,
-      "positive": 19,
-      "negative": 6,
+      "score": 27.11,
+      "positive": 55,
+      "negative": 16,
       "items": [
-        "2ba9764e6dd7",
-        "3db893130dc1",
-        "05ceadbdd478"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "通信",
-      "aliases": [
-        "通信",
-        "5G",
-        "光模块",
-        "光电"
-      ],
-      "score": 9.54,
-      "positive": 15,
-      "negative": 1,
-      "items": [
-        "6f9073e0292b",
-        "bf0a09428715",
-        "918a53ca902a"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "机器人",
-      "aliases": [
-        "机器人",
-        "自动化"
-      ],
-      "score": 10.94,
-      "positive": 15,
-      "negative": 0,
-      "items": [
-        "38b039851540",
-        "5ac22dfafece",
-        "ed14ce4f7c61"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "半导体",
-      "aliases": [
-        "半导体",
-        "芯片",
-        "集成电路",
-        "科创芯片"
-      ],
-      "score": 11.06,
-      "positive": 23,
-      "negative": 3,
-      "items": [
-        "6f9073e0292b",
-        "0d2d75ff9008",
-        "bdaad939f5c4"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "医药",
-      "aliases": [
-        "医药",
-        "创新药",
-        "中药",
-        "制药",
-        "生物",
-        "医疗"
-      ],
-      "score": 12.37,
-      "positive": 19,
-      "negative": 0,
-      "items": [
-        "c71234d87c45",
-        "c5af61063480",
-        "88029f5cf509"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "汽车",
-      "aliases": [
-        "汽车",
-        "新能源车",
-        "智能驾驶"
-      ],
-      "score": 12.85,
-      "positive": 19,
-      "negative": 1,
-      "items": [
-        "e8f823428f52",
-        "0d2d75ff9008",
-        "5ac22dfafece"
+        "244885dce4a9",
+        "296259001228",
+        "c729a1f98797"
       ],
       "alert": false
     },
@@ -468,31 +467,60 @@
         "云计算",
         "大数据"
       ],
-      "score": 27.93,
-      "positive": 51,
-      "negative": 6,
+      "score": 50.8,
+      "positive": 92,
+      "negative": 20,
       "items": [
-        "67a93ba8e458",
-        "6f9073e0292b",
-        "5bf75e80d60e"
+        "6167dae25379",
+        "6638727a5e65",
+        "6b07429b331f"
       ],
       "alert": false
     }
   ],
   "items": [
     {
+      "id": "df2000cb816d",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-10-30T14:46+08:00",
+      "age_hours": 1.7,
+      "title": "日本央行行长植田和男：将彻底分析经济、价格形势，在每次政策会议上进行讨论（加息必要性）。",
+      "url": "https://finance.sina.cn/7x24/2026-10-30/detail-iniwysmu5569415.d.html",
+      "scope": "market",
+      "themes": [],
+      "sentiment": -1,
+      "weight": 3,
+      "impact": -2.718,
+      "evidence": {
+        "positive": [],
+        "negative": [
+          "加息"
+        ],
+        "market": [
+          "央行",
+          "加息"
+        ],
+        "authority": [
+          "央行"
+        ],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
       "id": "3f920f37a369",
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-30T11:05+08:00",
-      "age_hours": 4.3,
+      "age_hours": 5.4,
       "title": "日本央行称基础通胀达到2%的目标水平",
       "url": "https://api3.cls.cn/share/article/2520206?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 3,
-      "impact": -2.346,
+      "impact": -2.197,
       "evidence": {
         "positive": [],
         "negative": [
@@ -512,11 +540,411 @@
       }
     },
     {
+      "id": "b25d0fcab9b3",
+      "source": "财联社",
+      "also_in": [],
+      "published_at": "2026-10-30T16:26+08:00",
+      "age_hours": 0.0,
+      "title": "东山精密：Q3净利润同比增长401% 环比增长26%",
+      "url": "https://api3.cls.cn/share/article/2520666?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "theme",
+      "themes": [
+        "通信"
+      ],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.994,
+      "evidence": {
+        "positive": [
+          "增长"
+        ],
+        "negative": [],
+        "market": [],
+        "authority": [],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "6638727a5e65",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-10-30T16:17+08:00",
+      "age_hours": 0.2,
+      "title": "美联储前官员：明年或再加息，AI推高通胀",
+      "url": "https://finance.sina.cn/7x24/2026-10-30/detail-iniwywts5519694.d.html",
+      "scope": "market",
+      "themes": [
+        "人工智能"
+      ],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.977,
+      "evidence": {
+        "positive": [
+          "支持",
+          "增长"
+        ],
+        "negative": [
+          "加息"
+        ],
+        "market": [
+          "美联储",
+          "加息"
+        ],
+        "authority": [
+          "美联储"
+        ],
+        "severe": [],
+        "speculative": [
+          "可能",
+          "尚未"
+        ]
+      }
+    },
+    {
+      "id": "01cdf6595b7f",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-10-30T16:09+08:00",
+      "age_hours": 0.3,
+      "title": "德国总理默茨：正努力尽快结束伊朗战争，这场战争对欧洲造成了巨大影响。",
+      "url": "https://finance.sina.cn/7x24/2026-10-30/detail-iniwywts5513253.d.html",
+      "scope": "market",
+      "themes": [],
+      "sentiment": -1,
+      "weight": 2,
+      "impact": -1.961,
+      "evidence": {
+        "positive": [],
+        "negative": [
+          "战争"
+        ],
+        "market": [
+          "伊朗"
+        ],
+        "authority": [],
+        "severe": [
+          "战争"
+        ],
+        "speculative": []
+      }
+    },
+    {
+      "id": "4799a1c833ee",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-10-30T16:06+08:00",
+      "age_hours": 0.4,
+      "title": "韩建河山：前三季度营收2.60亿元 净亏损3887.14万元",
+      "url": "https://finance.sina.cn/7x24/2026-10-30/detail-iniwywtu2286651.d.html",
+      "scope": "market",
+      "themes": [],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.956,
+      "evidence": {
+        "positive": [
+          "中标",
+          "推进",
+          "订单"
+        ],
+        "negative": [
+          "亏损"
+        ],
+        "market": [
+          "证监会"
+        ],
+        "authority": [
+          "证监会"
+        ],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "e209d2cbbf50",
+      "source": "财联社",
+      "also_in": [
+        "新浪财经",
+        "东方财富"
+      ],
+      "published_at": "2026-10-30T16:00+08:00",
+      "age_hours": 0.5,
+      "title": "英特尔盘前重挫近24% PC业务疲软不及预期",
+      "url": "https://api3.cls.cn/share/article/2520598?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "theme",
+      "themes": [
+        "半导体"
+      ],
+      "sentiment": -1,
+      "weight": 2,
+      "impact": -1.945,
+      "evidence": {
+        "positive": [],
+        "negative": [
+          "不及预期",
+          "下滑"
+        ],
+        "market": [],
+        "authority": [],
+        "severe": [],
+        "speculative": [
+          "预计",
+          "预期",
+          "尚未"
+        ]
+      }
+    },
+    {
+      "id": "8478da9bf2f3",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-10-30T15:59+08:00",
+      "age_hours": 0.5,
+      "title": "智能家居产业生态培育工作组工作会议在京举办",
+      "url": "https://finance.sina.cn/7x24/2026-10-30/detail-iniwywts5505603.d.html",
+      "scope": "market",
+      "themes": [
+        "人工智能",
+        "通信",
+        "消费"
+      ],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.942,
+      "evidence": {
+        "positive": [
+          "支持",
+          "加快"
+        ],
+        "negative": [],
+        "market": [
+          "国务院"
+        ],
+        "authority": [
+          "国务院"
+        ],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "0ca476b7f103",
+      "source": "财联社",
+      "also_in": [],
+      "published_at": "2026-10-30T15:54+08:00",
+      "age_hours": 0.6,
+      "title": "财联社10月30日电，欧洲央行齐格曼表示，最早可能在下次会议上加息。",
+      "url": "https://api3.cls.cn/share/article/2520586?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "market",
+      "themes": [],
+      "sentiment": -1,
+      "weight": 2,
+      "impact": -1.933,
+      "evidence": {
+        "positive": [],
+        "negative": [
+          "加息"
+        ],
+        "market": [
+          "央行",
+          "加息"
+        ],
+        "authority": [
+          "央行"
+        ],
+        "severe": [],
+        "speculative": [
+          "可能"
+        ]
+      }
+    },
+    {
+      "id": "3367a0f47178",
+      "source": "新浪财经",
+      "also_in": [
+        "东方财富"
+      ],
+      "published_at": "2026-10-30T15:54+08:00",
+      "age_hours": 0.6,
+      "title": "欧洲央行齐格曼：最早可能在下次会议上加息。",
+      "url": "https://finance.sina.cn/7x24/2026-10-30/detail-iniwywtu2278496.d.html",
+      "scope": "market",
+      "themes": [],
+      "sentiment": -1,
+      "weight": 2,
+      "impact": -1.933,
+      "evidence": {
+        "positive": [],
+        "negative": [
+          "加息"
+        ],
+        "market": [
+          "央行",
+          "加息"
+        ],
+        "authority": [
+          "央行"
+        ],
+        "severe": [],
+        "speculative": [
+          "可能"
+        ]
+      }
+    },
+    {
+      "id": "32c0d02f8e00",
+      "source": "财联社",
+      "also_in": [
+        "东方财富"
+      ],
+      "published_at": "2026-10-30T15:29+08:00",
+      "age_hours": 1.0,
+      "title": "财联社10月30日电，植田和男表示，日本央行加快ETF出售速度对市场的影响有限。",
+      "url": "https://api3.cls.cn/share/article/2520529?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "market",
+      "themes": [],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.887,
+      "evidence": {
+        "positive": [
+          "加快"
+        ],
+        "negative": [],
+        "market": [
+          "央行"
+        ],
+        "authority": [
+          "央行"
+        ],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "0ba5ee7a7364",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-10-30T15:26+08:00",
+      "age_hours": 1.0,
+      "title": "图灵奖得主马丁·赫尔曼：AI与核风险同源，人类面对技术就像16岁少年开着法拉利，需要构建合作性的国际秩序",
+      "url": "https://finance.sina.cn/7x24/2026-10-30/detail-iniwywtv8170495.d.html",
+      "scope": "theme",
+      "themes": [
+        "人工智能"
+      ],
+      "sentiment": -1,
+      "weight": 2,
+      "impact": -1.883,
+      "evidence": {
+        "positive": [],
+        "negative": [
+          "战争"
+        ],
+        "market": [],
+        "authority": [],
+        "severe": [
+          "战争"
+        ],
+        "speculative": []
+      }
+    },
+    {
+      "id": "7b893b43a125",
+      "source": "财联社",
+      "also_in": [],
+      "published_at": "2026-10-30T15:23+08:00",
+      "age_hours": 1.1,
+      "title": "中共中央召开党外人士座谈会 习近平主持并发表重要讲话",
+      "url": "https://api3.cls.cn/share/article/2520514?os=web&sv=7.7.5&app=CailianpressWeb",
+      "scope": "market",
+      "themes": [],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.877,
+      "evidence": {
+        "positive": [
+          "支持",
+          "推进"
+        ],
+        "negative": [],
+        "market": [
+          "国务院",
+          "政治局"
+        ],
+        "authority": [
+          "国务院",
+          "政治局"
+        ],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "4b02c0b894f4",
+      "source": "新浪财经",
+      "also_in": [
+        "财联社"
+      ],
+      "published_at": "2026-10-30T15:23+08:00",
+      "age_hours": 1.1,
+      "title": "外交部：美方无理打压中国企业 中方坚决反对、强烈不满",
+      "url": "https://finance.sina.cn/7x24/2026-10-30/detail-iniwywtv8167414.d.html",
+      "scope": "theme",
+      "themes": [
+        "消费"
+      ],
+      "sentiment": -1,
+      "weight": 2,
+      "impact": -1.876,
+      "evidence": {
+        "positive": [],
+        "negative": [
+          "禁止"
+        ],
+        "market": [],
+        "authority": [],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
+      "id": "b17831999433",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-10-30T15:19+08:00",
+      "age_hours": 1.2,
+      "title": "日本央行行长植田和男：无法事先说明加息会在某个特定的时间间隔发生，比如每隔几个月一次。",
+      "url": "https://finance.sina.cn/7x24/2026-10-30/detail-iniwywtx4615123.d.html",
+      "scope": "market",
+      "themes": [],
+      "sentiment": -1,
+      "weight": 2,
+      "impact": -1.869,
+      "evidence": {
+        "positive": [],
+        "negative": [
+          "加息"
+        ],
+        "market": [
+          "央行",
+          "加息"
+        ],
+        "authority": [
+          "央行"
+        ],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
       "id": "2ba9764e6dd7",
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-30T15:11+08:00",
-      "age_hours": 0.2,
+      "age_hours": 1.3,
       "title": "10月30日涨停分析",
       "url": "https://api3.cls.cn/share/article/2520495?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "theme",
@@ -526,7 +954,7 @@
       ],
       "sentiment": -1,
       "weight": 2,
-      "impact": -1.981,
+      "impact": -1.855,
       "evidence": {
         "positive": [],
         "negative": [
@@ -543,14 +971,14 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-10-30T15:07+08:00",
-      "age_hours": 0.2,
+      "age_hours": 1.4,
       "title": "财联社10月30日电，日本央行行长植田和男表示，将在包括下次会议在内的每次会议上继续考虑加息问题。",
       "url": "https://api3.cls.cn/share/article/2520488?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 2,
-      "impact": -1.973,
+      "impact": -1.847,
       "evidence": {
         "positive": [],
         "negative": [
@@ -572,14 +1000,14 @@
       "source": "东方财富",
       "also_in": [],
       "published_at": "2026-10-30T15:07+08:00",
-      "age_hours": 0.2,
+      "age_hours": 1.4,
       "title": "日本央行行长：将在包括下次会议在内的每次会议上继续考虑加息问题",
       "url": "https://finance.eastmoney.com/a/202610303916409352.html",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 2,
-      "impact": -1.973,
+      "impact": -1.847,
       "evidence": {
         "positive": [],
         "negative": [
@@ -597,390 +1025,50 @@
       }
     },
     {
-      "id": "129bef0cc1c1",
-      "source": "财联社",
+      "id": "dcd9f810ed4c",
+      "source": "新浪财经",
       "also_in": [],
-      "published_at": "2026-10-30T08:00+08:00",
-      "age_hours": 7.3,
-      "title": "财联社10月30日早间新闻精选",
-      "url": "https://api3.cls.cn/share/article/2519996?os=web&sv=7.7.5&app=CailianpressWeb",
+      "published_at": "2026-10-30T15:02+08:00",
+      "age_hours": 1.4,
+      "title": "日本央行行长植田和男：在决定货币政策时，需要考虑累计加息的影响和金融状况。",
+      "url": "https://finance.sina.cn/7x24/2026-10-30/detail-iniwywts5450499.d.html",
       "scope": "market",
-      "themes": [
-        "人工智能",
-        "通信",
-        "黄金",
-        "汽车",
-        "军工",
-        "石油",
-        "纳指"
-      ],
-      "sentiment": 1,
-      "weight": 3,
-      "impact": 1.963,
+      "themes": [],
+      "sentiment": -1,
+      "weight": 2,
+      "impact": -1.84,
       "evidence": {
-        "positive": [
-          "支持",
-          "回购",
-          "推进",
-          "增长"
-        ],
+        "positive": [],
         "negative": [
-          "限制",
-          "违约",
           "加息"
         ],
         "market": [
           "央行",
-          "美联储",
-          "加息",
-          "以色列",
-          "伊朗",
-          "GDP",
-          "A股"
+          "加息"
         ],
         "authority": [
-          "央行",
-          "美联储",
-          "商务部",
-          "白宫"
+          "央行"
         ],
-        "severe": [
-          "违约",
-          "实体清单"
-        ],
-        "speculative": [
-          "预计",
-          "预期",
-          "拟",
-          "尚未"
-        ]
+        "severe": [],
+        "speculative": []
       }
     },
     {
-      "id": "ce4b48d2e0e1",
-      "source": "财联社",
-      "also_in": [
-        "东方财富"
-      ],
-      "published_at": "2026-10-30T14:47+08:00",
-      "age_hours": 0.6,
-      "title": "财联社10月30日电，日本央行行长植田和男表示，各项政府措施将刺激经济，推动实现2%物价目标；剔除特殊因素后的CPI一直…",
-      "url": "https://api3.cls.cn/share/article/2520439?os=web&sv=7.7.5&app=CailianpressWeb",
+      "id": "1345b137ca95",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-10-30T15:02+08:00",
+      "age_hours": 1.4,
+      "title": "泰国央行：泰国经济持续复苏。",
+      "url": "https://finance.sina.cn/7x24/2026-10-30/detail-iniwywts5450399.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.937,
+      "impact": 1.84,
       "evidence": {
         "positive": [
-          "刺激",
-          "增长"
-        ],
-        "negative": [],
-        "market": [
-          "央行",
-          "CPI"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "92677e35c2b7",
-      "source": "财联社",
-      "also_in": [],
-      "published_at": "2026-10-30T14:46+08:00",
-      "age_hours": 0.6,
-      "title": "日本央行：将在每次会议上讨论加息必要性",
-      "url": "https://api3.cls.cn/share/article/2520435?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.934,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "加息"
-        ],
-        "market": [
-          "央行",
-          "加息"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "aa00209c5674",
-      "source": "东方财富",
-      "also_in": [],
-      "published_at": "2026-10-30T14:46+08:00",
-      "age_hours": 0.6,
-      "title": "日本央行：将在每次会议上讨论加息必要性",
-      "url": "https://finance.eastmoney.com/a/202610303916363472.html",
-      "scope": "market",
-      "themes": [],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.934,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "加息"
-        ],
-        "market": [
-          "央行",
-          "加息"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "621f12a81ae4",
-      "source": "财联社",
-      "also_in": [],
-      "published_at": "2026-10-30T14:46+08:00",
-      "age_hours": 0.6,
-      "title": "德商银行：日本央行12月加息已几乎被市场完全消化",
-      "url": "https://api3.cls.cn/share/article/2520434?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [
-        "银行"
-      ],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.934,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "加息"
-        ],
-        "market": [
-          "央行",
-          "加息"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": [
-          "预期",
-          "可能"
-        ]
-      }
-    },
-    {
-      "id": "bb8da9adc557",
-      "source": "东方财富",
-      "also_in": [],
-      "published_at": "2026-10-30T14:46+08:00",
-      "age_hours": 0.6,
-      "title": "德商银行：日本央行12月加息已几乎被市场完全消化",
-      "url": "https://finance.eastmoney.com/a/202610303916360942.html",
-      "scope": "market",
-      "themes": [
-        "银行"
-      ],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.934,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "加息"
-        ],
-        "market": [
-          "央行",
-          "加息"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": [
-          "预期",
-          "可能"
-        ]
-      }
-    },
-    {
-      "id": "f628bfc3dbb0",
-      "source": "财联社",
-      "also_in": [
-        "东方财富"
-      ],
-      "published_at": "2026-10-30T14:40+08:00",
-      "age_hours": 0.7,
-      "title": "财联社10月30日电，美国银行更新的货币政策预测显示，预计美联储将在2026年12月、2027年3月分别加息25个基点，…",
-      "url": "https://api3.cls.cn/share/article/2520422?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [
-        "银行"
-      ],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.923,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "加息"
-        ],
-        "market": [
-          "美联储",
-          "加息"
-        ],
-        "authority": [
-          "美联储"
-        ],
-        "severe": [],
-        "speculative": [
-          "预计",
-          "预测"
-        ]
-      }
-    },
-    {
-      "id": "bbc0131455aa",
-      "source": "财联社",
-      "also_in": [
-        "东方财富"
-      ],
-      "published_at": "2026-10-30T14:38+08:00",
-      "age_hours": 0.7,
-      "title": "财联社10月30日电，景顺策略师表示，日本央行对通胀前景给出鹰派判断，为12月潜在加息创造条件。",
-      "url": "https://api3.cls.cn/share/article/2520419?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.921,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "加息"
-        ],
-        "market": [
-          "央行",
-          "加息"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "959c49c81aee",
-      "source": "财联社",
-      "also_in": [],
-      "published_at": "2026-10-30T14:16+08:00",
-      "age_hours": 1.1,
-      "title": "银行间主要利率债收益率升幅扩大",
-      "url": "https://api3.cls.cn/share/article/2520371?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "theme",
-      "themes": [
-        "银行"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.88,
-      "evidence": {
-        "positive": [
-          "扩大"
-        ],
-        "negative": [],
-        "market": [],
-        "authority": [],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "370fcf42df4d",
-      "source": "财联社",
-      "also_in": [],
-      "published_at": "2026-10-30T14:13+08:00",
-      "age_hours": 1.1,
-      "title": "财联社10月30日电，欧洲央行西姆库斯称，维持利率不变并不意味着未来不会再加息，将在12月提供更多信息。",
-      "url": "https://api3.cls.cn/share/article/2520365?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.874,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "加息"
-        ],
-        "market": [
-          "央行",
-          "加息"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "ffcf19b7cdb8",
-      "source": "东方财富",
-      "also_in": [],
-      "published_at": "2026-10-30T14:13+08:00",
-      "age_hours": 1.1,
-      "title": "欧洲央行西姆库斯称，维持利率不变并不意味着未来不会再加息",
-      "url": "https://finance.eastmoney.com/a/202610303916258786.html",
-      "scope": "market",
-      "themes": [],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.874,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "加息"
-        ],
-        "market": [
-          "央行",
-          "加息"
-        ],
-        "authority": [
-          "央行"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "a44997766767",
-      "source": "东方财富",
-      "also_in": [],
-      "published_at": "2026-10-30T13:51+08:00",
-      "age_hours": 1.5,
-      "title": "日本央行认定物价涨幅已达到2%目标 维持政策利率不变",
-      "url": "https://finance.eastmoney.com/a/202610303916218389.html",
-      "scope": "market",
-      "themes": [],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.834,
-      "evidence": {
-        "positive": [
-          "稳定"
+          "复苏"
         ],
         "negative": [],
         "market": [
@@ -991,156 +1079,6 @@
         ],
         "severe": [],
         "speculative": []
-      }
-    },
-    {
-      "id": "8734e468042d",
-      "source": "东方财富",
-      "also_in": [],
-      "published_at": "2026-10-30T13:37+08:00",
-      "age_hours": 1.7,
-      "title": "贵州：到2030年，力争实现电信业务收入438亿元、互联网业务收入1100亿元",
-      "url": "https://finance.eastmoney.com/a/202610303916208070.html",
-      "scope": "market",
-      "themes": [
-        "通信"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.81,
-      "evidence": {
-        "positive": [
-          "增长"
-        ],
-        "negative": [],
-        "market": [
-          "发改委"
-        ],
-        "authority": [
-          "发改委"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "641853ee133a",
-      "source": "财联社",
-      "also_in": [
-        "东方财富"
-      ],
-      "published_at": "2026-10-30T06:33+08:00",
-      "age_hours": 8.8,
-      "title": "周五你需要知道的隔夜全球要闻：英特尔业绩展望不及预期盘后大跌20%；谷歌市值单日蒸发近5000亿美元；美军向特朗普汇报对伊朗军事选项",
-      "url": "https://api3.cls.cn/share/article/2519949?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "market",
-      "themes": [
-        "人工智能",
-        "通信",
-        "黄金",
-        "军工",
-        "石油",
-        "纳指",
-        "港股"
-      ],
-      "sentiment": -1,
-      "weight": 3,
-      "impact": -1.805,
-      "evidence": {
-        "positive": [
-          "支持",
-          "推进"
-        ],
-        "negative": [
-          "违约",
-          "不及预期",
-          "加息"
-        ],
-        "market": [
-          "央行",
-          "加息",
-          "中东",
-          "以色列",
-          "伊朗"
-        ],
-        "authority": [
-          "央行",
-          "白宫"
-        ],
-        "severe": [
-          "违约"
-        ],
-        "speculative": [
-          "预计",
-          "预期",
-          "可能",
-          "尚未"
-        ]
-      }
-    },
-    {
-      "id": "eab9c50648cf",
-      "source": "东方财富",
-      "also_in": [],
-      "published_at": "2026-10-30T13:27+08:00",
-      "age_hours": 1.9,
-      "title": "政策利好频出板块强势反弹，港股消费ETF鹏华均涨超3%",
-      "url": "https://finance.eastmoney.com/a/202610303916202718.html",
-      "scope": "theme",
-      "themes": [
-        "汽车",
-        "消费",
-        "港股"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.793,
-      "evidence": {
-        "positive": [
-          "利好",
-          "补贴",
-          "加快",
-          "推进",
-          "加大"
-        ],
-        "negative": [],
-        "market": [],
-        "authority": [
-          "商务部"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "3c48c9768180",
-      "source": "财联社",
-      "also_in": [],
-      "published_at": "2026-10-30T13:08+08:00",
-      "age_hours": 2.2,
-      "title": "一图看懂：美股四大科技巨头2026年合计资本支出上限有望突破7400亿美元",
-      "url": "https://api3.cls.cn/share/article/2520314?os=web&sv=7.7.5&app=CailianpressWeb",
-      "scope": "theme",
-      "themes": [
-        "纳指"
-      ],
-      "sentiment": 1,
-      "weight": 2,
-      "impact": 1.76,
-      "evidence": {
-        "positive": [
-          "突破",
-          "增长"
-        ],
-        "negative": [
-          "下调"
-        ],
-        "market": [],
-        "authority": [],
-        "severe": [],
-        "speculative": [
-          "预期"
-        ]
       }
     }
   ]

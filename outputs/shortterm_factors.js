@@ -1,296 +1,411 @@
 window.SHORT_FACTORS = {
-  "generated_at": "2026-10-29T16:25:48+08:00",
-  "for_date": "2026-10-29",
+  "generated_at": "2026-10-30T16:23:18+08:00",
+  "for_date": "2026-10-30",
   "basis": "close_review",
   "rules": "双池盘后口径：核心池 40%S + 35%E + 25%Q；龙头池 40%60日涨幅 + 35%近30日涨停 + 25%股票热度；M仅作市场门控",
   "candidate_pools": {
     "relay_count": 4,
-    "discovery_count": 9,
-    "core_count": 13,
+    "discovery_count": 16,
+    "core_count": 20,
     "leader_count": 20,
-    "total_count": 33,
+    "total_count": 40,
     "relay_label": "连板接力",
     "discovery_label": "新晋龙头",
     "leader_label": "龙头观察",
     "trend_scanned": 3036,
     "leader_scanned": 3036,
     "leader_history_covered_days": 15,
-    "leader_history_max_date": "2026-10-29",
-    "leader_heat_covered": 167
+    "leader_history_max_date": "2026-10-30",
+    "leader_heat_covered": 131
   },
   "high_candidates": [],
   "hot_board": [
     {
-      "concept": "机械设备",
-      "count": 2,
+      "concept": "食品饮料",
+      "count": 5,
       "stocks": [
         {
-          "name": "山东矿机",
-          "code": "002526.SZ",
-          "boards": 2
+          "name": "黑芝麻",
+          "code": "000716.SZ",
+          "boards": 1
         },
         {
-          "name": "宇晶股份",
-          "code": "002943.SZ",
-          "boards": 2
+          "name": "泸州老窖",
+          "code": "000568.SZ",
+          "boards": 1
+        },
+        {
+          "name": "新乳业",
+          "code": "002946.SZ",
+          "boards": 1
+        },
+        {
+          "name": "好想你",
+          "code": "002582.SZ",
+          "boards": 1
+        },
+        {
+          "name": "古井贡酒",
+          "code": "000596.SZ",
+          "boards": 1
         }
       ]
     },
     {
       "concept": "医药生物",
-      "count": 2,
+      "count": 4,
       "stocks": [
         {
           "name": "澳洋健康",
           "code": "002172.SZ",
-          "boards": 2
+          "boards": 3
         },
         {
           "name": "桂林三金",
           "code": "002275.SZ",
-          "boards": 1
-        }
-      ]
-    },
-    {
-      "concept": "电力设备",
-      "count": 2,
-      "stocks": [
+          "boards": 2
+        },
         {
-          "name": "钧达股份",
-          "code": "002865.SZ",
+          "name": "永安药业",
+          "code": "002365.SZ",
           "boards": 1
         },
         {
-          "name": "天顺风能",
-          "code": "002531.SZ",
+          "name": "九安医疗",
+          "code": "002432.SZ",
           "boards": 1
         }
       ]
     },
     {
-      "concept": "商贸零售",
-      "count": 2,
+      "concept": "电子",
+      "count": 3,
       "stocks": [
         {
-          "name": "厦门信达",
-          "code": "000701.SZ",
+          "name": "满坤科技",
+          "code": "301132.SZ",
           "boards": 1
         },
         {
-          "name": "友阿股份",
-          "code": "002277.SZ",
+          "name": "金安国纪",
+          "code": "002636.SZ",
+          "boards": 1
+        },
+        {
+          "name": "中电港",
+          "code": "001287.SZ",
           "boards": 1
         }
       ]
     },
     {
-      "concept": "汽车",
-      "count": 1,
+      "concept": "食品加工制造",
+      "count": 2,
       "stocks": [
         {
-          "name": "光洋股份",
-          "code": "002708.SZ",
-          "boards": 4
+          "name": "黑芝麻",
+          "code": "000716.SZ",
+          "boards": 1
+        },
+        {
+          "name": "好想你",
+          "code": "002582.SZ",
+          "boards": 1
         }
       ]
     },
     {
-      "concept": "汽车零部件",
-      "count": 1,
+      "concept": "休闲食品",
+      "count": 2,
       "stocks": [
         {
-          "name": "光洋股份",
-          "code": "002708.SZ",
-          "boards": 4
+          "name": "黑芝麻",
+          "code": "000716.SZ",
+          "boards": 1
+        },
+        {
+          "name": "好想你",
+          "code": "002582.SZ",
+          "boards": 1
         }
       ]
     },
     {
-      "concept": "底盘与发动机系统",
-      "count": 1,
+      "concept": "元件",
+      "count": 2,
       "stocks": [
         {
-          "name": "光洋股份",
-          "code": "002708.SZ",
-          "boards": 4
+          "name": "满坤科技",
+          "code": "301132.SZ",
+          "boards": 1
+        },
+        {
+          "name": "金安国纪",
+          "code": "002636.SZ",
+          "boards": 1
         }
       ]
     },
     {
-      "concept": "专用设备",
-      "count": 1,
+      "concept": "印制电路板",
+      "count": 2,
       "stocks": [
         {
-          "name": "山东矿机",
-          "code": "002526.SZ",
-          "boards": 2
+          "name": "满坤科技",
+          "code": "301132.SZ",
+          "boards": 1
+        },
+        {
+          "name": "金安国纪",
+          "code": "002636.SZ",
+          "boards": 1
         }
       ]
     },
     {
-      "concept": "能源及重型设备",
-      "count": 1,
+      "concept": "白酒",
+      "count": 2,
       "stocks": [
         {
-          "name": "山东矿机",
-          "code": "002526.SZ",
-          "boards": 2
+          "name": "泸州老窖",
+          "code": "000568.SZ",
+          "boards": 1
+        },
+        {
+          "name": "古井贡酒",
+          "code": "000596.SZ",
+          "boards": 1
         }
       ]
     },
     {
-      "concept": "通用设备",
+      "concept": "白酒Ⅲ",
+      "count": 2,
+      "stocks": [
+        {
+          "name": "泸州老窖",
+          "code": "000568.SZ",
+          "boards": 1
+        },
+        {
+          "name": "古井贡酒",
+          "code": "000596.SZ",
+          "boards": 1
+        }
+      ]
+    },
+    {
+      "concept": "医疗服务",
       "count": 1,
       "stocks": [
         {
-          "name": "宇晶股份",
-          "code": "002943.SZ",
-          "boards": 2
+          "name": "澳洋健康",
+          "code": "002172.SZ",
+          "boards": 3
         }
       ]
     }
   ],
   "watch_hot": [
     {
-      "name": "山东矿机",
-      "code": "002526.SZ",
-      "boards": 2,
-      "lane": "relay",
-      "hot": false,
-      "best_concept": "机械设备",
-      "concept_count": 2,
-      "pop": 76.9
-    },
-    {
-      "name": "传智教育",
-      "code": "003032.SZ",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": false,
-      "best_concept": "社会服务",
-      "concept_count": 1,
-      "pop": 57.7
-    },
-    {
-      "name": "钧达股份",
-      "code": "002865.SZ",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": false,
-      "best_concept": "电力设备",
-      "concept_count": 2,
-      "pop": 58.8
-    },
-    {
-      "name": "厦门信达",
-      "code": "000701.SZ",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": false,
-      "best_concept": "商贸零售",
-      "concept_count": 2,
-      "pop": 58.8
-    },
-    {
-      "name": "光洋股份",
-      "code": "002708.SZ",
-      "boards": 4,
-      "lane": "relay",
-      "hot": false,
-      "best_concept": "汽车",
-      "concept_count": 1,
-      "pop": 73.0
-    },
-    {
       "name": "澳洋健康",
       "code": "002172.SZ",
-      "boards": 2,
+      "boards": 3,
       "lane": "relay",
-      "hot": false,
+      "hot": true,
       "best_concept": "医药生物",
-      "concept_count": 2,
-      "pop": 65.9
-    },
-    {
-      "name": "顺灏股份",
-      "code": "002565.SZ",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": false,
-      "best_concept": "轻工制造",
-      "concept_count": 1,
-      "pop": 55.5
-    },
-    {
-      "name": "东方海洋",
-      "code": "002086.SZ",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": false,
-      "best_concept": "农林牧渔",
-      "concept_count": 1,
-      "pop": 52.4
-    },
-    {
-      "name": "宇晶股份",
-      "code": "002943.SZ",
-      "boards": 2,
-      "lane": "relay",
-      "hot": false,
-      "best_concept": "机械设备",
-      "concept_count": 2,
-      "pop": 59.4
-    },
-    {
-      "name": "西部材料",
-      "code": "002149.SZ",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": false,
-      "best_concept": "有色金属",
-      "concept_count": 1,
-      "pop": 50.2
+      "concept_count": 4,
+      "pop": 92.9
     },
     {
       "name": "桂林三金",
       "code": "002275.SZ",
-      "boards": 1,
-      "lane": "discovery",
-      "hot": false,
+      "boards": 2,
+      "lane": "relay",
+      "hot": true,
       "best_concept": "医药生物",
-      "concept_count": 2,
-      "pop": 49.1
+      "concept_count": 4,
+      "pop": 78.3
     },
     {
-      "name": "天顺风能",
-      "code": "002531.SZ",
+      "name": "传智教育",
+      "code": "003032.SZ",
+      "boards": 2,
+      "lane": "relay",
+      "hot": false,
+      "best_concept": "社会服务",
+      "concept_count": 1,
+      "pop": 76.0
+    },
+    {
+      "name": "东方海洋",
+      "code": "002086.SZ",
+      "boards": 2,
+      "lane": "relay",
+      "hot": false,
+      "best_concept": "农林牧渔",
+      "concept_count": 1,
+      "pop": 71.5
+    },
+    {
+      "name": "黑芝麻",
+      "code": "000716.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": true,
+      "best_concept": "食品饮料",
+      "concept_count": 5,
+      "pop": 67.4
+    },
+    {
+      "name": "津滨发展",
+      "code": "000897.SZ",
       "boards": 1,
       "lane": "discovery",
       "hot": false,
-      "best_concept": "电力设备",
-      "concept_count": 2,
-      "pop": 46.9
+      "best_concept": "房地产",
+      "concept_count": 1,
+      "pop": 58.4
     },
     {
-      "name": "友阿股份",
-      "code": "002277.SZ",
+      "name": "沈阳机床",
+      "code": "000410.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": false,
+      "best_concept": "机械设备",
+      "concept_count": 1,
+      "pop": 58.4
+    },
+    {
+      "name": "欧圣电气",
+      "code": "301187.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": false,
+      "best_concept": "家用电器",
+      "concept_count": 1,
+      "pop": 58.4
+    },
+    {
+      "name": "合百集团",
+      "code": "000417.SZ",
       "boards": 1,
       "lane": "discovery",
       "hot": false,
       "best_concept": "商贸零售",
-      "concept_count": 2,
-      "pop": 43.6
+      "concept_count": 1,
+      "pop": 58.4
     },
     {
-      "name": "海洋王",
-      "code": "002724.SZ",
-      "boards": 0,
-      "lane": "leader",
+      "name": "智度股份",
+      "code": "000676.SZ",
+      "boards": 1,
+      "lane": "discovery",
       "hot": false,
+      "best_concept": "传媒",
+      "concept_count": 1,
+      "pop": 58.4
+    },
+    {
+      "name": "满坤科技",
+      "code": "301132.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": true,
       "best_concept": "电子",
-      "concept_count": null,
-      "pop": 89.8
+      "concept_count": 3,
+      "pop": 57.6
+    },
+    {
+      "name": "泸州老窖",
+      "code": "000568.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": true,
+      "best_concept": "食品饮料",
+      "concept_count": 5,
+      "pop": 57.6
+    },
+    {
+      "name": "永安药业",
+      "code": "002365.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": true,
+      "best_concept": "医药生物",
+      "concept_count": 4,
+      "pop": 57.5
+    },
+    {
+      "name": "新乳业",
+      "code": "002946.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": true,
+      "best_concept": "食品饮料",
+      "concept_count": 5,
+      "pop": 54.5
+    },
+    {
+      "name": "鲁阳节能",
+      "code": "002088.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": false,
+      "best_concept": "建筑材料",
+      "concept_count": 1,
+      "pop": 53.1
+    },
+    {
+      "name": "金安国纪",
+      "code": "002636.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": true,
+      "best_concept": "电子",
+      "concept_count": 3,
+      "pop": 55.1
+    },
+    {
+      "name": "九安医疗",
+      "code": "002432.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": true,
+      "best_concept": "医药生物",
+      "concept_count": 4,
+      "pop": 53.1
+    },
+    {
+      "name": "好想你",
+      "code": "002582.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": true,
+      "best_concept": "食品饮料",
+      "concept_count": 5,
+      "pop": 47.9
+    },
+    {
+      "name": "中电港",
+      "code": "001287.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": true,
+      "best_concept": "电子",
+      "concept_count": 3,
+      "pop": 44.3
+    },
+    {
+      "name": "古井贡酒",
+      "code": "000596.SZ",
+      "boards": 1,
+      "lane": "discovery",
+      "hot": true,
+      "best_concept": "食品饮料",
+      "concept_count": 5,
+      "pop": 39.1
     },
     {
       "name": "大业股份",
@@ -300,17 +415,27 @@ window.SHORT_FACTORS = {
       "hot": false,
       "best_concept": "机械设备",
       "concept_count": null,
-      "pop": 90.4
+      "pop": 99.2
     },
     {
-      "name": "百洋股份",
-      "code": "002696.SZ",
+      "name": "海洋王",
+      "code": "002724.SZ",
       "boards": 0,
       "lane": "leader",
       "hot": false,
-      "best_concept": "农林牧渔",
+      "best_concept": "电子",
       "concept_count": null,
-      "pop": 89.2
+      "pop": 97.7
+    },
+    {
+      "name": "慈文传媒",
+      "code": "002343.SZ",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "传媒",
+      "concept_count": null,
+      "pop": 81.7
     },
     {
       "name": "襄阳轴承",
@@ -330,27 +455,7 @@ window.SHORT_FACTORS = {
       "hot": false,
       "best_concept": "商贸零售",
       "concept_count": null,
-      "pop": 98.8
-    },
-    {
-      "name": "慈文传媒",
-      "code": "002343.SZ",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "传媒",
-      "concept_count": null,
-      "pop": 77.2
-    },
-    {
-      "name": "多伦科技",
-      "code": "603528.SH",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "计算机",
-      "concept_count": null,
-      "pop": 83.8
+      "pop": 87.8
     },
     {
       "name": "九阳股份",
@@ -360,7 +465,17 @@ window.SHORT_FACTORS = {
       "hot": false,
       "best_concept": "家用电器",
       "concept_count": null,
-      "pop": 97.6
+      "pop": 93.9
+    },
+    {
+      "name": "百洋股份",
+      "code": "002696.SZ",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "农林牧渔",
+      "concept_count": null,
+      "pop": 50.0
     },
     {
       "name": "冰山冷热",
@@ -370,17 +485,27 @@ window.SHORT_FACTORS = {
       "hot": false,
       "best_concept": "机械设备",
       "concept_count": null,
-      "pop": 95.8
+      "pop": 93.1
     },
     {
-      "name": "赛福天",
-      "code": "603028.SH",
+      "name": "光洋股份",
+      "code": "002708.SZ",
       "boards": 0,
       "lane": "leader",
       "hot": false,
-      "best_concept": "机械设备",
+      "best_concept": "汽车",
       "concept_count": null,
-      "pop": 77.8
+      "pop": 90.8
+    },
+    {
+      "name": "多伦科技",
+      "code": "603528.SH",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "计算机",
+      "concept_count": null,
+      "pop": 68.7
     },
     {
       "name": "新华传媒",
@@ -390,27 +515,17 @@ window.SHORT_FACTORS = {
       "hot": false,
       "best_concept": "传媒",
       "concept_count": null,
-      "pop": 92.8
+      "pop": 96.2
     },
     {
-      "name": "福莱新材",
-      "code": "605488.SH",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "基础化工",
-      "concept_count": null,
-      "pop": 70.7
-    },
-    {
-      "name": "宁波东力",
-      "code": "002164.SZ",
+      "name": "赛福天",
+      "code": "603028.SH",
       "boards": 0,
       "lane": "leader",
       "hot": false,
       "best_concept": "机械设备",
       "concept_count": null,
-      "pop": 91.6
+      "pop": 66.4
     },
     {
       "name": "万向钱潮",
@@ -420,55 +535,25 @@ window.SHORT_FACTORS = {
       "hot": false,
       "best_concept": "汽车",
       "concept_count": null,
-      "pop": 93.4
+      "pop": 80.9
     },
     {
-      "name": "文投控股",
-      "code": "600715.SH",
+      "name": "澳弘电子",
+      "code": "605058.SH",
       "boards": 0,
       "lane": "leader",
       "hot": false,
-      "best_concept": "传媒",
+      "best_concept": "电子",
       "concept_count": null,
-      "pop": 88.6
+      "pop": 50.0
     },
     {
-      "name": "阳光乳业",
-      "code": "001318.SZ",
+      "name": "福莱新材",
+      "code": "605488.SH",
       "boards": 0,
       "lane": "leader",
       "hot": false,
-      "best_concept": "食品饮料",
-      "concept_count": null,
-      "pop": 58.7
-    },
-    {
-      "name": "华瓷股份",
-      "code": "001216.SZ",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "轻工制造",
-      "concept_count": null,
-      "pop": 71.9
-    },
-    {
-      "name": "福建水泥",
-      "code": "600802.SH",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "建筑材料",
-      "concept_count": null,
-      "pop": 66.5
-    },
-    {
-      "name": "林州重机",
-      "code": "002535.SZ",
-      "boards": 0,
-      "lane": "leader",
-      "hot": false,
-      "best_concept": "机械设备",
+      "best_concept": "基础化工",
       "concept_count": null,
       "pop": 50.0
     },
@@ -480,99 +565,139 @@ window.SHORT_FACTORS = {
       "hot": false,
       "best_concept": "食品饮料",
       "concept_count": null,
-      "pop": 68.3
+      "pop": 75.6
+    },
+    {
+      "name": "新华文轩",
+      "code": "601811.SH",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "传媒",
+      "concept_count": null,
+      "pop": 50.0
+    },
+    {
+      "name": "青岛食品",
+      "code": "001219.SZ",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "食品饮料",
+      "concept_count": null,
+      "pop": 89.3
+    },
+    {
+      "name": "阳光乳业",
+      "code": "001318.SZ",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "食品饮料",
+      "concept_count": null,
+      "pop": 50.0
+    },
+    {
+      "name": "宁波东力",
+      "code": "002164.SZ",
+      "boards": 0,
+      "lane": "leader",
+      "hot": false,
+      "best_concept": "机械设备",
+      "concept_count": null,
+      "pop": 59.5
     }
   ],
   "popularity_top": [
     {
-      "name": "山东矿机",
-      "code": "002526.SZ",
+      "name": "澳洋健康",
+      "code": "002172.SZ",
+      "boards": 3,
+      "amount_yi": null,
+      "theme": "医药生物",
+      "theme_n": 4,
+      "pop": 92.9
+    },
+    {
+      "name": "桂林三金",
+      "code": "002275.SZ",
       "boards": 2,
       "amount_yi": null,
-      "theme": "机械设备",
-      "theme_n": 2,
-      "pop": 76.9
+      "theme": "医药生物",
+      "theme_n": 4,
+      "pop": 78.3
     },
     {
       "name": "传智教育",
       "code": "003032.SZ",
-      "boards": 1,
+      "boards": 2,
       "amount_yi": null,
       "theme": "社会服务",
       "theme_n": 1,
-      "pop": 57.7
-    },
-    {
-      "name": "钧达股份",
-      "code": "002865.SZ",
-      "boards": 1,
-      "amount_yi": null,
-      "theme": "电力设备",
-      "theme_n": 2,
-      "pop": 58.8
-    },
-    {
-      "name": "厦门信达",
-      "code": "000701.SZ",
-      "boards": 1,
-      "amount_yi": null,
-      "theme": "商贸零售",
-      "theme_n": 2,
-      "pop": 58.8
-    },
-    {
-      "name": "光洋股份",
-      "code": "002708.SZ",
-      "boards": 4,
-      "amount_yi": null,
-      "theme": "汽车",
-      "theme_n": 1,
-      "pop": 73.0
-    },
-    {
-      "name": "澳洋健康",
-      "code": "002172.SZ",
-      "boards": 2,
-      "amount_yi": null,
-      "theme": "医药生物",
-      "theme_n": 2,
-      "pop": 65.9
-    },
-    {
-      "name": "顺灏股份",
-      "code": "002565.SZ",
-      "boards": 1,
-      "amount_yi": null,
-      "theme": "轻工制造",
-      "theme_n": 1,
-      "pop": 55.5
+      "pop": 76.0
     },
     {
       "name": "东方海洋",
       "code": "002086.SZ",
-      "boards": 1,
+      "boards": 2,
       "amount_yi": null,
       "theme": "农林牧渔",
       "theme_n": 1,
-      "pop": 52.4
+      "pop": 71.5
     },
     {
-      "name": "宇晶股份",
-      "code": "002943.SZ",
-      "boards": 2,
-      "amount_yi": null,
-      "theme": "机械设备",
-      "theme_n": 2,
-      "pop": 59.4
-    },
-    {
-      "name": "西部材料",
-      "code": "002149.SZ",
+      "name": "黑芝麻",
+      "code": "000716.SZ",
       "boards": 1,
       "amount_yi": null,
-      "theme": "有色金属",
+      "theme": "食品饮料",
+      "theme_n": 5,
+      "pop": 67.4
+    },
+    {
+      "name": "津滨发展",
+      "code": "000897.SZ",
+      "boards": 1,
+      "amount_yi": null,
+      "theme": "房地产",
       "theme_n": 1,
-      "pop": 50.2
+      "pop": 58.4
+    },
+    {
+      "name": "沈阳机床",
+      "code": "000410.SZ",
+      "boards": 1,
+      "amount_yi": null,
+      "theme": "机械设备",
+      "theme_n": 1,
+      "pop": 58.4
+    },
+    {
+      "name": "欧圣电气",
+      "code": "301187.SZ",
+      "boards": 1,
+      "amount_yi": null,
+      "theme": "家用电器",
+      "theme_n": 1,
+      "pop": 58.4
+    },
+    {
+      "name": "合百集团",
+      "code": "000417.SZ",
+      "boards": 1,
+      "amount_yi": null,
+      "theme": "商贸零售",
+      "theme_n": 1,
+      "pop": 58.4
+    },
+    {
+      "name": "智度股份",
+      "code": "000676.SZ",
+      "boards": 1,
+      "amount_yi": null,
+      "theme": "传媒",
+      "theme_n": 1,
+      "pop": 58.4
     }
   ],
   "data_source": "同花顺问财收盘复盘 + trend-standard-v1 同日主板横截面"
