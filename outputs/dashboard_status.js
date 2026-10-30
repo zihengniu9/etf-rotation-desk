@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-30T14:42:04+08:00",
+  "updated_at": "2026-10-30T15:21:20+08:00",
   "reference_date": "2026-10-29",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -49,7 +49,7 @@ window.DASHBOARD_STATUS = {
       "href": "./index.html",
       "state": "current",
       "data_as_of": "2026-10-30",
-      "coverage": "排名 12 只 · 实时报价 213 只",
+      "coverage": "排名 8 只 · 实时报价 213 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
@@ -93,9 +93,9 @@ window.DASHBOARD_STATUS = {
       "href": "./market_mode.html#news-panel",
       "state": "current",
       "data_as_of": "2026-10-30",
-      "coverage": "相关快讯 1499 条 · 源 3/3",
+      "coverage": "相关快讯 663 条 · 源 2/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重要利空：财联社10月30日电，景顺策略师表示，日本央行对通胀前景给出鹰派判断，为12月潜在加息创造条件。",
+      "note": "大盘消息净分 -4.7 偏空；重要利空：财联社10月30日电，日本央行行长植田和男表示，将在包括下次会议在内的每次会议上继续考虑加息问题。",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
