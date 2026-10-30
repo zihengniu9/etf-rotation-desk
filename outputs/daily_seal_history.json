@@ -52002,5 +52002,150 @@
         "制冷空调设备"
       ]
     }
+  ],
+  "20261029": [
+    {
+      "name": "光洋股份",
+      "code": "002708.SZ",
+      "boards": 4,
+      "amount": null,
+      "concepts": [
+        "汽车",
+        "汽车零部件",
+        "底盘与发动机系统"
+      ]
+    },
+    {
+      "name": "山东矿机",
+      "code": "002526.SZ",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "专用设备",
+        "能源及重型设备"
+      ]
+    },
+    {
+      "name": "宇晶股份",
+      "code": "002943.SZ",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "机械设备",
+        "通用设备",
+        "机床工具"
+      ]
+    },
+    {
+      "name": "澳洋健康",
+      "code": "002172.SZ",
+      "boards": 2,
+      "amount": null,
+      "concepts": [
+        "医药生物",
+        "医疗服务",
+        "医院"
+      ]
+    },
+    {
+      "name": "传智教育",
+      "code": "003032.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "社会服务",
+        "教育",
+        "教育Ⅲ"
+      ]
+    },
+    {
+      "name": "东方海洋",
+      "code": "002086.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "农林牧渔",
+        "农产品加工",
+        "其他农产品加工"
+      ]
+    },
+    {
+      "name": "顺灏股份",
+      "code": "002565.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "轻工制造",
+        "包装印刷",
+        "包装"
+      ]
+    },
+    {
+      "name": "钧达股份",
+      "code": "002865.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "光伏设备",
+        "光伏电池组件"
+      ]
+    },
+    {
+      "name": "厦门信达",
+      "code": "000701.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "商贸零售",
+        "贸易",
+        "贸易Ⅲ"
+      ]
+    },
+    {
+      "name": "西部材料",
+      "code": "002149.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "有色金属",
+        "小金属",
+        "其他小金属"
+      ]
+    },
+    {
+      "name": "桂林三金",
+      "code": "002275.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "医药生物",
+        "中药",
+        "中药Ⅲ"
+      ]
+    },
+    {
+      "name": "天顺风能",
+      "code": "002531.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "电力设备",
+        "风电设备",
+        "风电零部件"
+      ]
+    },
+    {
+      "name": "友阿股份",
+      "code": "002277.SZ",
+      "boards": 1,
+      "amount": null,
+      "concepts": [
+        "商贸零售",
+        "零售",
+        "百货零售"
+      ]
+    }
   ]
 }

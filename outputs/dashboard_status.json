@@ -1,13 +1,13 @@
 {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-29T15:07:18+08:00",
-  "reference_date": "2026-10-28",
+  "updated_at": "2026-10-30T09:29:55+08:00",
+  "reference_date": "2026-10-29",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
     "current": 5,
-    "stale": 3,
+    "stale": 2,
     "missing": 0,
-    "error": 0
+    "error": 1
   },
   "modules": [
     {
@@ -15,7 +15,7 @@
       "title": "行情复盘",
       "href": "./market_mode.html#daily-review",
       "state": "current",
-      "data_as_of": "2026-10-28",
+      "data_as_of": "2026-10-29",
       "coverage": "涨停板清单 12 只",
       "source": "同花顺问财 · hithink-astock-selector",
       "note": "最新完成交易日的收盘复盘",
@@ -26,8 +26,8 @@
       "title": "短线观察",
       "href": "./shortterm_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-10-29",
-      "coverage": "梯队 8 只 · 因子候选 16 只",
+      "data_as_of": "2026-10-30",
+      "coverage": "梯队 3 只 · 因子候选 3 只",
       "source": "短线 M/S/E/Q 本地生成器",
       "note": "信号日期早于复盘日期时仅作历史快照",
       "cadence": "每个交易日09:25与收盘"
@@ -36,11 +36,11 @@
       "key": "industry",
       "title": "行业主线",
       "href": "./industry_mainline_dashboard.html",
-      "state": "current",
+      "state": "error",
       "data_as_of": "2026-10-29",
       "coverage": "252 个历史日 · 22680 行",
       "source": "行业成分股行情与资金承载",
-      "note": "行业主线数据已成功刷新",
+      "note": "在线接口未返回可用数据，沿用上一版行业数据",
       "cadence": "每个交易日收盘"
     },
     {
@@ -58,8 +58,8 @@
       "key": "trend",
       "title": "趋势因子",
       "href": "./trend_engine.html",
-      "state": "stale",
-      "data_as_of": "2026-10-27",
+      "state": "current",
+      "data_as_of": "2026-10-29",
       "coverage": "历史股票 3032 只 · 信号 2616 个",
       "source": "同花顺问财 · hithink-astock-selector · 36个历史时点",
       "note": "全主板趋势赚钱效应",
@@ -92,10 +92,10 @@
       "title": "消息面",
       "href": "./market_mode.html#news-panel",
       "state": "current",
-      "data_as_of": "2026-10-29",
-      "coverage": "相关快讯 1620 条 · 源 3/3",
+      "data_as_of": "2026-10-30",
+      "coverage": "相关快讯 1543 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重大利空：美国财政部外国资产控制办公室（OFAC）将卢旺达国防部列入制裁名单。",
+      "note": "重大利空：俄证实与美磋商解除对俄主权基金制裁",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
