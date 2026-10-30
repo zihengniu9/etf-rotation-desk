@@ -3,7 +3,9 @@ param(
   [string]$Python = "",
   [string]$MorningTime = "09:28",
   [string[]]$IntradayTimes = @("09:30", "10:00", "10:30", "11:00", "11:30", "13:00", "13:30", "14:00", "14:30", "15:00"),
-  [string]$CloseTime = "16:20"
+  [string]$CloseTime = "16:20",
+  [string[]]$FinancialTimes = @("09:05", "16:05"),
+  [switch]$FinancialOnly
 )
 
 Set-StrictMode -Version Latest
@@ -42,12 +44,18 @@ function Register-DashboardTask([string]$Name, [string]$Mode, [string[]]$Times) 
     -Description "AI stock dashboard $Mode update; verifies tun, refreshes data, and pushes GitHub." -Force | Out-Null
 }
 
-Register-DashboardTask "AI Stock Dashboard Morning" "Morning" @($MorningTime)
-Register-DashboardTask "AI Stock Dashboard Intraday" "Intraday" $IntradayTimes
-Register-DashboardTask "AI Stock Dashboard Close" "Close" @($CloseTime)
+if (-not $FinancialOnly) {
+  Register-DashboardTask "AI Stock Dashboard Morning" "Morning" @($MorningTime)
+  Register-DashboardTask "AI Stock Dashboard Intraday" "Intraday" $IntradayTimes
+  Register-DashboardTask "AI Stock Dashboard Close" "Close" @($CloseTime)
+}
+Register-DashboardTask "AI Stock Dashboard Financials" "Financials" $FinancialTimes
 
 Write-Host "Installed dashboard tasks:"
-Write-Host "- Morning:  $MorningTime"
-Write-Host "- Intraday: $($IntradayTimes -join ', ')"
-Write-Host "- Close:    $CloseTime"
+if (-not $FinancialOnly) {
+  Write-Host "- Morning:  $MorningTime"
+  Write-Host "- Intraday: $($IntradayTimes -join ', ')"
+  Write-Host "- Close:    $CloseTime"
+}
+Write-Host "- Financials: $($FinancialTimes -join ', ')"
 Write-Host 'Each task verifies IWENCAI_API_KEY and tun before making HTTPS requests.'

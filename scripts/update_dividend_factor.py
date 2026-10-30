@@ -4,13 +4,15 @@ import argparse
 import importlib.util
 import json
 import os
+import re
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import pandas as pd
 
-from low_buy_selector.dividend_engine import build_dividend_snapshot
+from low_buy_selector.dividend_engine import build_dividend_snapshot, normalize_dividend_snapshot
+from financial_data import fetch_all, quote_query, dated_quotes
 
 
 RUN_TZ = ZoneInfo("Asia/Hong_Kong")
@@ -52,7 +54,7 @@ def build_query(as_of_date: date) -> str:
     as_of_cn = f"{as_of_date.year}年{as_of_date.month}月{as_of_date.day}日"
     return (
         f"{as_of_cn}沪深A股非ST且非金融，上市满3年，"
-        "2023年、2024年、2025年均有现金分红，股息率大于2%，市盈率TTM大于0，市净率大于0，"
+        "股息率大于2%，市盈率TTM大于0，市净率大于0，"
         "2023年、2024年、2025年经营活动现金流量净额均为正，"
         "2023年、2024年、2025年归属于母公司股东的净利润均为正，"
         "显示股票代码、股票简称、股票市场类型、所属同花顺行业、最新价、最新涨跌幅、总市值、"
@@ -75,6 +77,26 @@ def matched_count(payload: dict, default: int) -> int:
         except (TypeError, ValueError):
             continue
     return default
+
+
+def eligible_rows(rows: list[dict], as_of: str) -> list[dict]:
+    cutoff = pd.Timestamp(as_of) - pd.DateOffset(years=3)
+    allowed = []
+    for row in rows:
+        if not re.fullmatch(r"[036]\d{5}\.(SH|SZ)", str(row.get("股票代码") or "")):
+            continue
+        listing = next((value for key, value in row.items() if key.startswith(("上市日期", "新股上市日期"))), None)
+        listing = pd.to_datetime(str(listing), format="mixed", errors="coerce")
+        if pd.isna(listing) or listing > cutoff:
+            continue
+        allowed.append(row)
+    normalized = normalize_dividend_snapshot(pd.DataFrame(allowed))
+    required = [f"{field}_{year}" for field in ("dividend", "cfo", "profit") for year in (2023, 2024, 2025)]
+    if normalized.empty or any(not normalized[column].notna().any() for column in required):
+        raise RuntimeError("Dividend annual fields/universe are missing; existing snapshot kept intact")
+    valid = normalized[normalized[required].gt(0).all(axis=1) & normalized["dividend_yield"].gt(2) & normalized["pe_ttm"].gt(0) & normalized["pb"].gt(0)]
+    codes = set(valid["code6"])
+    return [row for row in allowed if str(row["股票代码"]).split(".")[0] in codes]
 
 
 def main() -> int:
@@ -100,17 +122,22 @@ def main() -> int:
         payload = json.loads(Path(args.input).read_text(encoding="utf-8"))
     else:
         query_function = load_query_function()
-        payload = query_function(
-            query=query,
-            page="1",
-            limit="1000",
-            api_key=os.environ["IWENCAI_API_KEY"],
-            call_type="normal",
-            timeout=60,
-        )
+        payload = fetch_all(query_function, query)
+        quotes_payload = fetch_all(query_function, quote_query(as_of_date.isoformat()))
+        quotes = dated_quotes(quotes_payload["datas"], as_of_date.isoformat())
+        for row in payload["datas"]:
+            row.update(quotes.get(str(row["股票代码"]), {key: None for key in ("最新价", "最新涨跌幅", "总市值", "市盈率TTM", "市净率", "动态市盈率")}))
+        payload["research_meta"] = {"data_as_of": as_of_date.isoformat(), "complete": True, "quote_query": quotes_payload["query"]}
     rows = list(payload.get("datas") or [])
     if not rows:
-        raise RuntimeError(f"Wencai returned no dividend rows: {payload}")
+        raise RuntimeError("Wencai returned no dividend rows; existing snapshot kept intact")
+
+    if (payload.get("research_meta") or {}).get("data_as_of") != as_of_date.isoformat():
+        raise RuntimeError("Dividend source date is not verified; existing snapshot kept intact")
+    frame = pd.DataFrame(rows)
+    rows = eligible_rows(rows, as_of_date.isoformat())
+    if len(rows) < max(30, args.top):
+        raise RuntimeError(f"Dividend cross-section unexpectedly small: {len(rows)}; existing snapshot kept intact")
 
     raw_path = Path(args.raw_output)
     raw_path.parent.mkdir(parents=True, exist_ok=True)
@@ -121,11 +148,12 @@ def main() -> int:
         as_of=as_of_date.isoformat(),
         source="同花顺问财 · hithink-astock-selector",
         query=query,
-        matched_count=matched_count(payload, len(rows)),
+        matched_count=int(payload.get("code_count") or matched_count(payload, len(rows))),
         top=args.top,
         max_per_industry=args.max_per_industry,
     )
     snapshot["updated_at"] = datetime.now(RUN_TZ).isoformat(timespec="seconds")
+    snapshot["collection"] = {"complete": True, "source_rows": int(payload.get("code_count") or len(frame)), "eligible_rows": len(rows), "quote_date": as_of_date.isoformat(), "local_filter": "近三年分红、经营现金流与利润均为正，股息率>2%，PE/PB>0"}
     serialized = json.dumps(snapshot, ensure_ascii=False, indent=2, default=str)
 
     output = Path(args.output)

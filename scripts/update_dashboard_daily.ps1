@@ -1,5 +1,5 @@
 param(
-  [ValidateSet("Morning", "Intraday", "Close", "Full", "PublishOnly")]
+  [ValidateSet("Morning", "Intraday", "Close", "Full", "Financials", "PublishOnly")]
   [string]$Mode = "Full",
   [string]$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
   [string]$Python = "",
@@ -22,6 +22,7 @@ $LogPath = Join-Path $LogDir "dashboard_daily_update.log"
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
 Set-Location -LiteralPath $ProjectRoot
 $script:StepFailures = [System.Collections.Generic.List[string]]::new()
+$script:StepResults = @{}
 
 function Write-RunLog([string]$Message) {
   $line = "[{0}] {1}" -f (Get-Date -Format "yyyy-MM-dd HH:mm:ss"), $Message
@@ -35,11 +36,17 @@ function Get-RequiredEnvironment([string]$Name) {
   [Environment]::SetEnvironmentVariable($Name, $value, "Process")
 }
 
-function Invoke-Step([string]$Label, [string]$File, [string[]]$Arguments) {
+function Invoke-Step([string]$Label, [string]$File, [string[]]$Arguments, [int]$TimeoutSeconds = 1200) {
   Write-RunLog "START $Label"
   $stepLog = Join-Path $LogDir ("dashboard_step_" + ($Label -replace '[^a-zA-Z0-9]+', '_') + ".log")
-  & $Python "scripts/run_dashboard_step.py" --log $stepLog --timeout 1200 -- $File @Arguments
-  $exitCode = $LASTEXITCODE
+  try {
+    & $Python "scripts/run_dashboard_step.py" --log $stepLog --timeout $TimeoutSeconds -- $File @Arguments
+    $exitCode = $LASTEXITCODE
+  } catch {
+    $exitCode = 1
+    Write-RunLog "FAILED $Label launcher: $($_.Exception.Message); continuing other modules"
+  }
+  $script:StepResults[$Label] = $exitCode -eq 0
   if ($exitCode -ne 0) {
     # Keep independent modules moving so a transient failure cannot prevent
     # fresh outputs from being published. The task still returns failure after
@@ -94,7 +101,39 @@ function Invoke-Intraday([string]$TargetDate) {
   Invoke-Step "static site build" $Python @("scripts/build_static_site.py")
 }
 
+function Invoke-Financials([string]$TargetDate) {
+  foreach ($module in @("growth", "dividend")) {
+    $needed = ((& $Python "scripts/financial_data.py" --needed $module --as-of $TargetDate) -join "").Trim()
+    if ($LASTEXITCODE -ne 0) { throw "Financial freshness check failed: $module" }
+    if ($needed -eq "no") { Write-RunLog "SKIP $module already updated to $TargetDate"; continue }
+    if ($module -eq "growth") {
+      Invoke-Step "growth current finance" $Python @("scripts/update_growth_factor.py", "--as-of", $TargetDate) -TimeoutSeconds 600
+      if ($script:StepResults["growth current finance"]) {
+        Invoke-Step "growth factor snapshot" $Python @("scripts/run_growth_factor_analysis.py", "--as-of", $TargetDate) -TimeoutSeconds 600
+      } else {
+        $script:StepResults["growth factor snapshot"] = $false
+        Write-RunLog "SKIP growth snapshot: current finance failed; old data must not be relabeled"
+      }
+      $succeeded = $script:StepResults["growth factor snapshot"]
+    } else {
+      Invoke-Step "dividend quality" $Python @("scripts/update_dividend_factor.py", "--as-of", $TargetDate) -TimeoutSeconds 600
+      $succeeded = $script:StepResults["dividend quality"]
+    }
+    $result = if ($succeeded) { "ok" } else { "error" }
+    & $Python "scripts/financial_data.py" --record $module --as-of $TargetDate --result $result
+    if ($LASTEXITCODE -ne 0) { Write-RunLog "WARN financial attempt record failed: $module" }
+  }
+  Invoke-Step "dashboard status" $Python @("scripts/build_dashboard_status.py")
+}
+
 function Invoke-Close([string]$TargetDate) {
+  Invoke-Financials $TargetDate
+  if ($Push) {
+    try { Push-Outputs $TargetDate "Financials" } catch {
+      $script:StepFailures.Add("financial checkpoint publication")
+      Write-RunLog "FAILED financial checkpoint publication; continuing other modules"
+    }
+  }
   $signal = Join-Path $ShorttermRoot "signal_0925.py"
   $reviewClose = Join-Path $ShorttermRoot "review_close.py"
   $buildFactors = Join-Path $ShorttermRoot "research\build_factors.py"
@@ -145,9 +184,6 @@ function Invoke-Close([string]$TargetDate) {
     "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "scripts/update_etf_data.ps1",
     "-ProjectRoot", $ProjectRoot, "-Python", $Python, "-MaxAttempts", "3"
   )
-  Invoke-Step "dividend quality" $Python @("scripts/update_dividend_factor.py", "--as-of", $TargetDate)
-  Invoke-Step "growth current finance" $Python @("scripts/update_growth_factor.py", "--as-of", $TargetDate)
-  Invoke-Step "growth factor snapshot" $Python @("scripts/run_growth_factor_analysis.py", "--as-of", $TargetDate)
   Invoke-Step "short-term live snapshot" $Python @("scripts/build_shortterm_live.py")
   Invoke-Step "short-term rule plan" $Python @("scripts/build_shortterm_plan.py")
   Invoke-Step "news signal" $Python @("scripts/update_news_signal.py")
@@ -214,6 +250,11 @@ try {
   $env:PYTHONUTF8 = "1"
   Test-Tunnel
 
+  if ($Mode -eq "Financials") {
+    $financialDate = ((& $Python "scripts/financial_data.py") -join "").Trim()
+    if ($LASTEXITCODE -ne 0) { throw "Financial target date check failed" }
+    Invoke-Financials $financialDate
+  }
   if ($Mode -in @("Morning", "Full")) { Invoke-Morning $targetDate }
   if ($Mode -eq "Intraday") { Invoke-Intraday $targetDate }
   if ($Mode -in @("Close", "Full")) { Invoke-Close $targetDate }

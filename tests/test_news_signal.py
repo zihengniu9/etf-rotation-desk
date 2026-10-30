@@ -127,14 +127,16 @@ class ParserTests(unittest.TestCase):
         row = {"code": "a", "showTime": NOW.strftime("%Y-%m-%d %H:%M:%S"), "title": "央行消息"}
         first = {"data": {"sortEnd": "cursor-a", "fastNewsList": [row] * 100}}
         second = {"data": {"sortEnd": "cursor-b", "fastNewsList": [row]}}
-        with mock.patch.object(collector, "get_json", side_effect=[first, second]) as fetch:
+        with mock.patch.object(collector, "get_json", side_effect=[first, second]) as fetch, mock.patch.object(collector, "datetime", wraps=datetime) as clock:
+            clock.now.return_value = NOW
             self.assertEqual(len(collector.fetch_eastmoney(101)), 101)
             self.assertEqual(fetch.call_args_list[1].args[1]["sortEnd"], "cursor-a")
 
     def test_sina_non_multiple_limit_uses_stable_page_size(self):
         row = {"create_time": NOW.strftime("%Y-%m-%d %H:%M:%S"), "rich_text": "央行消息"}
         payload = {"result": {"data": {"feed": {"list": [row] * 50}}}}
-        with mock.patch.object(collector, "get_json", return_value=payload) as fetch:
+        with mock.patch.object(collector, "get_json", return_value=payload) as fetch, mock.patch.object(collector, "datetime", wraps=datetime) as clock:
+            clock.now.return_value = NOW
             self.assertEqual(len(collector.fetch_sina(51)), 51)
             self.assertEqual(fetch.call_count, 2)
             self.assertEqual(fetch.call_args.args[1]["page_size"], "50")

@@ -57,6 +57,12 @@ assert.ok(dailyRunner.includes("git add -- outputs"), "Daily runner should stage
 assert.ok(dailyRunner.includes('scripts/publish_dashboard.py'), "Daily runner should use the isolated publisher");
 
 const taskInstaller = read("scripts/install_dashboard_tasks.ps1");
+assert.ok(taskInstaller.includes('"AI Stock Dashboard Financials"'));
+assert.ok(taskInstaller.includes('"09:05", "16:05"'));
+assert.ok(dailyRunner.includes('"Financials"'));
+const closeStart = dailyRunner.indexOf('function Invoke-Close(');
+assert.ok(dailyRunner.indexOf('Invoke-Financials $TargetDate', closeStart) < dailyRunner.indexOf('Invoke-Step "ETF rotation"', closeStart), "Financial updates must precede the long ETF stage");
+assert.ok(dailyRunner.includes('if ($script:StepResults["growth current finance"])'), "Failed collection must not relabel the old growth snapshot");
 for (const time of ["09:28", "10:00", "11:30", "14:00", "16:20"]) {
   assert.ok(taskInstaller.includes(time), `Windows task installer should include ${time}`);
 }

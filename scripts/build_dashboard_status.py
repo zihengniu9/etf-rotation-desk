@@ -148,6 +148,7 @@ def main(now: datetime | None = None) -> int:
     trend = load_json("trend_engine.json")
     growth = load_json("growth_factor_snapshot.json")
     dividend = load_json("dividend_factor_snapshot.json")
+    financial_attempts = load_json("financial_update_status.json")
     news = load_json("news_signal.json")
     now = now or datetime.now(RUN_TZ)
     now = now.replace(tzinfo=RUN_TZ) if now.tzinfo is None else now.astimezone(RUN_TZ)
@@ -208,7 +209,7 @@ def main(now: datetime | None = None) -> int:
             "coverage": f"主板 {(growth.get('universe') or {}).get('stocks_mainboard', '—')} 只 · 有效 {(growth.get('universe') or {}).get('stocks_financial_valid', '—')} 只",
             "source": growth.get("source") or "问财财务与历史资讯",
             "note": "财务截面每日更新；历史资讯证据按已采集覆盖",
-            "cadence": "每个交易日收盘/财报披露后", "max_lag_days": 0,
+            "cadence": "每日收盘；早盘自动补更", "max_lag_days": 0,
         },
         {
             "key": "dividend", "title": "红利因子", "href": "./dividend_factor.html",
@@ -216,7 +217,7 @@ def main(now: datetime | None = None) -> int:
             "coverage": f"匹配 {(dividend.get('universe') or {}).get('matched', '—')} 只 · 有效 {(dividend.get('universe') or {}).get('valid', '—')} 只",
             "source": dividend.get("source") or "同花顺问财",
             "note": "当前截面已更新；PandaAI 历史回测待参数确认",
-            "cadence": "每周/分红方案更新后", "max_lag_days": 5,
+            "cadence": "每日收盘；早盘自动补更", "max_lag_days": 5,
         },
         {
             "key": "news", "title": "消息面", "href": "./market_mode.html#news-panel",
@@ -230,6 +231,11 @@ def main(now: datetime | None = None) -> int:
 
     modules = []
     for item in definitions:
+        attempt = financial_attempts.get(item["key"]) or {}
+        snapshot = {"growth": growth, "dividend": dividend}.get(item["key"], {})
+        if attempt.get("result") == "error" and str(attempt.get("target_date") or "") >= str(item["date"] or "") and str(attempt.get("updated_at") or "") >= str(snapshot.get("updated_at") or ""):
+            item["source_status"] = "error"
+            item["note"] = "最近一次财务更新失败，保留原日期快照，等待自动重试"
         state = file_state(
             item["date"], reference, exists=item["exists"], source_status=item["source_status"],
             max_lag_days=int(item.get("max_lag_days", 0)),

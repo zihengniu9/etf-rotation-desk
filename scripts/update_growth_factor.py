@@ -8,6 +8,8 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from financial_data import fetch_all, dated_quotes
+
 
 RUN_TZ = ZoneInfo("Asia/Hong_Kong")
 CURRENT_QUERY = (
@@ -49,18 +51,16 @@ def main() -> int:
         raise RuntimeError("HTTPS_PROXY is not configured; refusing direct network access")
 
     query_function = load_query_function()
-    payload = query_function(
-        query=CURRENT_QUERY,
-        page="1",
-        limit=str(args.limit),
-        api_key=os.environ["IWENCAI_API_KEY"],
-        call_type="normal",
-        timeout=90,
-    )
+    day = datetime.fromisoformat(args.as_of).strftime("%Y年%m月%d日")
+    query = CURRENT_QUERY.replace("最新价，最新涨跌幅，", "").replace("总市值，动态市盈率", "，".join(day + field for field in ("收盘价", "涨跌幅", "总市值", "市盈率TTM", "市净率", "动态市盈率")))
+    payload = fetch_all(query_function, query, page_size=min(args.limit, 10000))
+    quotes = dated_quotes(payload["datas"], args.as_of)
+    for row in payload["datas"]:
+        row.update(quotes[str(row["股票代码"])])
     rows = list(payload.get("datas") or [])
     expected = int(float(payload.get("code_count") or len(rows)))
     if not rows:
-        raise RuntimeError(f"Wencai returned no growth rows: {payload}")
+        raise RuntimeError("Wencai returned no growth rows; existing source kept intact")
     if expected and len(rows) < min(expected, 2500):
         raise RuntimeError(f"Growth cross-section is incomplete: rows={len(rows)} expected={expected}")
 
@@ -69,9 +69,10 @@ def main() -> int:
     payload["research_meta"] = {
         "data_as_of": args.as_of,
         "financial_period": "20260630",
+        "complete": True,
         "retrieved_at": datetime.now(RUN_TZ).isoformat(timespec="seconds"),
         "source": "同花顺问财 · hithink-astock-selector",
-        "query": CURRENT_QUERY,
+        "query": query,
     }
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)

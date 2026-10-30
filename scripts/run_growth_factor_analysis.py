@@ -41,11 +41,16 @@ def main() -> int:
     parser.add_argument("--js-output", default="outputs/growth_factor_snapshot.js")
     args = parser.parse_args()
 
-    current = load_wencai_rows(Path(args.current_input))
+    current_payload = json.loads(Path(args.current_input).read_text(encoding="utf-8"))
+    current_meta = current_payload.get("research_meta") or {}
+    if current_meta.get("data_as_of") != args.as_of or current_meta.get("complete") is not True:
+        raise RuntimeError("Growth source date/completeness not verified; existing snapshot kept intact")
+    current = pd.DataFrame(current_payload.get("datas") or [])
     annual_2025 = load_wencai_rows(Path(args.annual_2025_input))
     annual_2024 = load_wencai_rows(Path(args.annual_2024_input))
     news = load_news_directory(Path(args.news_dir))
     snapshot = build_growth_snapshot(current, annual_2025, annual_2024, news, as_of=args.as_of, top=args.top)
+    snapshot["collection"] = {"complete": True, "quote_date": args.as_of, "source_rows": len(current)}
     mainboard_count = int(snapshot["universe"]["stocks_mainboard"])
     valid_count = int(snapshot["universe"]["stocks_financial_valid"])
     if valid_count < max(100, int(mainboard_count * 0.5)):

@@ -40,6 +40,14 @@ For an ETF-only refresh, use `scripts\update_etf_data.ps1`.
 The unified tasks run hidden and non-interactively. Morning runs at 09:28,
 intraday runs every half hour in the trading sessions (09:30-11:30 and
 13:00-15:00), and the full close bundle runs at 16:20, weekdays only.
+An independent financial task runs at 09:05 and 16:05, using the latest completed
+trading day. It only retries outdated growth/dividend snapshots. The close bundle
+also checks financials first and publishes a checkpoint before the ETF collector,
+so a later interruption cannot discard an already completed financial refresh.
+Failed growth collection cannot rebuild an old source with a newer date.
+Dividend history/valuation must pass completeness, field and local eligibility
+checks before replacing a snapshot; there is no small-sample fallback. Latest
+financial attempt results are recorded in `outputs/financial_update_status.json`.
 The runner also checks the exchange holiday calendar before requesting data.
 Closed sessions exit without changing market snapshots; an unsupported calendar
 year stops collection explicitly until the exchange schedule has been added.
@@ -69,7 +77,7 @@ transient failures up to three times. Publication merges committed data and
 remote changes in a temporary clone, so a merge failure cannot leave the live
 collector in a detached HEAD or unfinished rebase. JSON-only JS fallbacks are
 regenerated from their unconflicted JSON source; actual source-data conflicts
-stop publication and preserve both sides. All three tasks share a process lock.
+stop publication and preserve both sides. All four tasks share a process lock.
 
 Retry an already collected snapshot (including weekends, without API access):
 
