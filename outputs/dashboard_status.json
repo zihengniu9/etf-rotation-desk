@@ -1,11 +1,11 @@
 {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-10-30T16:30:08+08:00",
+  "updated_at": "2026-11-02T09:17:34+08:00",
   "reference_date": "2026-10-30",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
-    "current": 8,
-    "stale": 0,
+    "current": 7,
+    "stale": 1,
     "missing": 0,
     "error": 0
   },
@@ -91,11 +91,11 @@
       "key": "news",
       "title": "消息面",
       "href": "./market_mode.html#news-panel",
-      "state": "current",
+      "state": "stale",
       "data_as_of": "2026-10-30",
       "coverage": "相关快讯 1530 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重要利空：德国总理默茨：正努力尽快结束伊朗战争，这场战争对欧洲造成了巨大影响。",
+      "note": "消息面超过24小时未更新，不参与模式判定",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
