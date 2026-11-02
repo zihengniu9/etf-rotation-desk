@@ -1,11 +1,11 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-11-02T09:17:34+08:00",
+  "updated_at": "2026-11-02T09:28:52+08:00",
   "reference_date": "2026-10-30",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
-    "current": 7,
-    "stale": 1,
+    "current": 8,
+    "stale": 0,
     "missing": 0,
     "error": 0
   },
@@ -26,10 +26,10 @@ window.DASHBOARD_STATUS = {
       "title": "短线观察",
       "href": "./shortterm_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-10-30",
-      "coverage": "梯队 3 只 · 因子候选 40 只",
+      "data_as_of": "2026-11-02",
+      "coverage": "梯队 8 只 · 因子候选 16 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "盘后因子已更新；09:25竞价信号独立保留",
+      "note": "信号日期早于复盘日期时仅作历史快照",
       "cadence": "每个交易日09:25与收盘"
     },
     {
@@ -91,11 +91,11 @@ window.DASHBOARD_STATUS = {
       "key": "news",
       "title": "消息面",
       "href": "./market_mode.html#news-panel",
-      "state": "stale",
-      "data_as_of": "2026-10-30",
-      "coverage": "相关快讯 1530 条 · 源 3/3",
+      "state": "current",
+      "data_as_of": "2026-11-02",
+      "coverage": "相关快讯 513 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "消息面超过24小时未更新，不参与模式判定",
+      "note": "重大利空：美议员说中东战争让美民众苦不堪言",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
