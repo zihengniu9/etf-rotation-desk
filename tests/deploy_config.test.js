@@ -57,6 +57,10 @@ assert.ok(dailyRunner.includes("git add -- outputs"), "Daily runner should stage
 assert.ok(dailyRunner.includes('scripts/publish_dashboard.py'), "Daily runner should use the isolated publisher");
 
 const taskInstaller = read("scripts/install_dashboard_tasks.ps1");
+assert.ok(taskInstaller.includes('New-ScheduledTaskAction -Execute $PythonW'));
+assert.ok(taskInstaller.includes('"scripts\\run_dashboard_step.py"'));
+assert.ok(read("scripts/run_dashboard_step.py").includes("subprocess.CREATE_NO_WINDOW"));
+assert.ok(dailyRunner.includes('Refusing to mix live trading-session quotes with an earlier close'));
 assert.ok(taskInstaller.includes('"AI Stock Dashboard Financials"'));
 assert.ok(taskInstaller.includes('"09:05", "16:05"'));
 assert.ok(dailyRunner.includes('"Financials"'));

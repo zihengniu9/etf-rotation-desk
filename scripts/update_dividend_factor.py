@@ -12,7 +12,7 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 
 from low_buy_selector.dividend_engine import build_dividend_snapshot, normalize_dividend_snapshot
-from financial_data import fetch_all, quote_query, dated_quotes
+from financial_data import add_report_columns, fetch_all, quote_query, dated_quotes
 
 
 RUN_TZ = ZoneInfo("Asia/Hong_Kong")
@@ -122,12 +122,22 @@ def main() -> int:
         payload = json.loads(Path(args.input).read_text(encoding="utf-8"))
     else:
         query_function = load_query_function()
-        payload = fetch_all(query_function, query)
+        day = as_of_date.strftime("%Y年%m月%d日")
+        payload = fetch_all(query_function, f"沪深A股非ST，所属同花顺行业，上市日期，{day}股息率")
+        if not any(f"股息率[{as_of_date:%Y%m%d}]" in row for row in payload["datas"]):
+            raise RuntimeError("Missing dated dividend yield; existing snapshot kept intact")
+        for row in payload["datas"]:
+            row["股息率"] = row.get(f"股息率[{as_of_date:%Y%m%d}]")
+        report_queries = []
+        for year in (2023, 2024, 2025):
+            report_query = f"沪深A股非ST，{year}年现金分红总额，{year}年经营活动现金流量净额，{year}年归属于母公司股东的净利润"
+            report_queries.append(report_query)
+            add_report_columns(payload["datas"], fetch_all(query_function, report_query)["datas"], f"{year}1231")
         quotes_payload = fetch_all(query_function, quote_query(as_of_date.isoformat()))
         quotes = dated_quotes(quotes_payload["datas"], as_of_date.isoformat())
         for row in payload["datas"]:
             row.update(quotes.get(str(row["股票代码"]), {key: None for key in ("最新价", "最新涨跌幅", "总市值", "市盈率TTM", "市净率", "动态市盈率")}))
-        payload["research_meta"] = {"data_as_of": as_of_date.isoformat(), "complete": True, "quote_query": quotes_payload["query"]}
+        payload["research_meta"] = {"data_as_of": as_of_date.isoformat(), "complete": True, "quote_query": quotes_payload["query"], "report_queries": report_queries}
     rows = list(payload.get("datas") or [])
     if not rows:
         raise RuntimeError("Wencai returned no dividend rows; existing snapshot kept intact")

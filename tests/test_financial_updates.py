@@ -19,6 +19,14 @@ from tests.test_dividend_engine import sample_frame
 
 
 class FinancialCollectionTests(unittest.TestCase):
+    def test_report_join_uses_code_and_period_without_overwriting_quotes(self):
+        rows = [{"股票代码": "a", "最新价": 10}, {"股票代码": "b"}]
+        reports = [{"股票代码": "b", "利润[20260630]": 2}, {"股票代码": "a", "最新价": 999, "利润[20260630]": 1, "利润[20250630]": 3}]
+        financial.add_report_columns(rows, reports, "20260630")
+        self.assertEqual(rows, [{"股票代码": "a", "最新价": 10, "利润[20260630]": 1}, {"股票代码": "b", "利润[20260630]": 2}])
+        with self.assertRaises(RuntimeError):
+            financial.add_report_columns(rows, reports, "20241231")
+
     def test_pagination_is_complete_and_preserves_zero_total(self):
         pages = [{"code_count": 3, "datas": [{"股票代码": "600001.SH"}, {"股票代码": "600002.SH"}]},
                  {"code_count": 3, "datas": [{"股票代码": "600003.SH"}]}]

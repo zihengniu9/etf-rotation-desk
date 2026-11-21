@@ -8,16 +8,13 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from financial_data import fetch_all, dated_quotes
+from financial_data import add_report_columns, fetch_all, dated_quotes, quote_query
 
 
 RUN_TZ = ZoneInfo("Asia/Hong_Kong")
-CURRENT_QUERY = (
-    "沪深主板非ST股票，股票代码，股票简称，股票市场类型，最新价，最新涨跌幅，"
-    "2026年中报营业收入同比增长率，2026年中报归母净利润同比增长率，"
-    "2026年中报经营活动产生的现金流量净额，2026年中报净资产收益率，"
-    "2026年中报销售净利率，2026年中报资产负债率，2026年中报营业收入，"
-    "2026年中报归母净利润，总市值，动态市盈率"
+REPORT_QUERIES = (
+    "沪深主板非ST，2026年中报营业收入同比增长率，2026年中报归母净利润同比增长率，2026年中报营业收入，2026年中报归母净利润",
+    "沪深主板非ST，2026年中报经营活动产生的现金流量净额，2026年中报净资产收益率，2026年中报销售净利率，2026年中报资产负债率",
 )
 
 
@@ -51,12 +48,14 @@ def main() -> int:
         raise RuntimeError("HTTPS_PROXY is not configured; refusing direct network access")
 
     query_function = load_query_function()
-    day = datetime.fromisoformat(args.as_of).strftime("%Y年%m月%d日")
-    query = CURRENT_QUERY.replace("最新价，最新涨跌幅，", "").replace("总市值，动态市盈率", "，".join(day + field for field in ("收盘价", "涨跌幅", "总市值", "市盈率TTM", "市净率", "动态市盈率")))
+    query = quote_query(args.as_of, "沪深主板非ST")
     payload = fetch_all(query_function, query, page_size=min(args.limit, 10000))
     quotes = dated_quotes(payload["datas"], args.as_of)
     for row in payload["datas"]:
         row.update(quotes[str(row["股票代码"])])
+    for report_query in REPORT_QUERIES:
+        report = fetch_all(query_function, report_query, page_size=min(args.limit, 10000))
+        add_report_columns(payload["datas"], report["datas"], "20260630")
     rows = list(payload.get("datas") or [])
     expected = int(float(payload.get("code_count") or len(rows)))
     if not rows:
@@ -73,6 +72,7 @@ def main() -> int:
         "retrieved_at": datetime.now(RUN_TZ).isoformat(timespec="seconds"),
         "source": "同花顺问财 · hithink-astock-selector",
         "query": query,
+        "report_queries": REPORT_QUERIES,
     }
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)

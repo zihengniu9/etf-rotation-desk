@@ -13,9 +13,23 @@ $ErrorActionPreference = "Stop"
 $ProjectRoot = (Resolve-Path -LiteralPath $ProjectRoot).Path
 $Runner = Join-Path $ProjectRoot "scripts\update_dashboard_daily.ps1"
 if (-not (Test-Path -LiteralPath $Runner)) { throw "Daily runner not found: $Runner" }
+if (-not $Python) { $Python = Join-Path $ProjectRoot ".venv\Scripts\python.exe" }
+$Python = (Get-Command $Python -CommandType Application -ErrorAction Stop).Source
+$PythonW = Join-Path (Split-Path -Parent $Python) "pythonw.exe"
+$Wrapper = Join-Path $ProjectRoot "scripts\run_dashboard_step.py"
+foreach ($file in @($PythonW, $Wrapper)) {
+  if (-not (Test-Path -LiteralPath $file -PathType Leaf)) { throw "Missing windowless launcher: $file" }
+}
 
 function Register-DashboardTask([string]$Name, [string]$Mode, [string[]]$Times) {
   $argumentParts = @(
+    ('"{0}"' -f $Wrapper)
+    '--log'
+    ('"{0}"' -f (Join-Path $ProjectRoot "outputs\task_$Mode.log"))
+    '--timeout'
+    '7150'
+    '--'
+    ('"{0}"' -f (Join-Path $env:SystemRoot "System32\WindowsPowerShell\v1.0\powershell.exe"))
     '-NoProfile'
     '-NonInteractive'
     '-WindowStyle'
@@ -31,7 +45,7 @@ function Register-DashboardTask([string]$Name, [string]$Mode, [string[]]$Times) 
     '-Push'
   )
   if ($Python) { $argumentParts += @('-Python', ('"{0}"' -f $Python)) }
-  $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument ($argumentParts -join " ")
+  $action = New-ScheduledTaskAction -Execute $PythonW -WorkingDirectory $ProjectRoot -Argument ($argumentParts -join " ")
   $triggers = foreach ($time in $Times) {
     $at = [datetime]::ParseExact($time, "HH:mm", [System.Globalization.CultureInfo]::InvariantCulture)
     New-ScheduledTaskTrigger -Weekly -WeeksInterval 1 -DaysOfWeek Monday,Tuesday,Wednesday,Thursday,Friday -At $at

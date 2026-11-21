@@ -10,6 +10,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import pandas as pd
+from financial_data import fetch_all as fetch_pages
 
 from low_buy_selector.wencai_trend import (
     build_dashboard_snapshot,
@@ -50,38 +51,10 @@ def load_query_function():
 
 
 def fetch_all(query_function, query: str, *, limit: int, timeout: int) -> dict[str, object]:
-    api_key = os.environ.get("IWENCAI_API_KEY", "")
-    if not api_key:
-        raise RuntimeError("IWENCAI_API_KEY is not configured")
-    first = query_function(
-        query=query,
-        page="1",
-        limit=str(limit),
-        api_key=api_key,
-        call_type="normal",
-        timeout=timeout,
-    )
-    if "datas" not in first:
-        raise RuntimeError(f"Wencai response has no datas: {first}")
-    expected = int(float(first.get("code_count") or first.get("row_count") or len(first["datas"])))
-    all_rows = list(first["datas"])
-    page = 2
-    while len(all_rows) < expected:
-        response = query_function(
-            query=query,
-            page=str(page),
-            limit=str(limit),
-            api_key=api_key,
-            call_type="normal",
-            timeout=timeout,
-        )
-        rows = list(response.get("datas") or [])
-        if not rows:
-            break
-        all_rows.extend(rows)
-        page += 1
-    first["datas"] = all_rows
-    return first
+    response = fetch_pages(query_function, query, page_size=limit, timeout=timeout)
+    if not response["datas"] or not response["columns"]:
+        raise RuntimeError("Missing trend rows or column dates; previous snapshot kept intact")
+    return response
 
 
 def default_history_dates(as_of: str) -> list[str]:
@@ -188,13 +161,19 @@ def main() -> int:
         print(f"current_cache={current_cache} rows={len(current)}", flush=True)
     else:
         print(f"current_query={args.as_of}", flush=True)
-        current_response = fetch_all(
-            query_function,
-            build_wencai_query(args.as_of, include_forward=False),
-            limit=args.limit,
-            timeout=args.timeout,
-        )
-        current = score_wencai_cross_section(normalize_wencai_response(current_response, args.as_of))
+        day = datetime.fromisoformat(args.as_of).strftime("%Y年%m月%d日")
+        groups = [
+            ["所属同花顺行业", day+"前复权收盘价", day+"20日均线", day+"60日均线", day+"120日均线"],
+            [day+field for field in ("前20个交易日涨跌幅", "前60个交易日涨跌幅", "前120个交易日涨跌幅", "前60个交易日最高价")],
+            [day+field for field in ("量比", "成交额", "换手率")],
+        ]
+        responses = [fetch_all(query_function, "沪深主板非ST，"+"，".join(fields), limit=args.limit, timeout=args.timeout) for fields in groups]
+        normalized = normalize_wencai_response(merge_wencai_responses(*responses), args.as_of)
+        if normalized.empty or len(normalized) < 1000:
+            raise RuntimeError("Incomplete mainboard universe; previous trend snapshot kept intact")
+        current = score_wencai_cross_section(normalized)
+        if len(current) < len(normalized) / 2:
+            raise RuntimeError(f"Missing mainboard features: valid={len(current)} scanned={len(normalized)}")
     if current.empty:
         raise RuntimeError("No valid current Wencai trend rows were returned")
 

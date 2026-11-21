@@ -215,7 +215,8 @@ def normalize_wencai_response(response: Mapping[str, object], signal_date: str) 
     ma_keys = {
         window: _first_key(
             columns,
-            lambda c, window=window: _timestamp(c) == token and f"{window}日均线" in _key(c),
+            lambda c, window=window: _timestamp(c) == token and
+            (_key(c).split("[", 1)[0] == f"{window}日均线" or _index_name(c).lower() == f"ma{window}"),
         )
         for window in (20, 60, 120)
     }

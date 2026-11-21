@@ -60,6 +60,12 @@ class WencaiTrendTests(unittest.TestCase):
         self.assertAlmostEqual(float(frame.iloc[0]["r20"]), 0.10)
         self.assertAlmostEqual(float(frame.iloc[0]["fwd10"]), 0.20)
         self.assertAlmostEqual(float(frame.iloc[0]["mae20"]), -0.05)
+        for col in response["columns"]:
+            if col["key"].startswith("20日均线["):
+                old = col["key"]
+                col.update(index_name="ma20", key="ma20[20260630]")
+                response["datas"][0][col["key"]] = response["datas"][0].pop(old)
+        self.assertEqual(normalize_wencai_response(response, "2026-06-30").iloc[0]["ma20"], 9.5)
 
     def test_score_requires_liquid_full_alignment(self):
         frame = pd.DataFrame({

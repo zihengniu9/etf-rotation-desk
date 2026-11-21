@@ -3,19 +3,30 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime
+from http.client import IncompleteRead
 import json
 import math
 import os
+import time
 from pathlib import Path
 
 from build_dashboard_status import RUN_TZ, latest_completed_trading_day
 
 
-def fetch_all(query_function, query: str, *, page_size: int = 10000, timeout: int = 90) -> dict:
+def fetch_all(query_function, query: str, *, page_size: int = 1000, timeout: int = 90) -> dict:
     rows, seen, expected = [], set(), None
+    columns = []
     for page in range(1, 101):
-        response = query_function(query=query, page=str(page), limit=str(page_size),
-                                  api_key=os.environ["IWENCAI_API_KEY"], call_type="normal", timeout=timeout)
+        for attempt in range(3):
+            try:
+                response = query_function(query=query, page=str(page), limit=str(page_size),
+                                          api_key=os.environ["IWENCAI_API_KEY"], call_type="normal", timeout=timeout)
+                break
+            except Exception as exc:
+                transient = isinstance(exc, (IncompleteRead, TimeoutError, ConnectionError)) or str(exc).startswith("网络错误:")
+                if not transient or attempt == 2:
+                    raise
+                time.sleep(2 ** attempt)
         count = response.get("code_count", response.get("row_count"))
         try:
             count = float(count)
@@ -24,6 +35,8 @@ def fetch_all(query_function, query: str, *, page_size: int = 10000, timeout: in
         except (TypeError, ValueError):
             raise RuntimeError("Financial query lacks a valid total; snapshot kept intact") from None
         count = int(count)
+        if page == 1:
+            columns = response.get("columns") or []
         batch = response.get("datas")
         if not isinstance(batch, list) or (expected is not None and count != expected):
             raise RuntimeError("Financial query changed or has invalid rows; snapshot kept intact")
@@ -35,16 +48,30 @@ def fetch_all(query_function, query: str, *, page_size: int = 10000, timeout: in
             seen.add(code)
             rows.append(row)
         if len(rows) == expected:
-            return {"datas": rows, "code_count": expected, "query": query}
+            return {"datas": rows, "columns": columns, "code_count": expected, "query": query}
         if not batch or len(rows) > expected:
             break
     raise RuntimeError(f"Incomplete financial query: {len(rows)}/{expected}; snapshot kept intact")
 
 
-def quote_query(as_of: str) -> str:
+def quote_query(as_of: str, universe: str = "沪深A股非ST") -> str:
     day = datetime.fromisoformat(as_of).strftime("%Y年%m月%d日")
-    return ("沪深A股非ST，股票代码，股票简称，所属同花顺行业，上市日期，股息率，"
-            + "，".join(day + field for field in ("市盈率TTM", "市净率", "收盘价", "涨跌幅", "总市值")))
+    # Metadata comes from the financial query; requesting it again here can
+    # make the provider omit the dated price column (or return no stocks).
+    return universe + "，" + "，".join(day + field for field in ("不复权收盘价", "涨跌幅", "总市值", "市盈率TTM", "市净率"))
+
+
+def add_report_columns(rows: list[dict], reports: list[dict], period: str) -> None:
+    by_code = {r["股票代码"]: r for r in rows}
+    matched = 0
+    for report in reports:
+        target = by_code.get(report["股票代码"])
+        values = {k: v for k, v in report.items() if k.endswith(f"[{period}]")}
+        if target is not None and values:
+            target.update(values)
+            matched += 1
+    if not matched:
+        raise RuntimeError(f"No matching financial rows for {period}; previous snapshot kept intact")
 
 
 def dated_quotes(rows: list[dict], as_of: str) -> dict[str, dict]:

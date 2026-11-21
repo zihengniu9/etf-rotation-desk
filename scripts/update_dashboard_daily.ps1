@@ -5,11 +5,14 @@ param(
   [string]$Python = "",
   [string]$ShorttermRoot = "C:\Users\69449\WorkBuddy\2026-08-22-20-19-58\dashboard",
   [string]$TunnelProxy = "http://127.0.0.1:7897",
+  [switch]$LatestClose,
   [switch]$Push
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+$env:GIT_TERMINAL_PROMPT = "0"
+$env:GCM_INTERACTIVE = "never"
 $OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
 
 $ProjectRoot = (Resolve-Path -LiteralPath $ProjectRoot).Path
@@ -231,6 +234,15 @@ try {
   }
   $target = Get-HongKongDate
   $targetDate = $target.ToString("yyyy-MM-dd")
+  if ($LatestClose) {
+    if ($Mode -ne "Close") { throw "LatestClose is valid only for a close backfill" }
+    $latest = ((& $Python "scripts/financial_data.py") -join "").Trim()
+    if ($LASTEXITCODE -ne 0 -or $latest -notmatch '^\d{4}-\d{2}-\d{2}$') { throw "Cannot determine latest completed trading day" }
+    $todayStatus = ((& $Python "scripts/build_dashboard_status.py" --check-trading-day $targetDate) -join "").Trim()
+    if ($LASTEXITCODE -ne 0 -or ($latest -ne $targetDate -and $todayStatus -ne "closed")) { throw "Refusing to mix live trading-session quotes with an earlier close" }
+    $targetDate = $latest
+    Write-RunLog "Backfilling latest completed session $targetDate"
+  }
   $calendarStatus = ((& $Python "scripts/build_dashboard_status.py" --check-trading-day $targetDate) -join "").Trim()
   if ($LASTEXITCODE -ne 0) { throw "Trading calendar check failed; no market-data mutation" }
   if ($calendarStatus -eq "closed") {

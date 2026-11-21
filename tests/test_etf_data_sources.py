@@ -1,9 +1,16 @@
 import unittest
+import pandas as pd
 
-from low_buy_selector.etf_data_sources import parse_sina_realtime_quotes
+from low_buy_selector.etf_data_sources import normalize_realtime_etf_quotes, parse_sina_realtime_quotes
 
 
 class ETFDataSourceTests(unittest.TestCase):
+    def test_undated_quote_is_not_stamped_with_collection_day(self):
+        quotes = pd.DataFrame([{"代码": "588200", "名称": "ETF", "最新价": 1.2}])
+        self.assertTrue(normalize_realtime_etf_quotes(quotes).empty)
+        quotes["数据日期"] = "2026-11-20"
+        self.assertEqual(normalize_realtime_etf_quotes(quotes).iloc[0]["realtime_date"], "2026-11-20")
+
     def test_parse_sina_realtime_quotes_extracts_latest_etf_price(self):
         payload = (
             'var hq_str_sz159516="半导设备,1.734,1.794,1.730,1.792,1.683,1.729,1.730,'

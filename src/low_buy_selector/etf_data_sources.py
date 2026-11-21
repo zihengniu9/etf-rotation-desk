@@ -131,7 +131,6 @@ def parse_sina_realtime_quotes(text: str) -> pd.DataFrame:
 def normalize_realtime_etf_quotes(frame: pd.DataFrame, *, as_of: date | None = None) -> pd.DataFrame:
     if frame.empty:
         return pd.DataFrame(columns=REALTIME_QUOTE_COLUMNS)
-    quote_date = (as_of or date.today()).strftime("%Y-%m-%d")
     quote_updated_at = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
     rename_map = {
         "代码": "code",
@@ -146,7 +145,9 @@ def normalize_realtime_etf_quotes(frame: pd.DataFrame, *, as_of: date | None = N
     if "name" not in normalized.columns:
         normalized["name"] = ""
     if "realtime_date" not in normalized.columns:
-        normalized["realtime_date"] = quote_date
+        if as_of is None:
+            return pd.DataFrame(columns=REALTIME_QUOTE_COLUMNS)
+        normalized["realtime_date"] = as_of.isoformat()
     if "realtime_updated_at" not in normalized.columns:
         normalized["realtime_updated_at"] = quote_updated_at
     normalized["code"] = normalized["code"].map(normalize_etf_code)
