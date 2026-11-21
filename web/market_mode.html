@@ -62,6 +62,7 @@
     .mode-subtitle { margin:0; color:var(--text-2); font-size:15px; line-height:1.65; }
     .score-ring { --value:78; width:116px; aspect-ratio:1; display:grid; place-items:center; border-radius:50%; background:conic-gradient(var(--blue) calc(var(--value)*1%),rgb(220 227 239 / .8) 0); box-shadow:inset 0 0 0 1px rgb(255 255 255 / .7); }
     .score-ring::before { content:""; grid-area:1/1; width:88px; aspect-ratio:1; border-radius:50%; background:#fff; box-shadow:0 4px 16px rgb(49 72 99 / .08); }
+    .score-ring[hidden], .anchor-desk-bottom:empty { display:none; }
     .score-content { z-index:1; grid-area:1/1; text-align:center; }
     .score-content strong { display:block; font-size:31px; line-height:1; letter-spacing:-.04em; }
     .score-content span { display:block; margin-top:5px; color:var(--text-3); font-size:12px; font-weight:760; }
@@ -438,7 +439,7 @@
       </div>
       <div class="module-grid" id="strategy-hub" aria-live="polite"></div>
       <div class="hub-divider" role="presentation"></div>
-      <div class="data-health" aria-labelledby="data-health-title">
+      <div class="data-health" id="data-health" aria-labelledby="data-health-title">
       <h3 class="hub-subtitle">数据覆盖与新鲜度 <small>以最新完成交易日为基准；落后、缺失或取数不完整的模块单独标出</small></h3>
       <div class="data-health-summary"><strong id="data-health-title">正在检查全部模块</strong><span id="data-health-note">—</span></div>
       <details class="data-health-more" id="data-health-more">
@@ -661,7 +662,7 @@
           var parts = String(item).split(" "), key = parts[0], date = parts.slice(1).join(" "), label = MODULE_LABELS[key] || key;
           if (/^\d{4}-\d{2}-\d{2}$/.test(date) && freshness.asOf && date >= freshness.asOf) return label + "（" + date + "）在数据状态清单中未标记为最新";
           return label + "停在 " + (date || "未知日期") + "，需更新到 " + target;
-        }).concat(freshness.missing.map(function (key) { return (MODULE_LABELS[key] || key) + "缺少数据日期"; }));
+        }).concat(freshness.missing.map(function (key) { return (MODULE_LABELS[key] || key) + "缺少数据日期"; }), freshness.timeIssue ? [freshness.timeIssue] : []);
       }
 
       function parseCsv(text) {
@@ -760,7 +761,9 @@
         if((snapshot.latestReview&&snapshot.latestReview.market_evidence||{}).complete===false&&!((modules||[]).some(function(item){return item.key==="review"&&(item.state==="error"||item.state==="missing");}))) degraded.push("行情复盘取数不完整");
         var s=snapshot.short||{};
         if(s.basis==="auction"&&s.ecoDate&&asOf&&s.ecoDate<asOf) degraded.push("短线涨跌停数据为 "+s.ecoDate.slice(5)+" 收盘");
-        return {blocked:stale.length>0||missing.length>0, stale:stale, missing:missing, degraded:degraded, asOf:asOf};
+        var next=nextTradingDay(asOf), reviewBy=next?next+" 09:35":"", now=shanghaiNow();
+        var timeIssue=!reviewBy?"交易日历无法确认复核时点":asOf>now.slice(0,10)?"行情日期晚于当前日期":now>=reviewBy?"已过复核时点 "+reviewBy+"（北京时间）":"";
+        return {blocked:!!timeIssue||stale.length>0||missing.length>0, stale:stale, missing:missing, degraded:degraded, asOf:asOf, reviewBy:reviewBy, timeIssue:timeIssue};
       }
 
       function formatGeneratedAt(value) {
@@ -855,10 +858,11 @@
         var freshnessReason=describeFreshness(a.freshness).join("；");
         var degradedReason=(a.freshness.degraded||[]).join("；"), degraded=a.currentAllowed&&!!degradedReason; a.degraded=degraded;
         $("mode-title").textContent=!a.currentAllowed?"当前结论暂停":meta.name;
-        $("mode-subtitle").textContent=!a.currentAllowed?"核心数据没有更新到同一交易日（"+freshnessReason+"）；下方保留历史快照，仅用于复核，不作为当前执行依据。":(degraded?"部分数据需复核（"+degradedReason+"），以下结论仅供参考。":"")+a.phase+"。"+(a.news.applied&&a.news.state==="block"?"消息面阻断进攻（"+a.news.reasons.join("；")+"）。":a.news.applied&&a.news.state==="caution"?"消息面偏空（"+a.news.reasons.join("；")+"），控制仓位。":"")+(a.newsBlocks.length&&a.news.state!=="block"?"消息面暂停："+a.newsBlocks.map(function(b){return MODE_META[b.mode].name+"（"+b.reason+"）";}).join("；")+"。":"")+((snapshot.short.riskReasons||[]).length?"短线："+snapshot.short.riskReasons.join("、")+"。":"")+meta.desc;
+        $("mode-subtitle").textContent=!a.currentAllowed?"行情基准日 "+snapshot.asOf+"。"+freshnessReason+"；历史数据仅供复盘。":(degraded?"部分数据需复核（"+degradedReason+"），以下结论仅供参考。":"")+a.phase+"。"+(a.news.applied&&a.news.state==="block"?"消息面阻断进攻（"+a.news.reasons.join("；")+"）。":a.news.applied&&a.news.state==="caution"?"消息面偏空（"+a.news.reasons.join("；")+"），控制仓位。":"")+(a.newsBlocks.length&&a.news.state!=="block"?"消息面暂停："+a.newsBlocks.map(function(b){return MODE_META[b.mode].name+"（"+b.reason+"）";}).join("；")+"。":"")+((snapshot.short.riskReasons||[]).length?"短线："+snapshot.short.riskReasons.join("、")+"。":"")+meta.desc;
         // 防守分只是 100 − 短线分的派生值，不代表“防守有多少把握”；防守时改显示进攻门控通过数。
         var isDefense=a.mode==="defense", passed=["resonance","short","trend","etf"].filter(function(k){return a.eligible[k];}).length;
         $("mode-score").textContent=a.currentAllowed?(isDefense?passed+"/4":Math.round(scores[a.mode])):"—";
+        $("score-ring").hidden=!a.currentAllowed;
         var ringLabel=document.querySelector("#score-ring .score-content span"); if(ringLabel) ringLabel.textContent=isDefense?"进攻门控通过":"本模式评分";
         $("score-ring").style.setProperty("--value",a.currentAllowed?(isDefense?passed*25:Math.round(scores[a.mode])):0);
         $("score-ring").setAttribute("aria-label",a.currentAllowed?(isDefense?"进攻门控通过 "+passed+" / 4 项":"本模式评分 "+Math.round(scores[a.mode])+"分，各模式口径不同，不跨模式比较"):"当前结论暂停");
@@ -866,9 +870,8 @@
         $("market-phase").textContent=a.currentAllowed?a.phase:"历史快照";
         $("secondary-mode").textContent=a.currentAllowed&&a.secondary!==a.mode?MODE_META[a.secondary].name:"—";
         var healthCurrent=modules?modules.filter(function(item){return item.state==="current";}).length:0;
-        $("freshness").textContent=modules&&modules.length?healthCurrent+" / "+modules.length+" 项最新":(source==="live"?"数据文件":"内置快照");
-        var nextDate=nextTradingDay(snapshot.asOf), reviewBy=nextDate?nextDate+" 09:35":"";
-        $("valid-until").textContent=!a.currentAllowed?"有效期：核心数据未对齐，暂停确认":reviewBy?"有效期："+reviewBy+" 前复核"+(shanghaiNow()>reviewBy?" · 已过复核时点，等待新数据":"")+(degraded?" · 部分数据待复核":""):"复核日期待确认：交易日历尚未覆盖";
+        $("freshness").textContent=freshness.timeIssue?"待重新确认":modules&&modules.length?healthCurrent+" / "+modules.length+" 项最新":(source==="live"?"数据文件":"内置快照");
+        $("valid-until").textContent=freshness.reviewBy?"复核截止："+freshness.reviewBy+"（北京时间）":"复核时点待确认";
         $("data-date").textContent="行情基准日 "+snapshot.asOf;
         $("generated-date").textContent="生成时间 "+formatGeneratedAt(snapshot.generatedAt);
         $("source-label").textContent=!a.currentAllowed?"历史快照 · 暂停确认":degraded?"部分数据待复核":source==="live"?(isLocalView?"本地引擎已加载":"最新数据已加载"):source==="file"?"outputs 快照 · 收盘数据":"内置演示快照";
@@ -879,9 +882,9 @@
         } else {
           // 暂停时不展示任何模式的操作清单，改为说明缺什么、暂停期间不做什么、何时恢复。
           $("suitable-label").textContent="需要补齐的数据"; $("avoid-label").textContent="暂停期间不做"; $("invalidate-label").textContent="恢复条件";
-          renderList("suitable-list",describeFreshness(a.freshness).concat(a.freshness.stale.length||a.freshness.missing.length?[]:["数据状态清单中的核心模块未标记为最新"]));
+          renderList("suitable-list",describeFreshness(a.freshness));
           renderList("avoid-list",["不按历史快照新开仓","不把旧日期的强弱当作今日结论","不跨日期拼接短线、行业与ETF证据"]);
-          renderList("invalidate-list",["短线、行业、ETF 更新到同一交易日"+(snapshot.asOf?"（"+snapshot.asOf+"）":""),"所用短线信号或收盘复盘字段完整","数据覆盖区不再有过期或缺失的核心模块"]);
+          renderList("invalidate-list",["短线、行业、ETF 对齐到仍在有效期内的行情日","所用短线信号或收盘复盘字段完整","数据覆盖区不再有过期或缺失的核心模块"]);
         }
         $("mode-kicker").textContent=a.currentAllowed?"当前主模式":"主模式判定";
         $("decision-grid").classList.toggle("paused",!a.currentAllowed);
@@ -930,8 +933,8 @@
         var contract = window.DASHBOARD_CONTRACT;
         if (!container || !contract) return;
         container.innerHTML = contract.modules.map(function (module) {
-          var status = contract.statusFor(module, state.snapshot, state.analysis);
-          var current = module.key === state.analysis.mode;
+          var status = state.analysis.freshness.timeIssue ? {tone:"pending",label:"历史快照",detail:"进入模块核对数据日期"} : contract.statusFor(module, state.snapshot, state.analysis);
+          var current = state.analysis.currentAllowed && module.key === state.analysis.mode;
           return '<a class="module-card '+(current?'is-current':'')+'" href="'+escapeHtml(module.href)+'" aria-label="进入'+escapeHtml(module.title)+'页面">'+
             '<span class="module-card-eyebrow">'+escapeHtml(module.eyebrow)+'</span>'+ 
             '<span class="module-card-title"><strong>'+escapeHtml(module.title)+'</strong><span class="module-card-arrow" aria-hidden="true">→</span></span>'+ 
@@ -952,14 +955,14 @@
           grid.innerHTML='<div class="data-health-card"><span class="data-health-date">当前仅能确认已加载页面内数据。</span></div>';
           return;
         }
-        var labels={current:"最新",stale:"过期",missing:"缺失",error:"更新失败"};
+        var labels={current:state.analysis.freshness.timeIssue?"生成时已对齐":"最新",stale:"过期",missing:"缺失",error:"更新失败"};
         var count=function(name){return modules.filter(function(item){return item.state===name;}).length;};
         var freshness=state.analysis&&state.analysis.freshness, blocked=!!(freshness&&freshness.blocked);
         var issues=modules.length-count("current");
         $("data-health-title").textContent="行情基准日 "+(state.snapshot.asOf||health.reference_date||"—")+(state.analysis&&state.analysis.currentAllowed&&!state.analysis.degraded?" · 核心输入已对齐":" · 核心输入需复核");
         var degradedReason=freshness?(freshness.degraded||[]).join("；"):"";
-        $("data-health-note").textContent=(issues?"过期 "+count("stale")+" · 缺失 "+count("missing")+" · 失败 "+count("error"):modules.length+" 个模块全部最新")+(blocked?" · "+describeFreshness(freshness).join("；"):degradedReason?" · "+degradedReason:"");
-        $("data-health-toggle").textContent=issues||blocked?"模块明细（"+issues+" 项需处理）":degradedReason?"模块明细（数据口径需复核）":"展开 "+modules.length+" 个模块明细";
+        $("data-health-note").textContent=(issues?"过期 "+count("stale")+" · 缺失 "+count("missing")+" · 失败 "+count("error"):modules.length+" 个模块生成时已对齐")+(blocked?" · "+describeFreshness(freshness).join("；"):degradedReason?" · "+degradedReason:"");
+        $("data-health-toggle").textContent=issues?"模块明细（"+issues+" 项需处理）":blocked||degradedReason?"模块明细（需复核）":"展开 "+modules.length+" 个模块明细";
         // 有问题时自动展开；全部正常时折叠成一行摘要，不强制收起用户已展开的明细。
         if(issues||blocked||degradedReason) more.open=true;
         var order={error:0,missing:1,stale:2,current:3};
@@ -975,6 +978,12 @@
 
       function renderCurrentDesk() {
         var a=state.analysis, s=state.snapshot, d=a.diagnostics, key=a.mode, meta=MODE_META[key];
+        if (!a.currentAllowed) {
+          $("trend-module-section").hidden=true;
+          $("current-desk-bottom").textContent="";
+          $("current-mode-desk").innerHTML='<a class="current-desk-action" href="#data-health">查看数据覆盖 →</a>';
+          return;
+        }
         var models={
           short:{
             title:"短线核心执行台", note:"短线占优时，先看生态、竞价和核心地位；个股趋势不再占据主模式详情。", action:"进入短线观察",
@@ -1085,7 +1094,7 @@
           var m=MODE_META[key], score=Math.round(a.scores[key]), selected=key===state.selectedMode;
           var passed=["resonance","short","trend","etf"].filter(function(k){return a.eligible[k];}).length;
           if(key==="defense") score=passed*25;
-          var gate=key===a.mode?(a.currentAllowed?"当前":"暂停"):key==="defense"?"兜底":a.eligible[key]?"已通过":"未通过";
+          var gate=!a.currentAllowed?"历史快照":key===a.mode?"当前":key==="defense"?"兜底":a.eligible[key]?"已通过":"未通过";
           var factorNote='<small>'+(key==="defense"?"进攻门控通过":"优先"+(order.indexOf(key)+1))+' · '+gate+'</small>';
           return '<button class="mode-row '+(selected?'selected':'')+'" type="button" data-mode="'+key+'" style="--bar-color:'+m.color+'" aria-pressed="'+selected+'">'+
             '<span class="mode-name"><i></i><span class="mode-name-copy"><strong>'+escapeHtml(m.name)+'</strong>'+factorNote+'</span></span><span class="mode-track"><i class="mode-fill" style="width:'+score+'%"></i></span><strong class="mode-value">'+(key==="defense"?passed+"/4":score)+'</strong></button>';
@@ -1113,7 +1122,7 @@
       }
 
       function renderModeDetail(key) {
-        var m=MODE_META[key], s=state.snapshot, a=state.analysis, d=a.diagnostics, status=key===a.mode?(a.currentAllowed?"当前模式":"历史快照"):a.eligible[key]?"备选模式":"条件未通过";
+        var m=MODE_META[key], s=state.snapshot, a=state.analysis, d=a.diagnostics, status=!a.currentAllowed?"历史快照":key===a.mode?"当前模式":a.eligible[key]?"备选模式":"条件未通过";
         var points={
           short:[[ecoLabel(s.short,"市场生态"),fmtInt(s.short.limitUp)+"涨停 / "+fmtInt(s.short.limitDown)+"跌停"],["核心反馈",fmtInt(s.short.maxBoards,"板")+" · "+(s.short.basis==="close"?s.short.leaderName:fmtPct(s.short.leaderPremium,2))],[s.short.basis==="close"?"数据口径":"竞价环境",s.short.basis==="close"?"当日收盘复盘":fmtInt(s.short.auctionPoints)+"/50 · 均值"+fmtPct(s.short.meanPremium,2)]],
           etf:[["策略首选",s.etf.pickName+" · "+s.etf.pickTheme],["实时热榜",s.etf.hotName+" · "+s.etf.hotTheme],["一致性",d.sameEtf?"策略与热榜同向":"策略与热榜分化"]],
@@ -1173,10 +1182,18 @@
 
       function renderStyleFactors() {
         var view=styleFactorState(state.snapshot), preferred=view.preferred;
+        if(!state.analysis.currentAllowed) {
+          preferred=null;
+          view.factors.forEach(function(item){item.preferred=false; item.restricted=true; item.status="历史截面";});
+        }
         $("style-date").textContent="数据日期 "+(view.asOf||"—");
         var defensive=!!(state.analysis&&state.analysis.mode==="defense");
         $("style-lead").textContent=preferred?preferred.name+(defensive?" · 防守期间仅研究":" · 研究优先"):"暂无可用风格";
         $("style-lead-note").textContent=preferred?preferred.lead+" 是当前该风格的代表候选；"+(defensive?"当前主模式为防守等待，只做研究复核，不新增暴露。":"交易可用性仍需结合上方行情模式和本因子闸门。"):"四个风格因子均受日期或闸门约束，暂不给出研究优先级；可进入各因子页面复核。";
+        if(!state.analysis.currentAllowed) {
+          $("style-lead").textContent="暂停研究排序";
+          $("style-lead-note").textContent="当前模式未确认，以下只列各因子的历史截面。";
+        }
         $("style-note").textContent="说明：各模块评分只在自身因子内排序；页面不把Top5均分解释成跨因子收益概率，交易可用性仍以行情模式和风险闸门为准。";
         $("style-grid").innerHTML=view.factors.map(function(item){
           var score=item.score===null?"—":item.score.toFixed(1), cls="style-card"+(item.preferred?" preferred":"")+(item.restricted?" restricted":"");
@@ -1201,8 +1218,8 @@
           defense:"所有进攻模式未通过门控，或跌停、炸板重新扩张"
         };
         $("switch-grid").innerHTML=(a.priority||["resonance","short","trend","etf","defense"]).map(function(key){
-          var active=key===current, passed=key==="defense"||!!a.eligible[key];
-          var tag=active?(a.currentAllowed?"当前":"历史快照"):key==="defense"?"兜底":passed?"已通过":"未通过";
+          var active=a.currentAllowed&&key===current, passed=a.currentAllowed&&(key==="defense"||!!a.eligible[key]);
+          var tag=!a.currentAllowed?"待复核":active?"当前":key==="defense"?"兜底":passed?"已通过":"未通过";
           return '<article class="switch-card '+(active?'current':'')+'"><div class="switch-card-head"><h3>'+escapeHtml(MODE_META[key].name)+'</h3><span class="switch-state '+(active?'is-current':passed?'is-pass':'is-fail')+'">'+escapeHtml(tag)+'</span></div><span class="trigger">切换条件：'+escapeHtml(triggers[key])+'</span></article>';
         }).join("");
       }
@@ -1231,11 +1248,11 @@
           latestFeedback.avg_return==null?"昨日涨停反馈：待取得":"昨日涨停次日均值 "+fmtPct(latestFeedback.avg_return,2)
         ];
         $("daily-review").innerHTML='<div class="review-grid">'+
-          reviewCard(reviewBehind?"最近复盘 · 未更新":"最新复盘",latestReviewText.label||meta.name,primaryItems,"primary")+
+          reviewCard(reviewBehind?"最近复盘 · 未更新":a.currentAllowed?"最新复盘":"历史复盘",latestReviewText.label||meta.name,primaryItems,"primary")+
           reviewCard("短线反馈",reviewIncomplete?"复盘取数不完整":fmtInt(latestLimitUp)+"涨停 / "+fmtInt(latestLimitDown)+"跌停",feedbackItems,"")+
           reviewCard("结构关系",relation,["行业 "+(s.industry.name&&s.industry.name!=="—"?s.industry.name:"待确认"),"ETF热榜 "+(s.etf.hotTheme||"待确认"),"短线方向 "+(s.short.leaderTheme||"待确认")],"")+
           reviewCard("次日复核",checkDate?checkDate+" 09:35前":"交易日历待补齐",latestReviewText.next_day_checks||meta.invalid.slice(0,3),"warning")+
-          '</div><div class="review-footer"><span>复盘来源：'+escapeHtml(latestSource)+'；完整模式引擎日期：'+escapeHtml(s.asOf)+'。不把盘后判断当作次日自动交易指令。</span><div><a href="'+modeHref(a.mode)+'">复核当前模式</a><a href="#evidence-grid">展开原始证据</a></div></div>';
+          '</div><div class="review-footer"><span>复盘来源：'+escapeHtml(latestSource)+'；完整模式引擎日期：'+escapeHtml(s.asOf)+'。不把盘后判断当作次日自动交易指令。</span><div><a href="'+(a.currentAllowed?modeHref(a.mode):"#data-health")+'">'+(a.currentAllowed?"复核当前模式":"核对数据日期")+'</a><a href="#evidence-grid">展开原始证据</a></div></div>';
       }
 
       function reviewCard(label,value,items,tone) {
@@ -1259,6 +1276,7 @@
       function fetchCsv(path) { return fetch(path+"?ts="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error(path+" "+r.status);return r.text();}).then(parseCsv); }
 
       function loadLocal() {
+        if(state.analysis&&state.analysis.currentAllowed&&dataFreshness(state.snapshot).blocked) render(state.snapshot,state.source);
         if(state.refreshInFlight) return state.refreshInFlight;
         state.lastRefreshAttempt=Date.now();
         $("refresh").disabled=true; $("load-note").classList.remove("show");
@@ -1317,7 +1335,7 @@
           }
           var hasFileSnapshot=!!(window.SHORT_SIGNAL&&window.INDUSTRY_FLOW&&window.ETF_LOCAL_DATA);
           render(FALLBACK,hasFileSnapshot?"file":"snapshot");
-          $("load-note").textContent=hasFileSnapshot?"当前已读取 outputs 生成快照；浏览器禁止 file:// 主动请求，点击刷新需通过本地 HTTP 服务打开。":"浏览器禁止读取相邻文件，且未找到 outputs 生成快照；当前仅显示内置演示数据。";
+          $("load-note").textContent=hasFileSnapshot?"在线数据读取失败，当前显示随页面发布的快照。":"在线数据读取失败，也未找到完整快照；内置演示数据不可用于当前判断。";
           $("load-note").classList.add("show");
         }).finally(function(){ state.refreshInFlight=null; $("refresh").disabled=false; });
       }
@@ -1375,11 +1393,19 @@
         }
       }
 
-      $("refresh").addEventListener("click",loadLocal);
+      $("refresh").addEventListener("click",function(){if(location.protocol==="file:") location.reload(); else loadLocal();});
       hydrateFileFallback();
       render(FALLBACK,window.SHORT_SIGNAL&&window.INDUSTRY_FLOW&&window.ETF_LOCAL_DATA?"file":"snapshot");
-      loadLocal();
+      if(location.protocol==="file:") {
+        $("refresh").textContent="重读本地快照";
+        $("load-note").textContent=state.source==="file"?"正在查看本地快照。":"未找到完整本地快照，内置演示数据不可用于当前判断。";
+        $("load-note").classList.add("show");
+      } else loadLocal();
       function refreshVisible() {
+        if(location.protocol==="file:") {
+          if(document.visibilityState!=="hidden"&&state.analysis.currentAllowed&&dataFreshness(state.snapshot).blocked) render(state.snapshot,state.source);
+          return;
+        }
         if(document.visibilityState!=="hidden"&&Date.now()-(state.lastRefreshAttempt||0)>15000) loadLocal();
       }
       window.setInterval(refreshVisible,120000);

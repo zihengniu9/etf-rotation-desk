@@ -22,6 +22,9 @@ const context = vm.createContext({
   render: snapshot => { context.rendered = snapshot; },
 });
 vm.runInContext(source("buildShortView", "formatGeneratedAt"), context);
+vm.runInContext(fs.readFileSync(path.join(root, "web/trading_calendar.js"), "utf8"), context);
+vm.runInContext(source("nextTradingDay", "shanghaiNow"), context);
+context.shanghaiNow = () => "2026-09-11 16:00";
 vm.runInContext(source("themeKey", "buildShortView"), context);
 vm.runInContext(source("analyze", "renderList"), context);
 vm.runInContext(source("healthModules", "render"), context);
@@ -37,6 +40,13 @@ assert.equal(close.data_as_of, review.data_as_of);
 assert.equal(close.score, 69.1);
 assert.equal(close.auctionPoints, null, "Close data must not stand in for auction evidence");
 assert.equal(freshness(close).blocked, false);
+for (const [now, blocked] of [["2026-09-13 23:59",false],["2026-09-14 09:34",false],["2026-09-14 09:35",true],["2026-09-15 12:00",true]]) {
+  context.shanghaiNow = () => now;
+  assert.equal(freshness(close).blocked, blocked, now);
+}
+context.shanghaiNow = () => "2026-09-11 16:00";
+assert.ok(context.dataFreshness({asOf:"2026-12-31"}).timeIssue.includes("日历"));
+assert.ok(context.dataFreshness({asOf:"2026-09-14"}).timeIssue.includes("晚于"));
 const oldAuction = context.buildShortView(signal, null, factor);
 assert.equal(oldAuction.basis, "auction");
 assert.equal(freshness(oldAuction).blocked, true, "Stale auction remains blocked without newer review");

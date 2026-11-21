@@ -14,7 +14,7 @@
   ];
 
   function activeKey() {
-    var file = (window.location.pathname.split("/").pop() || "market_mode.html").toLowerCase();
+    var file = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
     if ((file === "market_mode.html" || file === "market_overview.html") && window.location.hash === "#daily-review") return "review";
     if (file === "index.html" || file === "etf_rotation.html") return "etf";
     if (file === "industry_mainline_dashboard.html") return "industry";

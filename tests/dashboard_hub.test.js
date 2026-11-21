@@ -81,4 +81,19 @@ assert.ok(etfAlias.includes('window.location.replace("./index.html")'));
   assert.equal(dividend.resolve({dividend: {data_as_of: "2026-10-16", candidates: [{}], currentAvailable: false}}).label, "等待数据");
   assert.equal(dividend.resolve({dividend: {data_as_of: "2026-10-16", candidates: [{}], backtestAvailable: false, validation: {backtest_claim_allowed: true}}}).label, "截面已更新", "Explicit unverified history must not become verified");
 }
+{
+  const nav = {};
+  const location = {pathname:"/etf-rotation-desk/web/", hash:""};
+  nav.setAttribute = () => {};
+  let rerender;
+  vm.runInNewContext(fs.readFileSync(path.join(root,"dashboard_nav.js"),"utf8"), {
+    window:{location, addEventListener:(_,fn)=>{rerender=fn;}},
+    document:{querySelectorAll:()=>[nav]}
+  });
+  assert.match(nav.innerHTML, /href="\.\/index\.html" aria-current="page"/);
+  location.pathname += "market_mode.html";
+  location.hash = "#daily-review";
+  rerender();
+  assert.match(nav.innerHTML, /href="\.\/market_mode\.html#daily-review" aria-current="page"/);
+}
 console.log("dashboard hub tests passed");
