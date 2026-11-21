@@ -1,21 +1,21 @@
 {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-11-02T16:21:05+08:00",
-  "reference_date": "2026-11-02",
+  "updated_at": "2026-11-21T13:05:11+08:00",
+  "reference_date": "2026-11-20",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
-    "current": 4,
-    "stale": 2,
+    "current": 8,
+    "stale": 0,
     "missing": 0,
-    "error": 2
+    "error": 0
   },
   "modules": [
     {
       "key": "review",
       "title": "行情复盘",
       "href": "./market_mode.html#daily-review",
-      "state": "stale",
-      "data_as_of": "2026-10-30",
+      "state": "current",
+      "data_as_of": "2026-11-20",
       "coverage": "涨停板清单 12 只",
       "source": "同花顺问财 · hithink-astock-selector",
       "note": "最新完成交易日的收盘复盘",
@@ -26,10 +26,10 @@
       "title": "短线观察",
       "href": "./shortterm_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-11-02",
-      "coverage": "梯队 8 只 · 因子候选 16 只",
+      "data_as_of": "2026-11-20",
+      "coverage": "梯队 5 只 · 因子候选 20 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "信号日期早于复盘日期时仅作历史快照",
+      "note": "盘后因子已更新；09:25竞价信号独立保留",
       "cadence": "每个交易日09:25与收盘"
     },
     {
@@ -37,7 +37,7 @@
       "title": "行业主线",
       "href": "./industry_mainline_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-11-02",
+      "data_as_of": "2026-11-20",
       "coverage": "252 个历史日 · 22680 行",
       "source": "行业成分股行情与资金承载",
       "note": "行业主线数据已成功刷新",
@@ -48,8 +48,8 @@
       "title": "ETF轮动",
       "href": "./index.html",
       "state": "current",
-      "data_as_of": "2026-11-02",
-      "coverage": "排名 17 只 · 实时报价 214 只",
+      "data_as_of": "2026-11-20",
+      "coverage": "排名 20 只 · 实时报价 210 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
@@ -58,8 +58,8 @@
       "key": "trend",
       "title": "趋势因子",
       "href": "./trend_engine.html",
-      "state": "stale",
-      "data_as_of": "2026-10-30",
+      "state": "current",
+      "data_as_of": "2026-11-20",
       "coverage": "历史股票 3032 只 · 信号 2616 个",
       "source": "同花顺问财 · hithink-astock-selector · 36个历史时点",
       "note": "全主板趋势赚钱效应",
@@ -69,22 +69,22 @@
       "key": "growth",
       "title": "成长因子",
       "href": "./growth_factor.html",
-      "state": "error",
-      "data_as_of": "2026-10-30",
-      "coverage": "主板 1532 只 · 有效 1501 只",
+      "state": "current",
+      "data_as_of": "2026-11-20",
+      "coverage": "主板 1745 只 · 有效 1515 只",
       "source": "同花顺问财财务查询 + 同花顺问财 news-search 历史资讯",
-      "note": "最近一次财务更新失败，保留原日期快照，等待自动重试",
+      "note": "财务截面每日更新；历史资讯证据按已采集覆盖",
       "cadence": "每日收盘；早盘自动补更"
     },
     {
       "key": "dividend",
       "title": "红利因子",
       "href": "./dividend_factor.html",
-      "state": "error",
-      "data_as_of": "2026-10-30",
-      "coverage": "匹配 633 只 · 有效 619 只",
+      "state": "current",
+      "data_as_of": "2026-11-20",
+      "coverage": "匹配 5031 只 · 有效 855 只",
       "source": "同花顺问财 · hithink-astock-selector",
-      "note": "最近一次财务更新失败，保留原日期快照，等待自动重试",
+      "note": "当前截面已更新；PandaAI 历史回测待参数确认",
       "cadence": "每日收盘；早盘自动补更"
     },
     {
@@ -92,10 +92,10 @@
       "title": "消息面",
       "href": "./market_mode.html#news-panel",
       "state": "current",
-      "data_as_of": "2026-11-02",
-      "coverage": "相关快讯 819 条 · 源 3/3",
+      "data_as_of": "2026-11-21",
+      "coverage": "相关快讯 250 条 · 源 1/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重大利空：美议员说中东战争让美民众苦不堪言",
+      "note": "重要利空：特朗普：中俄美元首会晤“史无前例”“意义重大”",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
