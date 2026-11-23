@@ -1,11 +1,11 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-11-23T09:05:38+08:00",
+  "updated_at": "2026-11-23T09:29:34+08:00",
   "reference_date": "2026-11-20",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
-    "current": 7,
-    "stale": 1,
+    "current": 8,
+    "stale": 0,
     "missing": 0,
     "error": 0
   },
@@ -26,10 +26,10 @@ window.DASHBOARD_STATUS = {
       "title": "短线观察",
       "href": "./shortterm_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-11-20",
-      "coverage": "梯队 5 只 · 因子候选 20 只",
+      "data_as_of": "2026-11-23",
+      "coverage": "梯队 4 只 · 因子候选 12 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "盘后因子已更新；09:25竞价信号独立保留",
+      "note": "信号日期早于复盘日期时仅作历史快照",
       "cadence": "每个交易日09:25与收盘"
     },
     {
@@ -91,11 +91,11 @@ window.DASHBOARD_STATUS = {
       "key": "news",
       "title": "消息面",
       "href": "./market_mode.html#news-panel",
-      "state": "stale",
-      "data_as_of": "2026-11-21",
-      "coverage": "相关快讯 250 条 · 源 1/3",
+      "state": "current",
+      "data_as_of": "2026-11-23",
+      "coverage": "相关快讯 487 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "消息面超过24小时未更新，不参与模式判定",
+      "note": "重要利空：中金公司：中国资产长期、稳进趋势仍将延续",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
