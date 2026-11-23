@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-11-23T13:58:22+08:00",
+  "updated_at": "2026-11-23T14:27:03+08:00",
   "reference_date": "2026-11-20",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -49,7 +49,7 @@ window.DASHBOARD_STATUS = {
       "href": "./index.html",
       "state": "current",
       "data_as_of": "2026-11-23",
-      "coverage": "排名 5 只 · 实时报价 210 只",
+      "coverage": "排名 17 只 · 实时报价 212 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
@@ -93,9 +93,9 @@ window.DASHBOARD_STATUS = {
       "href": "./market_mode.html#news-panel",
       "state": "current",
       "data_as_of": "2026-11-23",
-      "coverage": "相关快讯 658 条 · 源 2/3",
+      "coverage": "相关快讯 806 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重要利空：逢低买盘入场推动黄金反弹 上周曾创3月以来最差单周表现",
+      "note": "重要利空：对冲基金富豪最新发声：美联储将通胀维持在2%的目标不合理",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
