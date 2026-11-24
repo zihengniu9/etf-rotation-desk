@@ -1,9 +1,9 @@
 {
   "version": "news-signal-v1",
-  "generated_at": "2026-11-24T13:38:50+08:00",
+  "generated_at": "2026-11-24T14:08:05+08:00",
   "window": {
-    "start": "2026-11-23T13:38+08:00",
-    "end": "2026-11-24T13:38+08:00",
+    "start": "2026-11-23T14:08+08:00",
+    "end": "2026-11-24T14:08+08:00",
     "hours": 24,
     "half_life_hours": 12.0
   },
@@ -15,52 +15,52 @@
       "status": "ok",
       "count": 621,
       "fetched": 650,
-      "oldest_at": "2026-11-23T11:50:27+08:00",
-      "latest_at": "2026-11-24T13:37:33+08:00",
+      "oldest_at": "2026-11-23T12:17:14+08:00",
+      "latest_at": "2026-11-24T14:06:40+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 2.2
+      "seconds": 2.3
     },
     {
       "key": "eastmoney",
       "name": "东方财富",
       "status": "ok",
-      "count": 888,
+      "count": 881,
       "fetched": 900,
-      "oldest_at": "2026-11-23T13:22:23+08:00",
-      "latest_at": "2026-11-24T13:35:19+08:00",
+      "oldest_at": "2026-11-23T13:50:14+08:00",
+      "latest_at": "2026-11-24T14:05:17+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 1.5
+      "seconds": 1.9
     },
     {
       "key": "sina",
       "name": "新浪财经",
       "status": "ok",
-      "count": 2151,
-      "fetched": 2200,
-      "oldest_at": "2026-11-23T13:05:28+08:00",
-      "latest_at": "2026-11-24T13:38:07+08:00",
+      "count": 2117,
+      "fetched": 2150,
+      "oldest_at": "2026-11-23T13:52:58+08:00",
+      "latest_at": "2026-11-24T14:07:26+08:00",
       "window_covered": true,
       "message": "",
-      "seconds": 33.3
+      "seconds": 31.8
     }
   ],
   "counts": {
-    "fetched": 3658,
-    "unique": 2971,
-    "relevant": 1608,
-    "market": 416
+    "fetched": 3616,
+    "unique": 2932,
+    "relevant": 1598,
+    "market": 419
   },
   "market": {
-    "score": 10.98,
-    "positive": 140,
-    "negative": 70
+    "score": 12.69,
+    "positive": 142,
+    "negative": 69
   },
   "gate": {
     "state": "block",
     "reasons": [
-      "重大利空：海外管制收紧强化国产替代，科创半导体设备ETF华泰柏瑞涨超4.36%"
+      "重大利空：阿里回应子公司被列入美实体清单：将通过一切法律途径维护公司权益"
     ],
     "rule": "重大利空（权威主体及冲击词线索、非预测、权重3且18小时内）或大盘净分≤-6.0 → 阻断进攻；净分≤-3.0或有重要利空 → 提示；主题净分≤-3.0 → 该主题对应模式暂停。关键词不是权威性核验，需复核原文；利好消息不单独触发进攻。"
   },
@@ -76,7 +76,7 @@
         "能源金属",
         "稀土"
       ],
-      "score": -7.93,
+      "score": -7.71,
       "positive": 5,
       "negative": 12,
       "items": [
@@ -87,13 +87,31 @@
       "alert": true
     },
     {
+      "theme": "军工",
+      "aliases": [
+        "军工",
+        "国防",
+        "航天",
+        "航空"
+      ],
+      "score": -1.89,
+      "positive": 12,
+      "negative": 11,
+      "items": [
+        "70d7344e2018",
+        "1ddab3ccfe3b",
+        "d2f23e17fc37"
+      ],
+      "alert": false
+    },
+    {
       "theme": "电力",
       "aliases": [
         "电力",
         "公用事业",
         "燃气"
       ],
-      "score": -1.67,
+      "score": -1.63,
       "positive": 7,
       "negative": 5,
       "items": [
@@ -110,8 +128,8 @@
         "油气",
         "化工"
       ],
-      "score": -0.99,
-      "positive": 16,
+      "score": -1.46,
+      "positive": 14,
       "negative": 11,
       "items": [
         "2d867bd65eae",
@@ -128,7 +146,7 @@
         "建筑",
         "建材"
       ],
-      "score": -0.94,
+      "score": -0.92,
       "positive": 0,
       "negative": 1,
       "items": [
@@ -146,13 +164,13 @@
         "影视",
         "文化"
       ],
-      "score": -0.84,
+      "score": -0.82,
       "positive": 0,
       "negative": 3,
       "items": [
+        "e2ea6376d3ad",
         "9565c2d36c27",
-        "69000060d5f9",
-        "4ef504d6a979"
+        "69000060d5f9"
       ],
       "alert": false
     },
@@ -164,8 +182,8 @@
         "种植",
         "农产品"
       ],
-      "score": 0.03,
-      "positive": 3,
+      "score": -0.22,
+      "positive": 2,
       "negative": 4,
       "items": [
         "4579e7ff11f7",
@@ -191,20 +209,20 @@
       "alert": false
     },
     {
-      "theme": "军工",
+      "theme": "半导体",
       "aliases": [
-        "军工",
-        "国防",
-        "航天",
-        "航空"
+        "半导体",
+        "芯片",
+        "集成电路",
+        "科创芯片"
       ],
-      "score": 3.12,
-      "positive": 13,
-      "negative": 9,
+      "score": 3.18,
+      "positive": 72,
+      "negative": 42,
       "items": [
-        "5320d59550c6",
-        "019d0837ddb9",
-        "57abb619eb0c"
+        "71dc0564cda1",
+        "0d2e6905879a",
+        "e2ea6376d3ad"
       ],
       "alert": false
     },
@@ -215,9 +233,9 @@
         "恒生",
         "中概"
       ],
-      "score": 5.42,
+      "score": 5.52,
       "positive": 8,
-      "negative": 2,
+      "negative": 1,
       "items": [
         "3730bca486bd",
         "8c14cecd6448",
@@ -233,47 +251,13 @@
         "美股",
         "标普"
       ],
-      "score": 6.34,
+      "score": 6.65,
       "positive": 19,
       "negative": 9,
       "items": [
+        "ae34489977ae",
         "5320d59550c6",
-        "afe21d66d16f",
-        "30dd2fa4fc27"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "半导体",
-      "aliases": [
-        "半导体",
-        "芯片",
-        "集成电路",
-        "科创芯片"
-      ],
-      "score": 6.62,
-      "positive": 75,
-      "negative": 41,
-      "items": [
-        "608f251ce904",
-        "8006b22ac5c0",
-        "15a6294b7884"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "黄金",
-      "aliases": [
-        "黄金",
-        "贵金属"
-      ],
-      "score": 7.25,
-      "positive": 17,
-      "negative": 6,
-      "items": [
-        "3e18cd3cfe14",
-        "87b40534615f",
-        "182bb953c153"
+        "afe21d66d16f"
       ],
       "alert": false
     },
@@ -288,7 +272,7 @@
         "储能",
         "电网"
       ],
-      "score": 7.41,
+      "score": 7.2,
       "positive": 16,
       "negative": 5,
       "items": [
@@ -306,13 +290,29 @@
         "非银",
         "多元金融"
       ],
-      "score": 8.21,
+      "score": 7.98,
       "positive": 11,
       "negative": 0,
       "items": [
         "d301095225f5",
         "62dfb99cf190",
         "ac88e34fbc9f"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "黄金",
+      "aliases": [
+        "黄金",
+        "贵金属"
+      ],
+      "score": 8.05,
+      "positive": 18,
+      "negative": 6,
+      "items": [
+        "96a4736dfe09",
+        "85b2b8df096c",
+        "3e18cd3cfe14"
       ],
       "alert": false
     },
@@ -324,7 +324,7 @@
         "央企",
         "防守"
       ],
-      "score": 8.35,
+      "score": 8.11,
       "positive": 11,
       "negative": 1,
       "items": [
@@ -341,13 +341,13 @@
         "新能源车",
         "智能驾驶"
       ],
-      "score": 9.55,
-      "positive": 19,
+      "score": 8.79,
+      "positive": 17,
       "negative": 4,
       "items": [
+        "64846b3fa12d",
         "bd225a4a2236",
-        "b1f87e39f26d",
-        "4539aecebb7c"
+        "b1f87e39f26d"
       ],
       "alert": false
     },
@@ -356,13 +356,13 @@
       "aliases": [
         "保险"
       ],
-      "score": 9.58,
+      "score": 9.31,
       "positive": 10,
       "negative": 0,
       "items": [
+        "df737d41512d",
         "2bddfcd3ae6e",
-        "d3584ad3ed76",
-        "1a440d03ef25"
+        "d3584ad3ed76"
       ],
       "alert": false
     },
@@ -376,7 +376,7 @@
         "生物",
         "医疗"
       ],
-      "score": 10.1,
+      "score": 9.82,
       "positive": 21,
       "negative": 2,
       "items": [
@@ -392,13 +392,31 @@
         "机器人",
         "自动化"
       ],
-      "score": 10.85,
-      "positive": 22,
+      "score": 10.06,
+      "positive": 20,
       "negative": 9,
       "items": [
+        "4e66fbf4f63c",
         "9ec34c22c6c8",
-        "9686bffed29b",
-        "1d170fd582b9"
+        "9686bffed29b"
+      ],
+      "alert": false
+    },
+    {
+      "theme": "通信",
+      "aliases": [
+        "通信",
+        "5G",
+        "光模块",
+        "光电"
+      ],
+      "score": 12.2,
+      "positive": 19,
+      "negative": 3,
+      "items": [
+        "8c14cecd6448",
+        "a59ab4af7831",
+        "f90d3684c77f"
       ],
       "alert": false
     },
@@ -413,31 +431,13 @@
         "零售",
         "旅游"
       ],
-      "score": 12.61,
+      "score": 13.0,
       "positive": 31,
       "negative": 11,
       "items": [
+        "ac073635ac58",
         "924657db2145",
-        "30dd2fa4fc27",
-        "9173e0e6874f"
-      ],
-      "alert": false
-    },
-    {
-      "theme": "通信",
-      "aliases": [
-        "通信",
-        "5G",
-        "光模块",
-        "光电"
-      ],
-      "score": 12.8,
-      "positive": 20,
-      "negative": 3,
-      "items": [
-        "8c14cecd6448",
-        "a59ab4af7831",
-        "f90d3684c77f"
+        "30dd2fa4fc27"
       ],
       "alert": false
     },
@@ -446,13 +446,13 @@
       "aliases": [
         "银行"
       ],
-      "score": 13.12,
-      "positive": 45,
-      "negative": 16,
+      "score": 14.99,
+      "positive": 46,
+      "negative": 15,
       "items": [
-        "951e84f0cbc2",
-        "608fa5290ca7",
-        "5ab4f0ab62f5"
+        "6a3a6bb537af",
+        "8eb9b742913a",
+        "8e476e4ecc31"
       ],
       "alert": false
     },
@@ -467,24 +467,63 @@
         "云计算",
         "大数据"
       ],
-      "score": 48.62,
-      "positive": 114,
-      "negative": 29,
+      "score": 46.96,
+      "positive": 109,
+      "negative": 28,
       "items": [
-        "15a6294b7884",
-        "3e13a58c2783",
-        "2a8d2cc0b57b"
+        "4e66fbf4f63c",
+        "ae34489977ae",
+        "88c1f59e8cd9"
       ],
       "alert": false
     }
   ],
   "items": [
     {
+      "id": "1ddab3ccfe3b",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-11-24T13:49+08:00",
+      "age_hours": 0.3,
+      "title": "阿里回应子公司被列入美实体清单：将通过一切法律途径维护公司权益",
+      "url": "https://finance.sina.cn/7x24/2026-11-24/detail-inizvkmk8960711.d.html",
+      "scope": "market",
+      "themes": [
+        "半导体",
+        "军工"
+      ],
+      "sentiment": -1,
+      "weight": 3,
+      "impact": -2.947,
+      "evidence": {
+        "positive": [
+          "支持"
+        ],
+        "negative": [
+          "出口管制",
+          "限制",
+          "禁止",
+          "列入实体清单"
+        ],
+        "market": [
+          "出口管制"
+        ],
+        "authority": [
+          "商务部"
+        ],
+        "severe": [
+          "出口管制",
+          "实体清单"
+        ],
+        "speculative": []
+      }
+    },
+    {
       "id": "4a0b825b68d9",
       "source": "东方财富",
       "also_in": [],
       "published_at": "2026-11-24T11:06+08:00",
-      "age_hours": 2.5,
+      "age_hours": 3.0,
       "title": "海外管制收紧强化国产替代，科创半导体设备ETF华泰柏瑞涨超4.36%",
       "url": "https://finance.eastmoney.com/a/202611243938293245.html",
       "scope": "market",
@@ -493,7 +532,7 @@
       ],
       "sentiment": -1,
       "weight": 3,
-      "impact": -2.591,
+      "impact": -2.519,
       "evidence": {
         "positive": [],
         "negative": [
@@ -519,7 +558,7 @@
         "东方财富"
       ],
       "published_at": "2026-11-24T08:25+08:00",
-      "age_hours": 5.2,
+      "age_hours": 5.7,
       "title": "俄美柴油协议执行受阻 尚无俄罗斯柴油运抵美国",
       "url": "https://finance.sina.cn/7x24/2026-11-24/detail-inizutpk1970203.d.html",
       "scope": "market",
@@ -528,7 +567,7 @@
       ],
       "sentiment": -1,
       "weight": 3,
-      "impact": -2.22,
+      "impact": -2.158,
       "evidence": {
         "positive": [],
         "negative": [
@@ -554,7 +593,7 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-11-24T08:13+08:00",
-      "age_hours": 5.4,
+      "age_hours": 5.9,
       "title": "财联社11月24日早间新闻精选",
       "url": "https://api3.cls.cn/share/article/2542437?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -566,7 +605,7 @@
       ],
       "sentiment": -1,
       "weight": 3,
-      "impact": -2.193,
+      "impact": -2.132,
       "evidence": {
         "positive": [
           "增持",
@@ -608,7 +647,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-11-24T07:17+08:00",
-      "age_hours": 6.4,
+      "age_hours": 6.8,
       "title": "欧委会拟加码对俄制裁 涉及银行、油轮和体育赛事",
       "url": "https://finance.sina.cn/7x24/2026-11-24/detail-inizutpq0177710.d.html",
       "scope": "market",
@@ -619,7 +658,7 @@
       ],
       "sentiment": -1,
       "weight": 3,
-      "impact": -2.078,
+      "impact": -2.02,
       "evidence": {
         "positive": [
           "扩大"
@@ -644,18 +683,50 @@
       }
     },
     {
+      "id": "6a3a6bb537af",
+      "source": "新浪财经",
+      "also_in": [],
+      "published_at": "2026-11-24T14:02+08:00",
+      "age_hours": 0.1,
+      "title": "央行：在香港发行2026年第十期和第十一期央行票据",
+      "url": "https://finance.sina.cn/7x24/2026-11-24/detail-inizvkmk8966827.d.html",
+      "scope": "market",
+      "themes": [
+        "银行"
+      ],
+      "sentiment": 1,
+      "weight": 2,
+      "impact": 1.989,
+      "evidence": {
+        "positive": [
+          "中标"
+        ],
+        "negative": [],
+        "market": [
+          "央行",
+          "人民银行"
+        ],
+        "authority": [
+          "央行",
+          "人民银行"
+        ],
+        "severe": [],
+        "speculative": []
+      }
+    },
+    {
       "id": "7633e18a050f",
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-11-24T06:57+08:00",
-      "age_hours": 6.7,
+      "age_hours": 7.2,
       "title": "财联社11月24日电，美联储威廉姆斯称，如有需要，不会排除连续加息的可能性。数据将决定利率行动的时机和步伐。",
       "url": "https://api3.cls.cn/share/article/2542399?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 3,
-      "impact": -2.038,
+      "impact": -1.981,
       "evidence": {
         "positive": [],
         "negative": [
@@ -681,14 +752,14 @@
         "东方财富"
       ],
       "published_at": "2026-11-24T06:55+08:00",
-      "age_hours": 6.7,
+      "age_hours": 7.2,
       "title": "美联储威廉姆斯：如有需要，不会排除连续加息的可能性。",
       "url": "https://finance.sina.cn/7x24/2026-11-24/detail-inizutpq0162034.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 3,
-      "impact": -2.036,
+      "impact": -1.979,
       "evidence": {
         "positive": [],
         "negative": [
@@ -708,23 +779,25 @@
       }
     },
     {
-      "id": "951e84f0cbc2",
-      "source": "新浪财经",
-      "also_in": [],
+      "id": "8e476e4ecc31",
+      "source": "东方财富",
+      "also_in": [
+        "新浪财经",
+        "财联社"
+      ],
       "published_at": "2026-11-24T13:37+08:00",
-      "age_hours": 0.0,
+      "age_hours": 0.5,
       "title": "深圳召开辖区上市公司座谈会 引导上市公司稳定市场预期",
-      "url": "https://finance.sina.cn/7x24/2026-11-24/detail-inizvkme7720381.d.html",
+      "url": "https://finance.eastmoney.com/a/202611243938348232.html",
       "scope": "market",
       "themes": [
         "银行"
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.998,
+      "impact": 1.941,
       "evidence": {
         "positive": [
-          "支持",
           "增持",
           "回购",
           "稳定"
@@ -747,7 +820,7 @@
       "source": "东方财富",
       "also_in": [],
       "published_at": "2026-11-24T06:21+08:00",
-      "age_hours": 7.3,
+      "age_hours": 7.8,
       "title": "AI芯片供应链收紧 国产超节点迎发展机遇窗口",
       "url": "https://finance.eastmoney.com/a/202611243937741211.html",
       "scope": "market",
@@ -757,7 +830,7 @@
       ],
       "sentiment": -1,
       "weight": 3,
-      "impact": -1.97,
+      "impact": -1.915,
       "evidence": {
         "positive": [],
         "negative": [
@@ -783,7 +856,7 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-11-24T06:21+08:00",
-      "age_hours": 7.3,
+      "age_hours": 7.8,
       "title": "AI芯片供应链收紧 国产超节点迎发展机遇窗口",
       "url": "https://api3.cls.cn/share/article/2542390?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "market",
@@ -793,7 +866,7 @@
       ],
       "sentiment": -1,
       "weight": 3,
-      "impact": -1.969,
+      "impact": -1.915,
       "evidence": {
         "positive": [],
         "negative": [
@@ -819,7 +892,7 @@
       "source": "东方财富",
       "also_in": [],
       "published_at": "2026-11-24T12:45+08:00",
-      "age_hours": 0.9,
+      "age_hours": 1.4,
       "title": "黄仁勋的考验还没结束：两场国会质询即将到来",
       "url": "https://finance.eastmoney.com/a/202611243938309593.html",
       "scope": "theme",
@@ -829,7 +902,7 @@
       ],
       "sentiment": -1,
       "weight": 2,
-      "impact": -1.9,
+      "impact": -1.847,
       "evidence": {
         "positive": [],
         "negative": [
@@ -851,14 +924,14 @@
       "source": "东方财富",
       "also_in": [],
       "published_at": "2026-11-24T12:36+08:00",
-      "age_hours": 1.0,
+      "age_hours": 1.5,
       "title": "央行在香港发行200亿元人民币3个月期央票、300亿元人民币1年期央票",
       "url": "https://finance.eastmoney.com/a/202611243938320926.html",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.883,
+      "impact": 1.831,
       "evidence": {
         "positive": [
           "中标"
@@ -882,14 +955,14 @@
         "财联社"
       ],
       "published_at": "2026-11-24T12:32+08:00",
-      "age_hours": 1.1,
+      "age_hours": 1.6,
       "title": "中国央行在香港发行 200 亿元人民币3个月期央票，中标利率 1.32%。中国央行在香港发行 300 亿元人民币1年期央…",
       "url": "",
       "scope": "market",
       "themes": [],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.877,
+      "impact": 1.825,
       "evidence": {
         "positive": [
           "中标"
@@ -911,14 +984,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-11-24T05:25+08:00",
-      "age_hours": 8.2,
+      "age_hours": 8.7,
       "title": "纽约联储行长称美联储需逐步采取行动 将通胀降至2%目标",
       "url": "https://finance.sina.cn/7x24/2026-11-24/detail-inizupfn1980147.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 3,
-      "impact": -1.866,
+      "impact": -1.814,
       "evidence": {
         "positive": [],
         "negative": [
@@ -945,7 +1018,7 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-11-24T12:20+08:00",
-      "age_hours": 1.3,
+      "age_hours": 1.8,
       "title": "央行开展5160亿隔夜逆回购操作！ 红利低波ETF华泰柏瑞（512890）半日成交6.04亿元领跑同类",
       "url": "https://finance.sina.cn/7x24/2026-11-24/detail-inizvecn9034468.d.html",
       "scope": "market",
@@ -958,7 +1031,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.856,
+      "impact": 1.804,
       "evidence": {
         "positive": [
           "回购",
@@ -988,7 +1061,7 @@
       "source": "财联社",
       "also_in": [],
       "published_at": "2026-11-24T12:05+08:00",
-      "age_hours": 1.6,
+      "age_hours": 2.0,
       "title": "财联社11月24日午间新闻精选",
       "url": "https://api3.cls.cn/share/article/2542700?os=web&sv=7.7.5&app=CailianpressWeb",
       "scope": "theme",
@@ -998,7 +1071,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.828,
+      "impact": 1.777,
       "evidence": {
         "positive": [
           "增长"
@@ -1015,14 +1088,14 @@
       "source": "新浪财经",
       "also_in": [],
       "published_at": "2026-11-24T12:00+08:00",
-      "age_hours": 1.6,
+      "age_hours": 2.1,
       "title": "巴西雷亚尔暴跌之际，卢拉财政支出管控计划获国会通过",
       "url": "https://finance.sina.cn/7x24/2026-11-24/detail-inizvech7793927.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 2,
-      "impact": -1.819,
+      "impact": -1.768,
       "evidence": {
         "positive": [
           "支持"
@@ -1051,14 +1124,14 @@
         "东方财富"
       ],
       "published_at": "2026-11-24T03:28+08:00",
-      "age_hours": 10.2,
+      "age_hours": 10.7,
       "title": "欧委会第22轮对俄制裁 扩大金融能源体育领域限制 ",
       "url": "https://finance.sina.cn/7x24/2026-11-24/detail-inizuhxn5286501.d.html",
       "scope": "market",
       "themes": [],
       "sentiment": -1,
       "weight": 3,
-      "impact": -1.667,
+      "impact": -1.62,
       "evidence": {
         "positive": [
           "扩大"
@@ -1084,7 +1157,7 @@
       "source": "东方财富",
       "also_in": [],
       "published_at": "2026-11-24T10:26+08:00",
-      "age_hours": 3.2,
+      "age_hours": 3.7,
       "title": "澳新银行预测澳央行明年6月启动降息",
       "url": "https://finance.eastmoney.com/a/202611243938270078.html",
       "scope": "market",
@@ -1093,7 +1166,7 @@
       ],
       "sentiment": 1,
       "weight": 2,
-      "impact": 1.661,
+      "impact": 1.615,
       "evidence": {
         "positive": [
           "降息"
@@ -1111,65 +1184,6 @@
           "预测",
           "可能"
         ]
-      }
-    },
-    {
-      "id": "6cdf2caf1132",
-      "source": "东方财富",
-      "also_in": [
-        "新浪财经"
-      ],
-      "published_at": "2026-11-24T10:22+08:00",
-      "age_hours": 3.3,
-      "title": "美国企业对特定流媒体设备及其组件提起337调查申请",
-      "url": "https://finance.eastmoney.com/a/202611243938268833.html",
-      "scope": "market",
-      "themes": [],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.656,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "调查",
-          "禁止"
-        ],
-        "market": [
-          "关税"
-        ],
-        "authority": [
-          "商务部"
-        ],
-        "severe": [],
-        "speculative": []
-      }
-    },
-    {
-      "id": "0d4144d616de",
-      "source": "东方财富",
-      "also_in": [],
-      "published_at": "2026-11-24T10:21+08:00",
-      "age_hours": 3.3,
-      "title": "英伟达股价惊人飙涨 欧洲做空杠杆基金损失超90%！",
-      "url": "https://finance.eastmoney.com/a/202611243938264742.html",
-      "scope": "theme",
-      "themes": [
-        "半导体"
-      ],
-      "sentiment": -1,
-      "weight": 2,
-      "impact": -1.654,
-      "evidence": {
-        "positive": [],
-        "negative": [
-          "暴跌"
-        ],
-        "market": [],
-        "authority": [],
-        "severe": [
-          "暴跌"
-        ],
-        "speculative": []
       }
     }
   ]
