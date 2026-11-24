@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-11-24T10:15:42+08:00",
+  "updated_at": "2026-11-24T10:43:16+08:00",
   "reference_date": "2026-11-23",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -37,8 +37,8 @@ window.DASHBOARD_STATUS = {
       "title": "行业主线",
       "href": "./industry_mainline_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-11-23",
-      "coverage": "252 个历史日 · 22680 行",
+      "data_as_of": "2026-11-24",
+      "coverage": "252 个历史日 · 22679 行",
       "source": "行业成分股行情与资金承载",
       "note": "行业主线数据已成功刷新",
       "cadence": "每个交易日收盘"
@@ -48,8 +48,8 @@ window.DASHBOARD_STATUS = {
       "title": "ETF轮动",
       "href": "./index.html",
       "state": "current",
-      "data_as_of": "2026-11-23",
-      "coverage": "排名 13 只 · 实时报价 210 只",
+      "data_as_of": "2026-11-24",
+      "coverage": "排名 21 只 · 实时报价 225 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
@@ -92,10 +92,10 @@ window.DASHBOARD_STATUS = {
       "title": "消息面",
       "href": "./market_mode.html#news-panel",
       "state": "current",
-      "data_as_of": "2026-11-23",
-      "coverage": "相关快讯 478 条 · 源 2/3",
+      "data_as_of": "2026-11-24",
+      "coverage": "相关快讯 1625 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重大利空：特朗普称只想向中国出售相对落后的芯片 外交部回应",
+      "note": "重大利空：俄美柴油协议执行受阻 尚无俄罗斯柴油运抵美国",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
