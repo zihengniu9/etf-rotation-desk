@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-11-25T10:09:55+08:00",
+  "updated_at": "2026-11-25T10:38:50+08:00",
   "reference_date": "2026-11-24",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -49,7 +49,7 @@ window.DASHBOARD_STATUS = {
       "href": "./index.html",
       "state": "current",
       "data_as_of": "2026-11-25",
-      "coverage": "排名 7 只 · 实时报价 223 只",
+      "coverage": "排名 11 只 · 实时报价 224 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
@@ -93,7 +93,7 @@ window.DASHBOARD_STATUS = {
       "href": "./market_mode.html#news-panel",
       "state": "current",
       "data_as_of": "2026-11-25",
-      "coverage": "相关快讯 1538 条 · 源 3/3",
+      "coverage": "相关快讯 1532 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
       "note": "重大利空：澳大利亚央行官员：加息之后金融环境“明显具有限制性”",
       "cadence": "早盘09:28、盘中、收盘后"
