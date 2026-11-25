@@ -1,11 +1,11 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-11-25T09:05:49+08:00",
+  "updated_at": "2026-11-25T09:30:29+08:00",
   "reference_date": "2026-11-24",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
-    "current": 5,
-    "stale": 3,
+    "current": 6,
+    "stale": 2,
     "missing": 0,
     "error": 0
   },
@@ -25,11 +25,11 @@ window.DASHBOARD_STATUS = {
       "key": "short",
       "title": "短线观察",
       "href": "./shortterm_dashboard.html",
-      "state": "stale",
-      "data_as_of": "2026-11-23",
-      "coverage": "梯队 4 只 · 因子候选 40 只",
+      "state": "current",
+      "data_as_of": "2026-11-25",
+      "coverage": "梯队 8 只 · 因子候选 16 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "盘后因子已更新；09:25竞价信号独立保留",
+      "note": "信号日期早于复盘日期时仅作历史快照",
       "cadence": "每个交易日09:25与收盘"
     },
     {
@@ -92,10 +92,10 @@ window.DASHBOARD_STATUS = {
       "title": "消息面",
       "href": "./market_mode.html#news-panel",
       "state": "current",
-      "data_as_of": "2026-11-24",
-      "coverage": "相关快讯 1609 条 · 源 3/3",
+      "data_as_of": "2026-11-25",
+      "coverage": "相关快讯 718 条 · 源 2/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重大利空：阿里回应子公司被列入美实体清单：将通过一切法律途径维护公司权益",
+      "note": "重大利空：阿里巴巴回应子公司被列入美实体清单：将通过一切法律途径维护公司权益",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
