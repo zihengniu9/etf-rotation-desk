@@ -1,7 +1,7 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-11-25T15:17:36+08:00",
-  "reference_date": "2026-11-24",
+  "updated_at": "2026-11-25T16:21:46+08:00",
+  "reference_date": "2026-11-25",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
     "current": 6,
@@ -70,8 +70,8 @@ window.DASHBOARD_STATUS = {
       "title": "成长因子",
       "href": "./growth_factor.html",
       "state": "current",
-      "data_as_of": "2026-11-24",
-      "coverage": "主板 1458 只 · 有效 1435 只",
+      "data_as_of": "2026-11-25",
+      "coverage": "主板 1433 只 · 有效 1410 只",
       "source": "同花顺问财财务查询 + 同花顺问财 news-search 历史资讯",
       "note": "财务截面每日更新；历史资讯证据按已采集覆盖",
       "cadence": "每日收盘；早盘自动补更"
@@ -81,8 +81,8 @@ window.DASHBOARD_STATUS = {
       "title": "红利因子",
       "href": "./dividend_factor.html",
       "state": "current",
-      "data_as_of": "2026-11-24",
-      "coverage": "匹配 5031 只 · 有效 844 只",
+      "data_as_of": "2026-11-25",
+      "coverage": "匹配 5031 只 · 有效 870 只",
       "source": "同花顺问财 · hithink-astock-selector",
       "note": "当前截面已更新；PandaAI 历史回测待参数确认",
       "cadence": "每日收盘；早盘自动补更"
