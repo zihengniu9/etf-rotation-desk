@@ -1,6 +1,6 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-11-25T09:30:29+08:00",
+  "updated_at": "2026-11-25T10:09:55+08:00",
   "reference_date": "2026-11-24",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
@@ -37,7 +37,7 @@ window.DASHBOARD_STATUS = {
       "title": "行业主线",
       "href": "./industry_mainline_dashboard.html",
       "state": "current",
-      "data_as_of": "2026-11-24",
+      "data_as_of": "2026-11-25",
       "coverage": "252 个历史日 · 22680 行",
       "source": "行业成分股行情与资金承载",
       "note": "行业主线数据已成功刷新",
@@ -48,8 +48,8 @@ window.DASHBOARD_STATUS = {
       "title": "ETF轮动",
       "href": "./index.html",
       "state": "current",
-      "data_as_of": "2026-11-24",
-      "coverage": "排名 17 只 · 实时报价 227 只",
+      "data_as_of": "2026-11-25",
+      "coverage": "排名 7 只 · 实时报价 223 只",
       "source": "ETF策略池与行情报价",
       "note": "策略首选与热榜保持双口径",
       "cadence": "交易时段与收盘"
@@ -93,9 +93,9 @@ window.DASHBOARD_STATUS = {
       "href": "./market_mode.html#news-panel",
       "state": "current",
       "data_as_of": "2026-11-25",
-      "coverage": "相关快讯 718 条 · 源 2/3",
+      "coverage": "相关快讯 1538 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重大利空：阿里巴巴回应子公司被列入美实体清单：将通过一切法律途径维护公司权益",
+      "note": "重大利空：澳大利亚央行官员：加息之后金融环境“明显具有限制性”",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
