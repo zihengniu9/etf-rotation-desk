@@ -49,7 +49,7 @@ for (const id of ["ld-leaders", "ld-verdict", "ld-nav", "ld-variants", "ld-sizin
 for (const label of ["股票池与数据覆盖", "下一交易日信号", "回测结果", "个股历史赚钱效应与交易明细", "数据来源 AKShare · 非问财"]) {
   assert.ok(shortterm.includes(label), `missing leader-dip section: ${label}`);
 }
-assert.ok(leaderDipJs.includes('"leader-dip-v1"'), "page must reject data that is not the leader-dip contract");
+assert.ok(leaderDipJs.includes('"leader-dip-v2"'), "page must reject data that is not the leader-dip contract");
 assert.ok(leaderDipJs.includes("window.LEADER_DIP_DATA"));
 assert.ok(leaderDipJs.includes("数据缺失"), "page must show an explicit data-missing state");
 for (const key of ["trend", "growth", "dividend", "short", "industry", "etf"]) {

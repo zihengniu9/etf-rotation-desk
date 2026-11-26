@@ -1,7 +1,7 @@
 """生成“短线观察 · 龙头低吸”看板数据。
 
 读取本地缓存的 AKShare 日线和东方财富人气榜（默认 data/leader_dip/），计算：
-  - 下一交易日信号（原策略 / 新参数两套）
+  - 下一交易日信号（热度前50 · 高度≥50%）
   - 全区间、前半年、后半年回测和净值曲线
   - 仓位方案对比、策略变体对比
   - 回测交易明细和按个股汇总的历史赚钱效应
@@ -36,13 +36,11 @@ sys.path.insert(0, str(ROOT / "src"))
 from low_buy_selector import leader_dip as ld  # noqa: E402
 
 RUN_TZ = ZoneInfo("Asia/Shanghai")
-VERSION = "leader-dip-v1"
+VERSION = "leader-dip-v2"
 MIN_HISTORY = 60  # 有效历史：至少 60 个交易日
 
 PARAM_SETS = {
-    "original": {"label": "原策略", "desc": "热度前30 · 高度≥20%", "overrides": {}},
-    "candidate": {"label": "新参数（观察中）", "desc": "热度前50 · 高度≥50%",
-                  "overrides": {"hot_topn": 50, "height_min": 0.50}},
+    "main": {"label": "龙头低吸", "desc": "热度前50 · 高度≥50%", "overrides": {}},
 }
 
 SIZING = [
@@ -53,25 +51,22 @@ SIZING = [
 ]
 
 VARIANTS = [
-    ("基准：原策略", {}),
+    ("基准：热度前50 + 高度≥50%", {}),
+    ("旧参数：热度前30 + 高度≥20%", {"hot_topn": 30, "height_min": 0.20}),
+    ("热度前30", {"hot_topn": 30}),
+    ("热度前100", {"hot_topn": 100}),
+    ("高度≥30%", {"height_min": 0.30}),
+    ("高度≥80%", {"height_min": 0.80}),
     ("不等冰点", {"use_ice": False}),
     ("开盘直接买", {"buy_mode": "open"}),
     ("挂 -1%", {"dip": -0.01}),
     ("挂 -5%", {"dip": -0.05}),
     ("退潮过滤（前2天跌停>涨停不开）", {"retreat_days": 2}),
     ("只吸冰点日收红的", {"min_prev_pct": 0.0}),
-    ("回调5～20%再吸", {"pullback_min": 0.05, "pullback_max": 0.20}),
     ("热度在升温", {"hot_rising": True}),
-    ("热度前10", {"hot_topn": 10}),
-    ("热度前50", {"hot_topn": 50}),
-    ("高度≥30%", {"height_min": 0.30}),
-    ("高度≥50%", {"height_min": 0.50}),
-    ("热度前50 + 高度≥50%", {"hot_topn": 50, "height_min": 0.50}),
-    ("热度前100 + 高度≥50%", {"hot_topn": 100, "height_min": 0.50}),
     ("卖法：先卖半 + 破前日低点走", {"exit_mode": "trail"}),
     ("卖法：最多拿5天", {"max_hold": 5}),
     ("异动回避（10日≥90% / 30日≥190%）", {"halt10_cap": 90, "halt30_cap": 190}),
-    ("异动回避（10日≥70% / 30日≥150%）", {"halt10_cap": 70, "halt30_cap": 150}),
 ]
 
 
@@ -261,7 +256,7 @@ def build(data_dir: Path, out_dir: Path, start: str) -> dict:
                     .groupby("r")["收益率%"].agg(["count", "mean"]) if len(tr) else pd.DataFrame()
                 result["exit_reasons"] = [{"reason": k, "count": int(v["count"]), "avg_return_pct": round(float(v["mean"]), 2)}
                                           for k, v in reasons.iterrows()]
-                if key == "original":
+                if key == "main":
                     trades_out = tr
         strategies[key] = result
 

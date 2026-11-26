@@ -68,10 +68,11 @@ class LeaderDipBuildTest(unittest.TestCase):
             data_dir, out_dir = Path(tmp) / "data", Path(tmp) / "out"
             write_demo_dir(data_dir)
             payload = build_leader_dip.build(data_dir, out_dir, "20240301")
-            self.assertEqual(payload["version"], "leader-dip-v1")
+            self.assertEqual(payload["version"], "leader-dip-v2")
             self.assertFalse(payload["coverage"]["sources"]["is_wencai"])
             self.assertEqual(payload["coverage"]["scanned"], 120)
-            for key in ("original", "candidate"):
+            self.assertEqual(set(payload["strategies"]), {"main"})
+            for key in ("main",):
                 st = payload["strategies"][key]
                 self.assertEqual(set(st["periods"]), {"全区间", "前半段", "后半段"})
                 self.assertIn("can_open_next_day", st["signal"])

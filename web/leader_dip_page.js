@@ -2,9 +2,9 @@
   "use strict";
 
   var $ = function (id) { return document.getElementById(id); };
-  var state = { data: null, key: "original", stock: null, query: "" };
-  var LABEL = { original: "原策略", candidate: "新参数（观察中）" };
-  var COLOR = { original: "#c82835", candidate: "#1d4ed8" };
+  var state = { data: null, key: "main", stock: null, query: "" };
+  var LABEL = { main: "龙头低吸" };
+  var COLOR = { main: "#c82835" };
 
   function esc(value) {
     return String(value == null ? "" : value).replace(/[&<>"']/g, function (c) {
@@ -65,7 +65,7 @@
     var p = (d.periods || {})["全区间"] || [];
     $("cov-period").textContent = p.length ? p[0].slice(2, 7).replace("-", ".") + "–" + p[1].slice(2, 7).replace("-", ".") : "—";
     $("cov-period").title = p.join(" ~ ");
-    var full = ((d.strategies || {}).original || {}).periods;
+    var full = ((d.strategies || {}).main || {}).periods;
     $("cov-days").textContent = full && full["全区间"] ? full["全区间"].trading_days : "—";
     var src = cov.sources || {};
     $("ld-source-text").innerHTML =
@@ -110,7 +110,7 @@
     $("emo-boards").textContent = isNum(s.max_boards) ? s.max_boards + " 板" : "—";
     $("emo-ice").textContent = s.is_ice_today ? "是" : "否";
     var r = s.rules || {};
-    $("ld-rule").textContent = "规则（" + LABEL[state.key] + "）：热度前 " + r.hot_topn + " 且高度 ≥" + r.height_min_pct +
+    $("ld-rule").textContent = "规则：热度前 " + r.hot_topn + " 且高度 ≥" + r.height_min_pct +
       "%，按热度+高度综合排序；低吸挂单价 = 收盘价 × (1" + (r.dip_pct >= 0 ? "+" : "") + r.dip_pct + "%)；单票 " + r.pos_size_pct + "%，总仓位上限 " + r.max_pos_pct + "%。";
     var rows = (s.leaders || []).map(function (x) {
       var tips = [];
@@ -144,7 +144,7 @@
   }
 
   function renderNav(d) {
-    var series = ["original", "candidate"].map(function (k) { return { key: k, pts: (d.strategies[k] || {}).nav || [] }; })
+    var series = ["main"].map(function (k) { return { key: k, pts: (d.strategies[k] || {}).nav || [] }; })
       .filter(function (s) { return s.pts.length; });
     var svg = $("ld-nav");
     if (!series.length) { svg.innerHTML = ""; return; }
@@ -170,7 +170,7 @@
     series.forEach(function (s) {
       var path = s.pts.map(function (p, i) { return (i ? "L" : "M") + x(i).toFixed(1) + " " + y(p[1]).toFixed(1); }).join(" ");
       var last = s.pts[s.pts.length - 1];
-      html += '<path d="' + path + '" fill="none" stroke="' + COLOR[s.key] + '" stroke-width="' + (s.key === state.key ? 2.6 : 1.6) + '" opacity="' + (s.key === state.key ? 1 : 0.6) + '"/>' +
+      html += '<path d="' + path + '" fill="none" stroke="' + COLOR[s.key] + '" stroke-width="2.4"/>' +
         '<text x="' + (W - 10) + '" y="' + (y(last[1]) - 6).toFixed(1) + '" text-anchor="end" font-size="12" font-weight="700" fill="' + COLOR[s.key] + '">' + last[1].toFixed(3) + "</text>";
     });
     svg.innerHTML = html;
@@ -178,13 +178,12 @@
 
   function periodRows(d) {
     var html = "";
-    ["original", "candidate"].forEach(function (k) {
+    ["main"].forEach(function (k) {
       var st = d.strategies[k]; if (!st) return;
       ["全区间", "前半段", "后半段"].forEach(function (pn, i) {
         var p = st.periods[pn] || {};
         var range = (d.periods[pn] || []).map(function (s) { return s.slice(2); }).join("~");
-        html += "<tr" + (k === state.key ? ' class="selected"' : "") + "><td>" + (i === 0 ? "<strong>" + esc(LABEL[k]) + "</strong>" : "") + "</td>" +
-          "<td>" + esc(pn) + ' <small style="color:var(--muted)">' + esc(range) + "</small></td>" +
+        html += "<tr><td>" + (i === 0 ? "<strong>" + esc(pn) + "</strong>" : esc(pn)) + ' <small style="color:var(--muted)">' + esc(range) + "</small></td>" +
           '<td class="num ' + cls(p.total_return_pct) + '">' + pct(p.total_return_pct, 1) + '</td><td class="num">' + pct(p.max_drawdown_pct, 1, false) + "</td>" +
           '<td class="num">' + (isNum(p.trades) ? p.trades : "—") + '</td><td class="num">' + pct(p.win_rate_pct, 0, false) + "</td>" +
           '<td class="num ' + cls(p.avg_trade_pct) + '">' + pct(p.avg_trade_pct, 2) + '</td><td class="num ' + cls(p.pnl_ex_top3) + '">' + money(p.pnl_ex_top3) + "</td></tr>";
@@ -248,16 +247,6 @@
   }
 
   function bind() {
-    Array.prototype.forEach.call(document.querySelectorAll("#ld-seg button"), function (btn) {
-      btn.addEventListener("click", function () {
-        state.key = btn.getAttribute("data-key");
-        Array.prototype.forEach.call(document.querySelectorAll("#ld-seg button"), function (b) {
-          var on = b === btn; b.classList.toggle("active", on); b.setAttribute("aria-selected", on ? "true" : "false");
-        });
-        state.stock = null;
-        renderAll();
-      });
-    });
     $("ld-search").addEventListener("input", function (e) { state.query = e.target.value; renderTrades(state.data); });
     $("ld-clear").addEventListener("click", function () { state.stock = null; state.query = ""; $("ld-search").value = ""; renderTrades(state.data); });
     var pick = function (e) {
@@ -275,8 +264,8 @@
 
   function start() {
     loadData().then(function (d) {
-      if (!d || d.version !== "leader-dip-v1" || !d.strategies || !d.strategies.original) {
-        throw new Error("数据格式不符合 leader-dip-v1");
+      if (!d || d.version !== "leader-dip-v2" || !d.strategies || !d.strategies.main) {
+        throw new Error("数据格式不符合 leader-dip-v2");
       }
       state.data = d;
       renderHeader(d);
