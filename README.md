@@ -173,3 +173,32 @@ The command writes `outputs/dividend_factor_snapshot.json`, its `file://`
 JavaScript fallback, and `outputs/dividend_factor_candidates.csv`. The page
 labels this as a current cross-section; it does not claim historical Alpha
 until a disclosure-date-aware backtest is connected.
+
+## Short-term page: leader dip-buy (龙头低吸)
+
+`web/shortterm_dashboard.html` now shows the leader dip-buy strategy instead of
+the former relay-score page. The page reads `outputs/leader_dip.json` (with
+`outputs/leader_dip.js` as the `file://` fallback) and shows the next-day
+signal, two parameter sets, segmented backtests, sizing and variant
+comparisons, and per-stock trade history.
+
+Rules: an "ice point" (yesterday's limit-up names close lower on average and
+limit-up count is in the bottom 25% of 60 days, or limit-downs ≥ limit-ups)
+opens a three-day window; leaders must rank in the popularity top N and have
+risen at least X% from the 20-day low ("height"), ranked by popularity rank +
+height rank; buy is a −3% limit order from the previous close; exits are
++8% half / +15% all / break-even after +3% / 3-day max hold / −5% stop.
+
+**Data source exception.** This module uses AKShare (Tencent daily bars,
+forward-adjusted; Eastmoney stock popularity rank), not 同花顺问财. It runs on
+the user's Mac after the close; the page labels the source, universe
+(Shanghai/Shenzhen main board, ST excluded), scanned and valid-history counts
+and the data date. Popularity history only reaches back about one year, which
+limits the backtest window. The old `shortterm_*` outputs are still produced by
+the Windows tasks and used by the market-mode page.
+
+```bash
+export PYTHONPATH=src
+python -m low_buy_selector.leader_dip --download --data_dir data/leader_dip   # first run
+python scripts/build_leader_dip.py --update --data-dir data/leader_dip        # daily
+```
