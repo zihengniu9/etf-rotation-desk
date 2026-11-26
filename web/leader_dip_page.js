@@ -4,7 +4,7 @@
   var $ = function (id) { return document.getElementById(id); };
   var state = { data: null, key: "original", stock: null, query: "" };
   var LABEL = { original: "原策略", candidate: "新参数（观察中）" };
-  var COLOR = { original: "var(--brand-red)", candidate: "var(--blue)" };
+  var COLOR = { original: "#c82835", candidate: "#1d4ed8" };
 
   function esc(value) {
     return String(value == null ? "" : value).replace(/[&<>"']/g, function (c) {
@@ -39,18 +39,19 @@
   function showFresh(text, error) {
     var el = $("ld-fresh");
     el.textContent = text;
-    el.className = "ld-fresh show" + (error ? " error" : "");
+    el.className = "alert show" + (error ? " error" : "");
   }
 
   function renderHeader(d) {
     var cov = d.coverage || {};
     $("ld-date").textContent = "数据日期 " + (d.data_as_of || "—");
+    $("source-dot").className = "dot ready";
     $("ld-generated").textContent = "生成于 " + String(d.generated_at || "—").replace("T", " ").slice(0, 16);
     if (d.data_as_of) {
       var lag = daysBetween(new Date(d.data_as_of + "T00:00:00+08:00"), new Date());
       if (lag > 4) {
         showFresh("数据已经 " + lag + " 天没有更新（数据日期 " + d.data_as_of + "）。请在 Mac 上收盘后运行每日更新，再查看信号。", false);
-        $("ld-date").className = "ld-pill bad";
+        $("ld-date").className = "pill up";
       }
     }
     $("cov-scanned").textContent = isNum(cov.scanned) ? cov.scanned.toLocaleString() : "—";
@@ -67,8 +68,8 @@
     $("cov-days").textContent = full && full["全区间"] ? full["全区间"].trading_days : "—";
     var src = cov.sources || {};
     $("ld-source-text").innerHTML =
-      "<b>日线：</b>" + esc(src.daily || "—") + "<br><b>热度：</b>" + esc(src.popularity || "—") +
-      "<br><b>名单：</b>" + esc(src.universe || "—") + "<br><b>说明：</b>" + esc(cov.universe_note || "") +
+      "<strong>日线：</strong>" + esc(src.daily || "—") + "<br><strong>热度：</strong>" + esc(src.popularity || "—") +
+      "<br><strong>名单：</strong>" + esc(src.universe || "—") + "<br><strong>说明：</strong>" + esc(cov.universe_note || "") +
       (src.is_wencai === false ? "。本模块不是同花顺问财数据，和项目其他问财模块口径不同。" : "");
   }
 
@@ -94,7 +95,7 @@
     if (!st) return;
     var s = st.signal || {};
     var box = $("ld-verdict-box");
-    box.className = "ld-verdict-box " + (s.can_open_next_day ? "go" : "hold");
+    box.className = "decision" + (s.can_open_next_day ? "" : " hold");
     $("ld-verdict-for").textContent = "基于 " + (s.data_as_of || "—") + " 收盘 · 用于下一交易日";
     $("ld-verdict").textContent = s.can_open_next_day ? "可以开仓" : "不开仓";
     var why = s.can_open_next_day
@@ -111,17 +112,17 @@
       "%，按热度+高度综合排序；低吸挂单价 = 收盘价 × (1" + (r.dip_pct >= 0 ? "+" : "") + r.dip_pct + "%)；单票 " + r.pos_size_pct + "%，总仓位上限 " + r.max_pos_pct + "%。";
     var rows = (s.leaders || []).map(function (x) {
       var tips = [];
-      if (isNum(x.hot_rank) && x.hot_rank <= 5) tips.push('<span class="ld-tag warn">热度前5，历史表现偏弱</span>');
-      if (isNum(x.dev10_pct) && x.dev10_pct >= 80) tips.push('<span class="ld-tag warn">10日偏离接近100%</span>');
-      if (isNum(x.dev30_pct) && x.dev30_pct >= 170) tips.push('<span class="ld-tag warn">30日偏离接近200%</span>');
-      if (isNum(x.height_pct) && x.height_pct > 120) tips.push('<span class="ld-tag muted">高度超120%</span>');
-      return "<tr><td>" + x.rank + '</td><td class="ld-name"><strong>' + esc(x.name) + "</strong><small>" + esc(x.code) + "</small></td>" +
+      if (isNum(x.hot_rank) && x.hot_rank <= 5) tips.push('<span class="tag watch">热度前5，历史表现偏弱</span>');
+      if (isNum(x.dev10_pct) && x.dev10_pct >= 80) tips.push('<span class="tag risk">10日偏离接近100%</span>');
+      if (isNum(x.dev30_pct) && x.dev30_pct >= 170) tips.push('<span class="tag risk">30日偏离接近200%</span>');
+      if (isNum(x.height_pct) && x.height_pct > 120) tips.push('<span class="tag">高度超120%</span>');
+      return '<tr><td><div class="stock"><span class="rank">' + x.rank + "</span><div><strong>" + esc(x.name) + "</strong><small>" + esc(x.code) + "</small></div></div></td>" +
         '<td class="num">' + (isNum(x.hot_rank) ? x.hot_rank : "—") + '</td><td class="num">' + pct(x.height_pct, 0, false) + "</td>" +
         '<td class="num ' + cls(x.pct) + '">' + pct(x.pct, 2) + '</td><td class="num">' + (isNum(x.close) ? x.close.toFixed(2) : "—") + "</td>" +
         '<td class="num"><strong>' + (isNum(x.dip_price) ? x.dip_price.toFixed(2) : "—") + "</strong></td>" +
-        '<td class="num">' + pct(x.dev10_pct, 0) + '</td><td class="num">' + pct(x.dev30_pct, 0) + "</td><td>" + (tips.join(" ") || "—") + "</td></tr>";
+        '<td class="num">' + pct(x.dev10_pct, 0) + '</td><td class="num">' + pct(x.dev30_pct, 0) + "</td><td>" + (tips.join(" ") || '<span class="muted">—</span>') + "</td></tr>";
     });
-    $("ld-leaders").innerHTML = rows.length ? rows.join("") : '<tr><td colspan="10" class="ld-empty">当前没有同时满足热度和高度条件的股票。</td></tr>';
+    $("ld-leaders").innerHTML = rows.length ? rows.join("") : '<tr><td colspan="9"><div class="empty">当前没有同时满足热度和高度条件的股票。</div></td></tr>';
   }
 
   function renderMetrics(d) {
@@ -136,7 +137,7 @@
       ["去掉最赚3笔", money(p.pnl_ex_top3), cls(p.pnl_ex_top3), "利润是否依赖少数几笔"],
     ];
     $("ld-metrics").innerHTML = items.map(function (it) {
-      return "<div><span>" + it[0] + '</span><strong class="' + it[2] + '">' + it[1] + "</strong><small>" + esc(it[3]) + "</small></div>";
+      return '<div class="stat"><span>' + it[0] + '</span><strong class="' + it[2] + '">' + it[1] + "</strong><small>" + esc(it[3]) + "</small></div>";
     }).join("");
   }
 
@@ -191,7 +192,7 @@
     var reasons = d.strategies[state.key].exit_reasons || [];
     $("ld-reasons").innerHTML = reasons.length ? reasons.map(function (r) {
       return "<tr><td>" + esc(r.reason) + '</td><td class="num">' + r.count + '</td><td class="num ' + cls(r.avg_return_pct) + '">' + pct(r.avg_return_pct, 2) + "</td></tr>";
-    }).join("") : '<tr><td colspan="3" class="ld-empty">暂无交易</td></tr>';
+    }).join("") : '<tr><td colspan="3"><div class="empty">暂无交易</div></td></tr>';
   }
 
   function compareRow(label, row, extra) {
@@ -209,8 +210,8 @@
     }).join("");
     var variants = d.variants || [];
     $("ld-variants").innerHTML = variants.map(function (r, i) {
-      var tag = i === 0 ? '<span class="ld-tag muted">基准</span>'
-        : (r.beats_baseline_both_halves ? '<span class="ld-tag ok">两段都更好</span>' : '<span class="ld-tag muted">未稳定胜出</span>');
+      var tag = i === 0 ? '<span class="tag">基准</span>'
+        : (r.beats_baseline_both_halves ? '<span class="tag primary">两段都更好</span>' : '<span class="tag">未稳定胜出</span>');
       return compareRow(r.label, r, "<td>" + tag + "</td>");
     }).join("");
   }
@@ -223,19 +224,19 @@
     $("ld-tr-badge").textContent = LABEL[state.key] + " · " + (st.trades || []).length + " 笔 · " + (st.stock_effects || []).length + " 只";
     $("ld-effects").innerHTML = effects.length ? effects.map(function (e) {
       return '<tr class="clickable' + (state.stock === e.code ? " selected" : "") + '" data-code="' + esc(e.code) + '" tabindex="0">' +
-        '<td class="ld-name"><strong>' + esc(e.name) + "</strong><small>" + esc(e.code) + " · 最近 " + esc(e.last_buy) + "</small></td>" +
+        '<td><div class="stock"><div><strong>' + esc(e.name) + "</strong><small>" + esc(e.code) + " · 最近 " + esc(e.last_buy) + "</small></div></div></td>" +
         '<td class="num">' + e.signals + '</td><td class="num">' + pct(e.win_rate_pct, 0, false) + "</td>" +
         '<td class="num ' + cls(e.avg_return_pct) + '">' + pct(e.avg_return_pct, 2) + '</td><td class="num ' + cls(e.median_return_pct) + '">' + pct(e.median_return_pct, 2) + "</td>" +
         '<td class="num"><span class="up">' + pct(e.best_pct, 1) + '</span> / <span class="down">' + pct(e.worst_pct, 1) + "</span></td>" +
         '<td class="num ' + cls(e.pnl) + '">' + money(e.pnl) + "</td></tr>";
-    }).join("") : '<tr><td colspan="7" class="ld-empty">没有匹配的股票</td></tr>';
+    }).join("") : '<tr><td colspan="7"><div class="empty">没有匹配的股票</div></td></tr>';
     var trades = (st.trades || []).filter(function (t) { return (!state.stock || t.code === state.stock) && match(t); }).slice().reverse();
     $("ld-trades").innerHTML = trades.length ? trades.map(function (t) {
-      return '<tr><td class="ld-name"><strong>' + esc(t.name) + "</strong><small>" + esc(t.code) + "</small></td><td>" + esc(t.buy_date) + "</td><td>" + esc(t.sell_date) + "</td>" +
+      return '<tr><td><div class="stock"><div><strong>' + esc(t.name) + "</strong><small>" + esc(t.code) + "</small></div></div></td><td>" + esc(t.buy_date) + "</td><td>" + esc(t.sell_date) + "</td>" +
         '<td class="num">' + t.hold_days + '</td><td class="num">' + (isNum(t.hot_rank) ? t.hot_rank : "—") + '</td><td class="num">' + pct(t.height_pct, 0, false) + "</td>" +
         '<td class="num ' + cls(t.return_pct) + '"><strong>' + pct(t.return_pct, 2) + "</strong></td><td>" + esc(t.exit_reason) + "</td>" +
         '<td class="num">' + pct(t.after_exit_max_pct, 1) + "</td></tr>";
-    }).join("") : '<tr><td colspan="9" class="ld-empty">没有匹配的交易</td></tr>';
+    }).join("") : '<tr><td colspan="9"><div class="empty">没有匹配的交易</div></td></tr>';
     $("ld-filter-note").textContent = state.stock ? "已筛选：" + state.stock + "（再点一次或点“清除筛选”取消）" : "点击左侧个股可筛选交易明细。";
   }
 
@@ -284,7 +285,7 @@
       renderAll();
     }).catch(function (err) {
       showFresh("龙头低吸数据未接入：" + err.message + "。需要先在 Mac 上运行 scripts/build_leader_dip.py 生成 outputs/leader_dip.json。", true);
-      $("ld-leaders").innerHTML = '<tr><td colspan="10" class="ld-empty">数据缺失，不显示信号。</td></tr>';
+      $("ld-leaders").innerHTML = '<tr><td colspan="9"><div class="empty">数据缺失，不显示信号。</div></td></tr>';
       $("ld-verdict").textContent = "数据缺失";
     });
   }
