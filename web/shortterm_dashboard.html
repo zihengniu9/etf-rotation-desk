@@ -50,7 +50,7 @@
     .decision .verdict-for { display:block; margin-bottom:4px; color:var(--muted); font-size:11px; font-weight:700; letter-spacing:0; }
     .decision.hold strong { color:#1d4ed8; }
     .seg { display:inline-flex; gap:5px; padding:4px; border:1px solid var(--line); border-radius:14px; background:#ffffffe8; }
-    .seg button { min-height:32px; padding:0 12px; border:0; border-radius:10px; background:transparent; color:var(--muted); font-size:12px; font-weight:750; cursor:pointer; }
+    .seg { flex-shrink:0; } .seg button { white-space:nowrap; min-height:32px; padding:0 12px; border:0; border-radius:10px; background:transparent; color:var(--muted); font-size:12px; font-weight:750; cursor:pointer; }
     .seg button.active, .seg button:hover, .seg button:focus-visible { color:var(--red); background:var(--red-soft); outline:0; }
     .seg button.active { box-shadow:inset 0 -2px 0 var(--red); }
     .alert { display:none; margin:0 0 14px; padding:10px 12px; border-radius:12px; color:#8a5500; background:#fff7e8; font-size:12px; line-height:1.6; } .alert.show { display:block; } .alert.error { color:#8d1820; background:#fff0f1; }
@@ -61,6 +61,7 @@
     .toolbar input { width:240px; min-height:32px; padding:0 12px; border:1px solid var(--line); border-radius:999px; background:#fff; font:inherit; font-size:12px; color:var(--ink); }
     .toolbar input:focus-visible { outline:2px solid var(--red); outline-offset:1px; }
     .btn-ghost { min-height:30px; padding:0 12px; border:1px solid var(--line); border-radius:999px; background:#fff; color:var(--muted); font-size:11px; font-weight:750; cursor:pointer; }
+    .table-wrap.scroll { max-height:560px; overflow:auto; } .table-wrap.scroll th { position:sticky; top:0; z-index:1; background:#fff; padding-top:4px; }
     tr.clickable { cursor:pointer; } tr.clickable:hover td, tr.selected td { background:var(--red-soft); }
     .panel h3 { margin:0 0 10px; }
     .assume { margin:0; padding-left:18px; } .assume li { margin:0 0 8px; color:var(--muted); font-size:11.5px; line-height:1.6; }
@@ -117,8 +118,8 @@
     <div class="section-head"><div><h2 id="ld-tr-title">个股历史赚钱效应与交易明细</h2><p>赚钱效应用该股票自己的历史信号统计，不用全市场平均值代替。</p></div><p id="ld-tr-badge">—</p></div>
     <div class="toolbar"><input type="search" id="ld-search" placeholder="搜索代码或名称" aria-label="搜索股票"><button type="button" class="btn-ghost" id="ld-clear">清除筛选</button><span class="subtitle" style="font-size:11px" id="ld-filter-note">点击左侧个股可筛选交易明细。</span></div>
     <section class="detail-layout even" style="margin-top:0">
-      <article class="panel table-panel"><h3>按个股汇总</h3><div class="table-wrap"><table><thead><tr><th>股票</th><th class="num">信号数</th><th class="num">胜率</th><th class="num">平均</th><th class="num">中位</th><th class="num">最好/最差</th><th class="num">累计盈亏</th></tr></thead><tbody id="ld-effects"></tbody></table></div></article>
-      <article class="panel table-panel"><h3>交易明细</h3><div class="table-wrap"><table><thead><tr><th>股票</th><th>买入日</th><th>卖出日</th><th class="num">天数</th><th class="num">热度</th><th class="num">高度</th><th class="num">收益</th><th>卖出原因</th><th class="num">卖后10日最高</th></tr></thead><tbody id="ld-trades"></tbody></table></div></article>
+      <article class="panel table-panel"><h3>按个股汇总</h3><div class="table-wrap scroll"><table><thead><tr><th>股票</th><th class="num">信号数</th><th class="num">胜率</th><th class="num">平均</th><th class="num">中位</th><th class="num">最好/最差</th><th class="num">累计盈亏</th></tr></thead><tbody id="ld-effects"></tbody></table></div></article>
+      <article class="panel table-panel"><h3>交易明细</h3><div class="table-wrap scroll"><table><thead><tr><th>股票</th><th>买入日</th><th>卖出日</th><th class="num">天数</th><th class="num">热度</th><th class="num">高度</th><th class="num">收益</th><th>卖出原因</th><th class="num">卖后10日最高</th></tr></thead><tbody id="ld-trades"></tbody></table></div></article>
     </section>
 
     <div class="section-head"><div><h2 id="ld-as-title">回测假设与局限</h2></div></div>
@@ -127,7 +128,7 @@
     <footer class="footer"><strong>研究边界：</strong>本页是龙头低吸策略的研究与回测工具，不构成投资建议。数据来自 AKShare（腾讯日线、东方财富人气榜），不是同花顺问财；数据日期、股票池范围和来源以页面状态为准。</footer>
   </main>
   <script src="../outputs/leader_dip.js"></script>
-  <script src="./leader_dip_page.js?v=20261126-ui"></script>
+  <script src="./leader_dip_page.js?v=20261126-ui2"></script>
   <script src="./dashboard_nav.js?v=20260831"></script>
 </body>
 </html>

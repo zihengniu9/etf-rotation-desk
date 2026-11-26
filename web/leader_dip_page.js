@@ -55,7 +55,7 @@
       }
     }
     $("cov-scanned").textContent = isNum(cov.scanned) ? cov.scanned.toLocaleString() : "—";
-    $("cov-universe").textContent = cov.universe || "沪深主板";
+    $("cov-universe").textContent = "沪深主板 · 剔除 ST/退市";
     $("cov-valid").textContent = isNum(cov.valid_history) ? cov.valid_history.toLocaleString() : "—";
     $("cov-valid-note").textContent = "≥" + (cov.min_history_days || 60) + " 个交易日 · 有日线 " + (cov.with_daily_file || "—");
     $("cov-today").textContent = isNum(cov.updated_today) ? cov.updated_today.toLocaleString() : "—";
@@ -63,7 +63,8 @@
     $("cov-hot").textContent = isNum(cov.hot_ranked_on_last_day) ? cov.hot_ranked_on_last_day.toLocaleString() : "—";
     $("cov-hot-note").textContent = "缓存 " + (cov.hot_stocks_cached || "—") + " 只 · 自 " + (cov.hot_history_start || "—");
     var p = (d.periods || {})["全区间"] || [];
-    $("cov-period").textContent = p.length ? p[0].slice(2) + " ~ " + p[1].slice(2) : "—";
+    $("cov-period").textContent = p.length ? p[0].slice(2, 7).replace("-", ".") + "–" + p[1].slice(2, 7).replace("-", ".") : "—";
+    $("cov-period").title = p.join(" ~ ");
     var full = ((d.strategies || {}).original || {}).periods;
     $("cov-days").textContent = full && full["全区间"] ? full["全区间"].trading_days : "—";
     var src = cov.sources || {};
@@ -104,7 +105,8 @@
     $("ld-verdict-why").textContent = why;
     $("emo-up").textContent = isNum(s.limit_up) ? s.limit_up : "—";
     $("emo-down").textContent = isNum(s.limit_down) ? s.limit_down : "—";
-    $("emo-prem").innerHTML = '<span class="' + cls(s.prev_limit_up_premium_pct) + '">' + pct(s.prev_limit_up_premium_pct, 2) + "</span>";
+    $("emo-prem").textContent = pct(s.prev_limit_up_premium_pct, 2);
+    $("emo-prem").className = cls(s.prev_limit_up_premium_pct);
     $("emo-boards").textContent = isNum(s.max_boards) ? s.max_boards + " 板" : "—";
     $("emo-ice").textContent = s.is_ice_today ? "是" : "否";
     var r = s.rules || {};
