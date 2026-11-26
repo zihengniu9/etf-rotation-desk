@@ -39,12 +39,19 @@ assert.ok(market.includes("trendLatest:trendData||null"));
 for (const label of ["趋势结构", "相对强度", "突破位置", "量能确认", "趋势质量", "回踩质量"]) {
   assert.ok(market.includes(label), `missing trend factor label: ${label}`);
 }
-assert.ok(shortterm.includes('id="fx-unified-body"'));
-assert.ok(shortterm.includes("mergeMseqCandidates"));
-assert.ok(shortterm.includes("mergeFactorStocks"));
-for (const label of ["人气榜", "阶段新高", "热点风口", "命中条件"]) {
-  assert.ok(shortterm.includes(label), `missing unified short-term condition: ${label}`);
+// 短线观察页已替换为“龙头低吸”：必须展示数据来源、股票池覆盖、信号、回测和交易明细。
+const leaderDipJs = fs.readFileSync(path.join(root, "leader_dip_page.js"), "utf8");
+assert.ok(shortterm.includes('src="../outputs/leader_dip.js"'), "short-term page needs the file:// data fallback");
+assert.ok(shortterm.includes("leader_dip_page.js"));
+for (const id of ["ld-leaders", "ld-verdict", "ld-nav", "ld-variants", "ld-sizing", "ld-effects", "ld-trades", "cov-scanned", "cov-valid", "ld-source-text"]) {
+  assert.ok(shortterm.includes(`id="${id}"`), `missing leader-dip element: ${id}`);
 }
+for (const label of ["股票池与数据覆盖", "下一交易日信号", "回测结果", "个股历史赚钱效应与交易明细", "数据来源 AKShare · 非问财"]) {
+  assert.ok(shortterm.includes(label), `missing leader-dip section: ${label}`);
+}
+assert.ok(leaderDipJs.includes('"leader-dip-v1"'), "page must reject data that is not the leader-dip contract");
+assert.ok(leaderDipJs.includes("window.LEADER_DIP_DATA"));
+assert.ok(leaderDipJs.includes("数据缺失"), "page must show an explicit data-missing state");
 for (const key of ["trend", "growth", "dividend", "short", "industry", "etf"]) {
   assert.ok(contract.includes(`key: "${key}"`), `missing module contract: ${key}`);
 }
