@@ -1,11 +1,11 @@
 window.DASHBOARD_STATUS = {
   "version": "dashboard-status-v1",
-  "updated_at": "2026-11-26T16:20:34+08:00",
+  "updated_at": "2026-11-26T16:49:17+08:00",
   "reference_date": "2026-11-26",
   "reference_rule": "以交易日历上的最新完成交易日（15:30后计入当日）为新鲜度基准；早于基准日的模块判为过期，取数不完整的复盘判为失败",
   "summary": {
-    "current": 6,
-    "stale": 2,
+    "current": 8,
+    "stale": 0,
     "missing": 0,
     "error": 0
   },
@@ -14,8 +14,8 @@ window.DASHBOARD_STATUS = {
       "key": "review",
       "title": "行情复盘",
       "href": "./market_mode.html#daily-review",
-      "state": "stale",
-      "data_as_of": "2026-11-25",
+      "state": "current",
+      "data_as_of": "2026-11-26",
       "coverage": "涨停板清单 12 只",
       "source": "同花顺问财 · hithink-astock-selector",
       "note": "最新完成交易日的收盘复盘",
@@ -27,9 +27,9 @@ window.DASHBOARD_STATUS = {
       "href": "./shortterm_dashboard.html",
       "state": "current",
       "data_as_of": "2026-11-26",
-      "coverage": "梯队 8 只 · 因子候选 16 只",
+      "coverage": "梯队 8 只 · 因子候选 40 只",
       "source": "短线 M/S/E/Q 本地生成器",
-      "note": "信号日期早于复盘日期时仅作历史快照",
+      "note": "盘后因子已更新；09:25竞价信号独立保留",
       "cadence": "每个交易日09:25与收盘"
     },
     {
@@ -58,8 +58,8 @@ window.DASHBOARD_STATUS = {
       "key": "trend",
       "title": "趋势因子",
       "href": "./trend_engine.html",
-      "state": "stale",
-      "data_as_of": "2026-11-25",
+      "state": "current",
+      "data_as_of": "2026-11-26",
       "coverage": "历史股票 3032 只 · 信号 2616 个",
       "source": "同花顺问财 · hithink-astock-selector · 36个历史时点",
       "note": "全主板趋势赚钱效应",
@@ -93,9 +93,9 @@ window.DASHBOARD_STATUS = {
       "href": "./market_mode.html#news-panel",
       "state": "current",
       "data_as_of": "2026-11-26",
-      "coverage": "相关快讯 1690 条 · 源 3/3",
+      "coverage": "相关快讯 1683 条 · 源 3/3",
       "source": "财联社 / 东方财富 / 新浪财经 7×24",
-      "note": "重大利空：商务部新闻发言人就欧方将玉沙集团有限公司移出欧盟涉俄出口管制制裁清单事答记者问；大盘消息净分 -6.9 ≤ -6.0",
+      "note": "重大利空：商务部新闻发言人就欧方将玉沙集团有限公司移出欧盟涉俄出口管制制裁清单事答记者问",
       "cadence": "早盘09:28、盘中、收盘后"
     }
   ]
