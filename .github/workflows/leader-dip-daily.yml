@@ -1,0 +1,101 @@
+name: Update leader dip data
+
+# 龙头低吸（短线观察页）每日收盘后自动更新：AKShare 日线 + 东方财富人气榜 → outputs/leader_dip.*
+# 行情缓存放在 Actions cache 里；没有缓存时自动全量下载。
+# 腾讯日线收盘后分批更新，当天行情覆盖不足 95% 就不发布，后面几个时间点会再试。
+on:
+  schedule:
+    - cron: "40 8 * * 1-5"    # 北京时间 16:40
+    - cron: "25 10 * * 1-5"   # 北京时间 18:25
+    - cron: "15 13 * * 1-5"   # 北京时间 21:15
+    - cron: "5 16 * * 1-5"    # 北京时间 00:05（次日，兜底）
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "即使今天已发布也重新生成"
+        type: boolean
+        default: false
+
+concurrency:
+  group: leader-dip-data
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      PYTHONPATH: src
+      TZ: Asia/Shanghai
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Already published today?
+        id: check
+        run: |
+          today=$(date +%F)
+          cur=$(python3 -c "import json;print(json.load(open('outputs/leader_dip.json',encoding='utf-8'))['data_as_of'])" 2>/dev/null || echo none)
+          echo "线上数据日期 $cur，今天 $today"
+          if [ "$cur" = "$today" ] && [ "${{ inputs.force }}" != "true" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"; echo "今天已经发布过，跳过"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-python@v5
+        if: steps.check.outputs.skip != 'true'
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        if: steps.check.outputs.skip != 'true'
+        run: pip install -r requirements.txt
+
+      - name: Restore market data cache
+        if: steps.check.outputs.skip != 'true'
+        uses: actions/cache/restore@v4
+        with:
+          path: data/leader_dip
+          key: leader-dip-data-${{ github.run_id }}
+          restore-keys: leader-dip-data-
+
+      - name: Update data and build
+        id: build
+        if: steps.check.outputs.skip != 'true'
+        run: python -u scripts/leader_dip_ci.py
+
+      - name: Save market data cache
+        if: always() && steps.check.outputs.skip != 'true' && hashFiles('data/leader_dip/_universe.csv') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: data/leader_dip
+          key: leader-dip-data-${{ github.run_id }}
+
+      - name: Commit and push
+        id: push
+        if: steps.build.outputs.status == 'ok'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add outputs/leader_dip.json outputs/leader_dip.js outputs/leader_dip_trades.csv
+          if git diff --cached --quiet; then echo "内容没有变化"; exit 0; fi
+          git commit -q -m "Update leader dip data ${{ steps.build.outputs.data_as_of }} (close, Actions)"
+          for i in 1 2 3; do
+            if git pull -q --rebase origin main && git push -q origin HEAD:main; then
+              echo "pushed=true" >> "$GITHUB_OUTPUT"; echo "已发布 ${{ steps.build.outputs.data_as_of }}"; exit 0
+            fi
+            echo "第 $i 次推送失败，20 秒后重试"; sleep 20
+          done
+          exit 1
+
+      # 用 GITHUB_TOKEN 推送不会自动触发其他工作流，这里手动触发 Pages 部署
+      - name: Deploy GitHub Pages
+        if: steps.push.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-pages.yml --ref main
