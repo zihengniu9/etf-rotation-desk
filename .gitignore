@@ -11,3 +11,6 @@ temp_download/
 outputs/growth_backtest_panel.csv.gz
 outputs/growth_rightside_panel.csv.gz
 outputs/growth_rightside_signals.csv.gz
+
+# 龙头低吸本地行情缓存（AKShare 日线 + 人气榜，体积大，不提交）
+data/leader_dip/
